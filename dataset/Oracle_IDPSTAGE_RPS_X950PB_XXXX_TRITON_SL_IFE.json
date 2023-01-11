@@ -1,0 +1,17 @@
+{
+	"name": "Oracle_IDPSTAGE_RPS_X950PB_XXXX_TRITON_SL_IFE",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Oracle_CODS_Intg",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "IDP_STAGE",
+			"table": "RPS_X950PB_XXXX_TRITON_SL_IFE"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

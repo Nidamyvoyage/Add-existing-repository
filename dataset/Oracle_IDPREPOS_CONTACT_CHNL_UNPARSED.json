@@ -1,0 +1,17 @@
+{
+	"name": "Oracle_IDPREPOS_CONTACT_CHNL_UNPARSED",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Oracle_CODS_Intg",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "IDP_REPOS",
+			"table": "CONTACT_CHNL_UNPARSED"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

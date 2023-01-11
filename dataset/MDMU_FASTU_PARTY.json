@@ -1,0 +1,67 @@
+{
+	"name": "MDMU_FASTU_PARTY",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase_MDMU3",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "PARTY_MDM_ID",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PARTY_TYPE_ID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "RISK_IND",
+				"type": "char"
+			},
+			{
+				"name": "SRC_SYS_NAME",
+				"type": "nvarchar"
+			},
+			{
+				"name": "DELETE_IND",
+				"type": "char"
+			},
+			{
+				"name": "BATCH_ID",
+				"type": "nvarchar"
+			},
+			{
+				"name": "CHECK_SUM",
+				"type": "nvarchar"
+			},
+			{
+				"name": "CREATED_TS",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "CREATED_BY",
+				"type": "nvarchar"
+			},
+			{
+				"name": "LAST_UPDATED_TS",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "LAST_UPDATED_BY",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "CMDM_STAGE",
+			"table": "PARTY_FAST_TEST"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

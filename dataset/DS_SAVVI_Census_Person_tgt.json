@@ -1,0 +1,20 @@
+{
+	"name": "DS_SAVVI_Census_Person_tgt",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlServer_EBX",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "DataConsolidationR1"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "CMDM_STAGE",
+			"table": "SAVVI_Census_Person"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

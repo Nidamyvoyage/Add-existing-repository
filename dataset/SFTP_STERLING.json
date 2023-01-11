@@ -1,0 +1,48 @@
+{
+	"name": "SFTP_STERLING",
+	"properties": {
+		"description": "SFTP connection for Sterling file server ",
+		"linkedServiceName": {
+			"referenceName": "SFTPSterlingMax",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"DELIMITER": {
+				"type": "string",
+				"defaultValue": ","
+			},
+			"QUOTE_CHARECTER": {
+				"type": "string",
+				"defaultValue": "\""
+			},
+			"HEADER_IND_TRUE_or_FALSE": {
+				"type": "bool",
+				"defaultValue": true
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "SftpLocation",
+				"fileName": "*BENADMIN*",
+				"folderPath": "/FilesFromOmni_Dev"
+			},
+			"columnDelimiter": {
+				"value": "@dataset().DELIMITER",
+				"type": "Expression"
+			},
+			"escapeChar": "\\",
+			"firstRowAsHeader": {
+				"value": "@dataset().HEADER_IND_TRUE_or_FALSE",
+				"type": "Expression"
+			},
+			"quoteChar": {
+				"value": "@dataset().QUOTE_CHARECTER",
+				"type": "Expression"
+			}
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,197 @@
+{
+	"name": "DF_LND_STG_Person1_copy9",
+	"properties": {
+		"folder": {
+			"name": "MDM"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable15",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				},
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable20_Person",
+						"type": "DatasetReference"
+					},
+					"name": "TgtPerson"
+				},
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable15",
+						"type": "DatasetReference"
+					},
+					"name": "source3"
+				},
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable43",
+						"type": "DatasetReference"
+					},
+					"name": "source4"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DS_Person_STG",
+						"type": "DatasetReference"
+					},
+					"name": "PersonInactive"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_Person_STG",
+						"type": "DatasetReference"
+					},
+					"name": "PersonUpdate"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_Person_STG",
+						"type": "DatasetReference"
+					},
+					"name": "PersonInsert"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_Person_STG",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_Person_STG",
+						"type": "DatasetReference"
+					},
+					"name": "sink2"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_Person_STG",
+						"type": "DatasetReference"
+					},
+					"name": "sink3"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_Person_STG",
+						"type": "DatasetReference"
+					},
+					"name": "sink4"
+				}
+			],
+			"transformations": [
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "SourceDeleteInd"
+				},
+				{
+					"name": "Insert"
+				},
+				{
+					"name": "Doesntexists1"
+				},
+				{
+					"name": "filter1"
+				},
+				{
+					"name": "derivedColumn4"
+				},
+				{
+					"name": "Updated"
+				},
+				{
+					"name": "derivedColumn6"
+				},
+				{
+					"name": "Inactive"
+				},
+				{
+					"name": "aggregate1"
+				},
+				{
+					"name": "join2"
+				},
+				{
+					"name": "derivedColumn7"
+				},
+				{
+					"name": "exists4"
+				},
+				{
+					"name": "derivedColumn8"
+				},
+				{
+					"name": "alterRow1"
+				},
+				{
+					"name": "Update"
+				},
+				{
+					"name": "filter2"
+				},
+				{
+					"name": "exists6"
+				},
+				{
+					"name": "filter3"
+				},
+				{
+					"name": "derivedColumn10"
+				},
+				{
+					"name": "derivedColumn11"
+				},
+				{
+					"name": "derivedColumn13"
+				},
+				{
+					"name": "exists7"
+				},
+				{
+					"name": "derivedColumn14"
+				},
+				{
+					"name": "DoesntExist1"
+				},
+				{
+					"name": "CheckSum"
+				},
+				{
+					"name": "alterRow2"
+				},
+				{
+					"name": "join3"
+				},
+				{
+					"name": "derivedColumn15"
+				},
+				{
+					"name": "alterRow3"
+				},
+				{
+					"name": "exists8"
+				},
+				{
+					"name": "exists9"
+				},
+				{
+					"name": "exists10"
+				},
+				{
+					"name": "exists11"
+				}
+			],
+			"script": "source(output(\n\t\tSOURCE_KEY as string,\n\t\tWS_EXT_PH_PART_NUM as string,\n\t\tWS_EXT_PH_NAME as string,\n\t\tLAST_NAME as string,\n\t\tFIRST_NAME as string,\n\t\tMIDDLE_NAME as string,\n\t\tWS_EXT_PH_BRTH_DATE as date,\n\t\tWS_EXT_PH_ADDR_L1 as string,\n\t\tWS_EXT_PH_ADDR_L2 as string,\n\t\tWS_EXT_PH_ADDR_L3 as string,\n\t\tWS_EXT_PH_CITY as string,\n\t\tWS_EXT_PH_STATE as string,\n\t\tWS_EXT_PH_ZIP as string,\n\t\tZIP_CODE5 as string,\n\t\tWS_EXT_PH_OMNI_VERSION as string,\n\t\tCHANGE_CODE as string,\n\t\tCOUNTRY_CODE as string,\n\t\tWS_EXT_PH_STAT as string,\n\t\tPERSON_CHECK_SUM as string,\n\t\tPERADDR_CHECK_SUM as string,\n\t\tPERSONIDENT_CHECK_SUM as string\n\t),\n\tallowSchemaDrift: false,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'SELECT SOURCE_KEY,WS_EXT_PH_PART_NUM,WS_EXT_PH_NAME,LAST_NAME,\\nCASE WHEN CHARINDEX(\\' \\',FIRST_NAME) > 0 THEN trim(SUBSTRING(FIRST_NAME,1,CHARINDEX(\\' \\',FIRST_NAME))) ELSE FIRST_NAME END AS FIRST_NAME,\\nCASE WHEN CHARINDEX(\\' \\',FIRST_NAME) > 0 THEN trim(SUBSTRING(FIRST_NAME,CHARINDEX(\\' \\',FIRST_NAME),LEN(FIRST_NAME))) ELSE NULL END AS MIDDLE_NAME,\\nWS_EXT_PH_BRTH_DATE,WS_EXT_PH_ADDR_L1,WS_EXT_PH_ADDR_L2,WS_EXT_PH_ADDR_L3,WS_EXT_PH_CITY,WS_EXT_PH_STATE,WS_EXT_PH_ZIP,ZIP_CODE5,WS_EXT_PH_OMNI_VERSION,CHANGE_CODE,\\nCOUNTRY_CODE,WS_EXT_PH_STAT,PERSON_CHECK_SUM,PERADDR_CHECK_SUM,PERSONIDENT_CHECK_SUM\\nFROM (\\nSELECT A.SOURCE_KEY,A.WS_EXT_PH_PART_NUM,UPPER(A.WS_EXT_PH_NAME) WS_EXT_PH_NAME, \\nCASE WHEN A.ws_ext_ph_name like \\'%,%\\' THEN UPPER(trim(SUBSTRING(A.ws_ext_ph_name,1,(CHARINDEX(\\',\\',A.ws_ext_ph_name)-1))))\\nELSE UPPER(A.WS_EXT_PH_NAME) END AS LAST_NAME,\\nCASE WHEN A.ws_ext_ph_name like \\'%,%\\' THEN UPPER(trim(SUBSTRING(A.ws_ext_ph_name,CHARINDEX(\\',\\',A.ws_ext_ph_name)+1,LEN(A.ws_ext_ph_name)))) \\nELSE NULL END AS FIRST_NAME,\\nCAST(A.WS_EXT_PH_BRTH_DATE as date) as WS_EXT_PH_BRTH_DATE,UPPER(A.WS_EXT_PH_ADDR_L1) WS_EXT_PH_ADDR_L1,UPPER(A.WS_EXT_PH_ADDR_L2) WS_EXT_PH_ADDR_L2,UPPER(A.WS_EXT_PH_ADDR_L3) WS_EXT_PH_ADDR_L3,\\nUPPER(A.WS_EXT_PH_CITY) WS_EXT_PH_CITY,CASE WHEN UPPER(A.WS_EXT_PH_STATE)=\\'US\\' THEN NULL ELSE UPPER(A.WS_EXT_PH_STATE) END WS_EXT_PH_STATE ,\\nA.WS_EXT_PH_ZIP,SUBSTRING(A.WS_EXT_PH_ZIP,1,5) ZIP_CODE5,UPPER(A.WS_EXT_PH_OMNI_VERSION) WS_EXT_PH_OMNI_VERSION,UPPER(A.CHANGE_CODE) CHANGE_CODE,UPPER(B.COUNTRY_CODE) COUNTRY_CODE,UPPER(A.WS_EXT_PH_STAT) WS_EXT_PH_STAT,\\nCONVERT(NVARCHAR(32),HashBytes(\\'MD5\\',ISNULL(WS_EXT_PH_NAME,\\'1\\')+ISNULL(WS_EXT_PH_PART_NUM,\\'2\\')+ISNULL(WS_EXT_PH_BRTH_DATE,\\'3\\')+ISNULL(WS_EXT_PH_ADDR_L1,\\'4\\')+ISNULL(WS_EXT_PH_ADDR_L2,\\'5\\')+\\nISNULL(WS_EXT_PH_ADDR_L3,\\'6\\')+ISNULL(WS_EXT_PH_CITY,\\'7\\')+ISNULL(WS_EXT_PH_STATE,\\'8\\')+ISNULL(WS_EXT_PH_ZIP,\\'9\\')+ISNULL(WS_EXT_PH_STAT,\\'10\\')    ),2) PERSON_CHECK_SUM,\\nCONVERT(NVARCHAR(32),HashBytes(\\'MD5\\',ISNULL(WS_EXT_PH_ADDR_L1,\\'4\\')+ISNULL(WS_EXT_PH_ADDR_L2,\\'5\\')+ISNULL(WS_EXT_PH_ADDR_L3,\\'6\\')+ISNULL(WS_EXT_PH_CITY,\\'7\\')+ISNULL(WS_EXT_PH_STATE,\\'8\\')+ISNULL(WS_EXT_PH_ZIP,\\'9\\')),2) PERADDR_CHECK_SUM,\\nCONVERT(NVARCHAR(32),HashBytes(\\'MD5\\',ISNULL(WS_EXT_PH_PART_NUM,\\'2\\')),2) PERSONIDENT_CHECK_SUM\\nFROM CMDM_STAGE.RS_OMNI_VIPS_DAILY_PART_HEADER_DELTA_STG A LEFT JOIN \\nCMDM_STAGE.STATE_MASTER B ON UPPER(TRIM(A.WS_EXT_PH_STATE)) = UPPER(TRIM(B.STATE_CODE))\\n) T',\n\tformat: 'query') ~> source1\nsource(output(\n\t\tprefix as string,\n\t\tFullName as string,\n\t\tfirstName as string,\n\t\tmiddleName as string,\n\t\tlastName as string,\n\t\tsuffix as string,\n\t\tgender as string,\n\t\tbirthdate as date,\n\t\tbirthPlace as string,\n\t\tsrcPkey as string,\n\t\tsourceSystem as string,\n\t\tSSN as string,\n\t\tITIN as string,\n\t\tdriverLicense as string,\n\t\tprimaryEmail as string,\n\t\tprimeryPhone as string,\n\t\tstreetAddress as string,\n\t\tprimaryAddrLine1 as string,\n\t\tprimaryAddrLine2 as string,\n\t\tprimaryAddrLine3 as string,\n\t\tprimaryAddrCity as string,\n\t\tprimaryAddrState as string,\n\t\tprimaryAddrPostalCode as string,\n\t\tcountryCD as string,\n\t\tcountyName as string,\n\t\tPostalCode5 as string,\n\t\tSourceDeletedInd as string,\n\t\tSourceStatus as string,\n\t\trow_status as string,\n\t\tbatch_id as string,\n\t\tcheck_sum as string,\n\t\tcreateDateTime as timestamp,\n\t\tcreatedBy as string,\n\t\tlastUpdateDateTime as timestamp,\n\t\tlastUpdatedBy as string,\n\t\tSourceCreateDateTime as timestamp,\n\t\tSourceLastUpdateDateTime as timestamp\n\t),\n\tallowSchemaDrift: false,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> TgtPerson\nsource(output(\n\t\tSOURCE_KEY as string,\n\t\tWS_EXT_PH_PART_NUM as string,\n\t\tWS_EXT_PH_NAME as string,\n\t\tLAST_NAME as string,\n\t\tFIRST_NAME as string,\n\t\tMIDDLE_NAME as string,\n\t\tWS_EXT_PH_BRTH_DATE as date,\n\t\tWS_EXT_PH_ADDR_L1 as string,\n\t\tWS_EXT_PH_ADDR_L2 as string,\n\t\tWS_EXT_PH_ADDR_L3 as string,\n\t\tWS_EXT_PH_CITY as string,\n\t\tWS_EXT_PH_STATE as string,\n\t\tWS_EXT_PH_ZIP as string,\n\t\tZIP_CODE5 as string,\n\t\tWS_EXT_PH_OMNI_VERSION as string,\n\t\tCHANGE_CODE as string,\n\t\tCOUNTRY_CODE as string,\n\t\tWS_EXT_PH_STAT as string,\n\t\tPERSON_CHECK_SUM as string,\n\t\tPERADDR_CHECK_SUM as string,\n\t\tPERSONIDENT_CHECK_SUM as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'SELECT SOURCE_KEY,WS_EXT_PH_PART_NUM,WS_EXT_PH_NAME,LAST_NAME,\\nCASE WHEN CHARINDEX(\\' \\',FIRST_NAME) > 0 THEN trim(SUBSTRING(FIRST_NAME,1,CHARINDEX(\\' \\',FIRST_NAME))) ELSE FIRST_NAME END AS FIRST_NAME,\\nCASE WHEN CHARINDEX(\\' \\',FIRST_NAME) > 0 THEN trim(SUBSTRING(FIRST_NAME,CHARINDEX(\\' \\',FIRST_NAME),LEN(FIRST_NAME))) ELSE NULL END AS MIDDLE_NAME,\\nWS_EXT_PH_BRTH_DATE,WS_EXT_PH_ADDR_L1,WS_EXT_PH_ADDR_L2,WS_EXT_PH_ADDR_L3,WS_EXT_PH_CITY,WS_EXT_PH_STATE,WS_EXT_PH_ZIP,ZIP_CODE5,WS_EXT_PH_OMNI_VERSION,CHANGE_CODE,\\nCOUNTRY_CODE,WS_EXT_PH_STAT,PERSON_CHECK_SUM,PERADDR_CHECK_SUM,PERSONIDENT_CHECK_SUM\\nFROM (\\nSELECT A.SOURCE_KEY,A.WS_EXT_PH_PART_NUM,UPPER(A.WS_EXT_PH_NAME) WS_EXT_PH_NAME, \\nCASE WHEN A.ws_ext_ph_name like \\'%,%\\' THEN UPPER(trim(SUBSTRING(A.ws_ext_ph_name,1,(CHARINDEX(\\',\\',A.ws_ext_ph_name)-1))))\\nELSE UPPER(A.WS_EXT_PH_NAME) END AS LAST_NAME,\\nCASE WHEN A.ws_ext_ph_name like \\'%,%\\' THEN UPPER(trim(SUBSTRING(A.ws_ext_ph_name,CHARINDEX(\\',\\',A.ws_ext_ph_name)+1,LEN(A.ws_ext_ph_name)))) \\nELSE NULL END AS FIRST_NAME,\\nCAST(A.WS_EXT_PH_BRTH_DATE as date) as WS_EXT_PH_BRTH_DATE,UPPER(A.WS_EXT_PH_ADDR_L1) WS_EXT_PH_ADDR_L1,UPPER(A.WS_EXT_PH_ADDR_L2) WS_EXT_PH_ADDR_L2,UPPER(A.WS_EXT_PH_ADDR_L3) WS_EXT_PH_ADDR_L3,\\nUPPER(A.WS_EXT_PH_CITY) WS_EXT_PH_CITY,CASE WHEN UPPER(A.WS_EXT_PH_STATE)=\\'US\\' THEN NULL ELSE UPPER(A.WS_EXT_PH_STATE) END WS_EXT_PH_STATE ,\\nA.WS_EXT_PH_ZIP,SUBSTRING(A.WS_EXT_PH_ZIP,1,5) ZIP_CODE5,UPPER(A.WS_EXT_PH_OMNI_VERSION) WS_EXT_PH_OMNI_VERSION,UPPER(A.CHANGE_CODE) CHANGE_CODE,UPPER(B.COUNTRY_CODE) COUNTRY_CODE,UPPER(A.WS_EXT_PH_STAT) WS_EXT_PH_STAT,\\nCONVERT(NVARCHAR(32),HashBytes(\\'MD5\\',ISNULL(WS_EXT_PH_NAME,\\'1\\')+ISNULL(WS_EXT_PH_PART_NUM,\\'2\\')+ISNULL(WS_EXT_PH_BRTH_DATE,\\'3\\')+ISNULL(WS_EXT_PH_ADDR_L1,\\'4\\')+ISNULL(WS_EXT_PH_ADDR_L2,\\'5\\')+\\nISNULL(WS_EXT_PH_ADDR_L3,\\'6\\')+ISNULL(WS_EXT_PH_CITY,\\'7\\')+ISNULL(WS_EXT_PH_STATE,\\'8\\')+ISNULL(WS_EXT_PH_ZIP,\\'9\\')+ISNULL(WS_EXT_PH_STAT,\\'10\\')    ),2) PERSON_CHECK_SUM,\\nCONVERT(NVARCHAR(32),HashBytes(\\'MD5\\',ISNULL(WS_EXT_PH_ADDR_L1,\\'4\\')+ISNULL(WS_EXT_PH_ADDR_L2,\\'5\\')+ISNULL(WS_EXT_PH_ADDR_L3,\\'6\\')+ISNULL(WS_EXT_PH_CITY,\\'7\\')+ISNULL(WS_EXT_PH_STATE,\\'8\\')+ISNULL(WS_EXT_PH_ZIP,\\'9\\')),2) PERADDR_CHECK_SUM,\\nCONVERT(NVARCHAR(32),HashBytes(\\'MD5\\',ISNULL(WS_EXT_PH_PART_NUM,\\'2\\')),2) PERSONIDENT_CHECK_SUM\\nFROM CMDM_STAGE.RS_OMNI_VIPS_DAILY_PART_HEADER_DELTA_STG A LEFT JOIN \\nCMDM_STAGE.STATE_MASTER B ON UPPER(TRIM(A.WS_EXT_PH_STATE)) = UPPER(TRIM(B.STATE_CODE))\\n) T',\n\tformat: 'query') ~> source3\nsource(output(\n\t\tprefix as string,\n\t\tFullName as string,\n\t\tfirstName as string,\n\t\tmiddleName as string,\n\t\tlastName as string,\n\t\tsuffix as string,\n\t\tgender as string,\n\t\tbirthdate as date,\n\t\tbirthPlace as string,\n\t\tsrcPkey as string,\n\t\tsourceSystem as string,\n\t\tSSN as string,\n\t\tITIN as string,\n\t\tdriverLicense as string,\n\t\tprimaryEmail as string,\n\t\tprimeryPhone as string,\n\t\tstreetAddress as string,\n\t\tprimaryAddrLine1 as string,\n\t\tprimaryAddrLine2 as string,\n\t\tprimaryAddrLine3 as string,\n\t\tprimaryAddrCity as string,\n\t\tprimaryAddrState as string,\n\t\tprimaryAddrPostalCode as string,\n\t\tcountryCD as string,\n\t\tcountyName as string,\n\t\tPostalCode5 as string,\n\t\tSourceDeletedInd as string,\n\t\tSourceStatus as string,\n\t\trow_status as string,\n\t\tbatch_id as string,\n\t\tcheck_sum as string,\n\t\tcreateDateTime as timestamp,\n\t\tcreatedBy as string,\n\t\tlastUpdateDateTime as timestamp,\n\t\tlastUpdatedBy as string,\n\t\tSourceCreateDateTime as timestamp,\n\t\tSourceLastUpdateDateTime as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'SELECT * FROM CMDM_STAGE.PERSON where sourceSystem=\\'OMNI 7.1\\'',\n\tformat: 'query') ~> source4\nSourceDeleteInd derive(SourceCreateDateTime = currentTimestamp(),\n\t\tSourceLastUpdateDateTime = currentTimestamp(),\n\t\trow_status = 'I',\n\t\tBatchid = 1,\n\t\tLastupdatetime = currentTimestamp()) ~> derivedColumn1\nexists11 derive(SourceDeletedInd = case(CHANGE_CODE=='DELETE', 'Y','N')) ~> SourceDeleteInd\nderivedColumn10 alterRow(insertIf(true())) ~> Insert\nfilter1, TgtPerson exists(derivedColumn7@Row_Status == TgtPerson@row_status\n\t&& SOURCE_KEY == srcPkey\n\t&& WS_EXT_PH_OMNI_VERSION == sourceSystem,\n\tnegate:true,\n\tbroadcast: 'auto')~> Doesntexists1\nderivedColumn7 filter(CHANGE_CODE=='NEW') ~> filter1\nfilter2 derive(Row_Status = 'I',\n\t\tBatch_Id = 2,\n\t\tLastUpdatedTime = currentTimestamp(),\n\t\tSrcInd = 'N') ~> derivedColumn4\nCheckSum alterRow(updateIf(true())) ~> Updated\nexists9 derive(Row_Status = 'I',\n\t\tSrcDInd = 'N',\n\t\tLastUpdatedTime = currentTimestamp()) ~> derivedColumn6\nderivedColumn6 alterRow(updateIf(true())) ~> Inactive\nsource4 aggregate(Mini_Batch_Id = min(batch_id)) ~> aggregate1\naggregate1, TgtPerson join(Mini_Batch_Id == batch_id,\n\tjoinType:'inner',\n\tmatchType:'exact',\n\tignoreSpaces: false,\n\tbroadcast: 'auto')~> join2\nsource1 derive(Row_Status = 'A') ~> derivedColumn7\nfilter1, TgtPerson exists(SOURCE_KEY == srcPkey\n\t&& WS_EXT_PH_OMNI_VERSION == sourceSystem\n\t&& derivedColumn7@Row_Status == TgtPerson@row_status,\n\tnegate:false,\n\tbroadcast: 'auto')~> exists4\nexists8 derive(Row_Status = 'A',\n\t\tSourceDeletedInd = 'N',\n\t\tBatch_Id = 1,\n\t\tCreatetime = currentTimestamp(),\n\t\tCreatedBy = 'OMNI',\n\t\tLastUpdate = currentTimestamp()) ~> derivedColumn8\nderivedColumn8 alterRow(insertIf(true())) ~> alterRow1\nderivedColumn11 alterRow(updateIf(true())) ~> Update\nderivedColumn13 filter(CHANGE_CODE=='UPDATE') ~> filter2\nfilter3, TgtPerson exists(PERSON_CHECK_SUM == check_sum,\n\tnegate:true,\n\tbroadcast: 'auto')~> exists6\nderivedColumn1 filter(CHANGE_CODE=='NEW') ~> filter3\nfilter3 derive(row_status = 'A',\n\t\tCreatedBY = 'OMNI') ~> derivedColumn10\nexists6 derive(row_status = 'I') ~> derivedColumn11\nsource3 derive(Row_Status = 'A',\n\t\tBatchId = 2) ~> derivedColumn13\nfilter2, TgtPerson exists(SOURCE_KEY == srcPkey\n\t&& WS_EXT_PH_OMNI_VERSION == sourceSystem\n\t&& derivedColumn13@Row_Status == TgtPerson@row_status,\n\tnegate:false,\n\tbroadcast: 'auto')~> exists7\nexists10 derive(Lastupdatetime = currentTimestamp(),\n\t\tSourceLastUpdateDateTime = currentTimestamp(),\n\t\tCreatedBY = 'OMNI',\n\t\tBatchid = 2,\n\t\tSrcInd = 'N') ~> derivedColumn14\nfilter2, TgtPerson exists(SOURCE_KEY == srcPkey\n\t&& WS_EXT_PH_OMNI_VERSION == sourceSystem\n\t&& derivedColumn13@Row_Status == TgtPerson@row_status,\n\tnegate:true,\n\tbroadcast: 'auto')~> DoesntExist1\nderivedColumn4, TgtPerson exists(PERSON_CHECK_SUM == check_sum,\n\tnegate:true,\n\tbroadcast: 'auto')~> CheckSum\nderivedColumn14 alterRow(insertIf(true())) ~> alterRow2\njoin2, filter2 join(srcPkey == SOURCE_KEY,\n\tjoinType:'inner',\n\tmatchType:'exact',\n\tignoreSpaces: false,\n\tbroadcast: 'auto')~> join3\njoin3 derive(RowStatus = 'I') ~> derivedColumn15\nderivedColumn15 alterRow(updateIf(true())) ~> alterRow3\nexists4, TgtPerson exists(PERSON_CHECK_SUM == check_sum,\n\tnegate:false,\n\tbroadcast: 'auto')~> exists8\nDoesntExist1, TgtPerson exists(PERSON_CHECK_SUM == check_sum,\n\tnegate:true,\n\tbroadcast: 'auto')~> exists9\nexists7, TgtPerson exists(PERSON_CHECK_SUM == check_sum,\n\tnegate:false,\n\tbroadcast: 'auto')~> exists10\nDoesntexists1, TgtPerson exists(PERSON_CHECK_SUM == check_sum,\n\tnegate:true,\n\tbroadcast: 'auto')~> exists11\nInactive sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\tFullName = WS_EXT_PH_NAME,\n\t\tfirstName = FIRST_NAME,\n\t\tmiddleName = MIDDLE_NAME,\n\t\tlastName = LAST_NAME,\n\t\tbirthdate = WS_EXT_PH_BRTH_DATE,\n\t\tsrcPkey = SOURCE_KEY,\n\t\tsourceSystem = WS_EXT_PH_OMNI_VERSION,\n\t\tSSN = WS_EXT_PH_PART_NUM,\n\t\tprimaryAddrLine1 = WS_EXT_PH_ADDR_L1,\n\t\tprimaryAddrLine2 = WS_EXT_PH_ADDR_L2,\n\t\tprimaryAddrLine3 = WS_EXT_PH_ADDR_L3,\n\t\tprimaryAddrCity = WS_EXT_PH_CITY,\n\t\tprimaryAddrState = WS_EXT_PH_STATE,\n\t\tprimaryAddrPostalCode = WS_EXT_PH_ZIP,\n\t\tcountryCD = COUNTRY_CODE,\n\t\tPostalCode5 = ZIP_CODE5,\n\t\tSourceDeletedInd = SrcDInd,\n\t\tSourceStatus = WS_EXT_PH_STAT,\n\t\trow_status = Row_Status,\n\t\tbatch_id = BatchId,\n\t\tcheck_sum = PERSON_CHECK_SUM,\n\t\tcreateDateTime = LastUpdatedTime,\n\t\tlastUpdateDateTime = LastUpdatedTime,\n\t\tSourceCreateDateTime = LastUpdatedTime,\n\t\tSourceLastUpdateDateTime = LastUpdatedTime\n\t)) ~> PersonInactive\nUpdated sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:false,\n\tupdateable:true,\n\tupsertable:false,\n\tkeys:['srcPkey','batch_id'],\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\tFullName = WS_EXT_PH_NAME,\n\t\tfirstName = FIRST_NAME,\n\t\tmiddleName = MIDDLE_NAME,\n\t\tlastName = LAST_NAME,\n\t\tbirthdate = WS_EXT_PH_BRTH_DATE,\n\t\tsrcPkey = SOURCE_KEY,\n\t\tsourceSystem = WS_EXT_PH_OMNI_VERSION,\n\t\tSSN = WS_EXT_PH_PART_NUM,\n\t\tprimaryAddrLine1 = WS_EXT_PH_ADDR_L1,\n\t\tprimaryAddrLine2 = WS_EXT_PH_ADDR_L2,\n\t\tprimaryAddrLine3 = WS_EXT_PH_ADDR_L3,\n\t\tprimaryAddrCity = WS_EXT_PH_CITY,\n\t\tprimaryAddrState = WS_EXT_PH_STATE,\n\t\tprimaryAddrPostalCode = WS_EXT_PH_ZIP,\n\t\tcountryCD = COUNTRY_CODE,\n\t\tPostalCode5 = ZIP_CODE5,\n\t\tSourceDeletedInd = SrcInd,\n\t\tSourceStatus = WS_EXT_PH_STAT,\n\t\trow_status = Row_Status,\n\t\tbatch_id = Batch_Id,\n\t\tcheck_sum = PERSON_CHECK_SUM,\n\t\tlastUpdateDateTime = LastUpdatedTime\n\t)) ~> PersonUpdate\nInsert sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\tFullName = WS_EXT_PH_NAME,\n\t\tfirstName = FIRST_NAME,\n\t\tmiddleName = MIDDLE_NAME,\n\t\tlastName = LAST_NAME,\n\t\tbirthdate = WS_EXT_PH_BRTH_DATE,\n\t\tsrcPkey = SOURCE_KEY,\n\t\tsourceSystem = WS_EXT_PH_OMNI_VERSION,\n\t\tSSN = WS_EXT_PH_PART_NUM,\n\t\tprimaryAddrLine1 = WS_EXT_PH_ADDR_L1,\n\t\tprimaryAddrLine2 = WS_EXT_PH_ADDR_L2,\n\t\tprimaryAddrLine3 = WS_EXT_PH_ADDR_L3,\n\t\tprimaryAddrCity = WS_EXT_PH_CITY,\n\t\tprimaryAddrState = WS_EXT_PH_STATE,\n\t\tprimaryAddrPostalCode = WS_EXT_PH_ZIP,\n\t\tcountryCD = COUNTRY_CODE,\n\t\tPostalCode5 = ZIP_CODE5,\n\t\tSourceDeletedInd,\n\t\tSourceStatus = WS_EXT_PH_STAT,\n\t\trow_status = derivedColumn10@row_status,\n\t\tbatch_id = Batchid,\n\t\tcheck_sum = PERSON_CHECK_SUM,\n\t\tlastUpdateDateTime = Lastupdatetime,\n\t\tSourceCreateDateTime,\n\t\tSourceLastUpdateDateTime,\n\t\tcreateDateTime = Lastupdatetime,\n\t\tcreatedBy = CreatedBY,\n\t\tlastUpdatedBy = CreatedBY\n\t)) ~> PersonInsert\nalterRow1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\tFullName = WS_EXT_PH_NAME,\n\t\tfirstName = FIRST_NAME,\n\t\tmiddleName = MIDDLE_NAME,\n\t\tlastName = LAST_NAME,\n\t\tbirthdate = WS_EXT_PH_BRTH_DATE,\n\t\tsrcPkey = SOURCE_KEY,\n\t\tsourceSystem = WS_EXT_PH_OMNI_VERSION,\n\t\tSSN = WS_EXT_PH_PART_NUM,\n\t\tprimaryAddrLine1 = WS_EXT_PH_ADDR_L1,\n\t\tprimaryAddrLine2 = WS_EXT_PH_ADDR_L2,\n\t\tprimaryAddrLine3 = WS_EXT_PH_ADDR_L3,\n\t\tprimaryAddrCity = WS_EXT_PH_CITY,\n\t\tprimaryAddrState = WS_EXT_PH_STATE,\n\t\tprimaryAddrPostalCode = WS_EXT_PH_ZIP,\n\t\tcountryCD = COUNTRY_CODE,\n\t\tPostalCode5 = ZIP_CODE5,\n\t\tSourceDeletedInd,\n\t\tSourceStatus = WS_EXT_PH_STAT,\n\t\trow_status = Row_Status,\n\t\tbatch_id = Batch_Id,\n\t\tcheck_sum = PERSON_CHECK_SUM,\n\t\tcreateDateTime = Createtime,\n\t\tcreatedBy = CreatedBy,\n\t\tlastUpdateDateTime = LastUpdate,\n\t\tlastUpdatedBy = CreatedBy,\n\t\tSourceCreateDateTime = LastUpdate,\n\t\tSourceLastUpdateDateTime = Createtime\n\t)) ~> sink1\nUpdate sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:false,\n\tupdateable:true,\n\tupsertable:false,\n\tkeys:['srcPkey','batch_id'],\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\tFullName = WS_EXT_PH_PART_NUM,\n\t\tfirstName = FIRST_NAME,\n\t\tmiddleName = MIDDLE_NAME,\n\t\tlastName = LAST_NAME,\n\t\tbirthdate = WS_EXT_PH_BRTH_DATE,\n\t\tsrcPkey = SOURCE_KEY,\n\t\tsourceSystem = WS_EXT_PH_OMNI_VERSION,\n\t\tSSN = WS_EXT_PH_PART_NUM,\n\t\tprimaryAddrLine1 = WS_EXT_PH_ADDR_L1,\n\t\tprimaryAddrLine2 = WS_EXT_PH_ADDR_L2,\n\t\tprimaryAddrLine3 = WS_EXT_PH_ADDR_L3,\n\t\tprimaryAddrCity = WS_EXT_PH_CITY,\n\t\tprimaryAddrState = WS_EXT_PH_STATE,\n\t\tprimaryAddrPostalCode = WS_EXT_PH_ZIP,\n\t\tcountryCD = COUNTRY_CODE,\n\t\tPostalCode5 = ZIP_CODE5,\n\t\tSourceDeletedInd,\n\t\tSourceStatus = WS_EXT_PH_STAT,\n\t\trow_status = derivedColumn11@row_status,\n\t\tbatch_id = Batchid,\n\t\tcheck_sum = PERSONIDENT_CHECK_SUM,\n\t\tcreateDateTime = SourceCreateDateTime,\n\t\tlastUpdateDateTime = Lastupdatetime,\n\t\tSourceCreateDateTime,\n\t\tSourceLastUpdateDateTime\n\t)) ~> sink2\nalterRow2 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\tFullName = WS_EXT_PH_NAME,\n\t\tfirstName = FIRST_NAME,\n\t\tmiddleName = MIDDLE_NAME,\n\t\tlastName = LAST_NAME,\n\t\tbirthdate = WS_EXT_PH_BRTH_DATE,\n\t\tsrcPkey = SOURCE_KEY,\n\t\tsourceSystem = WS_EXT_PH_OMNI_VERSION,\n\t\tSSN = WS_EXT_PH_PART_NUM,\n\t\tprimaryAddrLine1 = WS_EXT_PH_ADDR_L1,\n\t\tprimaryAddrLine2 = WS_EXT_PH_ADDR_L2,\n\t\tprimaryAddrLine3 = WS_EXT_PH_ADDR_L3,\n\t\tprimaryAddrCity = WS_EXT_PH_CITY,\n\t\tprimaryAddrState = WS_EXT_PH_STATE,\n\t\tprimaryAddrPostalCode = WS_EXT_PH_ZIP,\n\t\tcountryCD = COUNTRY_CODE,\n\t\tPostalCode5 = ZIP_CODE5,\n\t\tSourceDeletedInd = SrcInd,\n\t\tSourceStatus = WS_EXT_PH_STAT,\n\t\trow_status = Row_Status,\n\t\tbatch_id = derivedColumn13@BatchId,\n\t\tcheck_sum = PERSON_CHECK_SUM,\n\t\tcreateDateTime = SourceLastUpdateDateTime,\n\t\tcreatedBy = CreatedBY,\n\t\tlastUpdateDateTime = Lastupdatetime,\n\t\tlastUpdatedBy = CreatedBY,\n\t\tSourceCreateDateTime = SourceLastUpdateDateTime,\n\t\tSourceLastUpdateDateTime\n\t)) ~> sink3\nalterRow3 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:false,\n\tupdateable:true,\n\tupsertable:false,\n\tkeys:['srcPkey','batch_id'],\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\tFullName,\n\t\tfirstName,\n\t\tlastName,\n\t\tbirthdate,\n\t\tsrcPkey,\n\t\tsourceSystem,\n\t\tSSN,\n\t\tprimaryAddrLine1,\n\t\tprimaryAddrLine2,\n\t\tprimaryAddrLine3,\n\t\tprimaryAddrCity,\n\t\tprimaryAddrState,\n\t\tprimaryAddrPostalCode,\n\t\tcountryCD,\n\t\tPostalCode5,\n\t\tSourceDeletedInd,\n\t\tSourceStatus,\n\t\tbatch_id,\n\t\tcheck_sum,\n\t\tcreateDateTime,\n\t\tcreatedBy,\n\t\tlastUpdateDateTime,\n\t\tSourceCreateDateTime,\n\t\tSourceLastUpdateDateTime,\n\t\trow_status = RowStatus\n\t)) ~> sink4"
+		}
+	}
+}

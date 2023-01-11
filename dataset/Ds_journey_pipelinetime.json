@@ -1,0 +1,18 @@
+{
+	"name": "Ds_journey_pipelinetime",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SqlServerAppDB",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"Triggertime": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

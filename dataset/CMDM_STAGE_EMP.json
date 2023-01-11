@@ -1,0 +1,26 @@
+{
+	"name": "CMDM_STAGE_EMP",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase_MDMU3",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "EMP_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "EMP_PHONE",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "CMDM_STAGE",
+			"table": "EMP"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

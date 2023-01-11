@@ -1,0 +1,22 @@
+{
+	"name": "Snowflake_staging_container",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobStorage",
+		"typeProperties": {
+			"sasUri": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "N_4_MyVoyage_1",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "BlobService-SAS-url"
+			}
+		},
+		"connectVia": {
+			"referenceName": "integrationRuntime-dstrwaac9246",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

@@ -1,0 +1,90 @@
+{
+	"name": "DS_PARTY_IDENT_TGT",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlServer_EBX",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "DS_MDM"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "PARTY_IDENT_ID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "PARTY_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "ISSUER_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "IDENTIFIER_VAL",
+				"type": "varchar"
+			},
+			{
+				"name": "IDENTIFIER_TYPE",
+				"type": "varchar"
+			},
+			{
+				"name": "ISSUE_DT",
+				"type": "date"
+			},
+			{
+				"name": "EXP_DT",
+				"type": "date"
+			},
+			{
+				"name": "PARTY_IDENT_DESCR",
+				"type": "varchar"
+			},
+			{
+				"name": "ROW_STATUS",
+				"type": "varchar"
+			},
+			{
+				"name": "RECORDED_START_DT",
+				"type": "date"
+			},
+			{
+				"name": "RECORDED_END_DT",
+				"type": "date"
+			},
+			{
+				"name": "BATCH_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "CHECK_SUM",
+				"type": "varchar"
+			},
+			{
+				"name": "CREATED_DT",
+				"type": "date"
+			},
+			{
+				"name": "CREATED_BY",
+				"type": "varchar"
+			},
+			{
+				"name": "LAST_UPDATED_DT",
+				"type": "date"
+			},
+			{
+				"name": "LAST_UPDATED_BY",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "CMDM_STAGE",
+			"table": "PARTY_IDENT"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

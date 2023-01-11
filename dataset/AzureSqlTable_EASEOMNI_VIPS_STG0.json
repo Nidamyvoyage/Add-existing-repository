@@ -1,0 +1,138 @@
+{
+	"name": "AzureSqlTable_EASEOMNI_VIPS_STG0",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase_MDMU3",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "SOURCE_SYSTEM",
+				"type": "varchar"
+			},
+			{
+				"name": "SOURCE_KEY",
+				"type": "varchar"
+			},
+			{
+				"name": "PART_ACCOUNT_STATUS",
+				"type": "varchar"
+			},
+			{
+				"name": "PART_TYPE",
+				"type": "varchar"
+			},
+			{
+				"name": "PART_TIN",
+				"type": "varchar"
+			},
+			{
+				"name": "PART_BIRTH_DATE",
+				"type": "varchar"
+			},
+			{
+				"name": "PART_GENDER",
+				"type": "varchar"
+			},
+			{
+				"name": "PART_FULL_NAME",
+				"type": "varchar"
+			},
+			{
+				"name": "PART_FIRST_NAME",
+				"type": "varchar"
+			},
+			{
+				"name": "PART_LAST_NAME",
+				"type": "varchar"
+			},
+			{
+				"name": "PART_MIDDLE_NAME",
+				"type": "varchar"
+			},
+			{
+				"name": "PART_SUFFIX_TITLE",
+				"type": "varchar"
+			},
+			{
+				"name": "PART_ADDRESS_LINE1",
+				"type": "varchar"
+			},
+			{
+				"name": "PART_ADDRESS_LINE2",
+				"type": "varchar"
+			},
+			{
+				"name": "PART_ADDRESS_LINE3",
+				"type": "varchar"
+			},
+			{
+				"name": "PART_CITY",
+				"type": "varchar"
+			},
+			{
+				"name": "PART_STATE",
+				"type": "varchar"
+			},
+			{
+				"name": "PART_POSTAL_CODE",
+				"type": "varchar"
+			},
+			{
+				"name": "PART_COUNTRY",
+				"type": "varchar"
+			},
+			{
+				"name": "PART_EMAIL",
+				"type": "varchar"
+			},
+			{
+				"name": "PART_PHONE",
+				"type": "varchar"
+			},
+			{
+				"name": "PART_MARITAL_STATUS",
+				"type": "varchar"
+			},
+			{
+				"name": "CHECK_SUM",
+				"type": "varchar"
+			},
+			{
+				"name": "CHANGE_CODE",
+				"type": "varchar"
+			},
+			{
+				"name": "batch_id",
+				"type": "varchar"
+			},
+			{
+				"name": "createDateTime",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "createdBy",
+				"type": "varchar"
+			},
+			{
+				"name": "lastUpdateDateTime",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "lastUpdatedBy",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "CMDM_STAGE",
+			"table": "RS_SOMNI_DC_PARTICIPANT_DAILY_DELTA_STG0"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

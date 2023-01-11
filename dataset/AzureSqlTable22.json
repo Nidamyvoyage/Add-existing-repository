@@ -1,0 +1,190 @@
+{
+	"name": "AzureSqlTable22",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlServer_EBX",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "SOURCE_SYSTEM",
+				"type": "varchar"
+			},
+			{
+				"name": "SOURCE_KEY",
+				"type": "varchar"
+			},
+			{
+				"name": "PERSON_TECHID",
+				"type": "varchar"
+			},
+			{
+				"name": "FNAME",
+				"type": "varchar"
+			},
+			{
+				"name": "MNAME1",
+				"type": "varchar"
+			},
+			{
+				"name": "MNAME2",
+				"type": "varchar"
+			},
+			{
+				"name": "LNAME",
+				"type": "varchar"
+			},
+			{
+				"name": "NAMESUFFIX",
+				"type": "varchar"
+			},
+			{
+				"name": "DOB",
+				"type": "varchar"
+			},
+			{
+				"name": "GENDER",
+				"type": "varchar"
+			},
+			{
+				"name": "SSN",
+				"type": "varchar"
+			},
+			{
+				"name": "P_A_COUNTRY",
+				"type": "varchar"
+			},
+			{
+				"name": "P_A_MAILLINE1",
+				"type": "varchar"
+			},
+			{
+				"name": "P_A_MAILLINE2",
+				"type": "varchar"
+			},
+			{
+				"name": "P_A_CITY",
+				"type": "varchar"
+			},
+			{
+				"name": "P_A_STATE",
+				"type": "varchar"
+			},
+			{
+				"name": "P_A_POSTALCODE",
+				"type": "varchar"
+			},
+			{
+				"name": "P_A_COUNTY",
+				"type": "varchar"
+			},
+			{
+				"name": "P_A_PHONE",
+				"type": "varchar"
+			},
+			{
+				"name": "P_A_CELLPHONE",
+				"type": "varchar"
+			},
+			{
+				"name": "P_A_FAX",
+				"type": "varchar"
+			},
+			{
+				"name": "P_A_TOLLFREENUMBER",
+				"type": "varchar"
+			},
+			{
+				"name": "P_A_EMAIL",
+				"type": "varchar"
+			},
+			{
+				"name": "S_A_COUNTRY",
+				"type": "varchar"
+			},
+			{
+				"name": "S_A_MAILLINE1",
+				"type": "varchar"
+			},
+			{
+				"name": "S_A_MAILLINE2",
+				"type": "varchar"
+			},
+			{
+				"name": "S_A_CITY",
+				"type": "varchar"
+			},
+			{
+				"name": "S_A_STATE",
+				"type": "varchar"
+			},
+			{
+				"name": "S_A_POSTALCODE",
+				"type": "varchar"
+			},
+			{
+				"name": "S_A_COUNTY",
+				"type": "varchar"
+			},
+			{
+				"name": "S_A_PHONE",
+				"type": "varchar"
+			},
+			{
+				"name": "S_A_CELLPHONE",
+				"type": "varchar"
+			},
+			{
+				"name": "S_A_FAX",
+				"type": "varchar"
+			},
+			{
+				"name": "S_A_TOLLFREENUMBER",
+				"type": "varchar"
+			},
+			{
+				"name": "S_A_EMAIL",
+				"type": "varchar"
+			},
+			{
+				"name": "CHECK_SUM",
+				"type": "varchar"
+			},
+			{
+				"name": "CHANGE_CODE",
+				"type": "varchar"
+			},
+			{
+				"name": "batch_id",
+				"type": "varchar"
+			},
+			{
+				"name": "createDateTime",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "createdBy",
+				"type": "varchar"
+			},
+			{
+				"name": "lastUpdateDateTime",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "lastUpdatedBy",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "CMDM_STAGE",
+			"table": "EB_MAX_DGTAL_PERSN_INFO_DELTA_STG"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

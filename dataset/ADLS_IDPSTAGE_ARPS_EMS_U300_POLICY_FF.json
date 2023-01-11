@@ -1,0 +1,25 @@
+{
+	"name": "ADLS_IDPSTAGE_ARPS_EMS_U300_POLICY_FF",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "idprepos_src_vesstzuc1unitedm001_stage",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "ARPS_EMS_U300_POLICY_FF.csv",
+				"folderPath": "IDP_STAGE_EXTRACTS",
+				"fileSystem": "idprepos-poc"
+			},
+			"columnDelimiter": "|",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": ""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

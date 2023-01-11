@@ -1,0 +1,17 @@
+{
+	"name": "Oracle_IDPSTAGE_RESV_X7Z2PB_PREFRMAT_CPEN_IFE",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Oracle_CODS_Intg",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "IDP_STAGE",
+			"table": "RESV_X7Z2PB_PREFRMAT_CPEN_IFE"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

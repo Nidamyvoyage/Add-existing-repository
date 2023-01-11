@@ -1,0 +1,17 @@
+{
+	"name": "Oracle_IDPREPOS_PHONE_NUM",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Oracle_CODS_Intg",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "IDP_REPOS",
+			"table": "PHONE_NUM"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

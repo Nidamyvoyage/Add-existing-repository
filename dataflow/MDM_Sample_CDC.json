@@ -1,0 +1,38 @@
+{
+	"name": "MDM_Sample_CDC",
+	"properties": {
+		"folder": {
+			"name": "MDM"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DS_Omni_vips_daily_part_header_AZSQL",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DS_EB_MAX_DGTAL_PERSN_INFO_FULL",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "AlterRow1"
+				},
+				{
+					"name": "ConditionalSplit1"
+				}
+			],
+			"script": "source(output(\n\t\tSOURCE_ID as string,\n\t\tGBP_NUMBER as string,\n\t\tPERSON_TECHID as string,\n\t\tTITLE as string,\n\t\tFNAME as string,\n\t\tMNAME1 as string,\n\t\tMNAME2 as string,\n\t\tLNAME as string,\n\t\tNAMESUFFIX as string,\n\t\tDOB as string,\n\t\tGENDER as string,\n\t\tSSN as string,\n\t\tP_A_COUNTRY as string,\n\t\tP_A_CAREOF as string,\n\t\tP_A_MAILLINE1 as string,\n\t\tP_A_MAILLINE2 as string,\n\t\tP_A_CITY as string,\n\t\tP_A_STATE as string,\n\t\tP_A_POSTALCODE as string,\n\t\tP_A_COUNTY as string,\n\t\tP_A_ROUTENUMBER as string,\n\t\tP_A_PHONE as string,\n\t\tP_A_CELLPHONE as string,\n\t\tP_A_FAX as string,\n\t\tP_A_TOLLFREENUMBER as string,\n\t\tP_A_SPEEDDIALNUMBER as string,\n\t\tP_A_EMAIL as string,\n\t\tP_A_EFFECTIVEDATE as string,\n\t\tS_A_COUNTRY as string,\n\t\tS_A_CAREOF as string,\n\t\tS_A_MAILLINE1 as string,\n\t\tS_A_MAILLINE2 as string,\n\t\tS_A_CITY as string,\n\t\tS_A_STATE as string,\n\t\tS_A_POSTALCODE as string,\n\t\tS_A_COUNTY as string,\n\t\tS_A_ROUTENUMBER as string,\n\t\tS_A_PHONE as string,\n\t\tS_A_CELLPHONE as string,\n\t\tS_A_FAX as string,\n\t\tS_A_TOLLFREENUMBER as string,\n\t\tS_A_SPEEDDIALNUMBER as string,\n\t\tS_A_EMAIL as string,\n\t\tS_A_EFFECTIVEDATE as string,\n\t\tSRC as string,\n\t\tDELETE_IND as string,\n\t\tROW_STATUS as string,\n\t\tRECORDED_START_DT as date,\n\t\tRECORDED_END_DT as date,\n\t\tBATCH_ID as string,\n\t\tCHECK_SUM as string,\n\t\tCREATED_DT as date,\n\t\tCREATED_BY as string,\n\t\tLAST_UPDATED_DT as date,\n\t\tLAST_UPDATED_BY as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'SELECT * FROM CMDM_STAGE.MAX_EB_MAX_DGTAL_PERSN_INFO_FULL',\n\tformat: 'query') ~> source1\nsource1 alterRow(updateIf(true())) ~> AlterRow1\nAlterRow1 split(ROW_STATUS=='A',\n\tdisjoint: false) ~> ConditionalSplit1@(ActiveRecords, InActiveRecords)\nConditionalSplit1@ActiveRecords sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tSOURCE_ID as string,\n\t\tGBP_NUMBER as string,\n\t\tPERSON_TECHID as string,\n\t\tTITLE as string,\n\t\tFNAME as string,\n\t\tMNAME1 as string,\n\t\tMNAME2 as string,\n\t\tLNAME as string,\n\t\tNAMESUFFIX as string,\n\t\tDOB as string,\n\t\tGENDER as string,\n\t\tSSN as string,\n\t\tP_A_COUNTRY as string,\n\t\tP_A_CAREOF as string,\n\t\tP_A_MAILLINE1 as string,\n\t\tP_A_MAILLINE2 as string,\n\t\tP_A_CITY as string,\n\t\tP_A_STATE as string,\n\t\tP_A_POSTALCODE as string,\n\t\tP_A_COUNTY as string,\n\t\tP_A_ROUTENUMBER as string,\n\t\tP_A_PHONE as string,\n\t\tP_A_CELLPHONE as string,\n\t\tP_A_FAX as string,\n\t\tP_A_TOLLFREENUMBER as string,\n\t\tP_A_SPEEDDIALNUMBER as string,\n\t\tP_A_EMAIL as string,\n\t\tP_A_EFFECTIVEDATE as string,\n\t\tS_A_COUNTRY as string,\n\t\tS_A_CAREOF as string,\n\t\tS_A_MAILLINE1 as string,\n\t\tS_A_MAILLINE2 as string,\n\t\tS_A_CITY as string,\n\t\tS_A_STATE as string,\n\t\tS_A_POSTALCODE as string,\n\t\tS_A_COUNTY as string,\n\t\tS_A_ROUTENUMBER as string,\n\t\tS_A_PHONE as string,\n\t\tS_A_CELLPHONE as string,\n\t\tS_A_FAX as string,\n\t\tS_A_TOLLFREENUMBER as string,\n\t\tS_A_SPEEDDIALNUMBER as string,\n\t\tS_A_EMAIL as string,\n\t\tS_A_EFFECTIVEDATE as string,\n\t\tSRC as string,\n\t\tDELETE_IND as string,\n\t\tROW_STATUS as string,\n\t\tRECORDED_START_DT as date,\n\t\tRECORDED_END_DT as date,\n\t\tBATCH_ID as string,\n\t\tCHECK_SUM as string,\n\t\tCREATED_DT as date,\n\t\tCREATED_BY as string,\n\t\tLAST_UPDATED_DT as date,\n\t\tLAST_UPDATED_BY as string\n\t),\n\tdeletable:false,\n\tinsertable:false,\n\tupdateable:true,\n\tupsertable:false,\n\tkeys:['S_A_COUNTRY'],\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\teach(match(true()))\n\t)) ~> sink1"
+		}
+	}
+}

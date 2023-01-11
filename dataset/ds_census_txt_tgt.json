@@ -1,0 +1,22 @@
+{
+	"name": "ds_census_txt_tgt",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "DS_MDM"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "ds_census_txt_tgt",
+				"fileSystem": "mdmdev"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

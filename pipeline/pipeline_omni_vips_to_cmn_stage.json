@@ -1,0 +1,422 @@
+{
+	"name": "pipeline_omni_vips_to_cmn_stage",
+	"properties": {
+		"activities": [
+			{
+				"name": "source_omni_dob",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select  count(*) \nfrom\n    (select  distinct ws_ext_ph_part_num\n            ,ws_ext_ph_brth_date\n    from idp_stage.Omni_vips_daily_part_header)\nwhere   ws_ext_ph_brth_date = '000000000' \n",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "Source_IDP_Stage_omni_vips_daily_part_header",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "omni_vips_tgt",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "source_omni_blank_name",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "source_omni_dob",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select  count(*)\nfrom\n    (select  distinct ws_ext_ph_part_num\n            ,ws_ext_ph_name\n    from idp_stage.Omni_vips_daily_part_header)\nwhere length(trim(ws_ext_ph_name)) is null\n",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "Source_IDP_Stage_omni_vips_daily_part_header",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "omni_vips_tgt_blank_name",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "source_omni_partID_000",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "source_omni_dob",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select  count(*)\nfrom\n    (select  distinct ws_ext_ph_part_num\n    from idp_stage.Omni_vips_daily_part_header)\nwhere   ws_ext_ph_part_num like '000%'\n",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "Source_IDP_Stage_omni_vips_daily_part_header",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "omni_vips_tgt_partID_000",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "source_omni_partID_999",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "source_omni_dob",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select  count(*)\nfrom\n    (select  distinct ws_ext_ph_part_num\n    from idp_stage.Omni_vips_daily_part_header)\nwhere   ws_ext_ph_part_num like '999%'\n",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "Source_IDP_Stage_omni_vips_daily_part_header",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "omni_vips_tgt_partID_999",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "source_omni_partID_666",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "source_omni_dob",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select  count(*)\nfrom\n    (select  distinct ws_ext_ph_part_num\n    from idp_stage.Omni_vips_daily_part_header)\nwhere   ws_ext_ph_part_num like '666%'\n",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "Source_IDP_Stage_omni_vips_daily_part_header",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "omni_vips_tgt_partID_666",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "source_omni_partID_0000",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "source_omni_dob",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select  count(*)\nfrom\n    (select  distinct ws_ext_ph_part_num\n    from idp_stage.Omni_vips_daily_part_header)\nwhere   SUBSTR(ws_ext_ph_part_num,6,4) =  '0000'\n",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "Source_IDP_Stage_omni_vips_daily_part_header",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "omni_vips_tgt_partID_0000",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "source_omni_multiple_DOB",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "source_omni_dob",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select  count(*)\nfrom\n        (select  ws_ext_ph_part_num\n                , count(ws_ext_ph_part_num)\n        from\n            (select  distinct   ws_ext_ph_part_num\n                                , ws_ext_ph_brth_date\n                from idp_stage.Omni_vips_daily_part_header)\n        group by ws_ext_ph_part_num\n        having count(ws_ext_ph_part_num) > 1)\n",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "Source_IDP_Stage_omni_vips_daily_part_header",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "omni_vips_tgt_multiple_DOB",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "source_omni_multiple_names",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "source_omni_dob",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select  count(*)\nfrom\n    (select  ws_ext_ph_part_num\n            ,count(ws_ext_ph_part_num)\n    from\n        (select distinct    B.ws_ext_ph_part_num\n                            , B.ws_ext_ph_name\n        from\n            (select  ws_ext_ph_part_num\n                    , count(ws_ext_ph_part_num)\n            from\n                (select  distinct   ws_ext_ph_part_num\n                                    , ws_ext_ph_brth_date\n                    from idp_stage.Omni_vips_daily_part_header)\n            group by ws_ext_ph_part_num\n            having count(ws_ext_ph_part_num) = 1) A\n        INNER JOIN idp_stage.Omni_vips_daily_part_header B\n        ON A.ws_ext_ph_part_num = B.ws_ext_ph_part_num)\n    group by ws_ext_ph_part_num\n    having count(ws_ext_ph_part_num) > 1)\n",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "Source_IDP_Stage_omni_vips_daily_part_header",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "omni_vips_tgt_multiple_names",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "DataConsolidationR2/728952/Bin Folder"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-10-07T15:30:45Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

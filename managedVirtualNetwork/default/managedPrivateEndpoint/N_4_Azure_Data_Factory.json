@@ -1,0 +1,10 @@
+{
+	"name": "N_4_Azure_Data_Factory",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/8964a126-b57d-470d-9f43-73df029f50ba/resourceGroups/VES-RG-zUC1-NONPROD-SHR-AKV-Secrets-001/providers/Microsoft.KeyVault/vaults/N-4-Azure-Data-Factory",
+		"groupId": "vault",
+		"fqdns": [
+			"n-4-azure-data-factory.vaultcore.azure.net"
+		]
+	}
+}

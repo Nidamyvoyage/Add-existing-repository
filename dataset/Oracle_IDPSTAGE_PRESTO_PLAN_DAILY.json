@@ -1,0 +1,17 @@
+{
+	"name": "Oracle_IDPSTAGE_PRESTO_PLAN_DAILY",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Oracle_CODS_Intg",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "IDP_STAGE",
+			"table": "PRESTO_PLAN_DAILY"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

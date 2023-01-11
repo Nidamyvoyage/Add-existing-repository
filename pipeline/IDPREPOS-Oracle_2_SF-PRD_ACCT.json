@@ -1,0 +1,208 @@
+{
+	"name": "IDPREPOS-Oracle_2_SF-PRD_ACCT",
+	"properties": {
+		"activities": [
+			{
+				"name": "Oracle2ADLS-PRD_ACCT",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "IDP_REPOS.PRD_ACCT"
+					},
+					{
+						"name": "Destination",
+						"value": "CORE.PRD_ACCT"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "SnowflakeSink",
+						"importSettings": {
+							"type": "SnowflakeImportCopyCommand",
+							"additionalCopyOptions": {
+								"ON_ERROR": "CONTINUE"
+							}
+						}
+					},
+					"enableStaging": true,
+					"stagingSettings": {
+						"linkedServiceName": {
+							"referenceName": "Snowflake_staging_container",
+							"type": "LinkedServiceReference"
+						},
+						"path": "idprepos-poc",
+						"enableCompression": true
+					},
+					"enableSkipIncompatibleRow": true,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "PRD_ACCT_ID",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "PRD_ACCT_ID",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "PRD_ID",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "PRD_ID",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "ACCT_ID",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "ACCT_ID",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "RT_SCHED_ID",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "RT_SCHED_ID",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "ROW_STATUS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ROW_STATUS",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "RECORDED_START_DT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "RECORDED_START_DT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "RECORDED_END_DT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "RECORDED_END_DT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "BATCH_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BATCH_ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CHECK_SUM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CHECK_SUM",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATED_DT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "CREATED_DT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CREATED_BY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LAST_UPDATED_DT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "LAST_UPDATED_DT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "LAST_UPDATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LAST_UPDATED_BY",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "Oracle_IDPREPOS_PRD_ACCT",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "Snowflake_IDPREPOS_PRD_ACCT",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "IDPREPOS_2_SF_Load"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-08-29T19:25:17Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,40 @@
+{
+	"name": "MainframeDataProcessor-binary",
+	"properties": {
+		"description": "Mainframe binary format ADF processor",
+		"activities": [
+			{
+				"name": "MainframeBinaryToAdfJar",
+				"type": "DatabricksSparkJar",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"mainClassName": "com.voya.iif.MainframeCsvAzureLoadBinary",
+					"parameters": [],
+					"libraries": [
+						{
+							"jar": "dbfs:/FileStore/jars/ff77dbee_1953_48c8_8ae0_b2df17acf32a-iif_to_azure_binary_1_0-60e91.jar"
+						}
+					]
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureDatabricksForMainframe",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"folder": {
+			"name": "ADFMainframe"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-08-29T19:24:10Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

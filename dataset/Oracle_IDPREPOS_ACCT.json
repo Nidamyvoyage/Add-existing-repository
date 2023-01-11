@@ -1,0 +1,17 @@
+{
+	"name": "Oracle_IDPREPOS_ACCT",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Oracle_CODS_Intg",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "IDP_REPOS",
+			"table": "ACCT"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

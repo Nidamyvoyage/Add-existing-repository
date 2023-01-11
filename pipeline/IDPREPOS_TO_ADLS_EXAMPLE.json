@@ -1,0 +1,240 @@
+{
+	"name": "IDPREPOS_TO_ADLS_EXAMPLE",
+	"properties": {
+		"activities": [
+			{
+				"name": "IDPREPOS_TO_ADLS_TEST_COPY",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "ACCT_ID",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "ACCT_ID",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ACCT_CD",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ACCT_CD",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ACCT_NAME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ACCT_NAME",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ACCT_TYPE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ACCT_TYPE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ACCT_WRAPPER_IND",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ACCT_WRAPPER_IND",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ASSETS_MANAGED_BY_LE_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ASSETS_MANAGED_BY_LE_ID",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ASSETS_HELD_BY_LE_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ASSETS_HELD_BY_LE_ID",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ROW_STATUS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ROW_STATUS",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "RECORDED_START_DT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "RECORDED_START_DT",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "RECORDED_END_DT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "RECORDED_END_DT",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BATCH_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BATCH_ID",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CHECK_SUM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CHECK_SUM",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATED_DT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "CREATED_DT",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CREATED_BY",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LAST_UPDATED_DT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "LAST_UPDATED_DT",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LAST_UPDATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LAST_UPDATED_BY",
+									"type": "String",
+									"physicalType": "String"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "Oracle_IDPREPOS_ACCT",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ADLS_RYAN",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2022-08-29T19:25:17Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

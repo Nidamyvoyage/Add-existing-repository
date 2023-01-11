@@ -1,0 +1,35 @@
+{
+	"name": "DF_PersonIdentifier_Omni_Vips_copy1",
+	"properties": {
+		"folder": {
+			"name": "MDM"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DS_SQL_Omni_vips_daily_part_header",
+						"type": "DatasetReference"
+					},
+					"name": "LandingOmnivipsdailypartheader"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DS_CommnStage_PersonIdentifier",
+						"type": "DatasetReference"
+					},
+					"name": "sinkPersonIdentifierOminVips"
+				}
+			],
+			"transformations": [
+				{
+					"name": "derivedColumn1"
+				}
+			],
+			"script": "source(output(\n\t\tSOURCE_KEY as string,\n\t\tWS_EXT_PH_PART_NUM as string,\n\t\tWS_EXT_PH_NAME as string,\n\t\tWS_EXT_PH_BRTH_DATE as string,\n\t\tWS_EXT_PH_ADDR_L1 as string,\n\t\tWS_EXT_PH_ADDR_L2 as string,\n\t\tWS_EXT_PH_ADDR_L3 as string,\n\t\tWS_EXT_PH_CITY as string,\n\t\tWS_EXT_PH_STATE as string,\n\t\tWS_EXT_PH_ZIP as string,\n\t\tWS_EXT_PH_OMNI_VERSION as string,\n\t\tWS_EXT_PH_STAT as string,\n\t\tCHECK_SUM as string,\n\t\tCHANGE_CODE as string,\n\t\tbatch_id as string,\n\t\tcreateDateTime as timestamp,\n\t\tcreatedBy as string,\n\t\tlastUpdateDateTime as timestamp,\n\t\tlastUpdatedBy as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> LandingOmnivipsdailypartheader\nLandingOmnivipsdailypartheader derive(row_status = 'A',\n\t\tidentifierType = 'SSN',\n\t\tsrcdt = currentUTC(),\n\t\tSourceLastUpdateDateTime = currentUTC()) ~> derivedColumn1\nderivedColumn1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tidentifierType as string,\n\t\tidentifierValue as string,\n\t\tsrcPersonPkey as string,\n\t\tsourceSystem as string,\n\t\tsrcIdentPkey as string,\n\t\trow_status as string,\n\t\tbatch_id as string,\n\t\tcheck_sum as string,\n\t\tcreateDate as timestamp,\n\t\tcreatedBy as string,\n\t\tlastUpdateDateTime as timestamp,\n\t\tlastUpdatedBy as string,\n\t\tSourceCreateDateTime as timestamp,\n\t\tSourceLastUpdateDateTime as timestamp\n\t),\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\tidentifierType,\n\t\tidentifierValue = WS_EXT_PH_PART_NUM,\n\t\tsrcPersonPkey = SOURCE_KEY,\n\t\tsourceSystem = WS_EXT_PH_OMNI_VERSION,\n\t\trow_status,\n\t\tbatch_id,\n\t\tcheck_sum = CHECK_SUM,\n\t\tcreateDate = createDateTime,\n\t\tcreatedBy,\n\t\tlastUpdateDateTime,\n\t\tlastUpdatedBy,\n\t\tSourceCreateDateTime = srcdt,\n\t\tSourceLastUpdateDateTime\n\t)) ~> sinkPersonIdentifierOminVips"
+		}
+	}
+}

@@ -1,0 +1,142 @@
+{
+	"name": "fast_adls",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Azure_SHIR_Cloned",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "FAST_ADLS/PERSON",
+				"fileSystem": "mdm"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "PERSON_MDM_ID",
+				"type": "UTF8"
+			},
+			{
+				"name": "PARTY_TYPE",
+				"type": "UTF8"
+			},
+			{
+				"name": "PREFIX",
+				"type": "UTF8"
+			},
+			{
+				"name": "FIRST_NAME",
+				"type": "UTF8"
+			},
+			{
+				"name": "MIDDLE_NAME",
+				"type": "UTF8"
+			},
+			{
+				"name": "LAST_NAME",
+				"type": "UTF8"
+			},
+			{
+				"name": "SUFFIX",
+				"type": "UTF8"
+			},
+			{
+				"name": "FULL_NAME",
+				"type": "UTF8"
+			},
+			{
+				"name": "GENDER",
+				"type": "UTF8"
+			},
+			{
+				"name": "MARITAL_STATUS",
+				"type": "UTF8"
+			},
+			{
+				"name": "BIRTH_DT",
+				"type": "DATE"
+			},
+			{
+				"name": "BIRTH_PLACE",
+				"type": "UTF8"
+			},
+			{
+				"name": "DEATH_DT",
+				"type": "DATE"
+			},
+			{
+				"name": "SSN",
+				"type": "UTF8"
+			},
+			{
+				"name": "ITIN",
+				"type": "UTF8"
+			},
+			{
+				"name": "DRIVER_LICENSE",
+				"type": "UTF8"
+			},
+			{
+				"name": "PRIMARY_STREET_ADDR",
+				"type": "UTF8"
+			},
+			{
+				"name": "PRIMARY_ADDR_LINE1",
+				"type": "UTF8"
+			},
+			{
+				"name": "PRIMARY_ADDR_LINE2",
+				"type": "UTF8"
+			},
+			{
+				"name": "PRIMARY_ADDR_LINE3",
+				"type": "UTF8"
+			},
+			{
+				"name": "PRIMARY_ADDR_CITY",
+				"type": "UTF8"
+			},
+			{
+				"name": "PRIMARY_ADDR_STATECODE",
+				"type": "UTF8"
+			},
+			{
+				"name": "PRIMARY_ADDR_POSTALCODE",
+				"type": "UTF8"
+			},
+			{
+				"name": "PRIMARY_COUNTRYCODE",
+				"type": "UTF8"
+			},
+			{
+				"name": "PRIMARY_COUNTYNAME",
+				"type": "UTF8"
+			},
+			{
+				"name": "PERSON_FLAG",
+				"type": "UTF8"
+			},
+			{
+				"name": "SRC_SYS_NAME",
+				"type": "UTF8"
+			},
+			{
+				"name": "PERSON_CHECK_SUM",
+				"type": "UTF8"
+			},
+			{
+				"name": "PARTY_CHECK_SUM",
+				"type": "UTF8"
+			},
+			{
+				"name": "PARTY_TYPE_ID",
+				"type": "INT32"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

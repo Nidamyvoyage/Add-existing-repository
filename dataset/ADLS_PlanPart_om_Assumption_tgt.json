@@ -1,0 +1,23 @@
+{
+	"name": "ADLS_PlanPart_om_Assumption_tgt",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_blob_vesstzuc1unitedm002",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "ADLS_PlanPart_om_Assumption.csv",
+				"container": "dataconslidation"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

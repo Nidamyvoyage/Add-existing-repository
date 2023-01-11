@@ -1,0 +1,19 @@
+{
+	"name": "AzureDataLakeStorage2",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://vesstzuc1unitedm001.dfs.core.windows.net/",
+			"credential": {
+				"referenceName": "credential1",
+				"type": "CredentialReference"
+			}
+		},
+		"connectVia": {
+			"referenceName": "integrationRuntime-uuc1wshr9002",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

@@ -1,0 +1,17 @@
+{
+	"name": "Oracle_IDPSTAGE_AB_X930PB_SIERRA_PLAN_FUND_BAL",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Oracle_CODS_Intg",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "IDP_STAGE",
+			"table": "AB_X930PB_SIERRA_PLAN_FUND_BAL"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

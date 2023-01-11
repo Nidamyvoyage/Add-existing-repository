@@ -1,0 +1,220 @@
+{
+	"name": "PL_MAX_Person",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "SELECT * FROM CMDM_STAGE.EB_MAX_DGTAL_PERSN_INFO_FULL21",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "AzureSqlSink"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "FNAME"
+								},
+								"sink": {
+									"name": "firstName",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "MNAME1"
+								},
+								"sink": {
+									"name": "middleName",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "LNAME"
+								},
+								"sink": {
+									"name": "lastName",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "NAMESUFFIX"
+								},
+								"sink": {
+									"name": "suffix",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "GENDER"
+								},
+								"sink": {
+									"name": "gender",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "PERSON_TECHID"
+								},
+								"sink": {
+									"name": "srcPkey",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "SRC"
+								},
+								"sink": {
+									"name": "sourceSystem",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "SSN"
+								},
+								"sink": {
+									"name": "SSN",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "P_A_EMAIL"
+								},
+								"sink": {
+									"name": "primaryEmail",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "P_A_MAILLINE1"
+								},
+								"sink": {
+									"name": "streetAddress",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "P_A_MAILLINE2"
+								},
+								"sink": {
+									"name": "primaryAddrLine2",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "P_A_CITY"
+								},
+								"sink": {
+									"name": "primaryAddrCity",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "P_A_COUNTRY"
+								},
+								"sink": {
+									"name": "countryCD",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "P_A_POSTALCODE"
+								},
+								"sink": {
+									"name": "PostalCode5",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "ROW_STATUS"
+								},
+								"sink": {
+									"name": "status",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "RECORDED_START_DT"
+								},
+								"sink": {
+									"name": "lastUpdateDateTime",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_EB_MAX_DGTAL_PERSN_INFO_FULL",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_Person_STG",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "MDM/MAX"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-08-29T19:24:10Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

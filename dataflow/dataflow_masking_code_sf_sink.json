@@ -1,0 +1,38 @@
+{
+	"name": "dataflow_masking_code_sf_sink",
+	"properties": {
+		"folder": {
+			"name": "masking_code"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "AzureSqlmaskingemp",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "adlsmask",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "AlterRow1"
+				},
+				{
+					"name": "Masking"
+				}
+			],
+			"script": "source(output(\n\t\tempid as integer,\n\t\tempname as string,\n\t\tsal as integer\n\t),\n\tallowSchemaDrift: false,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> source1\nMasking alterRow(updateIf(true())) ~> AlterRow1\nsource1 derive(sal = toInteger(null()),\n\t\tempname = sha2(256,empname)) ~> Masking\nAlterRow1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tumask: 0022,\n\tpreCommands: [],\n\tpostCommands: [],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> sink1"
+		}
+	}
+}

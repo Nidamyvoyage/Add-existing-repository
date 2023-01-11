@@ -1,0 +1,92 @@
+{
+	"name": "filepickup_getmeta_copy2_wildcard",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"modifiedDatetimeStart": {
+								"value": "@string(formatDateTime(addDays(utcNow(),-1), 'yyyy-MM-dd'))\n",
+								"type": "Expression"
+							},
+							"wildcardFolderPath": "RS_OMNI/Test",
+							"wildcardFileName": {
+								"value": "@concat(pipeline().parameters.FileName,'.',replace(substring(addDays(utcNow(),-1),0,10),'-',''))\n",
+								"type": "Expression"
+							},
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings",
+							"copyBehavior": "MergeFiles"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".csv"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "filepicksrc_copy1",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "outputsink",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"parameters": {
+			"FileName": {
+				"type": "string",
+				"defaultValue": "file.OMNI"
+			}
+		},
+		"variables": {
+			"var": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "DataConsolidationR2/728950"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-10-13T14:38:03Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,214 @@
+{
+	"name": "DF_LND_STG_PersonAddr_Max_data_N",
+	"properties": {
+		"folder": {
+			"name": "MDM"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DS_EB_MAX_PERSON_INFO_STG",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_PERSON_ADDRESS_MAX",
+						"type": "DatasetReference"
+					},
+					"name": "TgtPersonAddrMax"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_PERSON_ADDRESS_MAX",
+						"type": "DatasetReference"
+					},
+					"name": "source2"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_PERSON_ADDRESS_MAX",
+						"type": "DatasetReference"
+					},
+					"name": "TGTADDRESSS"
+				},
+				{
+					"dataset": {
+						"referenceName": "sink_PERSON_ADDRESS",
+						"type": "DatasetReference"
+					},
+					"name": "source4"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DS_PERSON_ADDRESS_MAX",
+						"type": "DatasetReference"
+					},
+					"name": "PersonInsert"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_PERSON_ADDRESS_MAX",
+						"type": "DatasetReference"
+					},
+					"name": "person1insert"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_PERSON_ADDRESS_MAX",
+						"type": "DatasetReference"
+					},
+					"name": "personinsert1"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_PERSON_ADDRESS_MAX",
+						"type": "DatasetReference"
+					},
+					"name": "person1insert1"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_PERSON_ADDRESS_MAX",
+						"type": "DatasetReference"
+					},
+					"name": "person1update"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_PERSON_ADDRESS_MAX",
+						"type": "DatasetReference"
+					},
+					"name": "personupdate"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_PERSON_ADDRESS_MAX1",
+						"type": "DatasetReference"
+					},
+					"name": "personupdate1"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_PERSON_ADDRESS_MAX",
+						"type": "DatasetReference"
+					},
+					"name": "person1update1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "SourceDeleteInd"
+				},
+				{
+					"name": "Insert"
+				},
+				{
+					"name": "split5"
+				},
+				{
+					"name": "exists4"
+				},
+				{
+					"name": "split6"
+				},
+				{
+					"name": "split7"
+				},
+				{
+					"name": "exists5"
+				},
+				{
+					"name": "derivedColumn2"
+				},
+				{
+					"name": "derivedColumn3"
+				},
+				{
+					"name": "Insert2"
+				},
+				{
+					"name": "exists6"
+				},
+				{
+					"name": "derivedColumn4"
+				},
+				{
+					"name": "split8"
+				},
+				{
+					"name": "exists7"
+				},
+				{
+					"name": "split9"
+				},
+				{
+					"name": "alterRow1"
+				},
+				{
+					"name": "exists8"
+				},
+				{
+					"name": "split10"
+				},
+				{
+					"name": "exists9"
+				},
+				{
+					"name": "split11"
+				},
+				{
+					"name": "derivedColumn5"
+				},
+				{
+					"name": "alterRow2"
+				},
+				{
+					"name": "exists10"
+				},
+				{
+					"name": "derivedColumn6"
+				},
+				{
+					"name": "alterRow3"
+				},
+				{
+					"name": "exists11"
+				},
+				{
+					"name": "derivedColumn7"
+				},
+				{
+					"name": "alterRow4"
+				},
+				{
+					"name": "exists12"
+				},
+				{
+					"name": "exists13"
+				},
+				{
+					"name": "derivedColumn8"
+				},
+				{
+					"name": "derivedColumn9"
+				},
+				{
+					"name": "alterRow5"
+				},
+				{
+					"name": "alterRow6"
+				}
+			],
+			"script": "source(output(\n\t\tSOURCE_SYSTEM as string,\n\t\tSOURCE_KEY as string,\n\t\tPERSON_TECHID as string,\n\t\tTITLE as string,\n\t\tFNAME as string,\n\t\tMNAME as string,\n\t\tLNAME as string,\n\t\tNAMESUFFIX as string,\n\t\tFULL_NAME as string,\n\t\tDOB as date,\n\t\tGENDER as string,\n\t\tSSN as string,\n\t\tPRIMARY_ADDR_FLAG as string,\n\t\tSECONDARY_ADDR_FLAG as string,\n\t\tP_A_COUNTRY as string,\n\t\tP_A_MAILLINE1 as string,\n\t\tP_A_MAILLINE2 as string,\n\t\tP_A_CITY as string,\n\t\tP_A_STATE as string,\n\t\tP_A_POSTALCODE as string,\n\t\tP_ZIP_CODE5 as string,\n\t\tP_A_COUNTY as string,\n\t\tP_A_PHONE as string,\n\t\tP_A_CELLPHONE as string,\n\t\tP_A_FAX as string,\n\t\tP_A_TOLLFREENUMBER as string,\n\t\tP_A_EMAIL as string,\n\t\tS_A_COUNTRY as string,\n\t\tS_A_MAILLINE1 as string,\n\t\tS_A_MAILLINE2 as string,\n\t\tS_A_CITY as string,\n\t\tS_A_STATE as string,\n\t\tS_A_POSTALCODE as string,\n\t\tS_ZIP_CODE5 as string,\n\t\tS_A_COUNTY as string,\n\t\tS_A_PHONE as string,\n\t\tS_A_CELLPHONE as string,\n\t\tS_A_FAX as string,\n\t\tS_A_TOLLFREENUMBER as string,\n\t\tS_A_EMAIL as string,\n\t\tCHANGE_CODE as string,\n\t\tBATCH_ID as string,\n\t\tPERSON_CHECK_SUM as string,\n\t\tPERSONIDENT_CHECK_SUM as string,\n\t\tPERADDR_P_CHECK_SUM as string,\n\t\tPERADDR_S_CHECK_SUM as string,\n\t\tPERCONT_P_PH1_CHECK_SUM as string,\n\t\tPERCONT_P_PH2_CHECK_SUM as string,\n\t\tPERCONT_S_PH1_CHECK_SUM as string,\n\t\tPERCONT_P_EMAIL_CHECK_SUM as string,\n\t\tPERCONT_S_EMAIL_CHECK_SUM as string\n\t),\n\tallowSchemaDrift: false,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'SELECT \\nSOURCE_SYSTEM,SOURCE_KEY,PERSON_TECHID,TITLE,FNAME,MNAME,LNAME,NAMESUFFIX,TRIM(CONCAT(LNAME,\\', \\',FNAME,\\' \\',MNAME)) AS FULL_NAME,CAST(DOB as date) AS DOB,GENDER,SSN,PRIMARY_ADDR_FLAG,SECONDARY_ADDR_FLAG,P_A_COUNTRY,P_A_MAILLINE1,P_A_MAILLINE2,\\nP_A_CITY,P_A_STATE,P_A_POSTALCODE,P_ZIP_CODE5,P_A_COUNTY,P_A_PHONE,P_A_CELLPHONE,P_A_FAX,P_A_TOLLFREENUMBER,P_A_EMAIL,S_A_COUNTRY,S_A_MAILLINE1,S_A_MAILLINE2,S_A_CITY,S_A_STATE,S_A_POSTALCODE,S_ZIP_CODE5,S_A_COUNTY,S_A_PHONE,S_A_CELLPHONE,\\nS_A_FAX,S_A_TOLLFREENUMBER,S_A_EMAIL,CHANGE_CODE,BATCH_ID,\\nCONVERT(NVARCHAR(32),HashBytes(\\'MD5\\',ISNULL(TITLE,\\'2\\')+ISNULL(FNAME,\\'3\\')+ISNULL(MNAME,\\'4\\')+ISNULL(LNAME,\\'6\\')+ISNULL(NAMESUFFIX,\\'7\\')+ISNULL(DOB,\\'8\\')+ISNULL(GENDER,\\'9\\')+ISNULL(SSN,\\'10\\')+\\nISNULL(P_A_COUNTRY,\\'11\\')+ISNULL(P_A_MAILLINE1,\\'12\\')+ISNULL(P_A_MAILLINE2,\\'13\\')+ISNULL(P_A_CITY,\\'14\\')+ISNULL(P_A_STATE,\\'15\\')+ISNULL(P_A_POSTALCODE,\\'16\\')+ISNULL(P_A_COUNTY,\\'17\\')+ISNULL(P_A_CELLPHONE,\\'18\\')+\\nISNULL(P_A_EMAIL,\\'20\\')),2) PERSON_CHECK_SUM,\\nCONVERT(NVARCHAR(32),HashBytes(\\'MD5\\',ISNULL(SSN,\\'1\\')),2) PERSONIDENT_CHECK_SUM,\\nCONVERT(NVARCHAR(32),HashBytes(\\'MD5\\',ISNULL(P_A_COUNTRY,\\'11\\')+ISNULL(P_A_MAILLINE1,\\'12\\')+ISNULL(P_A_MAILLINE2,\\'13\\')+ISNULL(P_A_CITY,\\'14\\')+ISNULL(P_A_STATE,\\'15\\')+ISNULL(P_A_POSTALCODE,\\'16\\')+ISNULL(P_A_COUNTY,\\'17\\')),2) PERADDR_P_CHECK_SUM,\\nCONVERT(NVARCHAR(32),HashBytes(\\'MD5\\',ISNULL(S_A_COUNTRY,\\'21\\')+ISNULL(S_A_MAILLINE1,\\'22\\')+ISNULL(S_A_MAILLINE2,\\'23\\')+ISNULL(S_A_CITY,\\'24\\')+ISNULL(S_A_STATE,\\'25\\')+ISNULL(S_A_POSTALCODE,\\'26\\')+ISNULL(S_A_COUNTY,\\'27\\')),2) PERADDR_S_CHECK_SUM,\\nCONVERT(NVARCHAR(32),HashBytes(\\'MD5\\',ISNULL(P_A_CELLPHONE,\\'19\\')+\\'PERSONAL\\'+\\'PHONE\\'),2) PERCONT_P_PH1_CHECK_SUM,\\nCONVERT(NVARCHAR(32),HashBytes(\\'MD5\\',ISNULL(P_A_PHONE,\\'18\\')+\\'HOME\\'+\\'PHONE\\'),2) PERCONT_P_PH2_CHECK_SUM,\\nCONVERT(NVARCHAR(32),HashBytes(\\'MD5\\',ISNULL(S_A_CELLPHONE,\\'29\\')+\\'OTHER\\'+\\'PHONE\\'),2) PERCONT_S_PH1_CHECK_SUM,\\nCONVERT(NVARCHAR(32),HashBytes(\\'MD5\\',ISNULL(P_A_EMAIL,\\'20\\')+\\'PERSONAL\\'+\\'EMAIL\\'),2) PERCONT_P_EMAIL_CHECK_SUM,\\nCONVERT(NVARCHAR(32),HashBytes(\\'MD5\\',ISNULL(S_A_EMAIL,\\'20\\')+\\'OTHER\\'+\\'EMAIL\\'),2) PERCONT_S_EMAIL_CHECK_SUM\\nFROM (\\nSELECT SOURCE_SYSTEM,SOURCE_KEY,PERSON_TECHID,TITLE,FNAME,CASE WHEN MNAME1 IS NULL THEN MNAME2 ELSE MNAME1 END AS MNAME,LNAME,NAMESUFFIX,DOB,GENDER, SSN,\\nCASE WHEN ISNULL(P_A_MAILLINE1,\\'\\') <> \\'\\' OR ISNULL(P_A_MAILLINE2,\\'\\') <> \\'\\' THEN \\'Y\\' ELSE \\'N\\' END AS PRIMARY_ADDR_FLAG,\\nCASE WHEN ISNULL(S_A_MAILLINE1,\\'\\') <> \\'\\' OR ISNULL(S_A_MAILLINE2,\\'\\') <> \\'\\' THEN \\'Y\\' ELSE \\'N\\' END AS SECONDARY_ADDR_FLAG,\\nP_A_COUNTRY,P_A_MAILLINE1,P_A_MAILLINE2,P_A_CITY,P_A_STATE,P_A_POSTALCODE,SUBSTRING(P_A_POSTALCODE,1,5) P_ZIP_CODE5,P_A_COUNTY,CASE WHEN ISNULL(P_A_CELLPHONE,\\'\\') = \\'\\' THEN P_A_PHONE ELSE P_A_CELLPHONE END AS P_A_CELLPHONE,\\nCASE WHEN P_A_PHONE = P_A_CELLPHONE OR ISNULL(P_A_CELLPHONE,\\'\\') = \\'\\' THEN NULL ELSE P_A_PHONE END AS P_A_PHONE,P_A_FAX,P_A_TOLLFREENUMBER,P_A_EMAIL,S_A_COUNTRY,S_A_MAILLINE1,S_A_MAILLINE2,S_A_CITY,\\nS_A_STATE,S_A_POSTALCODE,SUBSTRING(S_A_POSTALCODE,1,5) S_ZIP_CODE5,S_A_COUNTY,CASE WHEN ISNULL(S_A_CELLPHONE,\\'\\') = \\'\\' THEN S_A_PHONE ELSE S_A_CELLPHONE END S_A_CELLPHONE,\\nCASE WHEN S_A_PHONE = S_A_CELLPHONE OR ISNULL(S_A_CELLPHONE,\\'\\') = \\'\\' THEN NULL ELSE S_A_PHONE END AS S_A_PHONE,S_A_FAX,S_A_TOLLFREENUMBER,\\nCASE WHEN S_A_EMAIL = P_A_EMAIL THEN NULL ELSE S_A_EMAIL END AS S_A_EMAIL,UPPER(CHANGE_CODE) CHANGE_CODE, batch_id FROM CMDM_STAGE.EB_MAX_DGTAL_PERSN_INFO_DELTA_STG) T',\n\tformat: 'query') ~> source1\nsource(output(\n\t\taddressType as string,\n\t\tstreetAddress as string,\n\t\taddressLine1 as string,\n\t\taddressLine2 as string,\n\t\taddressLine3 as string,\n\t\tcityName as string,\n\t\tstateCD as string,\n\t\tpostalCode as string,\n\t\tpoBox as string,\n\t\tmailBoxNumber as string,\n\t\tcountryCD as string,\n\t\tpostalCode5 as string,\n\t\tsrcPersonPkey as string,\n\t\tsourceSystem as string,\n\t\tsrcAddressPkey as string,\n\t\tprimaryFlag as string,\n\t\trow_status as string,\n\t\tbatch_id as string,\n\t\tcheck_sum as string,\n\t\tcreateDateTime as timestamp,\n\t\tcreatedBy as string,\n\t\tlastUpdateDateTime as timestamp,\n\t\tlastUpdatedBy as string,\n\t\tSourceLastUpdateDateTime as timestamp,\n\t\tSourceCreateDateTime as timestamp,\n\t\tcountyName as string\n\t),\n\tallowSchemaDrift: false,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'select * from [CMDM_STAGE].[PersonAddress] where sourceSystem=\\'EB-MAX\\'',\n\tformat: 'query') ~> TgtPersonAddrMax\nsource(output(\n\t\taddressType as string,\n\t\tstreetAddress as string,\n\t\taddressLine1 as string,\n\t\taddressLine2 as string,\n\t\taddressLine3 as string,\n\t\tcityName as string,\n\t\tstateCD as string,\n\t\tpostalCode as string,\n\t\tpoBox as string,\n\t\tmailBoxNumber as string,\n\t\tcountryCD as string,\n\t\tpostalCode5 as string,\n\t\tsrcPersonPkey as string,\n\t\tsourceSystem as string,\n\t\tsrcAddressPkey as string,\n\t\tprimaryFlag as string,\n\t\trow_status as string,\n\t\tbatch_id as string,\n\t\tcheck_sum as string,\n\t\tcreateDateTime as timestamp,\n\t\tcreatedBy as string,\n\t\tlastUpdateDateTime as timestamp,\n\t\tlastUpdatedBy as string,\n\t\tSourceLastUpdateDateTime as timestamp,\n\t\tSourceCreateDateTime as timestamp,\n\t\tcountyName as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'select * from [CMDM_STAGE].[PersonAddress] where sourceSystem=\\'EB-MAX\\'',\n\tformat: 'query') ~> source2\nsource(output(\n\t\taddressType as string,\n\t\tstreetAddress as string,\n\t\taddressLine1 as string,\n\t\taddressLine2 as string,\n\t\taddressLine3 as string,\n\t\tcityName as string,\n\t\tstateCD as string,\n\t\tpostalCode as string,\n\t\tpoBox as string,\n\t\tmailBoxNumber as string,\n\t\tcountryCD as string,\n\t\tpostalCode5 as string,\n\t\tsrcPersonPkey as string,\n\t\tsourceSystem as string,\n\t\tsrcAddressPkey as string,\n\t\tprimaryFlag as string,\n\t\trow_status as string,\n\t\tbatch_id as string,\n\t\tcheck_sum as string,\n\t\tcreateDateTime as timestamp,\n\t\tcreatedBy as string,\n\t\tlastUpdateDateTime as timestamp,\n\t\tlastUpdatedBy as string,\n\t\tSourceLastUpdateDateTime as timestamp,\n\t\tSourceCreateDateTime as timestamp,\n\t\tcountyName as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'select * from [CMDM_STAGE].[PersonAddress] where sourceSystem=\\'EB-MAX\\'',\n\tformat: 'query') ~> TGTADDRESSS\nsource(output(\n\t\taddressType as string,\n\t\tstreetAddress as string,\n\t\taddressLine1 as string,\n\t\taddressLine2 as string,\n\t\taddressLine3 as string,\n\t\tcityName as string,\n\t\tstateCD as string,\n\t\tpostalCode as string,\n\t\tpoBox as string,\n\t\tmailBoxNumber as string,\n\t\tcountryCD as string,\n\t\tpostalCode5 as string,\n\t\tsrcPersonPkey as string,\n\t\tsourceSystem as string,\n\t\tsrcAddressPkey as string,\n\t\tprimaryFlag as string,\n\t\trow_status as string,\n\t\tbatch_id as string,\n\t\tcheck_sum as string,\n\t\tcreateDateTime as timestamp,\n\t\tcreatedBy as string,\n\t\tlastUpdateDateTime as timestamp,\n\t\tlastUpdatedBy as string,\n\t\tSourceLastUpdateDateTime as timestamp,\n\t\tSourceCreateDateTime as timestamp,\n\t\tcountyName as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'select * from [CMDM_STAGE].[PersonAddress] where sourceSystem=\\'EB-MAX\\'',\n\tformat: 'query') ~> source4\nSourceDeleteInd derive(row_status = 'A',\n\t\tLastupdatetime = currentTimestamp(),\n\t\tcreatedttime = currentTimestamp(),\n\t\tcreatedBy = 'MYV_MAX_STG_TO_COMMON_CREATE_LOAD',\n\t\tlastUpdatedBy = 'MYV_MAX_STG_TO_COMMON_CREATE_LOAD',\n\t\taddressType = 'HOME') ~> derivedColumn1\nexists4 derive(SourceDeletedInd = 'N') ~> SourceDeleteInd\nderivedColumn1 alterRow(insertIf(true())) ~> Insert\nsplit6@primaryAddr split(CHANGE_CODE=='NEW',\n\tCHANGE_CODE=='NEW'||CHANGE_CODE=='UPDATE',\n\tdisjoint: true) ~> split5@(if2, if1)\nsplit5@if2, TgtPersonAddrMax exists((SOURCE_KEY == srcPersonPkey\n && SOURCE_SYSTEM == sourceSystem && row_status == 'A' && addressType == 'HOME'),\n\tnegate:true,\n\tbroadcast: 'auto')~> exists4\nsource1 split(PRIMARY_ADDR_FLAG=='Y',\n\tSECONDARY_ADDR_FLAG=='Y',\n\tdisjoint: true) ~> split6@(primaryAddr, secondaryAddr)\nsplit6@secondaryAddr split(CHANGE_CODE=='NEW',\n\tCHANGE_CODE=='NEW'||CHANGE_CODE=='UPDATE',\n\tdisjoint: true) ~> split7@(if, if3)\nsplit7@if, TgtPersonAddrMax exists((SOURCE_KEY == srcPersonPkey\n && SOURCE_SYSTEM == sourceSystem && row_status == 'A' && addressType == 'OTH'),\n\tnegate:true,\n\tbroadcast: 'auto')~> exists5\nexists5 derive(SourceDeletedInd = 'N') ~> derivedColumn2\nderivedColumn2 derive(primaryflag = 'N',\n\t\trow_status = 'A',\n\t\tlastUpdatedBy = 'MYV_MAX_STG_TO_COMMON_CREATE_LOAD',\n\t\tlastUpdatedateTime = currentTimestamp(),\n\t\tcreatedBy = 'MYV_MAX_STG_TO_COMMON_CREATE_LOAD',\n\t\tcreatedateTime = currentTimestamp(),\n\t\taddressType = 'OTH') ~> derivedColumn3\nderivedColumn3 alterRow(insertIf(true())) ~> Insert2\nsplit5@if1, TgtPersonAddrMax exists((SOURCE_KEY == srcPersonPkey\n && SOURCE_SYSTEM == sourceSystem && row_status == 'A' && addressType == 'HOME'),\n\tnegate:false,\n\tbroadcast: 'auto')~> exists6\nsplit9@i1 derive(addresstype = 'HOME',\n\t\tRowStatus = 'A',\n\t\tcdt = currentTimestamp(),\n\t\tlut = currentTimestamp(),\n\t\tcreatedby = 'MYV_MAX_STG_TO_COMMON_CREATE_LOAD',\n\t\tlub = 'MYV_MAX_STG_TO_COMMON_UPD_LOAD') ~> derivedColumn4\nexists6 split(CHANGE_CODE=='UPDATE'||CHANGE_CODE=='NEW',\n\tCHANGE_CODE=='NEW',\n\tdisjoint: true) ~> split8@(ifNeworUpdate, elseNew)\nsplit8@ifNeworUpdate, TgtPersonAddrMax exists(PERADDR_P_CHECK_SUM  == check_sum,\n\tnegate:true,\n\tbroadcast: 'auto')~> exists7\nexists7 split(CHANGE_CODE=='NEW'||CHANGE_CODE=='UPDATE',\n\tCHANGE_CODE=='NEW'||CHANGE_CODE=='UPDATE',\n\tdisjoint: true) ~> split9@(u1, i1)\nderivedColumn4 alterRow(insertIf(true())) ~> alterRow1\nsplit7@if3, TgtPersonAddrMax exists((SOURCE_KEY == srcPersonPkey\n && SOURCE_SYSTEM == sourceSystem && row_status == 'A' && addressType == 'OTH'),\n\tnegate:false,\n\tbroadcast: 'auto')~> exists8\nexists8 split(CHANGE_CODE=='UPDATE'||CHANGE_CODE=='NEW',\n\tCHANGE_CODE=='NEW',\n\tdisjoint: true) ~> split10@(ifNeworupd, elsenew1)\nsplit10@ifNeworupd, TgtPersonAddrMax exists(PERADDR_S_CHECK_SUM == check_sum,\n\tnegate:true,\n\tbroadcast: 'auto')~> exists9\nexists9 split(CHANGE_CODE=='NEW'||CHANGE_CODE=='UPDATE',\n\tCHANGE_CODE=='NEW'||CHANGE_CODE=='UPDATE',\n\tdisjoint: true) ~> split11@(u11, i11)\nsplit11@i11 derive(addresstype = 'OTH',\n\t\trow_status = 'A',\n\t\tcdt = currentTimestamp(),\n\t\tlut = currentTimestamp(),\n\t\tcb = 'MYV_MAX_STG_TO_COMMON_CREATE_LOAD',\n\t\tub = 'MYV_MAX_STG_TO_COMMON_UPD_LOAD') ~> derivedColumn5\nderivedColumn5 alterRow(insertIf(true())) ~> alterRow2\nsource2, split11@u11 exists(srcPersonPkey == SOURCE_KEY,\n\tnegate:false,\n\tbroadcast: 'auto')~> exists10\nexists10 derive(ROw_status = 'I',\n\t\tlut = currentTimestamp(),\n\t\tupdatedBy = 'MYV_MAX_STG_TO_COMMON_UPD_LOAD') ~> derivedColumn6\nderivedColumn6 alterRow(updateIf(true())) ~> alterRow3\nTGTADDRESSS, split9@u1 exists(srcPersonPkey == SOURCE_KEY,\n\tnegate:false,\n\tbroadcast: 'auto')~> exists11\nexists11 derive(ROw_status = 'I',\n\t\tlut = currentTimestamp(),\n\t\tupdatedBy = 'MYV_MAX_STG_TO_COMMON_UPD_LOAD') ~> derivedColumn7\nderivedColumn7 alterRow(updateIf(true())) ~> alterRow4\nsource4, split8@elseNew exists(check_sum == PERADDR_P_CHECK_SUM,\n\tnegate:false,\n\tbroadcast: 'auto')~> exists12\nTgtPersonAddrMax, split10@elsenew1 exists(check_sum == PERADDR_S_CHECK_SUM && row_status =='A',\n\tnegate:false,\n\tbroadcast: 'auto')~> exists13\nexists12 derive(rowStatus = 'A',\n\t\tLastupdated_Time = currentTimestamp(),\n\t\tbatchID = '103') ~> derivedColumn8\nexists13 derive(rowStatus1 = 'A',\n\t\tLastupdated_Time1 = currentTimestamp(),\n\t\tbatchID1 = '103') ~> derivedColumn9\nderivedColumn8 alterRow(updateIf(true())) ~> alterRow5\nderivedColumn9 alterRow(updateIf(true())) ~> alterRow6\nInsert sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\taddressType as string,\n\t\tstreetAddress as string,\n\t\taddressLine1 as string,\n\t\taddressLine2 as string,\n\t\taddressLine3 as string,\n\t\tcityName as string,\n\t\tstateCD as string,\n\t\tpostalCode as string,\n\t\tpoBox as string,\n\t\tmailBoxNumber as string,\n\t\tcountryCD as string,\n\t\tpostalCode5 as string,\n\t\tsrcPersonPkey as string,\n\t\tsourceSystem as string,\n\t\tsrcAddressPkey as string,\n\t\tprimaryFlag as string,\n\t\trow_status as string,\n\t\tbatch_id as string,\n\t\tcheck_sum as string,\n\t\tcreateDateTime as timestamp,\n\t\tcreatedBy as string,\n\t\tlastUpdateDateTime as timestamp,\n\t\tlastUpdatedBy as string,\n\t\tSourceLastUpdateDateTime as timestamp,\n\t\tSourceCreateDateTime as timestamp,\n\t\tcountyName as string\n\t),\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tsaveOrder: 7,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\tsrcPersonPkey = SOURCE_KEY,\n\t\tsourceSystem = SOURCE_SYSTEM,\n\t\tcheck_sum = PERADDR_P_CHECK_SUM,\n\t\trow_status,\n\t\taddressType,\n\t\taddressLine1 = P_A_MAILLINE1,\n\t\taddressLine2 = P_A_MAILLINE2,\n\t\tcityName = P_A_CITY,\n\t\tstateCD = P_A_STATE,\n\t\tcountryCD = P_A_COUNTRY,\n\t\tcountyName = P_A_COUNTY,\n\t\tpostalCode = P_A_POSTALCODE,\n\t\tpostalCode5 = P_ZIP_CODE5,\n\t\tprimaryFlag = PRIMARY_ADDR_FLAG,\n\t\tlastUpdateDateTime = Lastupdatetime,\n\t\tbatch_id = BATCH_ID,\n\t\tcreatedBy,\n\t\tcreateDateTime = createdttime,\n\t\tlastUpdatedBy\n\t)) ~> PersonInsert\nInsert2 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\taddressType as string,\n\t\tstreetAddress as string,\n\t\taddressLine1 as string,\n\t\taddressLine2 as string,\n\t\taddressLine3 as string,\n\t\tcityName as string,\n\t\tstateCD as string,\n\t\tpostalCode as string,\n\t\tpoBox as string,\n\t\tmailBoxNumber as string,\n\t\tcountryCD as string,\n\t\tpostalCode5 as string,\n\t\tsrcPersonPkey as string,\n\t\tsourceSystem as string,\n\t\tsrcAddressPkey as string,\n\t\tprimaryFlag as string,\n\t\trow_status as string,\n\t\tbatch_id as string,\n\t\tcheck_sum as string,\n\t\tcreateDateTime as timestamp,\n\t\tcreatedBy as string,\n\t\tlastUpdateDateTime as timestamp,\n\t\tlastUpdatedBy as string,\n\t\tSourceLastUpdateDateTime as timestamp,\n\t\tSourceCreateDateTime as timestamp,\n\t\tcountyName as string\n\t),\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tsaveOrder: 8,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\taddressType,\n\t\taddressLine1 = S_A_MAILLINE1,\n\t\taddressLine2 = S_A_MAILLINE2,\n\t\tcityName = S_A_CITY,\n\t\tstateCD = S_A_STATE,\n\t\tpostalCode = S_A_POSTALCODE,\n\t\tcountryCD = S_A_COUNTRY,\n\t\tpostalCode5 = S_ZIP_CODE5,\n\t\tsrcPersonPkey = SOURCE_KEY,\n\t\tsourceSystem = SOURCE_SYSTEM,\n\t\tprimaryFlag = primaryflag,\n\t\trow_status,\n\t\tbatch_id = BATCH_ID,\n\t\tcheck_sum = PERADDR_S_CHECK_SUM,\n\t\tcreateDateTime = createdateTime,\n\t\tcreatedBy,\n\t\tlastUpdateDateTime = lastUpdatedateTime,\n\t\tlastUpdatedBy,\n\t\tcountyName = S_A_COUNTY\n\t)) ~> person1insert\nalterRow1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\taddressType as string,\n\t\tstreetAddress as string,\n\t\taddressLine1 as string,\n\t\taddressLine2 as string,\n\t\taddressLine3 as string,\n\t\tcityName as string,\n\t\tstateCD as string,\n\t\tpostalCode as string,\n\t\tpoBox as string,\n\t\tmailBoxNumber as string,\n\t\tcountryCD as string,\n\t\tpostalCode5 as string,\n\t\tsrcPersonPkey as string,\n\t\tsourceSystem as string,\n\t\tsrcAddressPkey as string,\n\t\tprimaryFlag as string,\n\t\trow_status as string,\n\t\tbatch_id as string,\n\t\tcheck_sum as string,\n\t\tcreateDateTime as timestamp,\n\t\tcreatedBy as string,\n\t\tlastUpdateDateTime as timestamp,\n\t\tlastUpdatedBy as string,\n\t\tSourceLastUpdateDateTime as timestamp,\n\t\tSourceCreateDateTime as timestamp,\n\t\tcountyName as string\n\t),\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tsaveOrder: 5,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\taddressType = addresstype,\n\t\taddressLine1 = P_A_MAILLINE1,\n\t\taddressLine2 = P_A_MAILLINE2,\n\t\tcityName = P_A_CITY,\n\t\tstateCD = P_A_STATE,\n\t\tpostalCode = P_A_POSTALCODE,\n\t\tcountryCD = P_A_COUNTRY,\n\t\tpostalCode5 = P_ZIP_CODE5,\n\t\tsrcPersonPkey = SOURCE_KEY,\n\t\tsourceSystem = SOURCE_SYSTEM,\n\t\tprimaryFlag = PRIMARY_ADDR_FLAG,\n\t\trow_status = RowStatus,\n\t\tbatch_id = BATCH_ID,\n\t\tcheck_sum = PERADDR_P_CHECK_SUM,\n\t\tcreateDateTime = cdt,\n\t\tcreatedBy = createdby,\n\t\tlastUpdateDateTime = lut,\n\t\tlastUpdatedBy = lub,\n\t\tcountyName = P_A_COUNTY\n\t)) ~> personinsert1\nalterRow2 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\taddressType as string,\n\t\tstreetAddress as string,\n\t\taddressLine1 as string,\n\t\taddressLine2 as string,\n\t\taddressLine3 as string,\n\t\tcityName as string,\n\t\tstateCD as string,\n\t\tpostalCode as string,\n\t\tpoBox as string,\n\t\tmailBoxNumber as string,\n\t\tcountryCD as string,\n\t\tpostalCode5 as string,\n\t\tsrcPersonPkey as string,\n\t\tsourceSystem as string,\n\t\tsrcAddressPkey as string,\n\t\tprimaryFlag as string,\n\t\trow_status as string,\n\t\tbatch_id as string,\n\t\tcheck_sum as string,\n\t\tcreateDateTime as timestamp,\n\t\tcreatedBy as string,\n\t\tlastUpdateDateTime as timestamp,\n\t\tlastUpdatedBy as string,\n\t\tSourceLastUpdateDateTime as timestamp,\n\t\tSourceCreateDateTime as timestamp,\n\t\tcountyName as string\n\t),\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tsaveOrder: 6,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\taddressType = addresstype,\n\t\taddressLine1 = S_A_MAILLINE1,\n\t\taddressLine2 = S_A_MAILLINE2,\n\t\tcityName = S_A_CITY,\n\t\tstateCD = S_A_STATE,\n\t\tpostalCode = S_A_POSTALCODE,\n\t\tcountryCD = S_A_COUNTRY,\n\t\tpostalCode5 = P_ZIP_CODE5,\n\t\tsrcPersonPkey = SOURCE_KEY,\n\t\tsourceSystem = SOURCE_KEY,\n\t\tprimaryFlag = SECONDARY_ADDR_FLAG,\n\t\trow_status,\n\t\tbatch_id = BATCH_ID,\n\t\tcheck_sum = PERADDR_S_CHECK_SUM,\n\t\tcreateDateTime = cdt,\n\t\tcreatedBy = cb,\n\t\tlastUpdateDateTime = lut,\n\t\tlastUpdatedBy = ub,\n\t\tcountyName = S_A_COUNTY\n\t)) ~> person1insert1\nalterRow3 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\taddressType as string,\n\t\tstreetAddress as string,\n\t\taddressLine1 as string,\n\t\taddressLine2 as string,\n\t\taddressLine3 as string,\n\t\tcityName as string,\n\t\tstateCD as string,\n\t\tpostalCode as string,\n\t\tpoBox as string,\n\t\tmailBoxNumber as string,\n\t\tcountryCD as string,\n\t\tpostalCode5 as string,\n\t\tsrcPersonPkey as string,\n\t\tsourceSystem as string,\n\t\tsrcAddressPkey as string,\n\t\tprimaryFlag as string,\n\t\trow_status as string,\n\t\tbatch_id as string,\n\t\tcheck_sum as string,\n\t\tcreateDateTime as timestamp,\n\t\tcreatedBy as string,\n\t\tlastUpdateDateTime as timestamp,\n\t\tlastUpdatedBy as string,\n\t\tSourceLastUpdateDateTime as timestamp,\n\t\tSourceCreateDateTime as timestamp,\n\t\tcountyName as string\n\t),\n\tdeletable:false,\n\tinsertable:false,\n\tupdateable:true,\n\tupsertable:false,\n\tkeys:['addressType','batch_id'],\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tsaveOrder: 4,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\taddressType,\n\t\tstreetAddress,\n\t\taddressLine1,\n\t\taddressLine2,\n\t\taddressLine3,\n\t\tcityName,\n\t\tstateCD,\n\t\tpostalCode,\n\t\tpoBox,\n\t\tmailBoxNumber,\n\t\tcountryCD,\n\t\tpostalCode5,\n\t\tsrcPersonPkey,\n\t\tsourceSystem,\n\t\tsrcAddressPkey,\n\t\tprimaryFlag,\n\t\trow_status = derivedColumn6@ROw_status,\n\t\tbatch_id,\n\t\tcheck_sum,\n\t\tcreateDateTime,\n\t\tcreatedBy,\n\t\tlastUpdateDateTime = lut,\n\t\tlastUpdatedBy = updatedBy,\n\t\tcountyName\n\t)) ~> person1update\nalterRow4 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\taddressType as string,\n\t\tstreetAddress as string,\n\t\taddressLine1 as string,\n\t\taddressLine2 as string,\n\t\taddressLine3 as string,\n\t\tcityName as string,\n\t\tstateCD as string,\n\t\tpostalCode as string,\n\t\tpoBox as string,\n\t\tmailBoxNumber as string,\n\t\tcountryCD as string,\n\t\tpostalCode5 as string,\n\t\tsrcPersonPkey as string,\n\t\tsourceSystem as string,\n\t\tsrcAddressPkey as string,\n\t\tprimaryFlag as string,\n\t\trow_status as string,\n\t\tbatch_id as string,\n\t\tcheck_sum as string,\n\t\tcreateDateTime as timestamp,\n\t\tcreatedBy as string,\n\t\tlastUpdateDateTime as timestamp,\n\t\tlastUpdatedBy as string,\n\t\tSourceLastUpdateDateTime as timestamp,\n\t\tSourceCreateDateTime as timestamp,\n\t\tcountyName as string\n\t),\n\tdeletable:false,\n\tinsertable:false,\n\tupdateable:true,\n\tupsertable:false,\n\tkeys:['srcPersonPkey','batch_id'],\n\tskipKeyWrites:true,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tsaveOrder: 3,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\taddressType,\n\t\tstreetAddress,\n\t\taddressLine1,\n\t\taddressLine2,\n\t\taddressLine3,\n\t\tcityName,\n\t\tstateCD,\n\t\tpostalCode,\n\t\tpoBox,\n\t\tmailBoxNumber,\n\t\tcountryCD,\n\t\tpostalCode5,\n\t\tsrcPersonPkey,\n\t\tsourceSystem,\n\t\tsrcAddressPkey,\n\t\tprimaryFlag,\n\t\trow_status = derivedColumn7@ROw_status,\n\t\tbatch_id,\n\t\tcheck_sum,\n\t\tcreateDateTime,\n\t\tcreatedBy,\n\t\tlastUpdateDateTime,\n\t\tlastUpdatedBy = updatedBy,\n\t\tSourceLastUpdateDateTime,\n\t\tSourceCreateDateTime,\n\t\tcountyName\n\t)) ~> personupdate\nalterRow5 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\taddressType as string,\n\t\tstreetAddress as string,\n\t\taddressLine1 as string,\n\t\taddressLine2 as string,\n\t\taddressLine3 as string,\n\t\tcityName as string,\n\t\tstateCD as string,\n\t\tpostalCode as string,\n\t\tpoBox as string,\n\t\tmailBoxNumber as string,\n\t\tcountryCD as string,\n\t\tpostalCode5 as string,\n\t\tsrcPersonPkey as string,\n\t\tsourceSystem as string,\n\t\tsrcAddressPkey as string,\n\t\tprimaryFlag as string,\n\t\trow_status as string,\n\t\tbatch_id as string,\n\t\tcheck_sum as string,\n\t\tcreateDateTime as timestamp,\n\t\tcreatedBy as string,\n\t\tlastUpdateDateTime as timestamp,\n\t\tlastUpdatedBy as string,\n\t\tSourceLastUpdateDateTime as timestamp,\n\t\tSourceCreateDateTime as timestamp,\n\t\tcountyName as string\n\t),\n\tdeletable:false,\n\tinsertable:false,\n\tupdateable:true,\n\tupsertable:false,\n\tkeys:['srcPersonPkey','row_status'],\n\tskipKeyWrites:true,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tsaveOrder: 1,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\taddressType,\n\t\tstreetAddress,\n\t\taddressLine1,\n\t\taddressLine2,\n\t\taddressLine3,\n\t\tcityName,\n\t\tstateCD,\n\t\tpostalCode,\n\t\tpoBox,\n\t\tmailBoxNumber,\n\t\tsrcPersonPkey,\n\t\tcountryCD,\n\t\tpostalCode5,\n\t\tsourceSystem,\n\t\tsrcAddressPkey,\n\t\tprimaryFlag,\n\t\trow_status = rowStatus,\n\t\tbatch_id = batchID,\n\t\tcheck_sum,\n\t\tcreateDateTime,\n\t\tcreatedBy,\n\t\tlastUpdateDateTime = Lastupdated_Time,\n\t\tlastUpdatedBy,\n\t\tSourceLastUpdateDateTime,\n\t\tSourceCreateDateTime,\n\t\tcountyName\n\t)) ~> personupdate1\nalterRow6 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\taddressType as string,\n\t\tstreetAddress as string,\n\t\taddressLine1 as string,\n\t\taddressLine2 as string,\n\t\taddressLine3 as string,\n\t\tcityName as string,\n\t\tstateCD as string,\n\t\tpostalCode as string,\n\t\tpoBox as string,\n\t\tmailBoxNumber as string,\n\t\tcountryCD as string,\n\t\tpostalCode5 as string,\n\t\tsrcPersonPkey as string,\n\t\tsourceSystem as string,\n\t\tsrcAddressPkey as string,\n\t\tprimaryFlag as string,\n\t\trow_status as string,\n\t\tbatch_id as string,\n\t\tcheck_sum as string,\n\t\tcreateDateTime as timestamp,\n\t\tcreatedBy as string,\n\t\tlastUpdateDateTime as timestamp,\n\t\tlastUpdatedBy as string,\n\t\tSourceLastUpdateDateTime as timestamp,\n\t\tSourceCreateDateTime as timestamp,\n\t\tcountyName as string\n\t),\n\tdeletable:false,\n\tinsertable:false,\n\tupdateable:true,\n\tupsertable:false,\n\tkeys:['srcPersonPkey','row_status'],\n\tskipKeyWrites:true,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tsaveOrder: 2,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\taddressType,\n\t\tstreetAddress,\n\t\taddressLine1,\n\t\taddressLine2,\n\t\taddressLine3,\n\t\tcityName,\n\t\tstateCD,\n\t\tpostalCode,\n\t\tpoBox,\n\t\tmailBoxNumber,\n\t\tcountryCD,\n\t\tpostalCode5,\n\t\tsourceSystem,\n\t\tsrcPersonPkey,\n\t\tsrcAddressPkey,\n\t\tprimaryFlag,\n\t\trow_status = rowStatus1,\n\t\tbatch_id = batchID1,\n\t\tcheck_sum,\n\t\tcreateDateTime,\n\t\tcreatedBy,\n\t\tlastUpdateDateTime = Lastupdated_Time1,\n\t\tlastUpdatedBy,\n\t\tSourceLastUpdateDateTime,\n\t\tSourceCreateDateTime,\n\t\tcountyName\n\t)) ~> person1update1"
+		}
+	}
+}

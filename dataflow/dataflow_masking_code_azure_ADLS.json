@@ -1,0 +1,38 @@
+{
+	"name": "dataflow_masking_code_azure_ADLS",
+	"properties": {
+		"folder": {
+			"name": "masking_code"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "AzureSqlmaskingemp",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "sample_adls_masking_omni",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "AlterRow1"
+				},
+				{
+					"name": "Masking"
+				}
+			],
+			"script": "source(output(\n\t\tempid as integer,\n\t\tempname as string,\n\t\tsal as integer\n\t),\n\tallowSchemaDrift: false,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> source1\nMasking alterRow(updateIf(true())) ~> AlterRow1\nsource1 derive(sal = toInteger(null()),\n\t\tempname = sha2(256,empname)) ~> Masking\nAlterRow1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tid as string,\n\t\tname as string,\n\t\tgender as string,\n\t\tcountry as string,\n\t\tdepartment_id as string\n\t),\n\tumask: 0022,\n\tpreCommands: [],\n\tpostCommands: [],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> sink1"
+		}
+	}
+}

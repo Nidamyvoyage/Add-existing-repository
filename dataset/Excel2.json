@@ -1,0 +1,140 @@
+{
+	"name": "Excel2",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_dfs_vesstzuc1unitedm001",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "Sheet1",
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "src_day2.xlsx",
+				"folderPath": "FAST_PERSON/src3",
+				"fileSystem": "mdm"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "PERSON_MDM_ID",
+				"type": "String"
+			},
+			{
+				"name": "PREFIX",
+				"type": "String"
+			},
+			{
+				"name": "FULL_NAME",
+				"type": "String"
+			},
+			{
+				"name": "FIRST_NAME",
+				"type": "String"
+			},
+			{
+				"name": "MIDDLE_NAME",
+				"type": "String"
+			},
+			{
+				"name": "LAST_NAME",
+				"type": "String"
+			},
+			{
+				"name": "SUFFIX",
+				"type": "String"
+			},
+			{
+				"name": "GENDER",
+				"type": "String"
+			},
+			{
+				"name": "BIRTH_DT",
+				"type": "String"
+			},
+			{
+				"name": "BIRTH_PLACE",
+				"type": "String"
+			},
+			{
+				"name": "DEATH_DT",
+				"type": "String"
+			},
+			{
+				"name": "MARITAL_STATUS",
+				"type": "String"
+			},
+			{
+				"name": "SSN",
+				"type": "String"
+			},
+			{
+				"name": "ITIN",
+				"type": "String"
+			},
+			{
+				"name": "DRIVER_LICENSE",
+				"type": "String"
+			},
+			{
+				"name": "PRIMARY_STREET_ADDR",
+				"type": "String"
+			},
+			{
+				"name": "PRIMARY_ADDR_LINE1",
+				"type": "String"
+			},
+			{
+				"name": "PRIMARY_ADDR_LINE2",
+				"type": "String"
+			},
+			{
+				"name": "PRIMARY_ADDR_LINE3",
+				"type": "String"
+			},
+			{
+				"name": "PRIMARY_ADDR_CITY",
+				"type": "String"
+			},
+			{
+				"name": "PRIMARY_ADDR_STATECODE",
+				"type": "String"
+			},
+			{
+				"name": "PRIMARY_ADDR_POSTALCODE",
+				"type": "String"
+			},
+			{
+				"name": "PRIMARY_COUNTRYCODE",
+				"type": "String"
+			},
+			{
+				"name": "PRIMARY_COUNTYNAME",
+				"type": "String"
+			},
+			{
+				"name": "PERSON_FLAG",
+				"type": "String"
+			},
+			{
+				"name": "SRC_SYS_NAME",
+				"type": "String"
+			},
+			{
+				"name": "Del_Ind",
+				"type": "String"
+			},
+			{
+				"name": "BATCH_ID",
+				"type": "String"
+			},
+			{
+				"name": "PERSON_CHECK_SUM",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

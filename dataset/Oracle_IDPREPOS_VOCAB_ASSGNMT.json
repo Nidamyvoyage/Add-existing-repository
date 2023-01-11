@@ -1,0 +1,17 @@
+{
+	"name": "Oracle_IDPREPOS_VOCAB_ASSGNMT",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Oracle_CODS_Intg",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "IDP_REPOS",
+			"table": "VOCAB_ASSGNMT"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

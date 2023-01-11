@@ -1,0 +1,35 @@
+{
+	"name": "dataset_s_emp",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_blob_vesstzuc1unitedm002",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "Sheet1",
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "S_EMP_POC_1.xlsx",
+				"container": "pocsource"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "empid",
+				"type": "String"
+			},
+			{
+				"name": "empname",
+				"type": "String"
+			},
+			{
+				"name": "sal",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

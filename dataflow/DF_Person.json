@@ -1,0 +1,116 @@
+{
+	"name": "DF_Person",
+	"properties": {
+		"folder": {
+			"name": "MDM"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable29",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable30",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [],
+			"scriptLines": [
+				"source(output(",
+				"          SOURCE_KEY as string,",
+				"          WS_EXT_PH_PART_NUM as string,",
+				"          WS_EXT_PH_NAME as string,",
+				"          WS_EXT_PH_BRTH_DATE as string,",
+				"          WS_EXT_PH_ADDR_L1 as string,",
+				"          WS_EXT_PH_ADDR_L2 as string,",
+				"          WS_EXT_PH_ADDR_L3 as string,",
+				"          WS_EXT_PH_CITY as string,",
+				"          WS_EXT_PH_STATE as string,",
+				"          WS_EXT_PH_ZIP as string,",
+				"          WS_EXT_PH_OMNI_VERSION as string,",
+				"          WS_EXT_PH_STAT as string,",
+				"          CHECK_SUM as string,",
+				"          CHANGE_CODE as string,",
+				"          batch_id as string,",
+				"          createDateTime as timestamp,",
+				"          createdBy as string,",
+				"          lastUpdateDateTime as timestamp,",
+				"          lastUpdatedBy as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     query: 'SELECT SOURCE_KEY,WS_EXT_PH_PART_NUM,WS_EXT_PH_NAME,LAST_NAME,\\nCASE WHEN CHARINDEX(\\' \\',FIRST_NAME) > 0 THEN trim(SUBSTRING(FIRST_NAME,1,CHARINDEX(\\' \\',FIRST_NAME))) ELSE FIRST_NAME END AS FIRST_NAME,\\nCASE WHEN CHARINDEX(\\' \\',FIRST_NAME) > 0 THEN trim(SUBSTRING(FIRST_NAME,CHARINDEX(\\' \\',FIRST_NAME),LEN(FIRST_NAME))) ELSE NULL END AS MIDDLE_NAME,\\nWS_EXT_PH_BRTH_DATE,WS_EXT_PH_ADDR_L1,WS_EXT_PH_ADDR_L2,WS_EXT_PH_ADDR_L3,WS_EXT_PH_CITY,WS_EXT_PH_STATE,WS_EXT_PH_ZIP,ZIP_CODE5,WS_EXT_PH_OMNI_VERSION,CHANGE_CODE,\\nCOUNTRY_CODE,WS_EXT_PH_STAT,PERSON_CHECK_SUM,PERADDR_CHECK_SUM,PERSONIDENT_CHECK_SUM\\nFROM (\\nSELECT A.SOURCE_KEY,A.WS_EXT_PH_PART_NUM,UPPER(A.WS_EXT_PH_NAME) WS_EXT_PH_NAME, \\nCASE WHEN A.ws_ext_ph_name like \\'%,%\\' THEN UPPER(trim(SUBSTRING(A.ws_ext_ph_name,1,(CHARINDEX(\\',\\',A.ws_ext_ph_name)-1))))\\nELSE UPPER(A.WS_EXT_PH_NAME) END AS LAST_NAME,\\nCASE WHEN A.ws_ext_ph_name like \\'%,%\\' THEN UPPER(trim(SUBSTRING(A.ws_ext_ph_name,CHARINDEX(\\',\\',A.ws_ext_ph_name)+1,LEN(A.ws_ext_ph_name)))) \\nELSE NULL END AS FIRST_NAME,\\nCAST(A.WS_EXT_PH_BRTH_DATE as date) as WS_EXT_PH_BRTH_DATE,UPPER(A.WS_EXT_PH_ADDR_L1) WS_EXT_PH_ADDR_L1,UPPER(A.WS_EXT_PH_ADDR_L2) WS_EXT_PH_ADDR_L2,UPPER(A.WS_EXT_PH_ADDR_L3) WS_EXT_PH_ADDR_L3,\\nUPPER(A.WS_EXT_PH_CITY) WS_EXT_PH_CITY,CASE WHEN UPPER(A.WS_EXT_PH_STATE)=\\'US\\' THEN NULL ELSE UPPER(A.WS_EXT_PH_STATE) END WS_EXT_PH_STATE ,\\nA.WS_EXT_PH_ZIP,SUBSTRING(A.WS_EXT_PH_ZIP,1,5) ZIP_CODE5,UPPER(A.WS_EXT_PH_OMNI_VERSION) WS_EXT_PH_OMNI_VERSION,UPPER(A.CHANGE_CODE) CHANGE_CODE,UPPER(B.COUNTRY_CODE) COUNTRY_CODE,UPPER(A.WS_EXT_PH_STAT) WS_EXT_PH_STAT,\\nCONVERT(NVARCHAR(32),HashBytes(\\'MD5\\',ISNULL(WS_EXT_PH_NAME,\\'1\\')+ISNULL(WS_EXT_PH_PART_NUM,\\'2\\')+ISNULL(WS_EXT_PH_BRTH_DATE,\\'3\\')+ISNULL(WS_EXT_PH_ADDR_L1,\\'4\\')+ISNULL(WS_EXT_PH_ADDR_L2,\\'5\\')+\\nISNULL(WS_EXT_PH_ADDR_L3,\\'6\\')+ISNULL(WS_EXT_PH_CITY,\\'7\\')+ISNULL(WS_EXT_PH_STATE,\\'8\\')+ISNULL(WS_EXT_PH_ZIP,\\'9\\')+ISNULL(WS_EXT_PH_STAT,\\'10\\')    ),2) PERSON_CHECK_SUM,\\nCONVERT(NVARCHAR(32),HashBytes(\\'MD5\\',ISNULL(WS_EXT_PH_ADDR_L1,\\'4\\')+ISNULL(WS_EXT_PH_ADDR_L2,\\'5\\')+ISNULL(WS_EXT_PH_ADDR_L3,\\'6\\')+ISNULL(WS_EXT_PH_CITY,\\'7\\')+ISNULL(WS_EXT_PH_STATE,\\'8\\')+ISNULL(WS_EXT_PH_ZIP,\\'9\\')),2) PERADDR_CHECK_SUM,\\nCONVERT(NVARCHAR(32),HashBytes(\\'MD5\\',ISNULL(WS_EXT_PH_PART_NUM,\\'2\\')),2) PERSONIDENT_CHECK_SUM\\nFROM CMDM_STAGE.RS_OMNI_VIPS_DAILY_PART_HEADER_DELTA_STG A LEFT JOIN \\nCMDM_STAGE.STATE_MASTER B ON UPPER(TRIM(A.WS_EXT_PH_STATE)) = UPPER(TRIM(B.STATE_CODE))\\n) T',",
+				"     format: 'query') ~> source1",
+				"source1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          prefix as string,",
+				"          FullName as string,",
+				"          firstName as string,",
+				"          middleName as string,",
+				"          lastName as string,",
+				"          suffix as string,",
+				"          gender as string,",
+				"          birthdate as date,",
+				"          birthPlace as string,",
+				"          srcPkey as string,",
+				"          sourceSystem as string,",
+				"          SSN as string,",
+				"          ITIN as string,",
+				"          driverLicense as string,",
+				"          primaryEmail as string,",
+				"          primeryPhone as string,",
+				"          streetAddress as string,",
+				"          primaryAddrLine1 as string,",
+				"          primaryAddrLine2 as string,",
+				"          primaryAddrLine3 as string,",
+				"          primaryAddrCity as string,",
+				"          primaryAddrState as string,",
+				"          primaryAddrPostalCode as string,",
+				"          countryCD as string,",
+				"          countyName as string,",
+				"          PostalCode5 as string,",
+				"          SourceDeletedInd as string,",
+				"          SourceStatus as string,",
+				"          row_status as string,",
+				"          batch_id as string,",
+				"          check_sum as string,",
+				"          createDateTime as timestamp,",
+				"          createdBy as string,",
+				"          lastUpdateDateTime as timestamp,",
+				"          lastUpdatedBy as string,",
+				"          SourceCreateDateTime as timestamp,",
+				"          SourceLastUpdateDateTime as timestamp",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          FullName = WS_EXT_PH_NAME,",
+				"          batch_id,",
+				"          check_sum = CHECK_SUM,",
+				"          createDateTime,",
+				"          createdBy,",
+				"          lastUpdateDateTime,",
+				"          lastUpdatedBy",
+				"     )) ~> sink1"
+			]
+		}
+	}
+}

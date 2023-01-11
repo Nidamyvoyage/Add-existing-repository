@@ -1,0 +1,499 @@
+{
+	"name": "PL_Onperm_AzureSQL_Omni_vips",
+	"properties": {
+		"activities": [
+			{
+				"name": "Omni_vips_daily_part_header",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "AzureSqlSink"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "SOURCE_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SOURCE_ID",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_PLAN_NUM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_PLAN_NUM",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_PART_NUM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_PART_NUM",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_NAME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_NAME",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_PART_DIV_SUB",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_PART_DIV_SUB",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_BRTH_DATE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_BRTH_DATE",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_PLENT_DATE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_PLENT_DATE",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_ADDR_L1",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_ADDR_L1",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_ADDR_L2",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_ADDR_L2",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_ADDR_L3",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_ADDR_L3",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_CITY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_CITY",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_STATE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_STATE",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_ZIP",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_ZIP",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_STAT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_STAT",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_TERM_DATE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_TERM_DATE",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_LAST_CNTRB_DATE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_LAST_CNTRB_DATE",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_STAT_REASON",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_STAT_REASON",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_LOC_TAX_CODE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_LOC_TAX_CODE",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_ALT_STATE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_ALT_STATE",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_FIRST_CNTRB_DATE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_FIRST_CNTRB_DATE",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_ATTAINED_AGE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_ATTAINED_AGE",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_PF999_BAL",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_PF999_BAL",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_PA999_BAL",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_PA999_BAL",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_ADV_ACCT_IND",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_ADV_ACCT_IND",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_OMNI_VERSION",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_OMNI_VERSION",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BATCH_ID",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "BATCH_ID",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "CHECK_SUM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CHECK_SUM",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATED_AT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "CREATED_AT",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CREATED_BY",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATED_IN_SOURCE_AT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "CREATED_IN_SOURCE_AT",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATED_IN_SOURCE_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CREATED_IN_SOURCE_BY",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "CURRENT_ROW_INDICATOR",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CURRENT_ROW_INDICATOR",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "SOURCE_CMDB_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SOURCE_CMDB_ID",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_VRR_PL_STATUS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_VRR_PL_STATUS",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_VRR_PL_TERM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_VRR_PL_TERM",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_CONV_PL_NUM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_CONV_PL_NUM",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_CLIENT_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_CLIENT_ID",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_SUB_CLIENT_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_SUB_CLIENT_ID",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_SSO_CLIENT_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_SSO_CLIENT_ID",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_CLIENT_STATUS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_CLIENT_STATUS",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_Omni_vips_daily_part_header_SRC",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_Omni_vips_daily_part_header_AZSQL",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "MDM/OMNI_VIPS"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-08-29T19:25:37Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

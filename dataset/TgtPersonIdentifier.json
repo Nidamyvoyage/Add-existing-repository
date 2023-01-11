@@ -1,0 +1,82 @@
+{
+	"name": "TgtPersonIdentifier",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase_MDMU3",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "identifierType",
+				"type": "varchar"
+			},
+			{
+				"name": "identifierValue",
+				"type": "varchar"
+			},
+			{
+				"name": "srcPersonPkey",
+				"type": "varchar"
+			},
+			{
+				"name": "sourceSystem",
+				"type": "varchar"
+			},
+			{
+				"name": "srcIdentPkey",
+				"type": "varchar"
+			},
+			{
+				"name": "row_status",
+				"type": "varchar"
+			},
+			{
+				"name": "batch_id",
+				"type": "varchar"
+			},
+			{
+				"name": "check_sum",
+				"type": "varchar"
+			},
+			{
+				"name": "createDate",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "createdBy",
+				"type": "varchar"
+			},
+			{
+				"name": "lastUpdateDateTime",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "lastUpdatedBy",
+				"type": "varchar"
+			},
+			{
+				"name": "SourceCreateDateTime",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "SourceLastUpdateDateTime",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			}
+		],
+		"typeProperties": {
+			"schema": "CMDM_STAGE",
+			"table": "PersonIdentifier"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,87 @@
+{
+	"name": "DS_PHONE_NUM_TGT",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlServer_EBX",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "DS_MDM"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "CONTACT_CHNL_ID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "SITE_ID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "PHONE_NUM",
+				"type": "varchar"
+			},
+			{
+				"name": "EXT",
+				"type": "varchar"
+			},
+			{
+				"name": "AREA_CD",
+				"type": "varchar"
+			},
+			{
+				"name": "COUNTRY_CD",
+				"type": "varchar"
+			},
+			{
+				"name": "PHONE_NUM_TYPE",
+				"type": "varchar"
+			},
+			{
+				"name": "ROW_STATUS",
+				"type": "varchar"
+			},
+			{
+				"name": "RECORDED_START_DT",
+				"type": "date"
+			},
+			{
+				"name": "RECORDED_END_DT",
+				"type": "date"
+			},
+			{
+				"name": "BATCH_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "CHECK_SUM",
+				"type": "varchar"
+			},
+			{
+				"name": "CREATED_DT",
+				"type": "date"
+			},
+			{
+				"name": "CREATED_BY",
+				"type": "varchar"
+			},
+			{
+				"name": "LAST_UPDATED_DT",
+				"type": "date"
+			},
+			{
+				"name": "LAST_UPDATED_BY",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "CMDM_STAGE",
+			"table": "PHONE_NUM"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

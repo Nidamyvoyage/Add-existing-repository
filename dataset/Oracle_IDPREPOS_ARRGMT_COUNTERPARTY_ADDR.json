@@ -1,0 +1,17 @@
+{
+	"name": "Oracle_IDPREPOS_ARRGMT_COUNTERPARTY_ADDR",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Oracle_CODS_Intg",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "IDP_REPOS",
+			"table": "ARRGMT_COUNTERPARTY_ADDR"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

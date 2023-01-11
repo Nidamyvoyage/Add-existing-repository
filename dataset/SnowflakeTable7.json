@@ -1,0 +1,17 @@
+{
+	"name": "SnowflakeTable7",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "MyVoyageSnowflake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SnowflakeTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "MYVOYAGE_CLEANSED",
+			"table": "OMNI_VIPS_DAILY_PART_HEADER"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

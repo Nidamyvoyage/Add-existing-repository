@@ -1,0 +1,17 @@
+{
+	"name": "PUBLISH_PERSON_CONT",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase_MDMU3",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "MDM_PUBLISH",
+			"table": "EBX_MDM_PERSON_CONT"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

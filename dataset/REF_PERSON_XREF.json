@@ -1,0 +1,95 @@
+{
+	"name": "REF_PERSON_XREF",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "MyVoyageSnowflake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SnowflakeTable",
+		"schema": [
+			{
+				"name": "SOURCEIDENTIFIER",
+				"type": "VARCHAR",
+				"precision": 55,
+				"scale": 0
+			},
+			{
+				"name": "SOURCEIDENTIFIERTYPE",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "SOURCESYSTEM",
+				"type": "VARCHAR",
+				"precision": 55,
+				"scale": 0
+			},
+			{
+				"name": "SSN",
+				"type": "VARCHAR",
+				"precision": 9,
+				"scale": 0
+			},
+			{
+				"name": "DATEOFBIRTH",
+				"type": "TIMESTAMP_NTZ",
+				"precision": 29,
+				"scale": 9
+			},
+			{
+				"name": "MDM_ID",
+				"type": "VARCHAR",
+				"precision": 36,
+				"scale": 0
+			},
+			{
+				"name": "CREATEDATETIME",
+				"type": "TIMESTAMP_NTZ",
+				"precision": 29,
+				"scale": 9
+			},
+			{
+				"name": "CREATEDBY",
+				"type": "VARCHAR",
+				"precision": 50,
+				"scale": 0
+			},
+			{
+				"name": "LASTUPDATEDATETIME",
+				"type": "TIMESTAMP_NTZ",
+				"precision": 29,
+				"scale": 9
+			},
+			{
+				"name": "LASTUPDATEDBY",
+				"type": "VARCHAR",
+				"precision": 50,
+				"scale": 0
+			},
+			{
+				"name": "PARTY_ID",
+				"type": "VARCHAR",
+				"precision": 36,
+				"scale": 0
+			},
+			{
+				"name": "REF_AS_OF_DATE",
+				"type": "TIMESTAMP_NTZ",
+				"precision": 29,
+				"scale": 9
+			},
+			{
+				"name": "CURRENT_FLAG",
+				"type": "VARCHAR",
+				"precision": 1,
+				"scale": 0
+			}
+		],
+		"typeProperties": {
+			"schema": "MYVOYAGE_REFERENCE",
+			"table": "MDM_PERSON_XREF"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

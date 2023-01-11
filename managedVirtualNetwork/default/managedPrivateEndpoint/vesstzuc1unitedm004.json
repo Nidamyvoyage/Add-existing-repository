@@ -1,0 +1,10 @@
+{
+	"name": "vesstzuc1unitedm004",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/8964a126-b57d-470d-9f43-73df029f50ba/resourceGroups/VES-RG-zUC1-UNIT-EDM-001/providers/Microsoft.Storage/storageAccounts/vesstzuc1unitedm004",
+		"groupId": "dfs",
+		"fqdns": [
+			"vesstzuc1unitedm004.dfs.core.windows.net"
+		]
+	}
+}

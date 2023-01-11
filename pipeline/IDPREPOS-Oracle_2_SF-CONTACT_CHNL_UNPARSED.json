@@ -1,0 +1,299 @@
+{
+	"name": "IDPREPOS-Oracle_2_SF-CONTACT_CHNL_UNPARSED",
+	"properties": {
+		"activities": [
+			{
+				"name": "Oracle2ADLS-CONTACT_CHNL_UNPARSED",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "SnowflakeSink",
+						"importSettings": {
+							"type": "SnowflakeImportCopyCommand",
+							"additionalCopyOptions": {
+								"ON_ERROR": "CONTINUE"
+							}
+						}
+					},
+					"enableStaging": true,
+					"stagingSettings": {
+						"linkedServiceName": {
+							"referenceName": "Snowflake_staging_container",
+							"type": "LinkedServiceReference"
+						},
+						"path": "idprepos-poc",
+						"enableCompression": true
+					},
+					"enableSkipIncompatibleRow": true,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "CONTACT_CHNL_UNPARSED_ID",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "CONTACT_CHNL_UNPARSED_ID",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "CONTACT_CHNL_ID",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "CONTACT_CHNL_ID",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "ISSUER_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ISSUER_ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ADDR_LINE_1_RAW",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ADDR_LINE_1_RAW",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ADDR_LINE_2_RAW",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ADDR_LINE_2_RAW",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ADDR_LINE_3_RAW",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ADDR_LINE_3_RAW",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ADDR_LINE_4_RAW",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ADDR_LINE_4_RAW",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ADDR_LINE_5_RAW",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ADDR_LINE_5_RAW",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ADDR_LINE_6_RAW",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ADDR_LINE_6_RAW",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MUNICIPALITY_RAW",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MUNICIPALITY_RAW",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "STATE_RAW",
+									"type": "String"
+								},
+								"sink": {
+									"name": "STATE_RAW",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "POSTAL_CD_AREA_RAW",
+									"type": "String"
+								},
+								"sink": {
+									"name": "POSTAL_CD_AREA_RAW",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COUNTRY_RAW",
+									"type": "String"
+								},
+								"sink": {
+									"name": "COUNTRY_RAW",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "UNPARSED_CONTACT_CHNL",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UNPARSED_CONTACT_CHNL",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ROW_STATUS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ROW_STATUS",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "RECORDED_START_DT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "RECORDED_START_DT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "RECORDED_END_DT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "RECORDED_END_DT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "BATCH_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BATCH_ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CHECK_SUM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CHECK_SUM",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATED_DT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "CREATED_DT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CREATED_BY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LAST_UPDATED_DT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "LAST_UPDATED_DT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "LAST_UPDATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LAST_UPDATED_BY",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "Oracle_IDPREPOS_CONTACT_CHNL_UNPARSED",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "Snowflake_IDPREPOS_CONTACT_CHNL_UNPARSED",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "IDPREPOS_2_SF_Load"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-08-29T19:25:17Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

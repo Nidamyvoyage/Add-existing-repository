@@ -1,0 +1,23 @@
+{
+	"name": "CRM_HealthSolutions_UNIT",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "Snowflake",
+		"typeProperties": {
+			"connectionString": "jdbc:snowflake://voyatest.central-us.privatelink.snowflakecomputing.com/?user=sid_adf_healthsolutions_unit&db=HEALTHSOLUTIONS_UNIT&warehouse=WH_HEALTHSOLUTIONS_WRITE&role=ROLE_HEALTHSOLUTIONS_UNIT_DATA_WRITER_ALL",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "N_4_Salesforce_Health_1",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "sid-adf-healthsolutions-unit-password"
+			}
+		},
+		"connectVia": {
+			"referenceName": "integrationRuntime-uuc1wshr9002",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

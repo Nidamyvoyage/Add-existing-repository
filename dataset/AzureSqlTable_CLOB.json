@@ -1,0 +1,64 @@
+{
+	"name": "AzureSqlTable_CLOB",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlServer_EBX",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "CUSTOMER_PROFILE_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "CLIENT_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "TYPE",
+				"type": "varchar"
+			},
+			{
+				"name": "CREATED_TS",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "CREATED_BY",
+				"type": "varchar"
+			},
+			{
+				"name": "UPDATED_TS",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "UPDATED_BY",
+				"type": "varchar"
+			},
+			{
+				"name": "DATA_CLOB",
+				"type": "varchar"
+			},
+			{
+				"name": "DATA",
+				"type": "varchar"
+			},
+			{
+				"name": "FW_VISITED_DATE",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			}
+		],
+		"typeProperties": {
+			"schema": "CMDM_STAGE",
+			"table": "CUSTOMER_CALCULATIONS"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

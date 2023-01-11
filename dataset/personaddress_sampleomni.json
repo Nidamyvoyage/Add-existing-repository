@@ -1,0 +1,130 @@
+{
+	"name": "personaddress_sampleomni",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase_MDMU3",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "addressType",
+				"type": "varchar"
+			},
+			{
+				"name": "streetAddress",
+				"type": "varchar"
+			},
+			{
+				"name": "addressLine1",
+				"type": "varchar"
+			},
+			{
+				"name": "addressLine2",
+				"type": "varchar"
+			},
+			{
+				"name": "addressLine3",
+				"type": "varchar"
+			},
+			{
+				"name": "cityName",
+				"type": "varchar"
+			},
+			{
+				"name": "stateCD",
+				"type": "varchar"
+			},
+			{
+				"name": "postalCode",
+				"type": "varchar"
+			},
+			{
+				"name": "poBox",
+				"type": "varchar"
+			},
+			{
+				"name": "mailBoxNumber",
+				"type": "varchar"
+			},
+			{
+				"name": "countryCD",
+				"type": "varchar"
+			},
+			{
+				"name": "postalCode5",
+				"type": "varchar"
+			},
+			{
+				"name": "srcPersonPkey",
+				"type": "varchar"
+			},
+			{
+				"name": "sourceSystem",
+				"type": "varchar"
+			},
+			{
+				"name": "srcAddressPkey",
+				"type": "varchar"
+			},
+			{
+				"name": "primaryFlag",
+				"type": "varchar"
+			},
+			{
+				"name": "row_status",
+				"type": "varchar"
+			},
+			{
+				"name": "batch_id",
+				"type": "varchar"
+			},
+			{
+				"name": "check_sum",
+				"type": "varchar"
+			},
+			{
+				"name": "createDateTime",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "createdBy",
+				"type": "varchar"
+			},
+			{
+				"name": "lastUpdateDateTime",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "lastUpdatedBy",
+				"type": "varchar"
+			},
+			{
+				"name": "SourceLastUpdateDateTime",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "SourceCreateDateTime",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "countyName",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "CMDM_STAGE",
+			"table": "PersonAddress_sample_5data"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

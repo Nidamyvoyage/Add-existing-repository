@@ -1,0 +1,88 @@
+{
+	"name": "DS_Census_SRC",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_blob_vesstzuc1unitedm002",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "DS_MDM"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "NRGUID_TEST_EB_CENSUS_20210730.txt",
+				"container": "mdm"
+			},
+			"columnDelimiter": "|",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "EMPLOYER_ID\t",
+				"type": "String"
+			},
+			{
+				"name": "EMPLOYER_NAME\t",
+				"type": "String"
+			},
+			{
+				"name": "POLICY_NUMBER",
+				"type": "String"
+			},
+			{
+				"name": "\tPOLICY_NAME",
+				"type": "String"
+			},
+			{
+				"name": "LOB\t",
+				"type": "String"
+			},
+			{
+				"name": "SOURCE_INFO",
+				"type": "String"
+			},
+			{
+				"name": "FIRST_NAME",
+				"type": "String"
+			},
+			{
+				"name": "LAST_NAME",
+				"type": "String"
+			},
+			{
+				"name": "EMPLOYEE_ID",
+				"type": "String"
+			},
+			{
+				"name": "DATE_OF_BIRTH",
+				"type": "String"
+			},
+			{
+				"name": "SSN",
+				"type": "String"
+			},
+			{
+				"name": "EMAIL",
+				"type": "String"
+			},
+			{
+				"name": "MOBILE_PHONE",
+				"type": "String"
+			},
+			{
+				"name": "WELCOME_NUDGE",
+				"type": "String"
+			},
+			{
+				"name": "ACTIVE_STATUS",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

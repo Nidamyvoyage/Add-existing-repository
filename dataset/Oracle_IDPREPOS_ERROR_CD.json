@@ -1,0 +1,17 @@
+{
+	"name": "Oracle_IDPREPOS_ERROR_CD",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Oracle_CODS_Intg",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "IDP_REPOS",
+			"table": "ERROR_CD"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

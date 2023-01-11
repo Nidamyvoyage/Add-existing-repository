@@ -1,0 +1,10 @@
+{
+	"name": "AzureSqlDatabaseuuc1asql8001",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/8964a126-b57d-470d-9f43-73df029f50ba/resourceGroups/VES-RG-zUC1-UNIT-SQL-001/providers/Microsoft.Sql/servers/uuc1asql8001",
+		"groupId": "sqlServer",
+		"fqdns": [
+			"uuc1asql8001.database.windows.net"
+		]
+	}
+}

@@ -1,0 +1,32 @@
+{
+	"name": "VES-zuc1-EDM-unit-ADF-001",
+	"properties": {
+		"globalParameters": {
+			"SRC_SYS_NM": {
+				"type": "string",
+				"value": {
+					"SRC_SYS_NM_OLTP": "OLTP",
+					"SRC_SYS_NM_APPDB": "APPDB",
+					"SRC_SYS_NM_KPD": "KPD",
+					"SRC_SYS_NM_CODS": "CODS"
+				}
+			}
+		}
+	},
+	"location": "centralus",
+	"identity": {
+		"type": "SystemAssigned,UserAssigned",
+		"principalId": "d4d01848-6cec-4251-ab0b-f62e61b50b8d",
+		"tenantId": "e3054106-a46a-4dc0-b86d-2ba84a24cdc4",
+		"userAssignedIdentities": {
+			"/subscriptions/8964a126-b57d-470d-9f43-73df029f50ba/resourcegroups/VES-RG-zUC1-UNIT-EDM-001/providers/Microsoft.ManagedIdentity/userAssignedIdentities/UNIT-EDM-ManagedId": {
+				"clientId": "bb8d0cd6-8f74-4770-8f93-c977f7ffb192",
+				"principalId": "312cd32c-e7d4-4de8-9129-9dab5dc1af3c"
+			},
+			"/subscriptions/8964a126-b57d-470d-9f43-73df029f50ba/resourcegroups/VES-RG-zUC1-UNIT-EDM-001/providers/Microsoft.ManagedIdentity/userAssignedIdentities/ID-UC1-U-EDM-U001": {
+				"clientId": "4bf0648b-60e0-4b41-8855-a58416c8b925",
+				"principalId": "a237a277-c5b0-4af6-aade-bf59f5b2ec2b"
+			}
+		}
+	}
+}

@@ -1,0 +1,176 @@
+{
+	"name": "ADLS_to_OnPrem_CODS_PARTY_XREF",
+	"properties": {
+		"activities": [
+			{
+				"name": "ADLS  to On-prem",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "OracleSink",
+						"writeBatchSize": 10000
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "PARTY_ID",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "PARTY_ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SSN",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "SSN",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "DATE_OF_BIRTH",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "DATE_OF_BIRTH",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "SOURCE_SYSTEM",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "SOURCE_SYSTEM",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATED_TS",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "CREATED_TS",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATED_BY",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "CREATED_BY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "UPDATED_TS",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "UPDATED_TS",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "UPDATED_BY",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "UPDATED_BY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CHECK_SUM",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "CHECK_SUM",
+									"type": "Byte[]"
+								}
+							},
+							{
+								"source": {
+									"name": "SALESFORCE_CONTACT_ID",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "SALESFORCE_CONTACT_ID",
+									"type": "String"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "Adls_Sample_CODS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "Oracle_CODS_sample",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "DataConsolidationR1/Others/728527"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-09-20T10:40:15Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,35 @@
+{
+	"name": "DF_LNG_CMN_STG_PersonAddress_OMNI VIPS",
+	"properties": {
+		"folder": {
+			"name": "MDM"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DS_Omni_vips_daily_part_header_AZSQL",
+						"type": "DatasetReference"
+					},
+					"name": "Omnivipsdailypartheader"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DS_PersonAddress_TGT",
+						"type": "DatasetReference"
+					},
+					"name": "PersonAddress"
+				}
+			],
+			"transformations": [
+				{
+					"name": "AddingAuditFields"
+				}
+			],
+			"script": "source(output(\n\t\tSOURCE_ID as string,\n\t\tWS_EXT_PH_PLAN_NUM as string,\n\t\tWS_EXT_PH_PART_NUM as string,\n\t\tWS_EXT_PH_NAME as string,\n\t\tWS_EXT_PH_PART_DIV_SUB as string,\n\t\tWS_EXT_PH_BRTH_DATE as string,\n\t\tWS_EXT_PH_PLENT_DATE as string,\n\t\tWS_EXT_PH_ADDR_L1 as string,\n\t\tWS_EXT_PH_ADDR_L2 as string,\n\t\tWS_EXT_PH_ADDR_L3 as string,\n\t\tWS_EXT_PH_CITY as string,\n\t\tWS_EXT_PH_STATE as string,\n\t\tWS_EXT_PH_ZIP as string,\n\t\tWS_EXT_PH_STAT as string,\n\t\tWS_EXT_PH_TERM_DATE as string,\n\t\tWS_EXT_PH_LAST_CNTRB_DATE as string,\n\t\tWS_EXT_PH_STAT_REASON as string,\n\t\tWS_EXT_PH_LOC_TAX_CODE as string,\n\t\tWS_EXT_PH_ALT_STATE as string,\n\t\tWS_EXT_PH_FIRST_CNTRB_DATE as string,\n\t\tWS_EXT_PH_ATTAINED_AGE as string,\n\t\tWS_EXT_PH_PF999_BAL as string,\n\t\tWS_EXT_PH_PA999_BAL as string,\n\t\tWS_EXT_PH_ADV_ACCT_IND as string,\n\t\tWS_EXT_PH_OMNI_VERSION as string,\n\t\tBATCH_ID as string,\n\t\tCHECK_SUM as string,\n\t\tCREATED_AT as timestamp,\n\t\tCREATED_BY as string,\n\t\tCREATED_IN_SOURCE_AT as timestamp,\n\t\tCREATED_IN_SOURCE_BY as string,\n\t\tCURRENT_ROW_INDICATOR as string,\n\t\tSOURCE_CMDB_ID as string,\n\t\tWS_EXT_PH_VRR_PL_STATUS as string,\n\t\tWS_EXT_PH_VRR_PL_TERM as string,\n\t\tWS_EXT_PH_CONV_PL_NUM as string,\n\t\tWS_EXT_PH_CLIENT_ID as string,\n\t\tWS_EXT_PH_SUB_CLIENT_ID as string,\n\t\tWS_EXT_PH_SSO_CLIENT_ID as string,\n\t\tWS_EXT_PH_CLIENT_STATUS as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'SELECT\\nWS_EXT_PH_ADDR_L1,\\nWS_EXT_PH_ADDR_L2,\\nWS_EXT_PH_CITY,\\nRtrim(WS_EXT_PH_STATE),\\nWS_EXT_PH_ZIP,\\nSOURCE_ID,\\n\\'Office\\' as AddressType,\\n\\'US\\' as CountryCode,\\n\\'Y\\' as primaryFlag,\\n\\'A\\' as Status,\\nRtrim(WS_EXT_PH_OMNI_VERSION)\\nFROM CMDM_STAGE.Omni_vips_daily_part_header\\nWHERE batch_id = 28810 AND trim (WS_EXT_PH_PLAN_NUM) in \\n(\\'361110\\',\\'450716\\',\\'450599\\',\\'625065\\',\\'620049\\',\\'620018\\',\\'450104\\',\\'452517\\',\\'450628\\',\\'620129\\',\\'625065\\',\\'711028\\',\\'740004\\',\\n\\'740013\\',\\'454601\\',\\'450067\\',\\n\\'620020\\',\\'623021\\',\\'450019\\',\\'627065\\',\\'625065\\',\\'450594\\');',\n\tformat: 'query') ~> Omnivipsdailypartheader\nOmnivipsdailypartheader derive(CREATED_BY = currentUTC()) ~> AddingAuditFields\nAddingAuditFields sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\taddressType as string,\n\t\tstreetAddress as string,\n\t\taddressLine1 as string,\n\t\taddressLine2 as string,\n\t\taddressLine3 as string,\n\t\tcityName as string,\n\t\tstateCD as string,\n\t\tpostalCode as string,\n\t\tpoBox as string,\n\t\tmailBoxNumber as string,\n\t\tcountryCD as string,\n\t\tpostalCode5 as string,\n\t\tsrcPersonPkey as string,\n\t\tsourceSystem as string,\n\t\tsrcAddressPkey as string,\n\t\tstatus as string,\n\t\tprimaryFlag as string,\n\t\tcreateDateTime as timestamp,\n\t\tcreatedBy as string,\n\t\tlastUpdateDateTime as timestamp,\n\t\tlastUpdatedBy as string\n\t),\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError') ~> PersonAddress"
+		}
+	}
+}

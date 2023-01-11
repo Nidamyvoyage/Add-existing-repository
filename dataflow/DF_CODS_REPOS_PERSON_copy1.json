@@ -1,0 +1,149 @@
+{
+	"name": "DF_CODS_REPOS_PERSON_copy1",
+	"properties": {
+		"folder": {
+			"name": "MDM"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DS_AZURESQL_CODS_REPOS_STG",
+						"type": "DatasetReference"
+					},
+					"name": "SourceCodsPerson"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_PERSON_CODS_TGT",
+						"type": "DatasetReference"
+					},
+					"name": "TgtPersoncods"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_PERSON_CODS_TGT",
+						"type": "DatasetReference"
+					},
+					"name": "Tgtperson2"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_PERSON_CODS_TGT",
+						"type": "DatasetReference"
+					},
+					"name": "TgtPerson3"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DS_PERSON_CODS_SINK",
+						"type": "DatasetReference"
+					},
+					"name": "PersonInsert",
+					"rejectedDataLinkedService": {
+						"referenceName": "ls_dfs_vesstzuc1unitedm001",
+						"type": "LinkedServiceReference"
+					}
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_PERSON_OMNIVIPS_SINK",
+						"type": "DatasetReference"
+					},
+					"name": "personUpdate"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_PERSON_CODS_SINK",
+						"type": "DatasetReference"
+					},
+					"name": "personinsert1cods",
+					"rejectedDataLinkedService": {
+						"referenceName": "ls_dfs_vesstzuc1unitedm001",
+						"type": "LinkedServiceReference"
+					}
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_PERSON_CODS_SINK",
+						"type": "DatasetReference"
+					},
+					"name": "persondelete"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_PERSON_CODS_SINK",
+						"type": "DatasetReference"
+					},
+					"name": "personupdt1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "SourceDeleteInd"
+				},
+				{
+					"name": "Insert"
+				},
+				{
+					"name": "split3"
+				},
+				{
+					"name": "doesntexists1"
+				},
+				{
+					"name": "derivedColumn2"
+				},
+				{
+					"name": "updated"
+				},
+				{
+					"name": "exists2"
+				},
+				{
+					"name": "split4"
+				},
+				{
+					"name": "derivedColumn3"
+				},
+				{
+					"name": "insert1"
+				},
+				{
+					"name": "split5"
+				},
+				{
+					"name": "notexists4"
+				},
+				{
+					"name": "exists6"
+				},
+				{
+					"name": "exists7"
+				},
+				{
+					"name": "derivedColumn5"
+				},
+				{
+					"name": "deleteupdate"
+				},
+				{
+					"name": "exists8"
+				},
+				{
+					"name": "derivedColumn6"
+				},
+				{
+					"name": "updatetrue"
+				}
+			],
+			"script": "source(output(\n\t\tSOURCE_KEY as string,\n\t\tSOURCE_SYSTEM as string,\n\t\tPSEUDO_MDM_ID as string,\n\t\tSSN as string,\n\t\tDATE_OF_BIRTH as string,\n\t\tSALESFORCE_CONTACT_ID as string,\n\t\tSOURCE_SYSTEM_UNDERLYING as string,\n\t\tPARTY_TYPE as string,\n\t\tFULL_NAME as string,\n\t\tPREFIX_NAME as string,\n\t\tFIRST_NAME as string,\n\t\tMIDDLE_NAME as string,\n\t\tLAST_NAME as string,\n\t\tSUFFIX_NAME as string,\n\t\tGENDER as string,\n\t\tCHANGE_CODE as string,\n\t\tbatch_id as string,\n\t\tPERSON_CHECK_SUM as string,\n\t\tPERSONIDENT_CHECK_SUM as string\n\t),\n\tallowSchemaDrift: false,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: '\\nSELECT SOURCE_KEY,SOURCE_SYSTEM,PSEUDO_MDM_ID,SSN,DATE_OF_BIRTH,SALESFORCE_CONTACT_ID,SOURCE_SYSTEM_UNDERLYING,PARTY_TYPE,\\nFULL_NAME,PREFIX_NAME,FIRST_NAME,MIDDLE_NAME,LAST_NAME,SUFFIX_NAME,GENDER,CHANGE_CODE ,batch_id,\\nCONVERT(NVARCHAR(32),HashBytes(\\'MD5\\',ISNULL(SSN,\\'1\\')+ISNULL(CAST(DATE_OF_BIRTH AS VARCHAR),\\'2\\')+ISNULL(SALESFORCE_CONTACT_ID,\\'3\\')+ISNULL(SOURCE_SYSTEM_UNDERLYING,\\'4\\')+ISNULL(PARTY_TYPE,\\'5\\')+ISNULL(FULL_NAME,\\'6\\')+ISNULL(PREFIX_NAME,\\'7\\')+ISNULL(FIRST_NAME,\\'8\\')+ISNULL(MIDDLE_NAME,\\'9\\')+ISNULL(LAST_NAME,\\'10\\') +ISNULL(SUFFIX_NAME,\\'11\\')+ISNULL(GENDER,\\'12\\') ),2) PERSON_CHECK_SUM,\\nCONVERT(NVARCHAR(32),HashBytes(\\'MD5\\',ISNULL(SSN ,\\'1\\')),2) PERSONIDENT_CHECK_SUM\\nFROM CMDM_STAGE.RS_CODS_REPOS_PARTY_DELTA_STG_day1 ',\n\tformat: 'query') ~> SourceCodsPerson\nsource(output(\n\t\tprefix as string,\n\t\tFullName as string,\n\t\tfirstName as string,\n\t\tmiddleName as string,\n\t\tlastName as string,\n\t\tsuffix as string,\n\t\tgender as string,\n\t\tbirthdate as date,\n\t\tbirthPlace as string,\n\t\tsrcPkey as string,\n\t\tsourceSystem as string,\n\t\tSSN as string,\n\t\tITIN as string,\n\t\tdriverLicense as string,\n\t\tprimaryEmail as string,\n\t\tprimeryPhone as string,\n\t\tstreetAddress as string,\n\t\tprimaryAddrLine1 as string,\n\t\tprimaryAddrLine2 as string,\n\t\tprimaryAddrLine3 as string,\n\t\tprimaryAddrCity as string,\n\t\tprimaryAddrState as string,\n\t\tprimaryAddrPostalCode as string,\n\t\tcountryCD as string,\n\t\tcountyName as string,\n\t\tPostalCode5 as string,\n\t\tSourceDeletedInd as string,\n\t\tSourceStatus as string,\n\t\trow_status as string,\n\t\tbatch_id as string,\n\t\tcheck_sum as string,\n\t\tcreateDateTime as timestamp,\n\t\tcreatedBy as string,\n\t\tlastUpdateDateTime as timestamp,\n\t\tlastUpdatedBy as string,\n\t\tSourceCreateDateTime as timestamp,\n\t\tSourceLastUpdateDateTime as timestamp,\n\t\tmaritalStatus as string,\n\t\tSAMPLE_DATA_IND as integer,\n\t\tdeathDate as date,\n\t\tPSEUDO_MDM_ID as string,\n\t\tSALESFORCE_CONTACT_ID as string,\n\t\tSOURCE_SYSTEM_UNDERLYING as string,\n\t\tPARTY_TYPE as string\n\t),\n\tallowSchemaDrift: false,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'select * from [CMDM_STAGE].[Person_cods1] where sourceSystem=\\'CODS\\'\\n',\n\tformat: 'query') ~> TgtPersoncods\nsource(output(\n\t\tprefix as string,\n\t\tFullName as string,\n\t\tfirstName as string,\n\t\tmiddleName as string,\n\t\tlastName as string,\n\t\tsuffix as string,\n\t\tgender as string,\n\t\tbirthdate as date,\n\t\tbirthPlace as string,\n\t\tsrcPkey as string,\n\t\tsourceSystem as string,\n\t\tSSN as string,\n\t\tITIN as string,\n\t\tdriverLicense as string,\n\t\tprimaryEmail as string,\n\t\tprimeryPhone as string,\n\t\tstreetAddress as string,\n\t\tprimaryAddrLine1 as string,\n\t\tprimaryAddrLine2 as string,\n\t\tprimaryAddrLine3 as string,\n\t\tprimaryAddrCity as string,\n\t\tprimaryAddrState as string,\n\t\tprimaryAddrPostalCode as string,\n\t\tcountryCD as string,\n\t\tcountyName as string,\n\t\tPostalCode5 as string,\n\t\tSourceDeletedInd as string,\n\t\tSourceStatus as string,\n\t\trow_status as string,\n\t\tbatch_id as string,\n\t\tcheck_sum as string,\n\t\tcreateDateTime as timestamp,\n\t\tcreatedBy as string,\n\t\tlastUpdateDateTime as timestamp,\n\t\tlastUpdatedBy as string,\n\t\tSourceCreateDateTime as timestamp,\n\t\tSourceLastUpdateDateTime as timestamp,\n\t\tmaritalStatus as string,\n\t\tSAMPLE_DATA_IND as integer,\n\t\tdeathDate as date,\n\t\tPSEUDO_MDM_ID as string,\n\t\tSALESFORCE_CONTACT_ID as string,\n\t\tSOURCE_SYSTEM_UNDERLYING as string,\n\t\tPARTY_TYPE as string\n\t),\n\tallowSchemaDrift: false,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'select * from [CMDM_STAGE].[Person_cods1] where sourceSystem=\\'CODS\\'\\n',\n\tformat: 'query') ~> Tgtperson2\nsource(output(\n\t\tprefix as string,\n\t\tFullName as string,\n\t\tfirstName as string,\n\t\tmiddleName as string,\n\t\tlastName as string,\n\t\tsuffix as string,\n\t\tgender as string,\n\t\tbirthdate as date,\n\t\tbirthPlace as string,\n\t\tsrcPkey as string,\n\t\tsourceSystem as string,\n\t\tSSN as string,\n\t\tITIN as string,\n\t\tdriverLicense as string,\n\t\tprimaryEmail as string,\n\t\tprimeryPhone as string,\n\t\tstreetAddress as string,\n\t\tprimaryAddrLine1 as string,\n\t\tprimaryAddrLine2 as string,\n\t\tprimaryAddrLine3 as string,\n\t\tprimaryAddrCity as string,\n\t\tprimaryAddrState as string,\n\t\tprimaryAddrPostalCode as string,\n\t\tcountryCD as string,\n\t\tcountyName as string,\n\t\tPostalCode5 as string,\n\t\tSourceDeletedInd as string,\n\t\tSourceStatus as string,\n\t\trow_status as string,\n\t\tbatch_id as string,\n\t\tcheck_sum as string,\n\t\tcreateDateTime as timestamp,\n\t\tcreatedBy as string,\n\t\tlastUpdateDateTime as timestamp,\n\t\tlastUpdatedBy as string,\n\t\tSourceCreateDateTime as timestamp,\n\t\tSourceLastUpdateDateTime as timestamp\n\t),\n\tallowSchemaDrift: false,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'select * from [CMDM_STAGE].[person_sample_omnivips] where sourceSystem=\\'OMNI 7.1\\'\\n',\n\tformat: 'query') ~> TgtPerson3\nSourceDeleteInd derive(SourceCreateDateTime = 'NULL',\n\t\tSourceLastUpdateDateTime = 'NULL',\n\t\trow_status = 'A',\n\t\tLastupdatetime = currentTimestamp(),\n\t\tcreatedBy = 'MYV_CODS_STG_TO_COMMON_CREATE_LOAD',\n\t\tlastupdatedBy = 'MYV_CODS_STG_TO_COMMON_CREATE_LOAD',\n\t\tcreatedatatime = currentTimestamp()) ~> derivedColumn1\nnotexists4 derive(SourceDeletedInd = 'N',\n\t\tSourcestatuss = 'A') ~> SourceDeleteInd\nderivedColumn1 alterRow(insertIf(true())) ~> Insert\nexists2 split(CHANGE_CODE=='UPDATE'||CHANGE_CODE=='NEW',\n\tCHANGE_CODE=='NEW',\n\tdisjoint: true) ~> split3@(ifNeworUpdate, elsenew)\nsplit3@ifNeworUpdate, TgtPersoncods exists(PERSON_CHECK_SUM == check_sum\n&& row_status=='A',\n\tnegate:true,\n\tbroadcast: 'auto')~> doesntexists1\nexists6 derive(Row_Status = 'I',\n\t\tLastUpdatedTime = currentTimestamp(),\n\t\tupdatedBy = 'MYV_OMNI_STG_TO_COMMON_UPDT_LOAD') ~> derivedColumn2\nderivedColumn2 alterRow(updateIf(true())) ~> updated\nsplit5@if1, TgtPersoncods exists(SOURCE_KEY==srcPkey && SOURCE_SYSTEM==sourceSystem && row_status=='A',\n\tnegate:false,\n\tbroadcast: 'auto')~> exists2\ndoesntexists1 split(CHANGE_CODE=='NEW'||CHANGE_CODE=='UPDATE',\n\tCHANGE_CODE=='NEW'||CHANGE_CODE=='UPDATE',\n\tdisjoint: true) ~> split4@(updateI, InsertA)\nsplit4@InsertA derive(SrcDelInd = case(CHANGE_CODE=='DELETE', 'Y','N'),\n\t\tSourceStatus = case(CHANGE_CODE=='DELETE','I','A'),\n\t\tRowStatus = 'A',\n\t\tLastUpdated_Time = currentTimestamp(),\n\t\tlastupdatedby = 'MYV_CODS_STG_TO_COMMON_UPDT_LOAD',\n\t\tcreatedatetime = currentTimestamp(),\n\t\tcreatedby = 'MYV_CODS_STG_TO_COMMON_CREATE_LOAD',\n\t\tsourcecreatedatetime = 'NULL',\n\t\tsourcelastupdatedatetime = 'NULL') ~> derivedColumn3\nderivedColumn3 alterRow(insertIf(true())) ~> insert1\nSourceCodsPerson split(CHANGE_CODE=='NEW'||CHANGE_CODE=='UPDATE',\n\tCHANGE_CODE=='NEW',\n\tCHANGE_CODE=='DELETE',\n\tdisjoint: true) ~> split5@(if1, if2, if3)\nsplit5@if2, TgtPersoncods exists((SOURCE_KEY == srcPkey && SOURCE_SYSTEM==sourceSystem && row_status == 'A'),\n\tnegate:true,\n\tbroadcast: 'auto')~> notexists4\nTgtPersoncods, split4@updateI exists(SOURCE_KEY == srcPkey && SOURCE_SYSTEM==sourceSystem && row_status == 'A',\n\tnegate:false,\n\tbroadcast: 'auto')~> exists6\nTgtperson2, split5@if3 exists(SOURCE_KEY == srcPkey && SOURCE_SYSTEM==sourceSystem && row_status == 'A',\n\tnegate:false,\n\tbroadcast: 'auto')~> exists7\nexists7 derive(Srcinddel = 'Y',\n\t\tLastUpdatedTm = currentTimestamp(),\n\t\tlastupdatedby = 'MYV_OMNI_STG_TO_COMMON_UPDT_LOAD') ~> derivedColumn5\nderivedColumn5 alterRow(updateIf(true())) ~> deleteupdate\nTgtPerson3, split3@elsenew exists(check_sum == PERSON_CHECK_SUM\n&& row_status=='A',\n\tnegate:false,\n\tbroadcast: 'auto')~> exists8\nexists8 derive(batchidd = '4',\n\t\tlastupdttime = currentTimestamp(),\n\t\tsrcdlind = 'N') ~> derivedColumn6\nderivedColumn6 alterRow(updateIf(true())) ~> updatetrue\nInsert sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tprefix as string,\n\t\tFullName as string,\n\t\tfirstName as string,\n\t\tmiddleName as string,\n\t\tlastName as string,\n\t\tsuffix as string,\n\t\tgender as string,\n\t\tbirthdate as date,\n\t\tbirthPlace as string,\n\t\tsrcPkey as string,\n\t\tsourceSystem as string,\n\t\tSSN as string,\n\t\tITIN as string,\n\t\tdriverLicense as string,\n\t\tprimaryEmail as string,\n\t\tprimeryPhone as string,\n\t\tstreetAddress as string,\n\t\tprimaryAddrLine1 as string,\n\t\tprimaryAddrLine2 as string,\n\t\tprimaryAddrLine3 as string,\n\t\tprimaryAddrCity as string,\n\t\tprimaryAddrState as string,\n\t\tprimaryAddrPostalCode as string,\n\t\tcountryCD as string,\n\t\tcountyName as string,\n\t\tPostalCode5 as string,\n\t\tSourceDeletedInd as string,\n\t\tSourceStatus as string,\n\t\trow_status as string,\n\t\tbatch_id as string,\n\t\tcheck_sum as string,\n\t\tcreateDateTime as timestamp,\n\t\tcreatedBy as string,\n\t\tlastUpdateDateTime as timestamp,\n\t\tlastUpdatedBy as string,\n\t\tSourceCreateDateTime as timestamp,\n\t\tSourceLastUpdateDateTime as timestamp,\n\t\tmaritalStatus as string,\n\t\tSAMPLE_DATA_IND as integer,\n\t\tdeathDate as date,\n\t\tPSEUDO_MDM_ID as string,\n\t\tSALESFORCE_CONTACT_ID as string,\n\t\tSOURCE_SYSTEM_UNDERLYING as string,\n\t\tPARTY_TYPE as string\n\t),\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tsaveOrder: 5,\n\terrorHandlingOption: 'allErrors',\n\toutputRejectedData: true,\n\trejectedData_fileSystem: 'rejectedrecs',\n\trejectedData_folderPath: 'dataflow_error_logs',\n\ttransactionCommit: 'single',\n\treportSuccessOnError: true,\n\tmapColumn(\n\t\tprefix = PREFIX_NAME,\n\t\tFullName = FULL_NAME,\n\t\tfirstName = FIRST_NAME,\n\t\tmiddleName = MIDDLE_NAME,\n\t\tlastName = LAST_NAME,\n\t\tsuffix = SUFFIX_NAME,\n\t\tgender = GENDER,\n\t\tbirthdate = DATE_OF_BIRTH,\n\t\tsrcPkey = SOURCE_KEY,\n\t\tsourceSystem = SOURCE_SYSTEM,\n\t\tSSN,\n\t\tSourceDeletedInd,\n\t\tSourceStatus = Sourcestatuss,\n\t\trow_status,\n\t\tbatch_id,\n\t\tcheck_sum = PERSON_CHECK_SUM,\n\t\tcreateDateTime = createdatatime,\n\t\tcreatedBy,\n\t\tlastUpdateDateTime = Lastupdatetime,\n\t\tlastUpdatedBy = lastupdatedBy,\n\t\tSourceCreateDateTime,\n\t\tSourceLastUpdateDateTime,\n\t\tPSEUDO_MDM_ID,\n\t\tSALESFORCE_CONTACT_ID,\n\t\tSOURCE_SYSTEM_UNDERLYING,\n\t\tPARTY_TYPE\n\t)) ~> PersonInsert\nupdated sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tprefix as string,\n\t\tFullName as string,\n\t\tfirstName as string,\n\t\tmiddleName as string,\n\t\tlastName as string,\n\t\tsuffix as string,\n\t\tgender as string,\n\t\tbirthdate as date,\n\t\tbirthPlace as string,\n\t\tsrcPkey as string,\n\t\tsourceSystem as string,\n\t\tSSN as string,\n\t\tITIN as string,\n\t\tdriverLicense as string,\n\t\tprimaryEmail as string,\n\t\tprimeryPhone as string,\n\t\tstreetAddress as string,\n\t\tprimaryAddrLine1 as string,\n\t\tprimaryAddrLine2 as string,\n\t\tprimaryAddrLine3 as string,\n\t\tprimaryAddrCity as string,\n\t\tprimaryAddrState as string,\n\t\tprimaryAddrPostalCode as string,\n\t\tcountryCD as string,\n\t\tcountyName as string,\n\t\tPostalCode5 as string,\n\t\tSourceDeletedInd as string,\n\t\tSourceStatus as string,\n\t\trow_status as string,\n\t\tbatch_id as string,\n\t\tcheck_sum as string,\n\t\tcreateDateTime as timestamp,\n\t\tcreatedBy as string,\n\t\tlastUpdateDateTime as timestamp,\n\t\tlastUpdatedBy as string,\n\t\tSourceCreateDateTime as timestamp,\n\t\tSourceLastUpdateDateTime as timestamp\n\t),\n\tdeletable:false,\n\tinsertable:false,\n\tupdateable:true,\n\tupsertable:false,\n\tkeys:['srcPkey','batch_id'],\n\tskipKeyWrites:true,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tsaveOrder: 2,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\tprefix,\n\t\tFullName,\n\t\tfirstName,\n\t\tmiddleName,\n\t\tlastName,\n\t\tsuffix,\n\t\tgender,\n\t\tbirthdate,\n\t\tbirthPlace,\n\t\tsrcPkey,\n\t\tsourceSystem,\n\t\tSSN,\n\t\tITIN,\n\t\tdriverLicense,\n\t\tprimaryEmail,\n\t\tprimeryPhone,\n\t\tstreetAddress,\n\t\tprimaryAddrLine1,\n\t\tprimaryAddrLine2,\n\t\tprimaryAddrLine3,\n\t\tprimaryAddrCity,\n\t\tprimaryAddrState,\n\t\tprimaryAddrPostalCode,\n\t\tcountryCD,\n\t\tcountyName,\n\t\tPostalCode5,\n\t\tSourceDeletedInd,\n\t\tSourceStatus,\n\t\trow_status = derivedColumn2@Row_Status,\n\t\tbatch_id,\n\t\tcheck_sum,\n\t\tcreateDateTime,\n\t\tcreatedBy,\n\t\tlastUpdateDateTime,\n\t\tlastUpdatedBy = updatedBy,\n\t\tSourceCreateDateTime,\n\t\tSourceLastUpdateDateTime\n\t)) ~> personUpdate\ninsert1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tprefix as string,\n\t\tFullName as string,\n\t\tfirstName as string,\n\t\tmiddleName as string,\n\t\tlastName as string,\n\t\tsuffix as string,\n\t\tgender as string,\n\t\tbirthdate as date,\n\t\tbirthPlace as string,\n\t\tsrcPkey as string,\n\t\tsourceSystem as string,\n\t\tSSN as string,\n\t\tITIN as string,\n\t\tdriverLicense as string,\n\t\tprimaryEmail as string,\n\t\tprimeryPhone as string,\n\t\tstreetAddress as string,\n\t\tprimaryAddrLine1 as string,\n\t\tprimaryAddrLine2 as string,\n\t\tprimaryAddrLine3 as string,\n\t\tprimaryAddrCity as string,\n\t\tprimaryAddrState as string,\n\t\tprimaryAddrPostalCode as string,\n\t\tcountryCD as string,\n\t\tcountyName as string,\n\t\tPostalCode5 as string,\n\t\tSourceDeletedInd as string,\n\t\tSourceStatus as string,\n\t\trow_status as string,\n\t\tbatch_id as string,\n\t\tcheck_sum as string,\n\t\tcreateDateTime as timestamp,\n\t\tcreatedBy as string,\n\t\tlastUpdateDateTime as timestamp,\n\t\tlastUpdatedBy as string,\n\t\tSourceCreateDateTime as timestamp,\n\t\tSourceLastUpdateDateTime as timestamp,\n\t\tmaritalStatus as string,\n\t\tSAMPLE_DATA_IND as integer,\n\t\tdeathDate as date,\n\t\tPSEUDO_MDM_ID as string,\n\t\tSALESFORCE_CONTACT_ID as string,\n\t\tSOURCE_SYSTEM_UNDERLYING as string,\n\t\tPARTY_TYPE as string\n\t),\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tsaveOrder: 3,\n\terrorHandlingOption: 'allErrors',\n\ttransactionCommit: 'single',\n\treportSuccessOnError: false,\n\tmapColumn(\n\t\tprefix = PREFIX_NAME,\n\t\tFullName = FULL_NAME,\n\t\tfirstName = FIRST_NAME,\n\t\tmiddleName = MIDDLE_NAME,\n\t\tlastName = LAST_NAME,\n\t\tsuffix = SUFFIX_NAME,\n\t\tgender = GENDER,\n\t\tbirthdate = DATE_OF_BIRTH,\n\t\tsrcPkey = SOURCE_KEY,\n\t\tsourceSystem = SOURCE_SYSTEM,\n\t\tSSN,\n\t\tSourceDeletedInd = SrcDelInd,\n\t\tSourceStatus,\n\t\trow_status = RowStatus,\n\t\tbatch_id,\n\t\tcheck_sum = PERSON_CHECK_SUM,\n\t\tcreateDateTime = createdatetime,\n\t\tcreatedBy = createdby,\n\t\tlastUpdateDateTime = LastUpdated_Time,\n\t\tlastUpdatedBy = lastupdatedby,\n\t\tSourceCreateDateTime = sourcecreatedatetime,\n\t\tSourceLastUpdateDateTime = sourcelastupdatedatetime,\n\t\tPSEUDO_MDM_ID,\n\t\tSALESFORCE_CONTACT_ID,\n\t\tSOURCE_SYSTEM_UNDERLYING,\n\t\tPARTY_TYPE\n\t)) ~> personinsert1cods\ndeleteupdate sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tprefix as string,\n\t\tFullName as string,\n\t\tfirstName as string,\n\t\tmiddleName as string,\n\t\tlastName as string,\n\t\tsuffix as string,\n\t\tgender as string,\n\t\tbirthdate as date,\n\t\tbirthPlace as string,\n\t\tsrcPkey as string,\n\t\tsourceSystem as string,\n\t\tSSN as string,\n\t\tITIN as string,\n\t\tdriverLicense as string,\n\t\tprimaryEmail as string,\n\t\tprimeryPhone as string,\n\t\tstreetAddress as string,\n\t\tprimaryAddrLine1 as string,\n\t\tprimaryAddrLine2 as string,\n\t\tprimaryAddrLine3 as string,\n\t\tprimaryAddrCity as string,\n\t\tprimaryAddrState as string,\n\t\tprimaryAddrPostalCode as string,\n\t\tcountryCD as string,\n\t\tcountyName as string,\n\t\tPostalCode5 as string,\n\t\tSourceDeletedInd as string,\n\t\tSourceStatus as string,\n\t\trow_status as string,\n\t\tbatch_id as string,\n\t\tcheck_sum as string,\n\t\tcreateDateTime as timestamp,\n\t\tcreatedBy as string,\n\t\tlastUpdateDateTime as timestamp,\n\t\tlastUpdatedBy as string,\n\t\tSourceCreateDateTime as timestamp,\n\t\tSourceLastUpdateDateTime as timestamp,\n\t\tmaritalStatus as string,\n\t\tSAMPLE_DATA_IND as integer,\n\t\tdeathDate as date,\n\t\tPSEUDO_MDM_ID as string,\n\t\tSALESFORCE_CONTACT_ID as string,\n\t\tSOURCE_SYSTEM_UNDERLYING as string,\n\t\tPARTY_TYPE as string\n\t),\n\tdeletable:false,\n\tinsertable:false,\n\tupdateable:true,\n\tupsertable:false,\n\tkeys:['srcPkey','batch_id'],\n\tskipKeyWrites:true,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tsaveOrder: 4,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\tprefix,\n\t\tFullName,\n\t\tfirstName,\n\t\tmiddleName,\n\t\tlastName,\n\t\tsuffix,\n\t\tgender,\n\t\tbirthdate,\n\t\tbirthPlace,\n\t\tsrcPkey,\n\t\tsourceSystem,\n\t\tSSN,\n\t\tITIN,\n\t\tdriverLicense,\n\t\tprimaryEmail,\n\t\tprimeryPhone,\n\t\tstreetAddress,\n\t\tprimaryAddrLine1,\n\t\tprimaryAddrLine2,\n\t\tprimaryAddrLine3,\n\t\tprimaryAddrCity,\n\t\tprimaryAddrState,\n\t\tprimaryAddrPostalCode,\n\t\tcountryCD,\n\t\tcountyName,\n\t\tPostalCode5,\n\t\tSourceDeletedInd = Srcinddel,\n\t\tSourceStatus,\n\t\trow_status,\n\t\tbatch_id,\n\t\tcheck_sum,\n\t\tcreateDateTime,\n\t\tcreatedBy,\n\t\tlastUpdateDateTime = LastUpdatedTm,\n\t\tlastUpdatedBy = derivedColumn5@lastupdatedby,\n\t\tSourceCreateDateTime,\n\t\tSourceLastUpdateDateTime\n\t)) ~> persondelete\nupdatetrue sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tprefix as string,\n\t\tFullName as string,\n\t\tfirstName as string,\n\t\tmiddleName as string,\n\t\tlastName as string,\n\t\tsuffix as string,\n\t\tgender as string,\n\t\tbirthdate as date,\n\t\tbirthPlace as string,\n\t\tsrcPkey as string,\n\t\tsourceSystem as string,\n\t\tSSN as string,\n\t\tITIN as string,\n\t\tdriverLicense as string,\n\t\tprimaryEmail as string,\n\t\tprimeryPhone as string,\n\t\tstreetAddress as string,\n\t\tprimaryAddrLine1 as string,\n\t\tprimaryAddrLine2 as string,\n\t\tprimaryAddrLine3 as string,\n\t\tprimaryAddrCity as string,\n\t\tprimaryAddrState as string,\n\t\tprimaryAddrPostalCode as string,\n\t\tcountryCD as string,\n\t\tcountyName as string,\n\t\tPostalCode5 as string,\n\t\tSourceDeletedInd as string,\n\t\tSourceStatus as string,\n\t\trow_status as string,\n\t\tbatch_id as string,\n\t\tcheck_sum as string,\n\t\tcreateDateTime as timestamp,\n\t\tcreatedBy as string,\n\t\tlastUpdateDateTime as timestamp,\n\t\tlastUpdatedBy as string,\n\t\tSourceCreateDateTime as timestamp,\n\t\tSourceLastUpdateDateTime as timestamp,\n\t\tmaritalStatus as string,\n\t\tSAMPLE_DATA_IND as integer,\n\t\tdeathDate as date,\n\t\tPSEUDO_MDM_ID as string,\n\t\tSALESFORCE_CONTACT_ID as string,\n\t\tSOURCE_SYSTEM_UNDERLYING as string,\n\t\tPARTY_TYPE as string\n\t),\n\tdeletable:false,\n\tinsertable:false,\n\tupdateable:true,\n\tupsertable:false,\n\tkeys:['srcPkey','row_status'],\n\tskipKeyWrites:true,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tsaveOrder: 1,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\tprefix,\n\t\tFullName,\n\t\tfirstName,\n\t\tmiddleName,\n\t\tlastName,\n\t\tsuffix,\n\t\tgender,\n\t\tbirthdate,\n\t\tbirthPlace,\n\t\tsrcPkey,\n\t\tsourceSystem,\n\t\tSSN,\n\t\tITIN,\n\t\tdriverLicense,\n\t\tprimaryEmail,\n\t\tprimeryPhone,\n\t\tstreetAddress,\n\t\tprimaryAddrLine1,\n\t\tprimaryAddrLine2,\n\t\tprimaryAddrLine3,\n\t\tprimaryAddrCity,\n\t\tprimaryAddrState,\n\t\tprimaryAddrPostalCode,\n\t\tcountryCD,\n\t\tcountyName,\n\t\tPostalCode5,\n\t\tSourceDeletedInd = srcdlind,\n\t\tSourceStatus,\n\t\trow_status,\n\t\tbatch_id = batchidd,\n\t\tcheck_sum,\n\t\tcreateDateTime,\n\t\tcreatedBy,\n\t\tlastUpdateDateTime = lastupdttime,\n\t\tlastUpdatedBy,\n\t\tSourceCreateDateTime,\n\t\tSourceLastUpdateDateTime\n\t)) ~> personupdt1"
+		}
+	}
+}

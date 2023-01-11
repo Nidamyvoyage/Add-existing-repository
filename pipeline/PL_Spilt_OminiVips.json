@@ -1,0 +1,66 @@
+{
+	"name": "PL_Spilt_OminiVips",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select CASE WHEN SUBSTR(FIRST_NAME,1,INSTR(FIRST_NAME,' ',1,1))!=' ' THEN SUBSTR(FIRST_NAME,1,INSTR(FIRST_NAME,' ',1,1)) ELSE FIRST_NAME END AS FIRST_NAME,\nCASE WHEN SUBSTR(FIRST_NAME,1,INSTR(FIRST_NAME,' ',1,1))!=' ' THEN TRIM(SUBSTR(FIRST_NAME,INSTR(FIRST_NAME,' ',-1,1))) ELSE NULL END AS MIDDLE_NAME,\nLAST_NAME,WS_EXT_PH_NAME,WS_EXT_PH_BRTH_DATE,SOURCE_ID,WS_EXT_PH_OMNI_VERSION,WS_EXT_PH_PART_NUM,WS_EXT_PH_ADDR_L1,WS_EXT_PH_ADDR_L2,WS_EXT_PH_CITY,\nWS_EXT_PH_STATE,WS_EXT_PH_ZIP\nfrom (\nselect CASE WHEN WS_EXT_PH_NAME!=SUBSTR(WS_EXT_PH_NAME,1,INSTR(WS_EXT_PH_NAME,',',1)-1) \nTHEN UPPER(TRIM(SUBSTR(WS_EXT_PH_NAME,INSTR(WS_EXT_PH_NAME,',',1)+1))) END AS FIRST_NAME,\nLTRIM(RTRIM(CASE WHEN WS_EXT_PH_NAME!=SUBSTR(WS_EXT_PH_NAME,1,INSTR(WS_EXT_PH_NAME,',',1)-1)\nTHEN UPPER(TRIM(SUBSTR(WS_EXT_PH_NAME,1,INSTR(WS_EXT_PH_NAME,',',1)-1))) ELSE UPPER(TRIM(WS_EXT_PH_NAME)) END)) AS LAST_NAME,WS_EXT_PH_NAME,\nWS_EXT_PH_BRTH_DATE,SOURCE_ID,WS_EXT_PH_OMNI_VERSION,WS_EXT_PH_PART_NUM,WS_EXT_PH_ADDR_L1,WS_EXT_PH_ADDR_L2,WS_EXT_PH_CITY,WS_EXT_PH_STATE,\nWS_EXT_PH_ZIP\nfrom idp_stage.Omni_vips_daily_part_header);",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_Omni_vips_daily_part_header_SRC",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_Spilt_OmniVips",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "MDM"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-08-29T19:25:37Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

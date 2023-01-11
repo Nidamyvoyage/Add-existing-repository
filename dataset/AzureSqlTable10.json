@@ -1,0 +1,78 @@
+{
+	"name": "AzureSqlTable10",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlServer_EBX",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "LOAD_ID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "ENTITY_ID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "SRC_SYS_NM",
+				"type": "varchar"
+			},
+			{
+				"name": "ENTITY_NM",
+				"type": "varchar"
+			},
+			{
+				"name": "INCREMENTAL",
+				"type": "varchar"
+			},
+			{
+				"name": "MDM_QUERY_STRING",
+				"type": "varchar"
+			},
+			{
+				"name": "MDM_SRC_RECORD_COUNT",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "MDM_TGT_RECORD_COUNT",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "MDM_LOAD_START_TS",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "MDM_LOAD_END_TS",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "CREATED_TS",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "UPDATED_TS",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			}
+		],
+		"typeProperties": {
+			"schema": "CMDM_STAGE",
+			"table": "MYVOYAGE_ETL_AUDIT_MDM"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

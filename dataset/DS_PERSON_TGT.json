@@ -1,0 +1,20 @@
+{
+	"name": "DS_PERSON_TGT",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlServer_EBX",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "DS_MDM"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "CMDM_STAGE",
+			"table": "person_sample_omnivips"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

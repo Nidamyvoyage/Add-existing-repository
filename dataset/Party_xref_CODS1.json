@@ -1,0 +1,17 @@
+{
+	"name": "Party_xref_CODS1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "OracleCODS2",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "ODS_UUID",
+			"table": "PARTY_XREF"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

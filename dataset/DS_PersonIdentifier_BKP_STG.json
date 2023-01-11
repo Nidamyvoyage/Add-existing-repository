@@ -1,0 +1,73 @@
+{
+	"name": "DS_PersonIdentifier_BKP_STG",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlServer_EBX",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "DS_MDM"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "contactType",
+				"type": "varchar"
+			},
+			{
+				"name": "ContactValue",
+				"type": "varchar"
+			},
+			{
+				"name": "ContactChannel",
+				"type": "varchar"
+			},
+			{
+				"name": "srcPersonPkey",
+				"type": "varchar"
+			},
+			{
+				"name": "sourceSystem",
+				"type": "varchar"
+			},
+			{
+				"name": "SrcContactPKey",
+				"type": "varchar"
+			},
+			{
+				"name": "Status",
+				"type": "varchar"
+			},
+			{
+				"name": "PrimaryFlag",
+				"type": "varchar"
+			},
+			{
+				"name": "CreateDateTime",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "createdBy",
+				"type": "varchar"
+			},
+			{
+				"name": "LastUpdateDateTime",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "LastUpdatedBY",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "CMDM_STAGE",
+			"table": "PersonIdentifier_BKP"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

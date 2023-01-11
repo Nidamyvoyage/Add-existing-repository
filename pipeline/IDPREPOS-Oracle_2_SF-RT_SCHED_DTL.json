@@ -1,0 +1,255 @@
+{
+	"name": "IDPREPOS-Oracle_2_SF-RT_SCHED_DTL",
+	"properties": {
+		"activities": [
+			{
+				"name": "Oracle2ADLS-RT_SCHED_DTL",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "IDP_REPOS.RT_SCHED_DTL"
+					},
+					{
+						"name": "Destination",
+						"value": "CORE.RT_SCHED_DTL"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "SnowflakeSink",
+						"importSettings": {
+							"type": "SnowflakeImportCopyCommand"
+						}
+					},
+					"enableStaging": true,
+					"stagingSettings": {
+						"linkedServiceName": {
+							"referenceName": "Snowflake_staging_container",
+							"type": "LinkedServiceReference"
+						},
+						"path": "idprepos-poc",
+						"enableCompression": true
+					},
+					"enableSkipIncompatibleRow": true,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "RT_SCHED_DTL_ID",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "RT_SCHED_DTL_ID",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "RT_SCHED_ID",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "RT_SCHED_ID",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "RT_SCHED_CD",
+									"type": "String"
+								},
+								"sink": {
+									"name": "RT_SCHED_CD",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "RT_SCHED_TIER",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "RT_SCHED_TIER",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "AMT",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "AMT",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "ROW_STATUS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ROW_STATUS",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "RECORDED_START_DT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "RECORDED_START_DT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "RECORDED_END_DT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "RECORDED_END_DT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "BATCH_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BATCH_ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CHECK_SUM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CHECK_SUM",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATED_DT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "CREATED_DT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CREATED_BY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LAST_UPDATED_DT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "LAST_UPDATED_DT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "LAST_UPDATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LAST_UPDATED_BY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "RT_CLASS_VAL",
+									"type": "String"
+								},
+								"sink": {
+									"name": "RT_CLASS_VAL",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "RT_CATGY_VAL",
+									"type": "String"
+								},
+								"sink": {
+									"name": "RT_CATGY_VAL",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "EFF_DATE",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "EFF_DATE",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "UNITS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UNITS",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "Oracle_IDPREPOS_RT_SCHED_DTL",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "Snowflake_IDPREPOS_RT_SCHED_DTL",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "IDPREPOS_2_SF_Load"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-08-29T19:25:10Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

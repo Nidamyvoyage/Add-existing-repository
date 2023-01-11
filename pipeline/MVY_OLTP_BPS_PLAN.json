@@ -1,0 +1,542 @@
+{
+	"name": "MVY_OLTP_BPS_PLAN",
+	"properties": {
+		"activities": [
+			{
+				"name": "OnPrem_to_RAW",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "LOAD_ID_ASSIGN_NEW",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"additionalColumns": [
+							{
+								"name": "SWFDL_LOAD_ID",
+								"value": {
+									"value": "@variables('INGESTION_LOAD_ID')",
+									"type": "Expression"
+								}
+							},
+							{
+								"name": "SWFDL_CREATED_BY",
+								"value": {
+									"value": "@{pipeline().Pipeline}",
+									"type": "Expression"
+								}
+							},
+							{
+								"name": "SWFDL_CREATED_TS",
+								"value": {
+									"value": "@{formatDateTime(pipeline().TriggerTime,'yyyy-MM-dd HH:mm:ss.fff')}",
+									"type": "Expression"
+								}
+							},
+							{
+								"name": "SWFDL_UPDATED_BY",
+								"value": {
+									"value": "@{pipeline().Pipeline}",
+									"type": "Expression"
+								}
+							},
+							{
+								"name": "SWFDL_UPDATED_TS",
+								"value": {
+									"value": "@{formatDateTime(pipeline().TriggerTime,'yyyy-MM-dd HH:mm:ss.fff')}",
+									"type": "Expression"
+								}
+							}
+						],
+						"oracleReaderQuery": "select * from BPS.PLAN",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "OLTP",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SF_COMMON_STAGE",
+						"type": "DatasetReference",
+						"parameters": {
+							"SRC_SYS_NM": {
+								"value": "@pipeline().parameters.SRC_SYS_NM",
+								"type": "Expression"
+							},
+							"SRC_SCHEMA_NM": {
+								"value": "@pipeline().parameters.SRC_SCHEMA_NM",
+								"type": "Expression"
+							},
+							"ENTITY_NAME": {
+								"value": "@pipeline().parameters.ENTITY_NAME",
+								"type": "Expression"
+							},
+							"SF_STAGE_ROOT_DIR": {
+								"value": "@pipeline().parameters.SF_STAGE_ROOT_DIR",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			},
+			{
+				"name": "RAW_FILE_LOAD_AUDIT",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "OnPrem_to_RAW",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": {
+							"value": "call MYVOYAGE_UNIT.MYVOYAGE_CLEANSED.PRC_MVY_ETL_RAW_AUDIT_LOAD(@{variables('INGESTION_LOAD_ID')},'@{pipeline().parameters.SRC_SYS_NM}','@{pipeline().parameters.ENTITY_NAME}','@{string(formatDateTime(activity('OnPrem_to_RAW').output.executionDetails[0].start,'yyyy-MM-dd HH:mm:ss.fff'))}','@{string(formatDateTime(addSeconds(activity('OnPrem_to_RAW').output.executionDetails[0].start,activity('OnPrem_to_RAW').output.copyDuration),'yyyy-MM-dd HH:mm:ss.fff'))}',@{activity('OnPrem_to_RAW').output.RowsRead},@{activity('OnPrem_to_RAW').output.rowsCopied})",
+							"type": "Expression"
+						},
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "LOAD_ID",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": true
+				}
+			},
+			{
+				"name": "RAW_FILE_TO_SF_STG_TABLE_LOAD",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "RAW_FILE_LOAD_AUDIT",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": "COPY INTO \"MYVOYAGE_STAGE\".\"OLTP_BPS_PLAN_STG\" (\"CLIENT_ID\",\"PLAN_ID\",\"PLAN_NAME\",\"PLAN_INVESTMENT_TYPES\",\"PLAN_ASOF_DATE\",\"CONTRIBUTION_PCT_AMT_FLAG\",\"SPOT_TRANSFER_PCT_AMT_FLAG\",\"ELECTION_PCT_MOD\",\"REALLOCATION_PCT_MOD\",\"SPOT_TRANSFER_PCT_MOD\",\"SPOT_TRANSFER_MIN_AMT\",\"SPOT_TRANSFER_MAX_AMT\",\"SPOT_TRANSFER_MIN_PCT\",\"SPOT_TRANSFER_MAX_PCT\",\"LOAN_MAX_NUMBER\",\"LOAN_UPFRONT_INTEREST_FLAG\",\"REALLOCATION_FOLLOWS_ELECTION\",\"ELECTION_PCT_CHG_ALL_MONEY_MOD\",\"REALLOCATION_ALL_MONEY_MODE\",\"SPOT_TRANSFER_ALL_MONEY_MODE\",\"CONTRIBUTION_PCT_CHG_ALLOWED\",\"ELECTION_PCT_CHG_ALLOWED\",\"LOAN_MODELING_ALLOWED\",\"LOAN_REQUEST_ALLOWED\",\"PIN_CHG_ALLOWED\",\"REALLOCATION_ALLOWED\",\"SPOT_TRANSFER_ALLOWED\",\"WITHDRAWALS_ALLOWED\",\"RETURN_OF_EXCESS_ALLOWED\",\"EARLY_LOAN_PAYOFF_ALLOWED\",\"QUALIFIED_PLAN_FLAG\",\"MAINTENANCE_DATE\",\"RETURN_OF_EXCESS_BUTTON_MASK\",\"CSR_VRU_PHONE_NUMBER\",\"HCE_CUTBACK_METHOD\",\"BONUS_CONTRIBUTION_CHG_ALLOWED\",\"DIVIDEND_PAYOUT_CHOICE_ALLOWED\",\"STOCK_PURCHASE_CERT_PCT_SHR\",\"STOCK_PURCHASE_CASH_PCT_SHR\",\"CANCEL_ALLOWED\",\"HELPFILE_NAME\",\"WITHDRAWAL_WAIVER_ALLOWED\",\"TAX_NOTIFICATION_ELIGIBILITY\",\"WITHDRAWAL_ELIG_EXPIRATION\",\"SHCE_CUTBACK_METHOD\",\"CONTRIBUTION_DEPENDENCY_METHOD\",\"DEFERRAL_SUSPENSION_ALLOWED\",\"SPOT_WITHDRAWAL_ALLOWED\",\"CSR_TRANSFER_EXT_SITE1\",\"CSR_TRANSFER_EXT_SITE2\",\"DINIS_DIGIT1_SITE1\",\"DINIS_DIGIT1_SITE2\",\"DINIS_DIGIT2_SITE1\",\"DINIS_DIGIT2_SITE2\",\"PLAN_ORDERED_BY\",\"PLAN_PRICES_ALLOWED\",\"WARNING_FOR_16B\",\"SHARE_FACTOR_IND\",\"EARLY_LOAN_PAYOFF_METHOD\",\"OBSOLETE_PLAN\",\"DISPLAY_SHARES_ONSPOTS\",\"CUSTOM_WITHDRAWAL_ALLOWED\",\"MAX_PCT_LINK_ALLOWED\",\"PLAN_AVG_COST_ALLOWED\",\"PLAN_OVERNIGHT_FEE_AMT\",\"ALTERNATIVE_NAVIGATION_FLAG\",\"CUSTOM_INSTALLMENT_ALLOWED\",\"PROTOTYPE_ID\",\"SMA_ASOF_DATE\",\"FUND_PERFORMANCE_PLAN\",\"SHOW_STMT_ONLINE_LINK\",\"ALTERNATE_FILE_ID\",\"DEFAULT_STATEMENT_ID\",\"PORT_PROFILE\",\"ALTERNATE_PHONE_TEXT\",\"REMOTE_URL_FLAG\",\"REMOTE_URL\",\"ALTERNATE_COREBAL_NAME\",\"SSB_ADVICE_FLAG\",\"REBAL_CHG_WITH_TRANS_FLAG\",\"ZERO_DEFERRAL_ALLOWED_FLAG\",\"REPLICATION_UPDATE_DATE\",\"BONUS_FOLLOWS_CC\",\"SAFE_HARBOR_METHOD_FLAG\",\"IRS_ID\",\"PSEUDO_PLAN_SETUP_ID\",\"TRANSFER_SUBTYPE_ALLOWED\",\"XFER_FREQ_RESTRICT_ALLOWED\",\"IV_CSOURCE_LINK_ID_ALLOWED\",\"AHCE_CUTBACK_METHOD\",\"BENE_SSN_REQUIRED\",\"BENE_UPDATE_ALLOWED\",\"CHANGE_MARITAL_STATUS\",\"PORT_RE_FOLLOWS_EC\",\"PORT_EC_FOLLOWS_RE\",\"PORT_RESTRICT_IF_SMA_BAL\",\"USE_EFFECTIVE_LOAN_AMMORT\",\"NQ_PLAN\",\"ENFORCE_SPOUSAL_RULES\",\"ALT_PLAN_ELECT_PCT_AMT_FLG\",\"ALT_PLAN_ELECT_MOD\",\"LOAN_WHOLE_DOLLAR_REQ_FLAG\",\"CATCHUP_ANNUAL_FLAG\",\"AUTO_ROLLOVER_ALLOWED\",\"FUT_ANN_CATCHUP_WIN_START_DATE\",\"FUT_ANN_CATCHUP_WIN_END_DATE\",\"SHARE_ACCTG_PLAN\",\"PLAN_FORFEIT_INKIND\",\"DBEN_PLAN_FLAG\",\"FORCE_INKIND_ON_DIST\",\"ADVICE_ACCOUNT_ALD_FLAG\",\"SENT_TERM_PART_MARITAL_STAT\",\"MARRIED_FILING_SEPARATE\",\"HEAD_OF_HOUSEHOLD\",\"MIN_ELECTION_ALLOWED\",\"ASSET_ALLOC_PROGRAM\",\"DISPLAY_FUTURE_CONTRIBUTION\",\"BENE_TAXID_REQUIRED\",\"TARGET_RETIRE_AGE_FLAG\",\"PLAN_NAME2\",\"FUND_FACT_SHEET_ALLOWED\",\"NEXT_YEAR_PRE_TAX_ORDER\",\"NEXT_YEAR_AFTER_TAX_ORDER\",\"NEXT_YEAR_CATCHUP_ORDER\",\"NEXT_YEAR_BONUS_ORDER\",\"NEXT_YEAR_NQ_CONTRIB_ORDER\",\"NQ_CLASS_YEAR_CODE\",\"PROMANAGE_PLAN_EFF_DATE\",\"VESTED_PERCENTAGE_FORMAT\",\"VRU_ALTERNATE_AUTOENROLL_ALLOW\",\"FE_AUTO_ENROLL_METHOD\",\"ROTH_ENHANCED_ELIGIBILITY_FLAG\",\"NQ_PRIOR_PAY_ELECT_CHG_START\",\"NQ_PRIOR_PAY_ELECT_CHG_END\",\"GRP_ALLOWED\",\"PSRC_FULL_TXN_AUTH_METHOD\",\"CALL_TRK_ALLOWED\",\"PLAN_TYPE\",\"MORNINGSTAR_FLAG\",\"PRODUCT_TYPE\",\"PLAN_ISSUE_STATE\",\"MP_FA_NAME\",\"MP_FA_PHONE_NUMBER\",\"MP_FA_EMAIL_ADDRESS\",\"MP_FA_SERVICE_NAME\",\"MP_FA_REBAL_FREQUENCY\",\"ENFORCE_SDBO_HOLD_HARMLESS\",\"ENFORCE_COMMUNITY_PROP_RULES\",\"TRUST_OR_CONTRACT_LOAN\",\"IRC_CODE\",\"LOAN_SPREAD_FEE_PCT\",\"GP_SUPPORTING_DOC_REQ\",\"PRIOR_BAL_UPDATE_YEAR\",\"INDEPENDENT_CONTRACTOR_ALLOWED\",\"HARDSHIP_SUSPENSION_PERIOD\",\"CUSTOM_EXTRANET_URL\",\"TRANSITION_COUNSEL_ACCESS_LVL\",\"IGRIF_MODEL\",\"RMD_INSTALLMENT_PAYMENT_DAY\",\"MOB_BRAND_HEADER\",\"MOB_EMPLOYER_NAME\",\"SPONSOR_INITIATE_LN_WDRL_ALLOW\",\"REDIRECT_CLIENT_ID\",\"QDIA_OPTION\",\"QDIA_EFFECTIVE_DATE\",\"QDIA_FUND_ID\",\"ODM_PART_APPROVAL_ALLOWED\",\"SHOW_PWEB_ACCT_SUM_PAGE\",\"MPFA_ROLE_IND\",\"IGRIF_BENEFIT_BASE_LIMIT\",\"IGRIF_PAYOUT_AGE\",\"PLAN_ADD_DATE\",\"SCIP_AGE_WITHD_BAND1\",\"SCIP_AGE_WITHD_BAND2\",\"SCIP_AGE_WITHD_BAND3\",\"SCIP_WITHD_PCT_BAND1\",\"SCIP_WITHD_PCT_BAND2\",\"SCIP_WITHD_PCT_BAND3\",\"SUB_CLIENT_ID\",\"ADVICE_ACCOUNT_INCPLUS_ALLOWED\",\"ILIP_FIXED_SV_FUND_ID\",\"FORFEITURES_PLAN_TYPE\",\"TASK_MANAGER\",\"ERISA_SERVICES\",\"THE_HUB\",\"DBEN_GROUP_DISPLAY\",\"CLIENT_GROUP_CODE\",\"BATCH_ADDR_CHG_TRNS_IND\",\"ORANGE_MONEY_ALLOWED\",\"MP_QDIA_TD_SERIES_IND\",\"DISPLAY_TI_VEST_OVERRIDE\",\"DISPLAY_TI_FYI_LOAN\",\"DISPLAY_HARDSHIP_REASONS\",\"APPLY_NRA_FED_TAX_RATE\",\"ACCT_SUMM_CONTRIB_HEADER\",\"ACCT_SUMM_CATCHUP_HEADER\",\"DSC_PARTICIPANT_LEVEL_FEE_FLAG\",\"GAA_FLAG\",\"MULTI_FIXED_FUNDS_PLAN_IND\",\"NQ_DEST_PLAN_ID\",\"NQ_BUTTON_NAME\",\"NQ_DEST_URL\",\"ACH_MAX_NBR_ACCTS\",\"MYVOYA_ALLOWED\",\"RETRO_OPT_OUT_WINDOW_START_DT\",\"RETRO_OPT_OUT_WINDOW_END_DT\",\"AUTO_ENROLL_DEFERRAL_RATE\",\"RATE_ESCALATOR_FREQUENCY\",\"RATE_ESCALATOR_PCT_INCREMENT\",\"RATE_ESCALATOR_MAX_PCT\",\"IRIA_ADVICE_MIN_FEE_PCT\",\"IRIA_ADVICE_MAX_FEE_PCT\",\"IRIA_ADVICE_FEE_MOD\",\"CHG_CONT_402G_AFTERTAX_ALLOWED\",\"CONT_RATE_SSP_DISP_ALLOWED\",\"FUND_SPEC_WTHD_ALLOWED\",\"MP_QDIA_MODEL_NUMBER\",\"NEW_LOAN_W_DEEMED_ALLOWED\",\"MONEY_OUT_SERVICE_MODEL\",\"MIGRATED_PLAN_INDICATOR\",\"MOB_NQ_PLN_HOME_PAGE_BAL_ALLOW\",\"VRA_CLIENT_ID\",\"LOAN_MODEL_TERM_ALLOWED\",\"IMS_IND\",\"IMS_ASSOC_PLANS\",\"VENDOR_PLAN_TYPE\",\"ADDITIONAL_FED_WTHD_PCT_ALLOW\",\"LOWER_GMIR_IND\",\"LOAN_MODEL_IND\",\"ENRL_CHG_ELECT_TIERS_ALLOWED\",\"ADVISOR_NON_MONEY_TXN_ALLOWED\",\"ADVISOR_MONEY_TXN_ALLOWED\",\"PLAN_ANNIV_REVIEW_IND\",\"FUND_SPEC_LOAN_ALLOWED\",\"FREEZE_PLUS_IND\",\"LOAN_WAIT_PERIOD\",\"EXTERNAL_CLIENT_DOC_ALLOWED\",\"PAYROLL_PROVIDER_ID\",\"DIRECT_DEPOSIT_WAIT_DAYS\",\"PRODUCT_CODE\",\"DESIGNATED_IV_ID_FOR_DIVS\",\"DISPLAY_MODEL_PORTFOLIO\",\"DISPLAY_RK_ACCOUNT_NUMBER\",\"HSA_PROVIDER\",\"ENROLL_DEFAULT_FUND_TYPE\",\"ENROLL_DEFAULT_FUND_ID\",\"OMNI_SEGMENT_ID\",\"SWFDL_LOAD_ID\",\"SWFDL_CREATED_BY\",\"SWFDL_CREATED_TS\",\"SWFDL_UPDATED_BY\",\"SWFDL_UPDATED_TS\") FROM (select $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13 ,$14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29, $30, $31, $32, $33, $34, $35, $36, $37, $38, $39, $40, $41, $42, $43, $44, $45, $46, $47, $48, $49, $50, $51, $52, $53, $54, $55, $56, $57, $58, $59, $60, $61, $62, $63, $64, $65, $66, $67, $68, $69, $70, $71, $72, $73, $74, $75, $76, $77, $78, $79, $80, $81, $82, $83, $84, $85, $86, $87, $88, $89, $90, $91, $92, $93, $94, $95, $96, $97, $98, $99, $100, $101, $102, $103, $104, $105, $106, $107, $108, $109, $110, $111, $112, $113, $114, $115, $116, $117, $118, $119, $120, $121, $122, $123, $124, $125, $126, $127, $128, $129, $130, $131, $132, $133, $134, $135, $136, $137, $138, $139, $140, $141, $142, $143, $144, $145, $146, $147, $148, $149, $150, $151, $152, $153, $154, $155, $156, $157, $158, $159, $160, $161, $162, $163, $164, $165, $166, $167, $168, $169, $170, $171, $172, $173, $174, $175, $176, $177, $178, $179, $180, $181, $182, $183, $184, $185, $186, $187, $188, $189, $190, $191, $192, $193, $194, $195, $196, $197, $198, $199, $200, $201, $202, $203, $204, $205, $206, $207, $208, $209, $210, $211, $212, $213, $214, $215, $216, $217, $218, $219, $220, $221, $222, $223, $224, $225, $226, $227, $228, $229, $230, $231, $232, $233, $234, $235, $236, $237, $238, $239, $240, $241, $242, $243, $244, $245, $246, $247, $248, $249, $250, $251, $252 from @MYVOYAGE_STAGE.EXT_STAGE_ADF_VESSTZUC1UNITEDM001/OLTP/BPS/OLTP_BPS_PLAN.csv (file_format => 'MYVOYAGE_CONFORM.MYCSVFMT_HDROFF')) FORCE = TRUE LOAD_UNCERTAIN_FILES = TRUE ON_ERROR = ABORT_STATEMENT;",
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "SNOWFLAKE_MYVOYAGE_STAGE",
+						"type": "DatasetReference",
+						"parameters": {
+							"STG_TABLE_NAME": {
+								"value": "@concat(pipeline().parameters.SRC_SYS_NM,'_',pipeline().parameters.SRC_SCHEMA_NM,'_',pipeline().parameters.ENTITY_NAME)",
+								"type": "Expression"
+							},
+							"STG_SCHEMA_NAME": "MYVOYAGE_STAGE"
+						}
+					}
+				}
+			},
+			{
+				"name": "SF_STG_TABLE_LOAD_AUDIT",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "RAW_FILE_TO_SF_STG_TABLE_LOAD",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": {
+							"value": "call MYVOYAGE_UNIT.MYVOYAGE_CLEANSED.PRC_MVY_ETL_STG_AUDIT_LOAD(@{variables('INGESTION_LOAD_ID')},'@{pipeline().parameters.SRC_SYS_NM}','@{pipeline().parameters.ENTITY_NAME}','@{string(formatDateTime(addSeconds(activity('OnPrem_to_RAW').output.executionDetails[0].start,activity('OnPrem_to_RAW').output.copyDuration),'yyyy-MM-dd HH:mm:ss.fff'))}','@{string(formatDateTime(addSeconds(addSeconds(activity('OnPrem_to_RAW').output.executionDetails[0].start,activity('OnPrem_to_RAW').output.copyDuration),int(string(mul(activity('RAW_FILE_TO_SF_STG_TABLE_LOAD').output.billingReference.billableDuration[0].duration,3600)))),'yyyy-MM-dd HH:mm:ss.fff'))}',@{activity('RAW_FILE_TO_SF_STG_TABLE_LOAD').output.firstRow.rows_parsed},@{activity('RAW_FILE_TO_SF_STG_TABLE_LOAD').output.firstRow.rows_loaded})",
+							"type": "Expression"
+						},
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "SNOWFLAKE_MYVOYAGE_CLEANSED",
+						"type": "DatasetReference",
+						"parameters": {
+							"CLN_TABLE_NAME": {
+								"value": "@concat(pipeline().parameters.SRC_SYS_NM,'_',pipeline().parameters.SRC_SCHEMA_NM,'_',pipeline().parameters.ENTITY_NAME,'_CLN')",
+								"type": "Expression"
+							},
+							"CLN_SCHEMA_NAME": "MYVOYAGE_CLEANSED"
+						}
+					},
+					"firstRowOnly": true
+				}
+			},
+			{
+				"name": "STG_TO_CLN_LOAD",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "SF_STG_TABLE_LOAD_AUDIT",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": {
+							"value": "call MYVOYAGE_UNIT.MYVOYAGE_CLEANSED.PRC_MVY_ETL_STG_2_CLN_LOAD ('@{pipeline().parameters.SRC_SYS_NM}','@{pipeline().parameters.SRC_SCHEMA_NM}','@{pipeline().parameters.ENTITY_NAME}',@{variables('INGESTION_LOAD_ID')})",
+							"type": "Expression"
+						},
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "SNOWFLAKE_MYVOYAGE_CLEANSED",
+						"type": "DatasetReference",
+						"parameters": {
+							"CLN_TABLE_NAME": {
+								"value": "@concat(pipeline().parameters.SRC_SYS_NM,'_',pipeline().parameters.SRC_SCHEMA_NM,'_',pipeline().parameters.ENTITY_NAME,'_STG')",
+								"type": "Expression"
+							},
+							"CLN_SCHEMA_NAME": "MYVOYAGE_CLEANSED"
+						}
+					}
+				}
+			},
+			{
+				"name": "GetLoadID",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": {
+							"value": "call MYVOYAGE_CLEANSED.PRC_MVY_GET_LOADID('@{pipeline().parameters.ENTITY_NAME}','@{pipeline().parameters.SRC_SYS_NM}','@{pipeline().parameters.SRC_SCHEMA_NM}')",
+							"type": "Expression"
+						},
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "LOAD_ID",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": true
+				}
+			},
+			{
+				"name": "LOAD_ID_ASSIGN_NEW",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "GetLoadID",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "INGESTION_LOAD_ID",
+					"value": {
+						"value": "@string(activity('GetLoadID').output.firstRow.PRC_MVY_GET_LOADID)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Move_File_To_ADLS",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "STG_TO_CLN_LOAD",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SF_COMMON_STAGE",
+						"type": "DatasetReference",
+						"parameters": {
+							"SRC_SYS_NM": {
+								"value": "@pipeline().parameters.SRC_SYS_NM",
+								"type": "Expression"
+							},
+							"SRC_SCHEMA_NM": {
+								"value": "@pipeline().parameters.SRC_SCHEMA_NM",
+								"type": "Expression"
+							},
+							"ENTITY_NAME": {
+								"value": "@pipeline().parameters.ENTITY_NAME",
+								"type": "Expression"
+							},
+							"SF_STAGE_ROOT_DIR": {
+								"value": "@pipeline().parameters.SF_STAGE_ROOT_DIR",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ADLS_ARCHIVE_FILE",
+						"type": "DatasetReference",
+						"parameters": {
+							"SRC_SYS_NM": {
+								"value": "@pipeline().parameters.SRC_SYS_NM",
+								"type": "Expression"
+							},
+							"SCHEMA_NM": {
+								"value": "@pipeline().parameters.SRC_SCHEMA_NM",
+								"type": "Expression"
+							},
+							"ENTITY_NM": {
+								"value": "@pipeline().parameters.ENTITY_NAME",
+								"type": "Expression"
+							},
+							"LOB": {
+								"value": "@pipeline().parameters.LOB",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			},
+			{
+				"name": "DeleteFile",
+				"type": "Delete",
+				"dependsOn": [
+					{
+						"activity": "Move_File_To_ADLS",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "SF_COMMON_STAGE",
+						"type": "DatasetReference",
+						"parameters": {
+							"SRC_SYS_NM": {
+								"value": "@pipeline().parameters.SRC_SYS_NM",
+								"type": "Expression"
+							},
+							"SRC_SCHEMA_NM": {
+								"value": "@pipeline().parameters.SRC_SCHEMA_NM",
+								"type": "Expression"
+							},
+							"ENTITY_NAME": {
+								"value": "@pipeline().parameters.ENTITY_NAME",
+								"type": "Expression"
+							},
+							"SF_STAGE_ROOT_DIR": {
+								"value": "@pipeline().parameters.SF_STAGE_ROOT_DIR",
+								"type": "Expression"
+							}
+						}
+					},
+					"logStorageSettings": {
+						"linkedServiceName": {
+							"referenceName": "AzureDataLakeStorage1",
+							"type": "LinkedServiceReference"
+						},
+						"path": "snowflakeextstaging/Archive/Retirement"
+					},
+					"enableLogging": true,
+					"storeSettings": {
+						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
+						"enablePartitionDiscovery": false
+					}
+				}
+			}
+		],
+		"parameters": {
+			"ENTITY_NAME": {
+				"type": "string",
+				"defaultValue": "PLAN"
+			},
+			"SRC_SYS_NM": {
+				"type": "string",
+				"defaultValue": "OLTP"
+			},
+			"INGESTION_LOAD_TS": {
+				"type": "string"
+			},
+			"INGESTION_ETL_TYPE": {
+				"type": "string",
+				"defaultValue": "INCREMENTAL"
+			},
+			"SRC_SCHEMA_NM": {
+				"type": "string",
+				"defaultValue": "BPS"
+			},
+			"SF_STAGE_ROOT_DIR": {
+				"type": "string",
+				"defaultValue": "snowflakeextstaging"
+			},
+			"ADLS_LANDING_ROOT_DIR": {
+				"type": "string",
+				"defaultValue": "vesstzuc1unitedm001/landing"
+			},
+			"LOB": {
+				"type": "string",
+				"defaultValue": "rs"
+			},
+			"SNOWFLAKE_EXT_STAGE_DIR": {
+				"type": "string",
+				"defaultValue": "@MYVOYAGE_STAGE.EXT_STAGE_ADF_VESSTZUC1UNITEDM001"
+			}
+		},
+		"variables": {
+			"INGESTION_LOAD_ID": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "DataConsolidationR1/OLTP"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-09-20T08:18:44Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

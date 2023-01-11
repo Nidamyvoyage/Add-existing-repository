@@ -1,0 +1,21 @@
+{
+	"name": "records_test",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_dfs_vesstzuc1unitedm001",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "RS_SOMNI_DC_PARTICIPANT_DAILY_DELTA_TESTING2",
+				"fileSystem": "mdm"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

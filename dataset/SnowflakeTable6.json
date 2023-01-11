@@ -1,0 +1,60 @@
+{
+	"name": "SnowflakeTable6",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "MyVoyageSnowflake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SnowflakeTable",
+		"schema": [
+			{
+				"name": "JOURNEY_ID",
+				"type": "VARCHAR",
+				"precision": 160,
+				"scale": 0
+			},
+			{
+				"name": "JOURNEY_NAME",
+				"type": "VARCHAR",
+				"precision": 160,
+				"scale": 0
+			},
+			{
+				"name": "JOURNEY_CMS_TAG_ID",
+				"type": "VARCHAR",
+				"precision": 160,
+				"scale": 0
+			},
+			{
+				"name": "CREATED_BY",
+				"type": "VARCHAR",
+				"precision": 160,
+				"scale": 0
+			},
+			{
+				"name": "CREATED_DT",
+				"type": "TIMESTAMP_NTZ",
+				"precision": 26,
+				"scale": 6
+			},
+			{
+				"name": "LAST_UPDATED_BY",
+				"type": "VARCHAR",
+				"precision": 160,
+				"scale": 0
+			},
+			{
+				"name": "LAST_UPDATED_DT",
+				"type": "TIMESTAMP_NTZ",
+				"precision": 26,
+				"scale": 6
+			}
+		],
+		"typeProperties": {
+			"schema": "MYVOYAGE_STAGE",
+			"table": "JOURNEY"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

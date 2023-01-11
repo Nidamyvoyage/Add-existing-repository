@@ -1,0 +1,43 @@
+{
+	"name": "SRC_STG_CLN_MDM",
+	"properties": {
+		"activities": [
+			{
+				"name": "SRC_STG_CLN",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "MVY_MAX_FULL",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "CLN_MDM",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "SRC_STG_CLN",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "MDM_MAX_FRAMEWORK_MDMU",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": false
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2022-12-27T13:05:15Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

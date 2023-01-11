@@ -1,0 +1,25 @@
+{
+	"name": "LOAD_ID_1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "MyVoyageSnowflake",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"DY_LOAD_ID": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "DataConsolidationR1"
+		},
+		"annotations": [],
+		"type": "SnowflakeTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "MYVOYAGE_CONFORM",
+			"table": "CONFORM_LOAD_ID_SEQ"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

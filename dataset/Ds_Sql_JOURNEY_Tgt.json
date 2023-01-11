@@ -1,0 +1,25 @@
+{
+	"name": "Ds_Sql_JOURNEY_Tgt",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_blob_vesstzuc1unitedm002",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "JOURNEYSTEP.csv",
+				"folderPath": "appdb",
+				"container": "dataconsolidation"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

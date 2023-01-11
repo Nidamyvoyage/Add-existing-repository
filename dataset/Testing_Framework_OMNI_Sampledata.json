@@ -1,0 +1,169 @@
+{
+	"name": "Testing_Framework_OMNI_Sampledata",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_dfs_vesstzuc1unitedm001",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "OMNI.VIPS.DAILY.PART.HEADER.csv",
+				"fileSystem": "snowflakeextstaging"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "WS_EXT_PH_PLAN_NUM",
+				"type": "String"
+			},
+			{
+				"name": "WS_EXT_PH_PART_NUM",
+				"type": "String"
+			},
+			{
+				"name": "WS_EXT_PH_NAME",
+				"type": "String"
+			},
+			{
+				"name": "WS_EXT_PH_PART_DIV_SUB",
+				"type": "String"
+			},
+			{
+				"name": "WS_EXT_PH_BRTH_DATE",
+				"type": "String"
+			},
+			{
+				"name": "WS_EXT_PH_PLENT_DATE",
+				"type": "String"
+			},
+			{
+				"name": "WS_EXT_PH_ADDR_L1",
+				"type": "String"
+			},
+			{
+				"name": "WS_EXT_PH_ADDR_L2",
+				"type": "String"
+			},
+			{
+				"name": "WS_EXT_PH_ADDR_L3",
+				"type": "String"
+			},
+			{
+				"name": "WS_EXT_PH_CITY",
+				"type": "String"
+			},
+			{
+				"name": "WS_EXT_PH_STATE",
+				"type": "String"
+			},
+			{
+				"name": "WS_EXT_PH_ZIP",
+				"type": "String"
+			},
+			{
+				"name": "WS_EXT_PH_STAT",
+				"type": "String"
+			},
+			{
+				"name": "WS_EXT_PH_TERM_DATE",
+				"type": "String"
+			},
+			{
+				"name": "WS_EXT_PH_LAST_CNTRB_DATE",
+				"type": "String"
+			},
+			{
+				"name": "WS_EXT_PH_STAT_REASON",
+				"type": "String"
+			},
+			{
+				"name": "WS_EXT_PH_LOC_TAX_CODE",
+				"type": "String"
+			},
+			{
+				"name": "WS_EXT_PH_ALT_STATE",
+				"type": "String"
+			},
+			{
+				"name": "WS_EXT_PH_FIRST_CNTRB_DATE",
+				"type": "String"
+			},
+			{
+				"name": "WS_EXT_PH_ATTAINED_AGE",
+				"type": "String"
+			},
+			{
+				"name": "WS_EXT_PH_PF999_BAL",
+				"type": "String"
+			},
+			{
+				"name": "WS_EXT_PH_PA999_BAL",
+				"type": "String"
+			},
+			{
+				"name": "WS_EXT_PH_ADV_ACCT_IND",
+				"type": "String"
+			},
+			{
+				"name": "WS_EXT_PH_OMNI_VERSION",
+				"type": "String"
+			},
+			{
+				"name": "WS_EXT_PH_VRR_PL_STATUS",
+				"type": "String"
+			},
+			{
+				"name": "WS_EXT_PH_VRR_PL_TERM",
+				"type": "String"
+			},
+			{
+				"name": "WS_EXT_PH_CONV_PL_NUM",
+				"type": "String"
+			},
+			{
+				"name": "WS_EXT_PH_CLIENT_ID",
+				"type": "String"
+			},
+			{
+				"name": "WS_EXT_PH_SUB_CLIENT_ID",
+				"type": "String"
+			},
+			{
+				"name": "WS_EXT_PH_SSO_CLIENT_ID",
+				"type": "String"
+			},
+			{
+				"name": "WS_EXT_PH_CLIENT_STATUS",
+				"type": "String"
+			},
+			{
+				"name": "SWFDL_LOAD_ID",
+				"type": "String"
+			},
+			{
+				"name": "SWFDL_CREATED_BY",
+				"type": "String"
+			},
+			{
+				"name": "SWFDL_CREATED_TS",
+				"type": "String"
+			},
+			{
+				"name": "SWFDL_UPDATED_BY",
+				"type": "String"
+			},
+			{
+				"name": "SWFDL_UPDATED_TS",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,1267 @@
+{
+	"name": "MVY_EASEOMNI_FULL",
+	"properties": {
+		"activities": [
+			{
+				"name": "RAW_FILE_LOAD_AUDIT",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "OnPrem_to_RAW",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": {
+							"value": "call MYVOYAGE_UNIT.MYVOYAGE_CLEANSED.PRC_MVY_ETL_RAW_AUDIT_LOAD(@{variables('INGESTION_LOAD_ID')},'@{pipeline().parameters.SRC_SYS_NM}','@{pipeline().parameters.ENTITY_NAME}','@{string(formatDateTime(activity('OnPrem_to_RAW').output.executionDetails[0].start,'yyyy-MM-dd HH:mm:ss.fff'))}','@{string(formatDateTime(addSeconds(activity('OnPrem_to_RAW').output.executionDetails[0].start,activity('OnPrem_to_RAW').output.copyDuration),'yyyy-MM-dd HH:mm:ss.fff'))}',@{activity('OnPrem_to_RAW').output.RowsRead},@{activity('OnPrem_to_RAW').output.rowsCopied})",
+							"type": "Expression"
+						},
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "LOAD_ID",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": true
+				}
+			},
+			{
+				"name": "RAW_FILE_TO_SF_STG_TABLE_LOAD",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "RAW_FILE_LOAD_AUDIT",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": {
+							"value": "\nCOPY INTO \"MYVOYAGE_STAGE\".\"RS_SOMNI_DC_PARTICIPANT_DAILY_STG\"( \"CLIENT_ID\", \"PLAN_NUMBER\", \"PLAN_SYSTEM_KEY\", \"PART_AGREEMENT_SYSTEM_KEY\", \"PART_ACCOUNT_NUMBER\",\n\"PART_ACCOUNT_COMPANY_CODE\", \"SOURCE_SYSTEM\", \"PART_ACCOUNT_PROD_CODE\", \"PART_ACCOUNT_PROD_SHORT_NAME\", \"PART_ACCOUNT_TYPE_CODE\", \"PART_ACCOUNT_TYPE\", \"PART_ACCOUNT_PLAN_CODE\",\n\"PART_ACCOUNT_STATUS_CODE\", \"PART_ACCOUNT_STATUS\", \"PART_ACCOUNT_STATUS_DATE\", \"PART_TYPE\", \"PART_ACCOUNT_PLAN_ENTRY_DATE\", \"PART_EMPLOYMENT_TERM_DATE\", \"PART_HIRE_DATE\", \n\"PART_TIN\", \"PART_TIN_LAST_FOUR\", \"PART_BIRTH_DATE\", \"PART_AGE\", \"PART_GENDER_CODE\", \"PART_GENDER\", \"PART_PERSON_FLAG\", \"PART_FULL_NAME\", \"PART_FIRST_NAME\", \"PART_LAST_NAME\",\n\"PART_MIDDLE_NAME\", \"PART_SUFFIX_TITLE\", \"PART_ADDRESS_LINE1\", \"PART_ADDRESS_LINE2\", \"PART_ADDRESS_LINE3\", \"PART_CITY\", \"PART_STATE\", \"PART_POSTAL_CODE\", \"PART_COUNTRY\", \n\"PART_LOB\", \"PART_AUTO_ENROLLED\", \"DEFAULT_ENROLLED_QDIA\", \"PART_HARDHSHIP_SUSPENSION_DATE\", \"PART_EMAIL\", \"PART_PHONE\", \"PARTICIPANT_YEARS_OF_SERVICE\", \"PART_YTD_HOURS_WORKED\",\n\"PART_LOCATION_CODE\", \"PART_REHIRE_DATE\", \"PART_EMPLOYEE_ID\", \"PART_CATCHUP_ELIGIBLE\", \"PART_MARITAL_STATUS\", \"PART_HCE_STATUS\", \"PART_16B_STATUS\", \"PART_QDRO_STATUS\", \n\"PART_INSTALLMENT_STATUS\",\"SWFDL_LOAD_ID\", \"SWFDL_CREATED_BY\",\"SWFDL_CREATED_TS\", \"SWFDL_UPDATED_BY\", \"SWFDL_UPDATED_TS\") \nFROM (select COALESCE($1, ' '), COALESCE($2, ' '), COALESCE($3, ' '), COALESCE($4, ' '), COALESCE($5, ' '), COALESCE($6, ' '), COALESCE($7, ' '), COALESCE($8, ' '),\nCOALESCE($9, ' '), COALESCE($10, ' '), COALESCE($11, ' '), COALESCE($12, ' '), COALESCE($13, ' ') ,COALESCE($14, ' '), COALESCE($15, ' '), COALESCE($16, ' '),\nCOALESCE($17, ' '), COALESCE($18, ' '), COALESCE($19, ' '), COALESCE($20, ' '), COALESCE($21, ' '), COALESCE($22, ' '), COALESCE($23, ' '), COALESCE($24, ' '), COALESCE($25, ' '), COALESCE($26, ' '), COALESCE($27, ' '),\nCOALESCE($28, ' '), COALESCE($29, ' '), COALESCE($30, ' '), COALESCE($31, ' '), COALESCE($32, ' '), COALESCE($33, ' '), COALESCE($34, ' '), COALESCE($35, ' '), COALESCE($36, ' '), \nCOALESCE($37, ' '), COALESCE($38, ' '), COALESCE($39, ' '), COALESCE($40, ' '), COALESCE($41, ' '), COALESCE($42, ' '), COALESCE($43, ' '), COALESCE($44, ' '), \nCOALESCE($45, ' '), COALESCE($46, ' '), COALESCE($47, ' '), COALESCE($48, ' '), COALESCE($49, ' '), COALESCE($50, ' '), COALESCE($51, ' '), COALESCE($52, ' '),\nCOALESCE($53, ' '), COALESCE($54, ' '), COALESCE($55, ' '), $56, $57, $58, $59, $60\nfrom @{json(variables('Parameter_var1')).SNOWFLAKE_EXT_STAGE_DIR}/RS_SOMNI/DC/RS_SOMNI_DC_PARTICIPANT_DAILY.csv(file_format => 'MYVOYAGE_CLEANSED.BACKSLASH_FILE'))\nFORCE = TRUE LOAD_UNCERTAIN_FILES = TRUE; ",
+							"type": "Expression"
+						},
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "SNOWFLAKE_MYVOYAGE_STAGE",
+						"type": "DatasetReference",
+						"parameters": {
+							"STG_TABLE_NAME": {
+								"value": "@concat(pipeline().parameters.SRC_SYS_NM,'_',pipeline().parameters.SRC_SCHEMA_NM,'_',pipeline().parameters.ENTITY_NAME)",
+								"type": "Expression"
+							},
+							"STG_SCHEMA_NAME": "MYVOYAGE_STAGE"
+						}
+					}
+				}
+			},
+			{
+				"name": "SF_STG_TABLE_LOAD_AUDIT",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "RAW_FILE_TO_SF_STG_TABLE_LOAD",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": {
+							"value": "call MYVOYAGE_UNIT.MYVOYAGE_CLEANSED.PRC_MVY_ETL_STG_AUDIT_LOAD(@{variables('INGESTION_LOAD_ID')},'@{pipeline().parameters.SRC_SYS_NM}','@{pipeline().parameters.ENTITY_NAME}','@{string(formatDateTime(addSeconds(activity('OnPrem_to_RAW').output.executionDetails[0].start,activity('OnPrem_to_RAW').output.copyDuration),'yyyy-MM-dd HH:mm:ss.fff'))}','@{string(formatDateTime(addSeconds(addSeconds(activity('OnPrem_to_RAW').output.executionDetails[0].start,activity('OnPrem_to_RAW').output.copyDuration),int(string(mul(activity('RAW_FILE_TO_SF_STG_TABLE_LOAD').output.billingReference.billableDuration[0].duration,3600)))),'yyyy-MM-dd HH:mm:ss.fff'))}',@{activity('RAW_FILE_TO_SF_STG_TABLE_LOAD').output.firstRow.rows_parsed},@{activity('RAW_FILE_TO_SF_STG_TABLE_LOAD').output.firstRow.rows_loaded})",
+							"type": "Expression"
+						},
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "SNOWFLAKE_MYVOYAGE_CLEANSED",
+						"type": "DatasetReference",
+						"parameters": {
+							"CLN_TABLE_NAME": {
+								"value": "@concat(pipeline().parameters.SRC_SYS_NM,'_',pipeline().parameters.SRC_SCHEMA_NM,'_',pipeline().parameters.ENTITY_NAME,'_CLN')",
+								"type": "Expression"
+							},
+							"CLN_SCHEMA_NAME": "MYVOYAGE_CLEANSED"
+						}
+					},
+					"firstRowOnly": true
+				}
+			},
+			{
+				"name": "STG_TO_CLN_LOAD",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "SF_STG_TABLE_LOAD_AUDIT",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": {
+							"value": "call MYVOYAGE_UNIT.MYVOYAGE_CLEANSED.PRC_MVY_ETL_STG_2_CLN_LOAD ('@{pipeline().parameters.SRC_SYS_NM}','@{pipeline().parameters.SRC_SCHEMA_NM}','@{pipeline().parameters.ENTITY_NAME}',@{variables('INGESTION_LOAD_ID')})",
+							"type": "Expression"
+						},
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "SNOWFLAKE_MYVOYAGE_CLEANSED",
+						"type": "DatasetReference",
+						"parameters": {
+							"CLN_TABLE_NAME": {
+								"value": "@concat(pipeline().parameters.SRC_SYS_NM,'_',pipeline().parameters.SRC_SCHEMA_NM,'_',pipeline().parameters.ENTITY_NAME,'_STG')",
+								"type": "Expression"
+							},
+							"CLN_SCHEMA_NAME": "MYVOYAGE_CLEANSED"
+						}
+					}
+				}
+			},
+			{
+				"name": "GetLoadID",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "Set variable1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": {
+							"value": "call MYVOYAGE_CLEANSED.PRC_MVY_GET_LOADID('@{pipeline().parameters.ENTITY_NAME}','@{pipeline().parameters.SRC_SYS_NM}','@{pipeline().parameters.SRC_SCHEMA_NM}')",
+							"type": "Expression"
+						},
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "LOAD_ID",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": true
+				}
+			},
+			{
+				"name": "LOAD_ID_ASSIGN_NEW",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "GetLoadID",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "INGESTION_LOAD_ID",
+					"value": {
+						"value": "@string(activity('GetLoadID').output.firstRow.PRC_MVY_GET_LOADID)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Move_File_To_ADLS",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "STG_TO_CLN_LOAD",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SF_COMMON_STAGE_Pipe",
+						"type": "DatasetReference",
+						"parameters": {
+							"SRC_SYS_NM": {
+								"value": "@pipeline().parameters.SRC_SYS_NM",
+								"type": "Expression"
+							},
+							"SRC_SCHEMA_NM": {
+								"value": "@pipeline().parameters.SRC_SCHEMA_NM",
+								"type": "Expression"
+							},
+							"ENTITY_NAME": {
+								"value": "@pipeline().parameters.ENTITY_NAME",
+								"type": "Expression"
+							},
+							"SF_STAGE_ROOT_DIR": {
+								"value": "@json(variables('Parameter_var1')).SF_STAGE_ROOT_DIR",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ADLS_ARCHIVE_FILE_OMNI",
+						"type": "DatasetReference",
+						"parameters": {
+							"SRC_SYS_NM": {
+								"value": "@pipeline().parameters.SRC_SYS_NM",
+								"type": "Expression"
+							},
+							"SCHEMA_NM": {
+								"value": "@pipeline().parameters.SRC_SCHEMA_NM",
+								"type": "Expression"
+							},
+							"ENTITY_NM": {
+								"value": "@pipeline().parameters.ENTITY_NAME",
+								"type": "Expression"
+							},
+							"LOB": {
+								"value": "@pipeline().parameters.LOB",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			},
+			{
+				"name": "DeleteFile",
+				"type": "Delete",
+				"dependsOn": [
+					{
+						"activity": "Move_File_To_ADLS",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "SF_COMMON_STAGE",
+						"type": "DatasetReference",
+						"parameters": {
+							"SRC_SYS_NM": {
+								"value": "@pipeline().parameters.SRC_SYS_NM",
+								"type": "Expression"
+							},
+							"SRC_SCHEMA_NM": {
+								"value": "@pipeline().parameters.SRC_SCHEMA_NM",
+								"type": "Expression"
+							},
+							"ENTITY_NAME": {
+								"value": "@pipeline().parameters.ENTITY_NAME",
+								"type": "Expression"
+							},
+							"SF_STAGE_ROOT_DIR": {
+								"value": "@json(variables('Parameter_var1')).SF_STAGE_ROOT_DIR\n",
+								"type": "Expression"
+							}
+						}
+					},
+					"logStorageSettings": {
+						"linkedServiceName": {
+							"referenceName": "AzureDataLakeStorage1",
+							"type": "LinkedServiceReference"
+						},
+						"path": "snowflakeextstaging/Archive/Retirement"
+					},
+					"enableLogging": true,
+					"storeSettings": {
+						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
+						"enablePartitionDiscovery": false
+					}
+				}
+			},
+			{
+				"name": "OnPrem_to_RAW",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Latest_Source_File",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"additionalColumns": [
+							{
+								"name": "SWFDL_LOAD_ID",
+								"value": {
+									"value": "@variables('INGESTION_LOAD_ID')",
+									"type": "Expression"
+								}
+							},
+							{
+								"name": "SWFDL_CREATED_BY",
+								"value": {
+									"value": "@pipeline().Pipeline",
+									"type": "Expression"
+								}
+							},
+							{
+								"name": "SWFDL_CREATED_TS",
+								"value": {
+									"value": "@{formatDateTime(pipeline().TriggerTime,'yyyy-MM-dd HH:mm:ss.fff')}",
+									"type": "Expression"
+								}
+							},
+							{
+								"name": "SWFDL_UPDATED_BY",
+								"value": {
+									"value": "@pipeline().Pipeline",
+									"type": "Expression"
+								}
+							},
+							{
+								"name": "SWFDL_UPDATED_TS",
+								"value": {
+									"value": "@{formatDateTime(pipeline().TriggerTime,'yyyy-MM-dd HH:mm:ss.fff')}",
+									"type": "Expression"
+								}
+							}
+						],
+						"storeSettings": {
+							"type": "SftpReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": true,
+							"disableChunking": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"enableSkipIncompatibleRow": true,
+					"logSettings": {
+						"enableCopyActivityLog": true,
+						"copyActivityLogSettings": {
+							"logLevel": "Warning",
+							"enableReliableLogging": false
+						},
+						"logLocationSettings": {
+							"linkedServiceName": {
+								"referenceName": "AzureDataLakeStorage1",
+								"type": "LinkedServiceReference"
+							},
+							"path": {
+								"value": "@concat(json(variables('Parameter_var1')).BADRECORD_FOLDER,'/',pipeline().Pipeline,'/',pipeline().parameters.ENTITY_NAME,'/')",
+								"type": "Expression"
+							}
+						}
+					},
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 1
+								},
+								"sink": {
+									"name": "CLIENT_ID",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 2
+								},
+								"sink": {
+									"name": "PLAN_NUMBER",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 3
+								},
+								"sink": {
+									"name": "PLAN_SYSTEM_KEY",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 4
+								},
+								"sink": {
+									"name": "PART_AGREEMENT_SYSTEM_KEY",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 5
+								},
+								"sink": {
+									"name": "PART_ACCOUNT_NUMBER",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 6
+								},
+								"sink": {
+									"name": "PART_ACCOUNT_COMPANY_CODE",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 7
+								},
+								"sink": {
+									"name": "SOURCE_SYSTEM",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 8
+								},
+								"sink": {
+									"name": "PART_ACCOUNT_PROD_CODE",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 9
+								},
+								"sink": {
+									"name": "PART_ACCOUNT_PROD_SHORT_NAME",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 10
+								},
+								"sink": {
+									"name": "PART_ACCOUNT_TYPE_CODE",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 11
+								},
+								"sink": {
+									"name": "PART_ACCOUNT_TYPE",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 12
+								},
+								"sink": {
+									"name": "PART_ACCOUNT_PLAN_CODE",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 13
+								},
+								"sink": {
+									"name": "PART_ACCOUNT_STATUS_CODE",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 14
+								},
+								"sink": {
+									"name": "PART_ACCOUNT_STATUS",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 15
+								},
+								"sink": {
+									"name": "PART_ACCOUNT_STATUS_DATE",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 16
+								},
+								"sink": {
+									"name": "PART_TYPE",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 17
+								},
+								"sink": {
+									"name": "PART_ACCOUNT_PLAN_ENTRY_DATE",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 18
+								},
+								"sink": {
+									"name": "PART_EMPLOYMENT_TERM_DATE",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 19
+								},
+								"sink": {
+									"name": "PART_HIRE_DATE",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 20
+								},
+								"sink": {
+									"name": "PART_TIN",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 21
+								},
+								"sink": {
+									"name": "PART_TIN_LAST_FOURPART_BIRTH_DATE",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 22
+								},
+								"sink": {
+									"name": "PART_BIRTH_DATE",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 23
+								},
+								"sink": {
+									"name": "PART_AGE",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 24
+								},
+								"sink": {
+									"name": "PART_GENDER_CODE",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 25
+								},
+								"sink": {
+									"name": "PART_GENDER",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 26
+								},
+								"sink": {
+									"name": "PART_PERSON_FLAG",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 27
+								},
+								"sink": {
+									"name": "PART_FULL_NAME",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 28
+								},
+								"sink": {
+									"name": "PART_FIRST_NAME",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 29
+								},
+								"sink": {
+									"name": "PART_LAST_NAME",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 30
+								},
+								"sink": {
+									"name": "PART_MIDDLE_NAME",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 31
+								},
+								"sink": {
+									"name": "PART_SUFFIX_TITLE",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 32
+								},
+								"sink": {
+									"name": "PART_ADDRESS_LINE1",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 33
+								},
+								"sink": {
+									"name": "PART_ADDRESS_LINE2",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 34
+								},
+								"sink": {
+									"name": "PART_ADDRESS_LINE3",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 35
+								},
+								"sink": {
+									"name": "PART_CITY",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 36
+								},
+								"sink": {
+									"name": "PART_STATE",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 37
+								},
+								"sink": {
+									"name": "PART_POSTAL_CODE",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 38
+								},
+								"sink": {
+									"name": "PART_COUNTRY",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 39
+								},
+								"sink": {
+									"name": "PART_LOB",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 40
+								},
+								"sink": {
+									"name": "PART_AUTO_ENROLLED",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 41
+								},
+								"sink": {
+									"name": "DEFAULT_ENROLLED_QDIAPART_HARDHSHIP_SUSPENSION_DATE",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 42
+								},
+								"sink": {
+									"name": "PART_HARDHSHIP_SUSPENSION_DATE",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 43
+								},
+								"sink": {
+									"name": "PART_EMAIL",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 44
+								},
+								"sink": {
+									"name": "PART_PHONE",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 45
+								},
+								"sink": {
+									"name": "PARTICIPANT_YEARS_OF_SERVICE",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 46
+								},
+								"sink": {
+									"name": "PART_YTD_HOURS_WORKED",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 47
+								},
+								"sink": {
+									"name": "PART_LOCATION_CODE",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 48
+								},
+								"sink": {
+									"name": "PART_REHIRE_DATE",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 49
+								},
+								"sink": {
+									"name": "PART_EMPLOYEE_ID",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 50
+								},
+								"sink": {
+									"name": "PART_CATCHUP_ELIGIBLE",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 51
+								},
+								"sink": {
+									"name": "PART_MARITAL_STATUS",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 52
+								},
+								"sink": {
+									"name": "PART_HCE_STATUS",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 53
+								},
+								"sink": {
+									"name": "PART_16B_STATUS",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 54
+								},
+								"sink": {
+									"name": "PART_QDRO_STATUS",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"type": "String",
+									"ordinal": 55
+								},
+								"sink": {
+									"name": "PART_INSTALLMENT_STATUS",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_LOAD_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SWFDL_LOAD_ID",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_CREATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SWFDL_CREATED_BY",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_CREATED_TS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SWFDL_CREATED_TS",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_UPDATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SWFDL_UPDATED_BY",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_UPDATED_TS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SWFDL_UPDATED_TS",
+									"physicalType": "String"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SFTP_EaseOmni",
+						"type": "DatasetReference",
+						"parameters": {
+							"FileName": {
+								"value": "@json(string(last(activity('Latest_Source_File').output.childItems))).name",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SF_COMMON_STAGE_Pipe",
+						"type": "DatasetReference",
+						"parameters": {
+							"SRC_SYS_NM": {
+								"value": "@pipeline().parameters.SRC_SYS_NM",
+								"type": "Expression"
+							},
+							"SRC_SCHEMA_NM": {
+								"value": "@pipeline().parameters.SRC_SCHEMA_NM",
+								"type": "Expression"
+							},
+							"ENTITY_NAME": {
+								"value": "@pipeline().parameters.ENTITY_NAME",
+								"type": "Expression"
+							},
+							"SF_STAGE_ROOT_DIR": {
+								"value": "@json(variables('Parameter_var1')).SF_STAGE_ROOT_DIR\n",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			},
+			{
+				"name": "Parameterized_file",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"dataset": {
+						"referenceName": "DS_Parameterized_file",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": true
+				}
+			},
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Parameterized_file",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "Parameter_var1",
+					"value": {
+						"value": "@string(activity('Parameterized_file').output.firstRow)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Latest_Source_File",
+				"type": "GetMetadata",
+				"dependsOn": [
+					{
+						"activity": "LOAD_ID_ASSIGN_NEW",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "SFTP_EaseOmni",
+						"type": "DatasetReference",
+						"parameters": {
+							"FileName": "SUPER_OMNI_PARTICPANTACCOUNT_DAILY.DAT.*"
+						}
+					},
+					"fieldList": [
+						"childItems"
+					],
+					"storeSettings": {
+						"type": "SftpReadSettings",
+						"recursive": true,
+						"enablePartitionDiscovery": false,
+						"disableChunking": false
+					},
+					"formatSettings": {
+						"type": "DelimitedTextReadSettings"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"ENTITY_NAME": {
+				"type": "string",
+				"defaultValue": "PARTICIPANT_DAILY"
+			},
+			"SRC_SYS_NM": {
+				"type": "string",
+				"defaultValue": "RS_SOMNI"
+			},
+			"INGESTION_LOAD_TS": {
+				"type": "string"
+			},
+			"INGESTION_ETL_TYPE": {
+				"type": "string",
+				"defaultValue": "INCREMENTAL"
+			},
+			"SRC_SCHEMA_NM": {
+				"type": "string",
+				"defaultValue": "DC"
+			},
+			"LOB": {
+				"type": "string",
+				"defaultValue": "rs"
+			}
+		},
+		"variables": {
+			"INGESTION_LOAD_ID": {
+				"type": "String"
+			},
+			"Parameter_var1": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "DataConsolidationR2/EASEOMNI"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-10-25T15:10:34Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

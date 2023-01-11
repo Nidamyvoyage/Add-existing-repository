@@ -1,0 +1,66 @@
+{
+	"name": "Ds_Kpd_Fw_Cust_Calc_Sf_Src",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_dfs_vesstzuc1unitedm001",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "KPDFWtgt.txt",
+				"folderPath": "Digital",
+				"fileSystem": "sfstaging"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "CUSTOMER_PROFILE_ID",
+				"type": "String"
+			},
+			{
+				"name": "CLIENT_ID",
+				"type": "String"
+			},
+			{
+				"name": "TYPE",
+				"type": "String"
+			},
+			{
+				"name": "CREATED_TS",
+				"type": "String"
+			},
+			{
+				"name": "CREATED_BY",
+				"type": "String"
+			},
+			{
+				"name": "UPDATED_TS",
+				"type": "String"
+			},
+			{
+				"name": "UPDATED_BY",
+				"type": "String"
+			},
+			{
+				"name": "DATA_CLOB",
+				"type": "String"
+			},
+			{
+				"name": "DATA",
+				"type": "String"
+			},
+			{
+				"name": "FW_VISITED_DATE",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

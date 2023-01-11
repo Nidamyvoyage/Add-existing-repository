@@ -1,0 +1,20 @@
+{
+	"name": "AzureBlobStorage1",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobStorage",
+		"typeProperties": {
+			"serviceEndpoint": "https://vesstzuc1unitedm002.blob.core.windows.net",
+			"accountKind": "StorageV2",
+			"credential": {
+				"referenceName": "credential1",
+				"type": "CredentialReference"
+			}
+		},
+		"connectVia": {
+			"referenceName": "integrationRuntime1",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

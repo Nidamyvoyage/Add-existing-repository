@@ -1,0 +1,28 @@
+{
+	"name": "SFTP_EASE_OMNI",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SFTPSterling",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "SftpLocation",
+				"fileName": "SUPER_OMNI_PARTICPANTACCOUNT_DAILY.DAT.20201007",
+				"folderPath": "/FilesFromEaseOmni_Dev"
+			},
+			"columnDelimiter": "|",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

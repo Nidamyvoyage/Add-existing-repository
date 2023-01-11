@@ -1,0 +1,11 @@
+{
+	"name": "N_4_MyVoyage_1",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://N-4-MyVoyage-1.vault.azure.net"
+		}
+	}
+}

@@ -1,0 +1,28 @@
+{
+	"name": "SFTPSterling_Test",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "Testing the dynamic parametrs",
+		"annotations": [],
+		"type": "Sftp",
+		"typeProperties": {
+			"host": "sfg.accp.apptoapp.org",
+			"port": 22,
+			"skipHostKeyValidation": true,
+			"authenticationType": "Basic",
+			"userName": "cv000040d",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "N_4_MyVoyage_1",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "cv000040d-SFTP-password"
+			}
+		},
+		"connectVia": {
+			"referenceName": "integrationRuntime-dstrwaac9245",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

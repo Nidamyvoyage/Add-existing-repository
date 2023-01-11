@@ -1,0 +1,126 @@
+{
+	"name": "DS_cods_sample_file",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_dfs_vesstzuc1unitedm001",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Parameters2.csv",
+				"folderPath": "Parameterized",
+				"fileSystem": "snowflakeextstaging"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "PARTY_ID",
+				"type": "String"
+			},
+			{
+				"name": "AS_OF_DATE",
+				"type": "String"
+			},
+			{
+				"name": "PARTY_TYPE",
+				"type": "String"
+			},
+			{
+				"name": "TIN",
+				"type": "String"
+			},
+			{
+				"name": "TIN_TYPE",
+				"type": "String"
+			},
+			{
+				"name": "DATE_OF_BIRTH",
+				"type": "String"
+			},
+			{
+				"name": "FULL_NAME",
+				"type": "String"
+			},
+			{
+				"name": "PREFIX_NAME",
+				"type": "String"
+			},
+			{
+				"name": "FIRST_NAME",
+				"type": "String"
+			},
+			{
+				"name": "MIDDLE_NAME",
+				"type": "String"
+			},
+			{
+				"name": "LAST_NAME",
+				"type": "String"
+			},
+			{
+				"name": "SUFFIX_NAME",
+				"type": "String"
+			},
+			{
+				"name": "GENDER",
+				"type": "String"
+			},
+			{
+				"name": "PARTY_EXCPTN_FLG",
+				"type": "String"
+			},
+			{
+				"name": "RR_EXCPTN_FLG",
+				"type": "String"
+			},
+			{
+				"name": "SOURCE_SYSTEM",
+				"type": "String"
+			},
+			{
+				"name": "SOURCE_SYSTEM_UNDERLYING",
+				"type": "String"
+			},
+			{
+				"name": "CREATED_TS",
+				"type": "String"
+			},
+			{
+				"name": "CREATED_BY",
+				"type": "String"
+			},
+			{
+				"name": "UPDATED_TS",
+				"type": "String"
+			},
+			{
+				"name": "UPDATED_BY",
+				"type": "String"
+			},
+			{
+				"name": "CHECK_SUM",
+				"type": "String"
+			},
+			{
+				"name": "END_DATE",
+				"type": "String"
+			},
+			{
+				"name": "VSA_FLAG",
+				"type": "String"
+			},
+			{
+				"name": "SF_VRA_AGNT_EXCP_FLG",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

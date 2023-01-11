@@ -1,0 +1,23 @@
+{
+	"name": "Oracle_CODS",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "Oracle",
+		"typeProperties": {
+			"connectionString": "host=codsu.unit.apptoapp.net;port=50001;serviceName=codsu_Srvc.oracle.db;user id=SA203119",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "N_4_MyVoyage_1",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "SA203119-codsu-password"
+			}
+		},
+		"connectVia": {
+			"referenceName": "integrationRuntime-dstrwaac9246",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

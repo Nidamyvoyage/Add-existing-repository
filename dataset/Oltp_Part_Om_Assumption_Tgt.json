@@ -1,0 +1,81 @@
+{
+	"name": "Oltp_Part_Om_Assumption_Tgt",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_dfs_vesstzuc1unitedm001",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "Digital",
+				"fileSystem": "sfstaging"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "JOURNEY_STEP_ID",
+				"type": "String"
+			},
+			{
+				"name": "JOURNEY_ID",
+				"type": "String"
+			},
+			{
+				"name": "FOLLOWING_STEP",
+				"type": "String"
+			},
+			{
+				"name": "PRECEDING_STEP",
+				"type": "String"
+			},
+			{
+				"name": "JOURNEY_STEP_NAME",
+				"type": "String"
+			},
+			{
+				"name": "JOURNEY_STEP_CMS_TAG_ID",
+				"type": "String"
+			},
+			{
+				"name": "CREATED_BY",
+				"type": "String"
+			},
+			{
+				"name": "CREATED_DT",
+				"type": "String"
+			},
+			{
+				"name": "LAST_UPDATED_BY",
+				"type": "String"
+			},
+			{
+				"name": "LAST_UPDATED_DT",
+				"type": "String"
+			},
+			{
+				"name": "ADF_Name",
+				"type": "String"
+			},
+			{
+				"name": "Pipeline_Name",
+				"type": "String"
+			},
+			{
+				"name": "Pipeline_Runid",
+				"type": "String"
+			},
+			{
+				"name": "Pipeline_Runtime",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

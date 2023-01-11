@@ -1,0 +1,142 @@
+{
+	"name": "Publish_2_MDMU_FAST_PARTY",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "PUBLISH_PERSON",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				},
+				{
+					"dataset": {
+						"referenceName": "MDMU_FASTU_PARTY",
+						"type": "DatasetReference"
+					},
+					"name": "source2"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "FASTU_PARTY",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "exists1"
+				},
+				{
+					"name": "derivedColumn1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          PERSON_MDM_ID as string,",
+				"          PARTY_TYPE as string,",
+				"          PREFIX as string,",
+				"          FIRST_NAME as string,",
+				"          MIDDLE_NAME as string,",
+				"          LAST_NAME as string,",
+				"          SUFFIX as string,",
+				"          FULL_NAME as string,",
+				"          GENDER as string,",
+				"          MARITAL_STATUS as string,",
+				"          BIRTH_DT as date,",
+				"          BIRTH_PLACE as string,",
+				"          DEATH_DT as date,",
+				"          SSN as string,",
+				"          ITIN as string,",
+				"          DRIVER_LICENSE as string,",
+				"          PRIMARY_STREET_ADDR as string,",
+				"          PRIMARY_ADDR_LINE1 as string,",
+				"          PRIMARY_ADDR_LINE2 as string,",
+				"          PRIMARY_ADDR_LINE3 as string,",
+				"          PRIMARY_ADDR_CITY as string,",
+				"          PRIMARY_ADDR_STATECODE as string,",
+				"          PRIMARY_ADDR_POSTALCODE as string,",
+				"          PRIMARY_COUNTRYCODE as string,",
+				"          PRIMARY_COUNTYNAME as string,",
+				"          PERSON_FLAG as string,",
+				"          SRC_SYS_NAME as string,",
+				"          PERSON_CHECK_SUM as string,",
+				"          PARTY_CHECK_SUM as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     query: 'SELECT TRIM(\\'128312\\') AS PERSON_MDM_ID,\\'PERSON\\' AS PARTY_TYPE,\\nTRIM(PREFIX00) AS PREFIX  ,TRIM(FIRSTNAME) AS FIRST_NAME,TRIM(MIDDLENAME) AS MIDDLE_NAME,TRIM(LASTNAME) AS LAST_NAME, TRIM(SUFFIX) AS SUFFIX ,TRIM(FULLNAME) AS FULL_NAME, TRIM(GENDER) AS GENDER,\\n  TRIM(MARITALSTATUS) AS MARITAL_STATUS, BIRTHDATE AS BIRTH_DT,BIRTHPLACE AS BIRTH_PLACE,DEATHDATE AS DEATH_DT,TRIM(SSN) AS SSN,TRIM(ITIN) AS ITIN , TRIM(DRIVERLICENSE) AS DRIVER_LICENSE ,\\n  TRIM(PRIMARYSTREETADDR) AS PRIMARY_STREET_ADDR,TRIM(PRIMARYADDRLINE1) AS PRIMARY_ADDR_LINE1,  TRIM(PRIMARYADDRLINE2) AS PRIMARY_ADDR_LINE2 ,TRIM(PRIMARYADDRLINE3) AS PRIMARY_ADDR_LINE3 ,\\n  TRIM(PRIMARYADDRCITY) AS PRIMARY_ADDR_CITY ,TRIM(PRIMARYADDRSTATECODE) AS PRIMARY_ADDR_STATECODE, TRIM(PRIMARYADDRPOSTALCODE) AS PRIMARY_ADDR_POSTALCODE ,\\n  TRIM(PRIMARYCOUNTRYCODE) AS PRIMARY_COUNTRYCODE,TRIM(PRIMARYCOUNTYNAME) AS PRIMARY_COUNTYNAME,TRIM(PERSONFLAG) AS PERSON_FLAG,TRIM(SOURCESYSTEMINFO_SRCSYSTEM_) AS SRC_SYS_NAME,\\nCONVERT(NVARCHAR(32),HashBytes(\\'MD5\\',ISNULL(SSN,\\'1\\')+ISNULL(CAST(BIRTHDATE AS VARCHAR),\\'2\\')+ISNULL(FULLNAME,\\'6\\')+ISNULL(PREFIX00,\\'7\\')+ISNULL(FIRSTNAME,\\'8\\')+ISNULL(MIDDLENAME,\\'9\\')+\\nISNULL(LASTNAME,\\'10\\') +ISNULL(SUFFIX,\\'11\\')+ISNULL(GENDER,\\'12\\')+ISNULL(MARITALSTATUS,\\'13\\')+ISNULL(BIRTHPLACE,\\'14\\')+ISNULL(CAST(DEATHDATE AS VARCHAR),\\'15\\')+ISNULL(ITIN,\\'16\\')+ISNULL(DRIVERLICENSE,\\'17\\')+\\nISNULL(GENDER,\\'18\\')+ISNULL(PRIMARYSTREETADDR,\\'19\\')+ISNULL(PRIMARYADDRLINE1,\\'20\\')+ISNULL(PRIMARYADDRLINE2,\\'21\\')+ISNULL(PRIMARYADDRLINE3,\\'22\\')+ISNULL(PRIMARYADDRCITY,\\'23\\')+\\nISNULL(PRIMARYADDRSTATECODE,\\'24\\')+ISNULL(PRIMARYADDRPOSTALCODE,\\'25\\')+ISNULL(PRIMARYCOUNTRYCODE,\\'26\\')+ISNULL(PRIMARYCOUNTYNAME,\\'27\\')+ISNULL(PERSONFLAG,\\'28\\')+\\nISNULL(SOURCESYSTEMINFO_SRCSYSTEM_,\\'29\\')),2) PERSON_CHECK_SUM,\\nCONVERT(NVARCHAR(32),HashBytes(\\'MD5\\',ISNULL(ENTERPRISEID ,\\'1\\')),2) PARTY_CHECK_SUM\\nFROM MDM_PUBLISH.[EBX_MDM_PERSON] WHERE MM_STATUS = \\'GOLDEN\\' ',",
+				"     format: 'query') ~> source1",
+				"source(output(",
+				"          PARTY_MDM_ID as string,",
+				"          PARTY_TYPE_ID as integer,",
+				"          RISK_IND as string,",
+				"          SRC_SYS_NAME as string,",
+				"          DELETE_IND as string,",
+				"          BATCH_ID as string,",
+				"          CHECK_SUM as string,",
+				"          CREATED_TS as timestamp,",
+				"          CREATED_BY as string,",
+				"          LAST_UPDATED_TS as timestamp,",
+				"          LAST_UPDATED_BY as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     query: 'select * from CMDM_STAGE.PARTY_FAST_TEST',",
+				"     format: 'query') ~> source2",
+				"source1, source2 exists(PERSON_MDM_ID == PARTY_MDM_ID && PARTY_TYPE == 'PERSON',",
+				"     negate:true,",
+				"     broadcast: 'auto')~> exists1",
+				"exists1 derive(Del_Ind = 'N',",
+				"          Created_Ts = currentTimestamp(),",
+				"          created_By = 'DEV',",
+				"          updated_Ts = currentTimestamp(),",
+				"          UPDATED_BY = 'DEV',",
+				"          bactch = 1,",
+				"          party_id = 1234) ~> derivedColumn1",
+				"derivedColumn1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          PARTY_MDM_ID as string,",
+				"          PARTY_TYPE_ID as integer,",
+				"          RISK_IND as string,",
+				"          SRC_SYS_NAME as string,",
+				"          DELETE_IND as string,",
+				"          BATCH_ID as string,",
+				"          CHECK_SUM as string,",
+				"          CREATED_TS as timestamp,",
+				"          CREATED_BY as string,",
+				"          LAST_UPDATED_TS as timestamp,",
+				"          LAST_UPDATED_BY as string",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          PARTY_MDM_ID = PERSON_MDM_ID,",
+				"          PARTY_TYPE_ID = party_id,",
+				"          SRC_SYS_NAME,",
+				"          DELETE_IND = Del_Ind,",
+				"          CHECK_SUM = PERSON_CHECK_SUM,",
+				"          BATCH_ID = bactch,",
+				"          CREATED_TS = Created_Ts,",
+				"          CREATED_BY = created_By,",
+				"          LAST_UPDATED_TS = updated_Ts,",
+				"          LAST_UPDATED_BY = UPDATED_BY",
+				"     )) ~> sink1"
+			]
+		}
+	}
+}

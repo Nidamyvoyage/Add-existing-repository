@@ -1,0 +1,211 @@
+{
+	"name": "SnowflakeTable18",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "MyVoyageSnowflake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SnowflakeTable",
+		"schema": [
+			{
+				"name": "WS_EXT_PH_PLAN_NUM",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "WS_EXT_PH_PART_NUM",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "WS_EXT_PH_NAME",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "WS_EXT_PH_PART_DIV_SUB",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "WS_EXT_PH_BRTH_DATE",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "WS_EXT_PH_PLENT_DATE",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "WS_EXT_PH_ADDR_L1",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "WS_EXT_PH_ADDR_L2",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "WS_EXT_PH_ADDR_L3",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "WS_EXT_PH_CITY",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "WS_EXT_PH_STATE",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "WS_EXT_PH_ZIP",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "WS_EXT_PH_STAT",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "WS_EXT_PH_TERM_DATE",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "WS_EXT_PH_LAST_CNTRB_DATE",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "WS_EXT_PH_STAT_REASON",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "WS_EXT_PH_LOC_TAX_CODE",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "WS_EXT_PH_ALT_STATE",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "WS_EXT_PH_FIRST_CNTRB_DATE",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "WS_EXT_PH_ATTAINED_AGE",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 5
+			},
+			{
+				"name": "WS_EXT_PH_PF999_BAL",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 5
+			},
+			{
+				"name": "WS_EXT_PH_PA999_BAL",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 5
+			},
+			{
+				"name": "WS_EXT_PH_ADV_ACCT_IND",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "WS_EXT_PH_OMNI_VERSION",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "WS_EXT_PH_VRR_PL_STATUS",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "WS_EXT_PH_VRR_PL_TERM",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "WS_EXT_PH_CONV_PL_NUM",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "WS_EXT_PH_CLIENT_ID",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "WS_EXT_PH_SUB_CLIENT_ID",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "WS_EXT_PH_SSO_CLIENT_ID",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "WS_EXT_PH_CLIENT_STATUS",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "SWFDL_LOAD_ID",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "SWFDL_CREATED_BY",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "SWFDL_CREATED_TS",
+				"type": "TIMESTAMP_NTZ",
+				"precision": 29,
+				"scale": 9
+			},
+			{
+				"name": "SWFDL_UPDATED_BY",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "SWFDL_UPDATED_TS",
+				"type": "TIMESTAMP_NTZ",
+				"precision": 29,
+				"scale": 9
+			}
+		],
+		"typeProperties": {
+			"schema": "MYVOYAGE_CLEANSED",
+			"table": "RS_OMNI_VIPS_DAILY_PART_HEADER_CLN_BASELINE"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

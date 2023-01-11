@@ -1,0 +1,239 @@
+{
+	"name": "MAX_DELTA_BL",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "MyVoyageSnowflake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SnowflakeTable",
+		"schema": [
+			{
+				"name": "SOURCE_SYSTEM",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "SOURCE_KEY",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "PERSON_TECHID",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "TITLE",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "FNAME",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "MNAME1",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "MNAME2",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "LNAME",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "NAMESUFFIX",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "DOB",
+				"type": "DATE",
+				"precision": 10,
+				"scale": 0
+			},
+			{
+				"name": "GENDER",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "SSN",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "P_A_COUNTRY",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "P_A_MAILLINE1",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "P_A_MAILLINE2",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "P_A_CITY",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "P_A_STATE",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "P_A_POSTALCODE",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "P_A_COUNTY",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "P_A_PHONE",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "P_A_CELLPHONE",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "P_A_FAX",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "P_A_TOLLFREENUMBER",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "P_A_EMAIL",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "S_A_COUNTRY",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "S_A_MAILLINE1",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "S_A_MAILLINE2",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "S_A_CITY",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "S_A_STATE",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "S_A_POSTALCODE",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "S_A_COUNTY",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "S_A_PHONE",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "S_A_CELLPHONE",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "S_A_FAX",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "S_A_TOLLFREENUMBER",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "S_A_EMAIL",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "CHECK_SUM",
+				"type": "VARCHAR",
+				"precision": 32,
+				"scale": 0
+			},
+			{
+				"name": "CHANGE_CODE",
+				"type": "VARCHAR",
+				"precision": 10,
+				"scale": 0
+			},
+			{
+				"name": "SWFDL_LOAD_ID",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "SWFDL_CREATED_BY",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "SWFDL_CREATED_TS",
+				"type": "TIMESTAMP_NTZ",
+				"precision": 29,
+				"scale": 9
+			},
+			{
+				"name": "SWFDL_UPDATED_BY",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "SWFDL_UPDATED_TS",
+				"type": "TIMESTAMP_NTZ",
+				"precision": 29,
+				"scale": 9
+			}
+		],
+		"typeProperties": {
+			"schema": "MYVOYAGE_MDM",
+			"table": "EB_MAX_DGTAL_PERSN_INFO_DELTA_BASELINE"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

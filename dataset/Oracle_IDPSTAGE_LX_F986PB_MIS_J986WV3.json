@@ -1,0 +1,17 @@
+{
+	"name": "Oracle_IDPSTAGE_LX_F986PB_MIS_J986WV3",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Oracle_CODS_Intg",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "IDP_STAGE",
+			"table": "LX_F986PB_MIS_J986WV3"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,24 @@
+{
+	"name": "Oracle_CODS_Accp",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "This linked service is to connect to Customer ODS database in Non-prod environment for one time load into Snowflake.",
+		"annotations": [],
+		"type": "Oracle",
+		"typeProperties": {
+			"connectionString": "host=codsa.accp.apptoapp.net;port=50001;serviceName=codsa_Srvc.oracle.db;user id=snow2ebxa",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "N_4_MyVoyage_1",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "snow2ebxa-codsa-password"
+			}
+		},
+		"connectVia": {
+			"referenceName": "integrationRuntime-dstrwaac9246",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

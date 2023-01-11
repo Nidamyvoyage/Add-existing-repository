@@ -1,0 +1,81 @@
+{
+	"name": "DS_CENSUS_Employer_SQL_TGT",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlServer_EBX",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "DS_MDM"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "EMPLOYER_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "EMPLOYER_NAME",
+				"type": "varchar"
+			},
+			{
+				"name": "POLICY_NUMBER",
+				"type": "varchar"
+			},
+			{
+				"name": "POLICY_NAME",
+				"type": "varchar"
+			},
+			{
+				"name": "LOB",
+				"type": "varchar"
+			},
+			{
+				"name": "SOURCE_INFO",
+				"type": "varchar"
+			},
+			{
+				"name": "FIRST_NAME",
+				"type": "varchar"
+			},
+			{
+				"name": "LAST_NAME",
+				"type": "varchar"
+			},
+			{
+				"name": "EMPLOYEE_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "DATE_OF_BIRTH",
+				"type": "varchar"
+			},
+			{
+				"name": "SSN",
+				"type": "char"
+			},
+			{
+				"name": "EMAIL",
+				"type": "varchar"
+			},
+			{
+				"name": "MOBILE_PHONE",
+				"type": "varchar"
+			},
+			{
+				"name": "WELCOME_NUDGE",
+				"type": "char"
+			},
+			{
+				"name": "ACTIVE_STATUS",
+				"type": "char"
+			}
+		],
+		"typeProperties": {
+			"schema": "CMDM_STAGE",
+			"table": "CENSUS_EMPLOYEE"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

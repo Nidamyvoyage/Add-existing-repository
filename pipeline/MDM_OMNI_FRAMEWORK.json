@@ -1,0 +1,157 @@
+{
+	"name": "MDM_OMNI_FRAMEWORK",
+	"properties": {
+		"activities": [
+			{
+				"name": "GetMDMLoadId",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": {
+							"value": "CALL MYVOYAGE_MDM.PRC_MDM_ETL_LOADID('@{pipeline().parameters.IN_OP}','@{pipeline().parameters.IN_BATCH_NM}',0)",
+							"type": "Expression"
+						},
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "MDM_LOAD_ID",
+						"type": "DatasetReference"
+					}
+				}
+			},
+			{
+				"name": "NEW_LOAD_ID_ASSIGN",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "GetMDMLoadId",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "NEW_MDM_LOAD_ID",
+					"value": {
+						"value": "@string(activity('GetMDMLoadId').output.firstRow.PRC_MDM_ETL_LOADID)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "DELTA",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "NEW_LOAD_ID_ASSIGN",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": {
+							"value": "call MYVOYAGE_MDM.PRC_OMNI_AUDIT_DELTA(@{variables('NEW_MDM_LOAD_ID')},'@{pipeline().parameters.IN_BATCH_NM}','@{pipeline().parameters.ENTITY_NM_DELTA}')",
+							"type": "Expression"
+						},
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "OMNI_DELTA",
+						"type": "DatasetReference"
+					}
+				}
+			},
+			{
+				"name": "PREV",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "DELTA",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": {
+							"value": "call MYVOYAGE_MDM.PRC_OMNI_VIPS_PREV_TEST(@{variables('NEW_MDM_LOAD_ID')},'@{pipeline().parameters.IN_BATCH_NM}','@{pipeline().parameters.ENTITY_NM_PREV}')",
+							"type": "Expression"
+						},
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "OMNI_PREV",
+						"type": "DatasetReference"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"IN_BATCH_NM": {
+				"type": "string",
+				"defaultValue": "OMNI_VIPS_MDM_LOAD"
+			},
+			"IN_OP": {
+				"type": "string",
+				"defaultValue": "INITIATED"
+			},
+			"ENTITY_NM_DELTA": {
+				"type": "string",
+				"defaultValue": "RS_OMNI_VIPS_DAILY_PART_HEADER_DELTA"
+			},
+			"ENTITY_NM_PREV": {
+				"type": "string",
+				"defaultValue": "RS_OMNI_VIPS_DAILY_PART_HEADER_PREV"
+			}
+		},
+		"variables": {
+			"NEW_MDM_LOAD_ID": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "DataConsolidationR2/OMNI"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-09-26T12:22:25Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

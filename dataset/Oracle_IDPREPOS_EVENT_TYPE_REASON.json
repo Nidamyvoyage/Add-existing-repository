@@ -1,0 +1,17 @@
+{
+	"name": "Oracle_IDPREPOS_EVENT_TYPE_REASON",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Oracle_CODS_Intg",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "IDP_REPOS",
+			"table": "EVENT_TYPE_REASON"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

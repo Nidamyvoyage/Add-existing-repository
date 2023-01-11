@@ -1,0 +1,234 @@
+{
+	"name": "Oltp_Part_Om_Assumption_SF_Src",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_dfs_vesstzuc1unitedm001",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "BPS.PARTICIPANT_OM_ASSUMPTION.txt",
+				"folderPath": "Digital",
+				"fileSystem": "sfstaging"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "CLIENT_ID",
+				"type": "String"
+			},
+			{
+				"name": "PARTICIPANT_ID",
+				"type": "String"
+			},
+			{
+				"name": "ANTICIP_MONTHLY_PENSION_INCOME",
+				"type": "String"
+			},
+			{
+				"name": "ANTICIP_RETIREMENT_AGE",
+				"type": "String"
+			},
+			{
+				"name": "ASSUMED_ANN_INFLATION_RATE",
+				"type": "String"
+			},
+			{
+				"name": "ASSUMED_ANN_SALARY_INC",
+				"type": "String"
+			},
+			{
+				"name": "BIRTH_DATE",
+				"type": "String"
+			},
+			{
+				"name": "CURR_ANN_BASE_SALARY",
+				"type": "String"
+			},
+			{
+				"name": "DONT_SHOW_ME_AGAIN",
+				"type": "String"
+			},
+			{
+				"name": "ELIGIBLE_SS",
+				"type": "String"
+			},
+			{
+				"name": "LAST_SAVED_DATE",
+				"type": "String"
+			},
+			{
+				"name": "MADLIB_COMPLETE",
+				"type": "String"
+			},
+			{
+				"name": "OUTSIDE_RET_ASSETS_ANN_ADDTN",
+				"type": "String"
+			},
+			{
+				"name": "OUTSIDE_RET_ASSETS_CURRENT_BAL",
+				"type": "String"
+			},
+			{
+				"name": "OUTSIDE_RET_ASSETS_LUMPSUM",
+				"type": "String"
+			},
+			{
+				"name": "OUTSIDE_RET_ASSETS_MONTHLY_INC",
+				"type": "String"
+			},
+			{
+				"name": "PRE_RETIRE_RATE_RETURN",
+				"type": "String"
+			},
+			{
+				"name": "RETIREMENT_INCOME_NEEDED",
+				"type": "String"
+			},
+			{
+				"name": "SURVEY_DATE",
+				"type": "String"
+			},
+			{
+				"name": "SURVEY_HOW_DO_YOU_FEEL",
+				"type": "String"
+			},
+			{
+				"name": "REPLICATION_UPDATE_DATE",
+				"type": "String"
+			},
+			{
+				"name": "HEALTH_CARE_VIEW",
+				"type": "String"
+			},
+			{
+				"name": "HEALTH_CARE_AGE",
+				"type": "String"
+			},
+			{
+				"name": "HEALTH_CARE_CODE",
+				"type": "String"
+			},
+			{
+				"name": "HEALTH_CARE_INCOME_HSA",
+				"type": "String"
+			},
+			{
+				"name": "HEALTH_CARE_INCOME_LUMPSUM",
+				"type": "String"
+			},
+			{
+				"name": "SOCIAL_SEC_VIEW",
+				"type": "String"
+			},
+			{
+				"name": "SOCIAL_SEC_AGE",
+				"type": "String"
+			},
+			{
+				"name": "SOCIAL_SEC_EST_INCOME",
+				"type": "String"
+			},
+			{
+				"name": "ANTIC_LMP_SUM_PEN_BEN_RETIREM",
+				"type": "String"
+			},
+			{
+				"name": "ANTICIP_ANN_PEN_BENEF_RETIREM",
+				"type": "String"
+			},
+			{
+				"name": "EMPLOY_STATE",
+				"type": "String"
+			},
+			{
+				"name": "RET_SYSTEM_CODE",
+				"type": "String"
+			},
+			{
+				"name": "RETSYS_COLA",
+				"type": "String"
+			},
+			{
+				"name": "RETSYS_DOE",
+				"type": "String"
+			},
+			{
+				"name": "RETSYS_DOH",
+				"type": "String"
+			},
+			{
+				"name": "RETSYS_YOS_YTD",
+				"type": "String"
+			},
+			{
+				"name": "RETSYS_YOS_SPEC",
+				"type": "String"
+			},
+			{
+				"name": "RETSYS_YOS_PRIOR",
+				"type": "String"
+			},
+			{
+				"name": "RETSYS_YOS_PRIOR_NY",
+				"type": "String"
+			},
+			{
+				"name": "RETSYS_FINAL_MTHLY_SALRY",
+				"type": "String"
+			},
+			{
+				"name": "PENSION_CALCULATION_METHOD",
+				"type": "String"
+			},
+			{
+				"name": "RETSYS_SPECIAL_1_VARIABLE",
+				"type": "String"
+			},
+			{
+				"name": "RETSYS_SPECIAL_2_VARIABLE",
+				"type": "String"
+			},
+			{
+				"name": "CALC_MTHLY_PEN_BEN_RETIREM",
+				"type": "String"
+			},
+			{
+				"name": "OM_SECTION_EXPANDED",
+				"type": "String"
+			},
+			{
+				"name": "OTHER_ACCOUNT_PROMPT",
+				"type": "String"
+			},
+			{
+				"name": "OUTSIDE_RET_ASSET_PROMPT",
+				"type": "String"
+			},
+			{
+				"name": "OTHER_ACCOUNT_PROMPT_DATE",
+				"type": "String"
+			},
+			{
+				"name": "RETSYS_MANDATORY_CONTRIB",
+				"type": "String"
+			},
+			{
+				"name": "SOCIAL_SEC_ADDL_BENEFITS",
+				"type": "String"
+			},
+			{
+				"name": "SOCIAL_SEC_ADDL_BENEFITS_CHG",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

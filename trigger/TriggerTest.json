@@ -1,0 +1,37 @@
+{
+	"name": "TriggerTest",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "MVY_OMNI_VIPS_FULL_copy2_latestFile",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"ENTITY_NAME": "DAILY_PART_HEADER",
+					"SRC_SYS_NM": "RS_OMNI",
+					"INGESTION_LOAD_TS": "2022-09-30 06:13:18.417",
+					"INGESTION_ETL_TYPE": "INCREMENTAL",
+					"SRC_SCHEMA_NM": "VIPS",
+					"SF_STAGE_ROOT_DIR": "snowflakeextstaging",
+					"ADLS_LANDING_ROOT_DIR": "vesstzuc1unitedm001/landing",
+					"LOB": "rs",
+					"SNOWFLAKE_EXT_STAGE_DIR": "@MYVOYAGE_STAGE.EXT_STAGE_ADF_VESSTZUC1UNITEDM001",
+					"BADRECORD_FOLDER": "snowflakeextstaging/BadRecords",
+					"FileName": "OMNI_7.1_PARTICPANT_DAILY_LOAN_EXTRACT"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Minute",
+				"interval": 5,
+				"startTime": "2022-09-30T11:49:00Z",
+				"timeZone": "UTC"
+			}
+		}
+	}
+}

@@ -1,0 +1,17 @@
+{
+	"name": "Oracle_IDPREPOS_PARTY_CLASS_SCHEME_VERSN",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Oracle_CODS_Intg",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "IDP_REPOS",
+			"table": "PARTY_CLASS_SCHEME_VERSN"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

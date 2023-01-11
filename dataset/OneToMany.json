@@ -1,0 +1,38 @@
+{
+	"name": "OneToMany",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlServer_EBX",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "PERSON_TECHID",
+				"type": "varchar"
+			},
+			{
+				"name": "SSN",
+				"type": "varchar"
+			},
+			{
+				"name": "SRC",
+				"type": "varchar"
+			},
+			{
+				"name": "GBP_NUMBER",
+				"type": "varchar"
+			},
+			{
+				"name": "IdentifierType",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "CMDM_STAGE",
+			"table": "TEST"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

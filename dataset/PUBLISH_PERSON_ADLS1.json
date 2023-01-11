@@ -1,0 +1,21 @@
+{
+	"name": "PUBLISH_PERSON_ADLS1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Azure_SHIR_Cloned",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "CODS_ONPREM/PUBLISH_PERSON",
+				"fileSystem": "mdm"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

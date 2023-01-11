@@ -1,0 +1,182 @@
+{
+	"name": "DS_Omni_vips_daily_part_header_AZSQL",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlServer_EBX",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "SOURCE_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "WS_EXT_PH_PLAN_NUM",
+				"type": "varchar"
+			},
+			{
+				"name": "WS_EXT_PH_PART_NUM",
+				"type": "varchar"
+			},
+			{
+				"name": "WS_EXT_PH_NAME",
+				"type": "varchar"
+			},
+			{
+				"name": "WS_EXT_PH_PART_DIV_SUB",
+				"type": "varchar"
+			},
+			{
+				"name": "WS_EXT_PH_BRTH_DATE",
+				"type": "varchar"
+			},
+			{
+				"name": "WS_EXT_PH_PLENT_DATE",
+				"type": "varchar"
+			},
+			{
+				"name": "WS_EXT_PH_ADDR_L1",
+				"type": "varchar"
+			},
+			{
+				"name": "WS_EXT_PH_ADDR_L2",
+				"type": "varchar"
+			},
+			{
+				"name": "WS_EXT_PH_ADDR_L3",
+				"type": "varchar"
+			},
+			{
+				"name": "WS_EXT_PH_CITY",
+				"type": "varchar"
+			},
+			{
+				"name": "WS_EXT_PH_STATE",
+				"type": "varchar"
+			},
+			{
+				"name": "WS_EXT_PH_ZIP",
+				"type": "varchar"
+			},
+			{
+				"name": "WS_EXT_PH_STAT",
+				"type": "varchar"
+			},
+			{
+				"name": "WS_EXT_PH_TERM_DATE",
+				"type": "varchar"
+			},
+			{
+				"name": "WS_EXT_PH_LAST_CNTRB_DATE",
+				"type": "varchar"
+			},
+			{
+				"name": "WS_EXT_PH_STAT_REASON",
+				"type": "varchar"
+			},
+			{
+				"name": "WS_EXT_PH_LOC_TAX_CODE",
+				"type": "varchar"
+			},
+			{
+				"name": "WS_EXT_PH_ALT_STATE",
+				"type": "varchar"
+			},
+			{
+				"name": "WS_EXT_PH_FIRST_CNTRB_DATE",
+				"type": "varchar"
+			},
+			{
+				"name": "WS_EXT_PH_ATTAINED_AGE",
+				"type": "varchar"
+			},
+			{
+				"name": "WS_EXT_PH_PF999_BAL",
+				"type": "varchar"
+			},
+			{
+				"name": "WS_EXT_PH_PA999_BAL",
+				"type": "varchar"
+			},
+			{
+				"name": "WS_EXT_PH_ADV_ACCT_IND",
+				"type": "varchar"
+			},
+			{
+				"name": "WS_EXT_PH_OMNI_VERSION",
+				"type": "varchar"
+			},
+			{
+				"name": "BATCH_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "CHECK_SUM",
+				"type": "varchar"
+			},
+			{
+				"name": "CREATED_AT",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "CREATED_BY",
+				"type": "varchar"
+			},
+			{
+				"name": "CREATED_IN_SOURCE_AT",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "CREATED_IN_SOURCE_BY",
+				"type": "varchar"
+			},
+			{
+				"name": "CURRENT_ROW_INDICATOR",
+				"type": "varchar"
+			},
+			{
+				"name": "SOURCE_CMDB_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "WS_EXT_PH_VRR_PL_STATUS",
+				"type": "varchar"
+			},
+			{
+				"name": "WS_EXT_PH_VRR_PL_TERM",
+				"type": "varchar"
+			},
+			{
+				"name": "WS_EXT_PH_CONV_PL_NUM",
+				"type": "varchar"
+			},
+			{
+				"name": "WS_EXT_PH_CLIENT_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "WS_EXT_PH_SUB_CLIENT_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "WS_EXT_PH_SSO_CLIENT_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "WS_EXT_PH_CLIENT_STATUS",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "CMDM_STAGE",
+			"table": "OMNI_VIPS_DAILY_PART_HEADER"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

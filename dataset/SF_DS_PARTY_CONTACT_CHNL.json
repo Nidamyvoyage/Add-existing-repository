@@ -1,0 +1,30 @@
+{
+	"name": "SF_DS_PARTY_CONTACT_CHNL",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "MyVoyageSnowflake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SnowflakeTable",
+		"schema": [
+			{
+				"name": "PARTY_ID",
+				"type": "VARCHAR",
+				"precision": 0,
+				"scale": 0
+			},
+			{
+				"name": "CONTACT_TYPE ",
+				"type": "VARCHAR",
+				"precision": 0,
+				"scale": 0
+			}
+		],
+		"typeProperties": {
+			"schema": "MYVOYAGE_STAGE",
+			"table": "PARTY_CONTACT_CHNL"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

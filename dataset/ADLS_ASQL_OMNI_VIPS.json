@@ -1,0 +1,98 @@
+{
+	"name": "ADLS_ASQL_OMNI_VIPS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "OMNI_VIPS_DAILY_TEST_zip5",
+				"fileSystem": "mdm"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "SOURCE_KEY",
+				"type": "UTF8"
+			},
+			{
+				"name": "WS_EXT_PH_PART_NUM",
+				"type": "UTF8"
+			},
+			{
+				"name": "WS_EXT_PH_NAME",
+				"type": "UTF8"
+			},
+			{
+				"name": "WS_EXT_PH_BRTH_DATE",
+				"type": "UTF8"
+			},
+			{
+				"name": "WS_EXT_PH_ADDR_L1",
+				"type": "UTF8"
+			},
+			{
+				"name": "WS_EXT_PH_ADDR_L2",
+				"type": "UTF8"
+			},
+			{
+				"name": "WS_EXT_PH_ADDR_L3",
+				"type": "UTF8"
+			},
+			{
+				"name": "WS_EXT_PH_CITY",
+				"type": "UTF8"
+			},
+			{
+				"name": "WS_EXT_PH_STATE",
+				"type": "UTF8"
+			},
+			{
+				"name": "WS_EXT_PH_ZIP",
+				"type": "UTF8"
+			},
+			{
+				"name": "WS_EXT_PH_OMNI_VERSION",
+				"type": "UTF8"
+			},
+			{
+				"name": "WS_EXT_PH_STAT",
+				"type": "UTF8"
+			},
+			{
+				"name": "CHECK_SUM",
+				"type": "UTF8"
+			},
+			{
+				"name": "CHANGE_CODE",
+				"type": "INT64"
+			},
+			{
+				"name": "SWFDL_LOAD_ID",
+				"type": "UTF8"
+			},
+			{
+				"name": "SWFDL_CREATED_BY",
+				"type": "INT96"
+			},
+			{
+				"name": "SWFDL_CREATED_TS",
+				"type": "UTF8"
+			},
+			{
+				"name": "SWFDL_UPDATED_BY",
+				"type": "INT96"
+			},
+			{
+				"name": "SWFDL_UPDATED_TS",
+				"type": "UTF8"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

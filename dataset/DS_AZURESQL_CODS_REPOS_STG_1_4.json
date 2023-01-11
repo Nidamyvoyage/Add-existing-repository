@@ -1,0 +1,118 @@
+{
+	"name": "DS_AZURESQL_CODS_REPOS_STG_1_4",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase_MDMU3",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "SOURCE_KEY",
+				"type": "varchar"
+			},
+			{
+				"name": "PSEUDO_MDM_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "SSN",
+				"type": "varchar"
+			},
+			{
+				"name": "DATE_OF_BIRTH",
+				"type": "varchar"
+			},
+			{
+				"name": "SALESFORCE_CONTACT_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "SOURCE_SYSTEM",
+				"type": "varchar"
+			},
+			{
+				"name": "SOURCE_SYSTEM_UNDERLYING",
+				"type": "varchar"
+			},
+			{
+				"name": "AS_OF_DATE",
+				"type": "varchar"
+			},
+			{
+				"name": "PARTY_TYPE",
+				"type": "varchar"
+			},
+			{
+				"name": "TIN_TYPE",
+				"type": "varchar"
+			},
+			{
+				"name": "FULL_NAME",
+				"type": "varchar"
+			},
+			{
+				"name": "PREFIX_NAME",
+				"type": "varchar"
+			},
+			{
+				"name": "FIRST_NAME",
+				"type": "varchar"
+			},
+			{
+				"name": "MIDDLE_NAME",
+				"type": "varchar"
+			},
+			{
+				"name": "LAST_NAME",
+				"type": "varchar"
+			},
+			{
+				"name": "SUFFIX_NAME",
+				"type": "varchar"
+			},
+			{
+				"name": "GENDER",
+				"type": "varchar"
+			},
+			{
+				"name": "END_DATE",
+				"type": "varchar"
+			},
+			{
+				"name": "CHANGE_CODE",
+				"type": "varchar"
+			},
+			{
+				"name": "batch_id",
+				"type": "varchar"
+			},
+			{
+				"name": "createDateTime",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "createdBy",
+				"type": "varchar"
+			},
+			{
+				"name": "lastUpdateDateTime",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "lastUpdatedBy",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "CMDM_STAGE",
+			"table": "RS_CODS_REPOS_PARTY_DELTA_STG_day4"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

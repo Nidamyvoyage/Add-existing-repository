@@ -1,0 +1,60 @@
+{
+	"name": "PL_DataType_Conversion",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": "SELECT \nWS_EXT_PH_PLAN_NUM,\nWS_EXT_PH_PART_NUM,\nWS_EXT_PH_NAME,\nWS_EXT_PH_PART_DIV_SUB\nFROM MYVOYAGE_MDM.OMNI_VIPS_DAILY_PART_HEADER_TEST",
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false
+					},
+					"enableStaging": true,
+					"stagingSettings": {
+						"linkedServiceName": {
+							"referenceName": "vesstzuc1unitedm001_SF_SAS",
+							"type": "LinkedServiceReference"
+						},
+						"path": "snowflakeextstaging/sftosql"
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "Datatype_Conversion",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "Datatype_Conversion_Test_TGT",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "Test_SF"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-08-29T19:25:35Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

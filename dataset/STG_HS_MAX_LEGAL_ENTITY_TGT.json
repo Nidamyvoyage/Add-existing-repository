@@ -1,0 +1,261 @@
+{
+	"name": "STG_HS_MAX_LEGAL_ENTITY_TGT",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "CRM_HealthSolutions_UNIT",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SnowflakeTable",
+		"schema": [
+			{
+				"name": "LETABLENSID",
+				"type": "NUMBER",
+				"precision": 10,
+				"scale": 0
+			},
+			{
+				"name": "LETABLEID",
+				"type": "NUMBER",
+				"precision": 20,
+				"scale": 0
+			},
+			{
+				"name": "LENAME",
+				"type": "VARCHAR",
+				"precision": 63,
+				"scale": 0
+			},
+			{
+				"name": "LEGALENTITYTYPE",
+				"type": "NUMBER",
+				"precision": 3,
+				"scale": 0
+			},
+			{
+				"name": "LETAXID",
+				"type": "VARCHAR",
+				"precision": 9,
+				"scale": 0
+			},
+			{
+				"name": "LESICCODE",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "LESITUSSTATE",
+				"type": "VARCHAR",
+				"precision": 2,
+				"scale": 0
+			},
+			{
+				"name": "LEBUSINESSUNITCODE",
+				"type": "VARCHAR",
+				"precision": 5,
+				"scale": 0
+			},
+			{
+				"name": "LEISINSURERLEGALENTITY",
+				"type": "NUMBER",
+				"precision": 1,
+				"scale": 0
+			},
+			{
+				"name": "LEISTECHNICAL",
+				"type": "NUMBER",
+				"precision": 1,
+				"scale": 0
+			},
+			{
+				"name": "LEISREINSURER",
+				"type": "NUMBER",
+				"precision": 1,
+				"scale": 0
+			},
+			{
+				"name": "LEISCARRIER",
+				"type": "NUMBER",
+				"precision": 1,
+				"scale": 0
+			},
+			{
+				"name": "LEISBROKER",
+				"type": "NUMBER",
+				"precision": 1,
+				"scale": 0
+			},
+			{
+				"name": "LEISTRUST",
+				"type": "NUMBER",
+				"precision": 1,
+				"scale": 0
+			},
+			{
+				"name": "LEISAGENT",
+				"type": "NUMBER",
+				"precision": 1,
+				"scale": 0
+			},
+			{
+				"name": "LEISMAXGROUP",
+				"type": "NUMBER",
+				"precision": 1,
+				"scale": 0
+			},
+			{
+				"name": "LEISSERVICEPROVIDER",
+				"type": "NUMBER",
+				"precision": 1,
+				"scale": 0
+			},
+			{
+				"name": "LESPBILLINGADMINISTRATOR",
+				"type": "NUMBER",
+				"precision": 1,
+				"scale": 0
+			},
+			{
+				"name": "LESPCLAIMSADMINISTRATOR",
+				"type": "NUMBER",
+				"precision": 1,
+				"scale": 0
+			},
+			{
+				"name": "LESPMANAGINGGENERALUNDERWRITER",
+				"type": "NUMBER",
+				"precision": 1,
+				"scale": 0
+			},
+			{
+				"name": "LESPUNDERWRITER",
+				"type": "NUMBER",
+				"precision": 1,
+				"scale": 0
+			},
+			{
+				"name": "LESPENROLLMENTADMINISTRATOR",
+				"type": "NUMBER",
+				"precision": 1,
+				"scale": 0
+			},
+			{
+				"name": "LESPREINSURER",
+				"type": "NUMBER",
+				"precision": 1,
+				"scale": 0
+			},
+			{
+				"name": "LEPHYSADDRESSLINE1",
+				"type": "VARCHAR",
+				"precision": 45,
+				"scale": 0
+			},
+			{
+				"name": "LEPHYSADDRESSLINE2",
+				"type": "VARCHAR",
+				"precision": 45,
+				"scale": 0
+			},
+			{
+				"name": "LEPHYSCITY",
+				"type": "VARCHAR",
+				"precision": 31,
+				"scale": 0
+			},
+			{
+				"name": "LEPHYSSTATE",
+				"type": "VARCHAR",
+				"precision": 3,
+				"scale": 0
+			},
+			{
+				"name": "LEPHYSZIP",
+				"type": "VARCHAR",
+				"precision": 10,
+				"scale": 0
+			},
+			{
+				"name": "LEPHYSPHONE",
+				"type": "VARCHAR",
+				"precision": 16,
+				"scale": 0
+			},
+			{
+				"name": "LEPHYSTOLLFREEPHONE",
+				"type": "VARCHAR",
+				"precision": 16,
+				"scale": 0
+			},
+			{
+				"name": "LEPHYSFAX",
+				"type": "VARCHAR",
+				"precision": 16,
+				"scale": 0
+			},
+			{
+				"name": "LEPHYSEMAIL",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "LEMAILINGADDRESSLINE1",
+				"type": "VARCHAR",
+				"precision": 45,
+				"scale": 0
+			},
+			{
+				"name": "LEMAILINGADDRESSLINE2",
+				"type": "VARCHAR",
+				"precision": 45,
+				"scale": 0
+			},
+			{
+				"name": "LEMAILINGCITY",
+				"type": "VARCHAR",
+				"precision": 31,
+				"scale": 0
+			},
+			{
+				"name": "LEMAILINGSTATE",
+				"type": "VARCHAR",
+				"precision": 3,
+				"scale": 0
+			},
+			{
+				"name": "LEMAILINGZIP",
+				"type": "VARCHAR",
+				"precision": 10,
+				"scale": 0
+			},
+			{
+				"name": "LEMAILINGPHONE",
+				"type": "VARCHAR",
+				"precision": 16,
+				"scale": 0
+			},
+			{
+				"name": "LEMAILINGTOLLFREEPHONE",
+				"type": "VARCHAR",
+				"precision": 16,
+				"scale": 0
+			},
+			{
+				"name": "LEMAILINGFAX",
+				"type": "VARCHAR",
+				"precision": 16,
+				"scale": 0
+			},
+			{
+				"name": "LEMAILINGEMAIL",
+				"type": "VARCHAR",
+				"scale": 0
+			}
+		],
+		"typeProperties": {
+			"schema": "STAGE",
+			"table": "HS_MAX_LEGAL_ENTITY_TGT"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

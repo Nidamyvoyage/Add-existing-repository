@@ -1,0 +1,40 @@
+{
+	"name": "adls_stg_max_full_load",
+	"properties": {
+		"activities": [
+			{
+				"name": "COPY_ADLS_TO_STG_LOAD_copy1",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": "COPY INTO \"MYVOYAGE_STAGE\".\"EB_MAX_DGTAL_PERSN_INFO_STG\" (\"GBP_NUMBER\",\"PERSON_TECHID\",\"TITLE\",\"FNAME\",\"MNAME1\",\"MNAME2\",\"LNAME\",\"NAMESUFFIX\",\"DOB\",\"GENDER\",\"SSN\",\"P_A_COUNTRY\",\"P_A_CAREOF\",\"P_A_MAILLINE1\",\"P_A_MAILLINE2\",\"P_A_CITY\",\"P_A_STATE\",\"P_A_POSTALCODE\",\"P_A_COUNTY\",\"P_A_ROUTENUMBER\",\"P_A_PHONE\",\"P_A_CELLPHONE\",\"P_A_FAX\",\"P_A_TOLLFREENUMBER\",\"P_A_SPEEDDIALNUMBER\",\"P_A_EMAIL\",\"P_A_EFFECTIVEDATE\",\"S_A_COUNTRY\",\"S_A_CAREOF\",\"S_A_MAILLINE1\",\"S_A_MAILLINE2\",\"S_A_CITY\",\"S_A_STATE\",\"S_A_POSTALCODE\",\"S_A_COUNTY\",\"S_A_ROUTENUMBER\",\"S_A_PHONE\",\"S_A_CELLPHONE\",\"S_A_FAX\",\"S_A_TOLLFREENUMBER\",\"S_A_SPEEDDIALNUMBER\",\"S_A_EMAIL\",\"S_A_EFFECTIVEDATE\",\"SWFDL_LOAD_ID\",\"SWFDL_CREATED_BY\",\"SWFDL_CREATED_TS\",\"SWFDL_UPDATED_BY\",\"SWFDL_UPDATED_TS\") FROM (select $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29, $30, $31, $32, $33, $34, $35, $36, $37, $38, $39, $40, $41, $42, $43, $44, $45, $46, $47, $48 from @MYVOYAGE_STAGE.EXT_STAGE_ADF_VESSTZUC1UNITEDM001/FL_max.csv\n(file_format =>  'MYVOYAGE_CLEANSED.MYCSVFMT_NOHDR'))FORCE = TRUE LOAD_UNCERTAIN_FILES = TRUE ON_ERROR = CONTINUE;",
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "SF_max_Stg",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			}
+		],
+		"folder": {
+			"name": "DataConsolidationR2/723058/bin folder"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-08-29T19:25:35Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

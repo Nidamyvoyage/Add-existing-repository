@@ -1,0 +1,32 @@
+{
+	"name": "SFTP_MAX",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SFTPSterlingMax",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"FileName": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "SftpLocation",
+				"fileName": {
+					"value": "@dataset().FileName",
+					"type": "Expression"
+				},
+				"folderPath": "/FilesFromMAX_Integ"
+			},
+			"columnDelimiter": "|",
+			"escapeChar": "/",
+			"firstRowAsHeader": false,
+			"quoteChar": ""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

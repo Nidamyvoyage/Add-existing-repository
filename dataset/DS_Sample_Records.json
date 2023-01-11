@@ -1,0 +1,22 @@
+{
+	"name": "DS_Sample_Records",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "DS_MDM"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "sample.txt",
+				"fileSystem": "mdmdev"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

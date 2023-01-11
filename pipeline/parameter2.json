@@ -1,0 +1,177 @@
+{
+	"name": "parameter2",
+	"properties": {
+		"activities": [
+			{
+				"name": "Parameterized_file",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"dataset": {
+						"referenceName": "DS_Parameterized_file",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": true
+				}
+			},
+			{
+				"name": "copy_data",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Set variable1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_cods_sample_file",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_target_cods_file",
+						"type": "DatasetReference",
+						"parameters": {
+							"ENTITY_NAME": {
+								"value": "@json(variables('stringvar')).LINKED_SERVICE",
+								"type": "Expression"
+							},
+							"SF_STAGE_ROOT_DIR": {
+								"value": "@json(variables('stringvar')).SF_STAGE_ROOT_DIR",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			},
+			{
+				"name": "Append variable1",
+				"type": "AppendVariable",
+				"dependsOn": [
+					{
+						"activity": "Parameterized_file",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "arrayvar",
+					"value": {
+						"value": "@activity('Parameterized_file').output.firstRow",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Append variable1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "stringvar",
+					"value": {
+						"value": "@string(activity('Parameterized_file').output.firstRow)",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"ENTITY": {
+				"type": "string",
+				"defaultValue": "RS_OMNI"
+			},
+			"FileName": {
+				"type": "string",
+				"defaultValue": "file.OMNI"
+			}
+		},
+		"variables": {
+			"stringvar": {
+				"type": "String"
+			},
+			"arrayvar": {
+				"type": "Array"
+			}
+		},
+		"folder": {
+			"name": "DataConsolidationR2/728950"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-10-25T06:01:30Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

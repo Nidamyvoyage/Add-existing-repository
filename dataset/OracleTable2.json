@@ -1,0 +1,17 @@
+{
+	"name": "OracleTable2",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "OracleMaxDB",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "CMDM_STAGE",
+			"table": "EB_MAX_DGTAL_PERSN_INFO_FULL"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

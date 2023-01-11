@@ -1,0 +1,103 @@
+{
+	"name": "PL_Sample_Inc_Omni",
+	"properties": {
+		"activities": [
+			{
+				"name": "GetLastUpadtedDateFromSF",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": {
+							"value": "select max(Created_IN_SOURCE_AT)as LASTDTM from \"MYVOYAGE_CLEANSED\".\"OMNI_VIPS_DAILY_PART_HEADER\"",
+							"type": "Expression"
+						},
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "DS_OMNI_VIPS_DAILY_PART_HEADER_SF",
+						"type": "DatasetReference"
+					}
+				}
+			},
+			{
+				"name": "onpremisestoblobomnidata",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "GetLastUpadtedDateFromSF",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": {
+							"value": "Select top(10)* from IDP_Stage.Omni_vips_daily_part_header where Created_IN_SOURCE_AT > '@{activity('GetLastUpadtedDateFromSF').output.firstRow.CreatedINSOURCEAT}'",
+							"type": "Expression"
+						},
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_Omni_vips_daily_part_header_SRC",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_Blob_parq_Omni",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "MDM"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-08-29T19:25:37Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

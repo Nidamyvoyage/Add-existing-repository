@@ -1,0 +1,73 @@
+{
+	"name": "testfile",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_dfs_vesstzuc1unitedm001",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "testfile123.csv",
+				"fileSystem": "snowflakeextstaging"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "JOURNEY_ID",
+				"type": "String"
+			},
+			{
+				"name": "JOURNEY_NAME",
+				"type": "String"
+			},
+			{
+				"name": "JOURNEY_CMS_TAG_ID",
+				"type": "String"
+			},
+			{
+				"name": "CREATED_BY",
+				"type": "String"
+			},
+			{
+				"name": "CREATED_DT",
+				"type": "String"
+			},
+			{
+				"name": "LAST_UPDATED_BY",
+				"type": "String"
+			},
+			{
+				"name": "LAST_UPDATED_DT",
+				"type": "String"
+			},
+			{
+				"name": "SWFDL_LOAD_ID",
+				"type": "String"
+			},
+			{
+				"name": "SWFDL_CREATED_BY",
+				"type": "String"
+			},
+			{
+				"name": "SWFDL_CREATED_TS",
+				"type": "String"
+			},
+			{
+				"name": "SWFDL_UPDATED_BY",
+				"type": "String"
+			},
+			{
+				"name": "SWFDL_UPDATED_TS",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

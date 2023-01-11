@@ -1,0 +1,31 @@
+{
+	"name": "DF_LND_STG_Census_PersonIdentifier",
+	"properties": {
+		"folder": {
+			"name": "MDM"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DS_Censen_Landing_SRC",
+						"type": "DatasetReference"
+					},
+					"name": "CENSUSEMPLOYEE"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DS_PersonIdentifier_STG",
+						"type": "DatasetReference"
+					},
+					"name": "PersonIdentifier"
+				}
+			],
+			"transformations": [],
+			"script": "source(output(\n\t\tIdentifierType as string,\n\t\tIdentifierValue as string,\n\t\tSrcPkey as date,\n\t\tsourceSystem as string,\n\t\tCreateDate as timestamp,\n\t\tcreatedBy as string,\n\t\tLastUpdateDateTime as timestamp,\n\t\tLastUpdatedBY as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'SELECT \\n\\'SSN\\' AS IdentifierType,\\nSSN as IdentifierValue,\\nDATE_OF_BIRTH AS SrcPkey,\\n\\'SAVVI\\' as sourceSystem,\\ncurrent_timestamp as CreateDate,\\n\\'Test\\' as createdBy,\\ncurrent_timestamp as LastUpdateDateTime,\\n\\'Test12\\' as LastUpdatedBY\\nFROM CMDM_STAGE.CENSUS_EMPLOYEE',\n\tformat: 'query') ~> CENSUSEMPLOYEE\nCENSUSEMPLOYEE sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tidentifierType as string,\n\t\tidentifierValue as string,\n\t\tsrcPersonPkey as string,\n\t\tsourceSystem as string,\n\t\tsrcIdentPkey as string,\n\t\tcreateDate as timestamp,\n\t\tcreatedBy as string,\n\t\tlastUpdateDateTime as timestamp,\n\t\tlastUpdatedBy as string\n\t),\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\tidentifierType = IdentifierType,\n\t\tidentifierValue = IdentifierValue,\n\t\tsrcPersonPkey = SrcPkey,\n\t\tsrcSystem = sourceSystem,\n\t\tCreateDate,\n\t\tCreatedBy = createdBy,\n\t\tLastUpdateDateTime,\n\t\tLastUpdatedBy = LastUpdatedBY\n\t)) ~> PersonIdentifier"
+		}
+	}
+}

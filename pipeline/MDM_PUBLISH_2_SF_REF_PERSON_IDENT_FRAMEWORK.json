@@ -1,0 +1,709 @@
+{
+	"name": "MDM_PUBLISH_2_SF_REF_PERSON_IDENT_FRAMEWORK",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "INITIATE_PUBLISH_REF",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"additionalColumns": [
+							{
+								"name": "REF_AS_OF_DATE",
+								"value": {
+									"value": "@{formatDateTime(pipeline().TriggerTime,'yyyy-MM-dd HH:mm:ss.fff')}",
+									"type": "Expression"
+								}
+							},
+							{
+								"name": "CURRENT_FLAG",
+								"value": "N"
+							}
+						],
+						"sqlReaderQuery": {
+							"value": "select * from MDM_PUBLISH.EBX_MDM_PERSON_IDENT where T_LAST_WRITE > = '@{variables('MAX_LAST_TS')}'",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "GROUPID",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 0,
+									"precision": 38
+								},
+								"sink": {
+									"type": "String",
+									"physicalType": "String",
+									"ordinal": 1
+								}
+							},
+							{
+								"source": {
+									"name": "MM_STATUS",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"type": "String",
+									"physicalType": "String",
+									"ordinal": 2
+								}
+							},
+							{
+								"source": {
+									"name": "MM_SCORE",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"type": "String",
+									"physicalType": "String",
+									"ordinal": 3
+								}
+							},
+							{
+								"source": {
+									"name": "T_LAST_USER_ID",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"type": "String",
+									"physicalType": "String",
+									"ordinal": 4
+								}
+							},
+							{
+								"source": {
+									"name": "T_CREATOR_ID",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"type": "String",
+									"physicalType": "String",
+									"ordinal": 5
+								}
+							},
+							{
+								"source": {
+									"name": "T_CREATION_DATE",
+									"type": "DateTime",
+									"physicalType": "datetime2"
+								},
+								"sink": {
+									"type": "String",
+									"physicalType": "String",
+									"ordinal": 6
+								}
+							},
+							{
+								"source": {
+									"name": "T_LAST_WRITE",
+									"type": "DateTime",
+									"physicalType": "datetime2"
+								},
+								"sink": {
+									"type": "String",
+									"physicalType": "String",
+									"ordinal": 7
+								}
+							},
+							{
+								"source": {
+									"name": "mdmPersonIdentifierId",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"type": "String",
+									"physicalType": "String",
+									"ordinal": 8
+								}
+							},
+							{
+								"source": {
+									"name": "mdmPersonId_",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"type": "String",
+									"physicalType": "String",
+									"ordinal": 9
+								}
+							},
+							{
+								"source": {
+									"name": "identifierType_",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"type": "String",
+									"physicalType": "String",
+									"ordinal": 10
+								}
+							},
+							{
+								"source": {
+									"name": "identifierTypeMatch",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"type": "String",
+									"physicalType": "String",
+									"ordinal": 11
+								}
+							},
+							{
+								"source": {
+									"name": "identifierValue",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"type": "String",
+									"physicalType": "String",
+									"ordinal": 12
+								}
+							},
+							{
+								"source": {
+									"name": "srcPersonPkey",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"type": "String",
+									"physicalType": "String",
+									"ordinal": 13
+								}
+							},
+							{
+								"source": {
+									"name": "SourceSystemInfo_srcSystem_",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"type": "String",
+									"physicalType": "String",
+									"ordinal": 14
+								}
+							},
+							{
+								"source": {
+									"name": "SourceSystemInfo_srcCreateDttm",
+									"type": "DateTime",
+									"physicalType": "datetime2"
+								},
+								"sink": {
+									"type": "String",
+									"physicalType": "String",
+									"ordinal": 15
+								}
+							},
+							{
+								"source": {
+									"name": "SourceSystemInfo_srclastUpdtDttm",
+									"type": "DateTime",
+									"physicalType": "datetime2"
+								},
+								"sink": {
+									"type": "String",
+									"physicalType": "String",
+									"ordinal": 16
+								}
+							},
+							{
+								"source": {
+									"name": "srcIdentPkey",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"type": "String",
+									"physicalType": "String",
+									"ordinal": 17
+								}
+							},
+							{
+								"source": {
+									"name": "status",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"type": "String",
+									"physicalType": "String",
+									"ordinal": 18
+								}
+							},
+							{
+								"source": {
+									"name": "endDate",
+									"type": "DateTime",
+									"physicalType": "date"
+								},
+								"sink": {
+									"type": "String",
+									"physicalType": "String",
+									"ordinal": 19
+								}
+							},
+							{
+								"source": {
+									"name": "personFlag",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"type": "String",
+									"physicalType": "String",
+									"ordinal": 20
+								}
+							},
+							{
+								"source": {
+									"name": "batchId",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"type": "String",
+									"physicalType": "String",
+									"ordinal": 21
+								}
+							},
+							{
+								"source": {
+									"name": "processName",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"type": "String",
+									"physicalType": "String",
+									"ordinal": 22
+								}
+							},
+							{
+								"source": {
+									"name": "personGoldenId",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"type": "String",
+									"physicalType": "String",
+									"ordinal": 23
+								}
+							},
+							{
+								"source": {
+									"name": "personOriginId",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"type": "String",
+									"physicalType": "String",
+									"ordinal": 24
+								}
+							},
+							{
+								"source": {
+									"name": "REF_AS_OF_DATE"
+								},
+								"sink": {
+									"type": "String",
+									"physicalType": "String",
+									"ordinal": 25
+								}
+							},
+							{
+								"source": {
+									"name": "CURRENT_FLAG"
+								},
+								"sink": {
+									"type": "String",
+									"physicalType": "String",
+									"ordinal": 26
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "PUBLISH_PERSON_IDENT",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "PublishPersonIdent",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "updating flag",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "COMPLETE_PUBLISH_REF",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": {
+							"value": "call MYVOYAGE_REFERENCE.PRC_PUBLISH_2_REF('@{pipeline().parameters.SCHEMA_NM}','@{pipeline().parameters.ENTITY_NM}','@{pipeline().parameters.PRIMARY_KEYS}')",
+							"type": "Expression"
+						},
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "REF_PERSON_XREF1",
+						"type": "DatasetReference"
+					}
+				}
+			},
+			{
+				"name": "MAX_LAST_TS",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "GET_MAX_LAST_TS",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "MAX_LAST_TS",
+					"value": {
+						"value": "@activity('GET_MAX_LAST_TS').output.firstRow.LOAD_START_TS",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "GET_MAX_LAST_TS",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "NEW_LOAD_ID_ASSIGN",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": "SELECT NVL(MAX(LOAD_START_TS),'1900-01-01 01:01:01.842') AS LOAD_START_TS FROM MYVOYAGE_MDM.MDM_ETL_AUDIT \n                     WHERE UPPER(TRIM(BATCH_NM))=UPPER(TRIM('PUBLISH_REFERENCE_LOAD')) AND UPPER(TRIM(ENTITY_NM))=UPPER(TRIM('RS_OMNI_VIPS_DAILY_PART_HEADER_DELTA'))  AND  ENTITY_LOAD_STATUS = 'COMPLETED' \n                     AND LOAD_ID <> 7",
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand",
+							"additionalFormatOptions": {
+								"TIMESTAMP_FORMAT": "'YYYY-MM-DD HH24:MI'"
+							}
+						}
+					},
+					"dataset": {
+						"referenceName": "MDM_ETL_AUDIT",
+						"type": "DatasetReference"
+					}
+				}
+			},
+			{
+				"name": "ADLS to Reference tbl",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "Copy data1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": "COPY INTO \"MYVOYAGE_REFERENCE\".\"EBX_MDM_PERSON_IDENT\"(\"GROUPID\",\"MM_STATUS\",\"MM_SCORE\",\"T_LAST_USER_ID\",\"T_CREATOR_ID\",\"T_CREATION_DATE\",\"T_LAST_WRITE\",\"MDMPERSONIDENTIFIERID\",\"MDMPERSONID_\",\"IDENTIFIERTYPE_\",\"IDENTIFIERTYPEMATCH\",\"IDENTIFIERVALUE\",\"SRCPERSONPKEY\",\"SOURCESYSTEMINFO_SRCSYSTEM_\",\"SOURCESYSTEMINFO_SRCCREATEDTTM\",\"SOURCESYSTEMINFO_SRCLASTUPDTDTTM\",\"SRCIDENTPKEY\",\"STATUS\",\"ENDDATE\",\"PERSONFLAG\",\"BATCHID\",\"PROCESSNAME\",\"PERSONGOLDENID\",\"PERSONORIGINID\",\"REF_AS_OF_DATE\",\"CURRENT_FLAG\") FROM (select $1 ,$2 ,$3 ,$4 ,$5 ,$6 ,$7 ,$8 ,$9 ,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26 from  @MYVOYAGE_REFERENCE.EXT_STAGE_ADF_VESSTZUC1UNITEDM001/Publish/PersonIdent/PersonIdent.csv\n (file_format => 'MYVOYAGE_CLEANSED.HDROFF_PUBLISH_TABLE'))FORCE = TRUE LOAD_UNCERTAIN_FILES = TRUE ON_ERROR = CONTINUE;",
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "REF_PERSON_IDENT",
+						"type": "DatasetReference"
+					}
+				}
+			},
+			{
+				"name": "GetMDMLoadId",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": {
+							"value": "CALL MYVOYAGE_MDM.PRC_MDM_ETL_LOADID('INITIATED','@{pipeline().parameters.IN_BATCH_NM}',0)",
+							"type": "Expression"
+						},
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "MDM_LOAD_ID",
+						"type": "DatasetReference"
+					}
+				}
+			},
+			{
+				"name": "NEW_LOAD_ID_ASSIGN",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "GetMDMLoadId",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "NEW_MDM_LOAD_ID",
+					"value": {
+						"value": "@string(activity('GetMDMLoadId').output.firstRow.PRC_MDM_ETL_LOADID)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "INITIATE_PUBLISH_REF",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "MAX_LAST_TS",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": {
+							"value": "CALL MYVOYAGE_MDM.PRC_MDM_ETL_AUDIT('INITIATED',@{variables('NEW_MDM_LOAD_ID')},'@{pipeline().parameters.IN_BATCH_NM}','@{pipeline().parameters.ENTITY_NM}',null,null,NULL,NULL,NULL,NULL);",
+							"type": "Expression"
+						},
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "MDM_ETL_AUDIT",
+						"type": "DatasetReference"
+					}
+				}
+			},
+			{
+				"name": "COMPLETE_PUBLISH_REF",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "ADLS to Reference tbl",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": {
+							"value": "CALL MYVOYAGE_MDM.PRC_MDM_ETL_AUDIT('COMPLETED',@{variables('NEW_MDM_LOAD_ID')},'@{pipeline().parameters.IN_BATCH_NM}','@{pipeline().parameters.ENTITY_NM}',null,null,@{activity('Copy data1').output.RowsRead},@{activity('Copy data1').output.rowsCopied},NULL,NULL);",
+							"type": "Expression"
+						},
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "MDM_ETL_AUDIT",
+						"type": "DatasetReference"
+					}
+				}
+			},
+			{
+				"name": "COMPLETE_LOADID",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "updating flag",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": {
+							"value": "CALL MYVOYAGE_MDM.PRC_MDM_ETL_LOADID('COMPLETED','@{pipeline().parameters.IN_BATCH_NM}',@{variables('NEW_MDM_LOAD_ID')})",
+							"type": "Expression"
+						},
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "MDM_LOAD_ID",
+						"type": "DatasetReference"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"SCHEMA_NM": {
+				"type": "string",
+				"defaultValue": "MYVOYAGE_REFERENCE"
+			},
+			"ENTITY_NM": {
+				"type": "string",
+				"defaultValue": "EBX_MDM_PERSON_IDENT"
+			},
+			"PRIMARY_KEYS": {
+				"type": "string",
+				"defaultValue": "MDMPERSONIDENTIFIERID"
+			},
+			"IN_BATCH_NM": {
+				"type": "string",
+				"defaultValue": "PERSON_IDENT_REFERENCE_LOAD"
+			}
+		},
+		"variables": {
+			"MAX_LAST_TS": {
+				"type": "String"
+			},
+			"NEW_MDM_LOAD_ID": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "DataConsolidationR2/MDM_PUBLISH"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-09-25T18:10:27Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

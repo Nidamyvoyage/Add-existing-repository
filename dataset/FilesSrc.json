@@ -1,0 +1,19 @@
+{
+	"name": "FilesSrc",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "files-trial",
+				"fileSystem": "iif"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

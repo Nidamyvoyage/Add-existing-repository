@@ -1,0 +1,316 @@
+{
+	"name": "Parameterized_Text_file",
+	"properties": {
+		"activities": [
+			{
+				"name": "copy_data",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Parameterized_file",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"additionalColumns": [
+							{
+								"name": "SWFDL_LOAD_ID",
+								"value": {
+									"value": "@activity('Parameterized_file').output.firstRow.INGESTION_LOAD_ID",
+									"type": "Expression"
+								}
+							},
+							{
+								"name": "SWFDL_CREATED_BY",
+								"value": {
+									"value": "@{pipeline().Pipeline}",
+									"type": "Expression"
+								}
+							},
+							{
+								"name": "SWFDL_CREATED_TS",
+								"value": {
+									"value": "@{formatDateTime(pipeline().TriggerTime,'yyyy-MM-dd HH:mm:ss.fff')}",
+									"type": "Expression"
+								}
+							},
+							{
+								"name": "SWFDL_UPDATED_BY",
+								"value": {
+									"value": "@{pipeline().Pipeline}",
+									"type": "Expression"
+								}
+							},
+							{
+								"name": "SWFDL_UPDATED_TS",
+								"value": {
+									"value": "@{formatDateTime(pipeline().TriggerTime,'yyyy-MM-dd HH:mm:ss.fff')}",
+									"type": "Expression"
+								}
+							}
+						],
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"wildcardFolderPath": "Parameterized",
+							"wildcardFileName": "*.csv",
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_cods_sample_file",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_target_cods_file",
+						"type": "DatasetReference",
+						"parameters": {
+							"ENTITY_NAME": {
+								"value": "@activity('Parameterized_file').output.firstRow.ENTITY_NAME",
+								"type": "Expression"
+							},
+							"SF_STAGE_ROOT_DIR": {
+								"value": "@activity('Parameterized_file').output.firstRow.SF_STAGE_ROOT_DIR",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			},
+			{
+				"name": "Parameterized_file",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"dataset": {
+						"referenceName": "DS_Parameterized_file",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "Get Metadata1",
+				"type": "GetMetadata",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "DS_Parameterized_file",
+						"type": "DatasetReference"
+					},
+					"fieldList": [
+						"itemName"
+					],
+					"storeSettings": {
+						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
+						"enablePartitionDiscovery": false
+					},
+					"formatSettings": {
+						"type": "DelimitedTextReadSettings"
+					}
+				}
+			},
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Parameterized_file",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Parameterized_file').output",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "copy_data_copy1",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "DelimitedTextSource",
+									"additionalColumns": [
+										{
+											"name": "SWFDL_LOAD_ID",
+											"value": {
+												"value": "@activity('Parameterized_file').output.firstRow.INGESTION_LOAD_ID",
+												"type": "Expression"
+											}
+										},
+										{
+											"name": "SWFDL_CREATED_BY",
+											"value": {
+												"value": "@{pipeline().Pipeline}",
+												"type": "Expression"
+											}
+										},
+										{
+											"name": "SWFDL_CREATED_TS",
+											"value": {
+												"value": "@{formatDateTime(pipeline().TriggerTime,'yyyy-MM-dd HH:mm:ss.fff')}",
+												"type": "Expression"
+											}
+										},
+										{
+											"name": "SWFDL_UPDATED_BY",
+											"value": {
+												"value": "@{pipeline().Pipeline}",
+												"type": "Expression"
+											}
+										},
+										{
+											"name": "SWFDL_UPDATED_TS",
+											"value": {
+												"value": "@{formatDateTime(pipeline().TriggerTime,'yyyy-MM-dd HH:mm:ss.fff')}",
+												"type": "Expression"
+											}
+										}
+									],
+									"storeSettings": {
+										"type": "AzureBlobFSReadSettings",
+										"recursive": true,
+										"wildcardFolderPath": "Parameterized",
+										"wildcardFileName": "*.csv",
+										"enablePartitionDiscovery": false
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings"
+									}
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
+									}
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "DS_cods_sample_file",
+									"type": "DatasetReference"
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DS_target_cods_file",
+									"type": "DatasetReference",
+									"parameters": {
+										"ENTITY_NAME": {
+											"value": "@activity('Parameterized_file').output.firstRow.ENTITY_NAME",
+											"type": "Expression"
+										},
+										"SF_STAGE_ROOT_DIR": {
+											"value": "@activity('Parameterized_file').output.firstRow.SF_STAGE_ROOT_DIR",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"folder": {
+			"name": "DataConsolidationR2/728950"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-10-25T06:01:30Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

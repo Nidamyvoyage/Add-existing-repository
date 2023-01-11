@@ -1,0 +1,42 @@
+{
+	"name": "PersonIdentifier_OnetoMany",
+	"properties": {
+		"folder": {
+			"name": "MDM"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DS_EB_MAX_DGTAL_PERSN_INFO_FULL",
+						"type": "DatasetReference"
+					},
+					"name": "EBMAXDGTALPERSNINFOFULL"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_EB_MAX_DGTAL_PERSN_INFO_FULL",
+						"type": "DatasetReference"
+					},
+					"name": "EBMAXDGTALPERSNINFOFULL1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "OneToMany",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "Join1"
+				}
+			],
+			"script": "source(output(\n\t\tPERSON_TECHID as string,\n\t\tSSN as string,\n\t\tSRC as string,\n\t\tIdentifierType as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'SELECT\\ntop 10\\nPERSON_TECHID,\\nSSN,\\nSRC,\\n\\'SSN\\' IdentifierType \\nFROM CMDM_STAGE.EB_MAX_DGTAL_PERSN_INFO_FULL\\n',\n\tformat: 'query') ~> EBMAXDGTALPERSNINFOFULL\nsource(output(\n\t\tPERSON_TECHID as string,\n\t\tGBP_NUMBER as string,\n\t\tSRC as string,\n\t\tIdentifierType as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'SELECT\\ntop 10\\nPERSON_TECHID,\\nGBP_NUMBER,\\nSRC,\\n\\'GBP_NUMBER\\' IdentifierType \\nFROM CMDM_STAGE.EB_MAX_DGTAL_PERSN_INFO_FULL',\n\tformat: 'query') ~> EBMAXDGTALPERSNINFOFULL1\nEBMAXDGTALPERSNINFOFULL, EBMAXDGTALPERSNINFOFULL1 join(EBMAXDGTALPERSNINFOFULL@PERSON_TECHID == EBMAXDGTALPERSNINFOFULL1@PERSON_TECHID,\n\tjoinType:'inner',\n\tmatchType:'exact',\n\tignoreSpaces: false,\n\tbroadcast: 'auto')~> Join1\nJoin1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tPERSON_TECHID as string,\n\t\tSSN as string,\n\t\tSRC as string,\n\t\tGBP_NUMBER as string,\n\t\tIdentifierType as string\n\t),\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\tPERSON_TECHID = EBMAXDGTALPERSNINFOFULL@PERSON_TECHID,\n\t\tSSN,\n\t\tSRC = EBMAXDGTALPERSNINFOFULL@SRC,\n\t\tIdentifierType = EBMAXDGTALPERSNINFOFULL@IdentifierType,\n\t\tGBP_NUMBER\n\t)) ~> sink1"
+		}
+	}
+}

@@ -1,0 +1,65 @@
+{
+	"name": "ASCIIdataflow",
+	"properties": {
+		"folder": {
+			"name": "ADF Mainframe"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "SampleFileASCII",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "SampleHeaderASCII",
+						"type": "DatasetReference"
+					},
+					"name": "HeaderSink"
+				},
+				{
+					"dataset": {
+						"referenceName": "SampleDetail1ASCII",
+						"type": "DatasetReference"
+					},
+					"name": "Detail1Sink"
+				},
+				{
+					"dataset": {
+						"referenceName": "SampleReportSink",
+						"type": "DatasetReference"
+					},
+					"name": "ReportSink"
+				},
+				{
+					"dataset": {
+						"referenceName": "SampleDetail2Sink",
+						"type": "DatasetReference"
+					},
+					"name": "Detail2Sink"
+				}
+			],
+			"transformations": [
+				{
+					"name": "HeaderFilter"
+				},
+				{
+					"name": "Detail1Filter"
+				},
+				{
+					"name": "ReportFilter"
+				},
+				{
+					"name": "Detail2Filter"
+				}
+			],
+			"script": "source(output(\n\t\tColumn_1 as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> source1\nsource1 filter(startsWith(Column_1,'0')) ~> HeaderFilter\nsource1 filter(startsWith(Column_1,'1')) ~> Detail1Filter\nsource1 filter(startsWith(Column_1,'9')) ~> ReportFilter\nsource1 filter(startsWith(Column_1,'2')) ~> Detail2Filter\nHeaderFilter sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tColumn_1 as string\n\t),\n\tpartitionFileNames:['sierra_extr_header_rec.csv'],\n\tumask: 0022,\n\tpreCommands: [],\n\tpostCommands: [],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tpartitionBy('hash', 1)) ~> HeaderSink\nDetail1Filter sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tColumn_1 as string\n\t),\n\tpartitionFileNames:['sierra_extr_activity_rec.csv'],\n\tumask: 0022,\n\tpreCommands: [],\n\tpostCommands: [],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tpartitionBy('hash', 1)) ~> Detail1Sink\nReportFilter sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tColumn_1 as string\n\t),\n\tpartitionFileNames:['sierra_extr_trailer_rec.csv'],\n\tumask: 0022,\n\tpreCommands: [],\n\tpostCommands: [],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tpartitionBy('hash', 1)) ~> ReportSink\nDetail2Filter sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tColumn_1 as string\n\t),\n\tpartitionFileNames:['sierra_tax_tax_rec.csv'],\n\tumask: 0022,\n\tpreCommands: [],\n\tpostCommands: [],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tpartitionBy('hash', 1)) ~> Detail2Sink"
+		}
+	}
+}

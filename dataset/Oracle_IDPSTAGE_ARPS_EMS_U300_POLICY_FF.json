@@ -1,0 +1,17 @@
+{
+	"name": "Oracle_IDPSTAGE_ARPS_EMS_U300_POLICY_FF",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Oracle_CODS_Intg",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "IDP_STAGE",
+			"table": "ARPS_EMS_U300_POLICY_FF"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

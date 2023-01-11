@@ -1,0 +1,65 @@
+{
+	"name": "IDPSTAGE-Oracle_2_ADLS-F951_SRA_MFN_FUND_OPS_DATA",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data F951_SRA_MFN_FUND_OPS_DATA",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".csv"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "Oracle_IDPSTAGE_F951_SRA_MFN_FUND_OPS_DATA",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ADLS_IDPSTAGE_F951_SRA_MFN_FUND_OPS_DATA",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "IDPREPOS_2_SF_Load"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-08-29T19:25:15Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

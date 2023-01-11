@@ -1,0 +1,22 @@
+{
+	"name": "ADLS_idprepos_txn_src_stage",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "idprepos_src_vesstzuc1unitedm001_stage",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "ADLS_idprepos_txn_src_stage",
+				"folderPath": "staging",
+				"fileSystem": "idprepos-poc"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,17 @@
+{
+	"name": "Oracle_IDPSTAGE_SOMNI_DC_PARTSVAL_DAILY",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Oracle_CODS_Intg",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "IDP_STAGE",
+			"table": "SOMNI_DC_PARTSVAL_DAILY"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

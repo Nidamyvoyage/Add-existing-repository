@@ -1,0 +1,66 @@
+{
+	"name": "HS_MAX_LEGAL_ENTITY_HSDB",
+	"properties": {
+		"description": "This pipeline is intended to Ingest data for Max Legal entity into SF",
+		"activities": [
+			{
+				"name": "RAW_FILE_TO_SF_STG_TABLE_LOAD",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": "COPY INTO \"STAGE\".\"HS_MAX_LEGAL_ENTITY_TGT_1\" (\"LETABLENSID\", \"LETABLEID\", \"LENAME\", \"LEGALENTITYTYPE\", \"LETAXID\", \"LESICCODE\", \"LESITUSSTATE\", \"LEBUSINESSUNITCODE\", \"LEISINSURERLEGALENTITY\", \"LEISTECHNICAL\", \"LEISREINSURER\", \"LEISCARRIER\", \"LEISBROKER\", \"LEISTRUST\", \"LEISAGENT\", \"LEISMAXGROUP\", \"LEISSERVICEPROVIDER\", \"LESPBILLINGADMINISTRATOR\", \"LESPCLAIMSADMINISTRATOR\", \"LESPMANAGINGGENERALUNDERWRITER\", \"LESPUNDERWRITER\", \"LESPENROLLMENTADMINISTRATOR\", \"LESPREINSURER\", \"LEPHYSADDRESSLINE1\", \"LEPHYSADDRESSLINE2\", \"LEPHYSCITY\", \"LEPHYSSTATE\", \"LEPHYSZIP\", \"LEPHYSPHONE\", \"LEPHYSTOLLFREEPHONE\", \"LEPHYSFAX\", \"LEPHYSEMAIL\", \"LEMAILINGADDRESSLINE1\", \"LEMAILINGADDRESSLINE2\", \"LEMAILINGCITY\", \"LEMAILINGSTATE\", \"LEMAILINGZIP\", \"LEMAILINGPHONE\", \"LEMAILINGTOLLFREEPHONE\", \"LEMAILINGFAX\", \"LEMAILINGEMAIL\",\"LELASTCHANGEDATE\", \"SWFDL_LOAD_ID\", \"SWFDL_CREATED_BY\", \"SWFDL_CREATED_TS\",\"SWFDL_UPDATED_BY\",\"SWFDL_UPDATED_TS\") FROM (select $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29, $30, $31, $32, $33, $34, $35, $36, $37, $38, $39, $40, $41, $42, $43, $44, $45, $46, $47 from @STAGE.EXT_STAGE_ADF_VESSTZUC1UNITEDM001_HS/MAX/CRMMAXLegalEntityTable20220406_Sample1.csv (file_format => 'STAGE.HS_CSVFMT_HDROFF')) FORCE = TRUE LOAD_UNCERTAIN_FILES = TRUE ON_ERROR = ABORT_STATEMENT;",
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "STG_HS_MAX_LEGAL_ENTITY_TGT",
+						"type": "DatasetReference"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"ENTITY_NAME": {
+				"type": "string",
+				"defaultValue": "CRMMAXLegalEntityTable"
+			},
+			"SRC_SYS_NM": {
+				"type": "string",
+				"defaultValue": "MAX"
+			},
+			"INGESTION_LOAD_TS": {
+				"type": "string"
+			},
+			"INGESTION_ETL_TYPE": {
+				"type": "string",
+				"defaultValue": "FULL"
+			},
+			"SRC_SCHEMA_NM": {
+				"type": "string",
+				"defaultValue": "FILE"
+			}
+		},
+		"variables": {
+			"INGESTION_LOAD_ID": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "HS_CRM_Phase_1"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-08-29T19:25:06Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,23 @@
+{
+	"name": "MyVoyageSnowflake",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "Snowflake",
+		"typeProperties": {
+			"connectionString": "jdbc:snowflake://voyatest.central-us.privatelink.snowflakecomputing.com/?user=sid_adf_myvoyage_unit&db=MYVOYAGE_UNIT&warehouse=WH_MYVOYAGE_WRITE&role=ROLE_MYVOYAGE_UNIT_DATA_WRITER_ALL",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "N_4_MyVoyage_1",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "sid-adf-myvoyage-unit-myvoyage-unit-password"
+			}
+		},
+		"connectVia": {
+			"referenceName": "integrationRuntime-uuc1wshr9002",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

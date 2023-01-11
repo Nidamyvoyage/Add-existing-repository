@@ -1,0 +1,47 @@
+{
+	"name": "ADLS_FULL_FILE",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_dfs_vesstzuc1unitedm001",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"SRC_SYS_NM": {
+				"type": "string"
+			},
+			"SRC_SCHEMA_NM": {
+				"type": "string"
+			},
+			"ENTITY_NAME": {
+				"type": "string"
+			},
+			"SF_STAGE_ROOT_DIR": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@concat(dataset().SRC_SYS_NM,'_',dataset().SRC_SCHEMA_NM,'_',dataset().ENTITY_NAME,'.csv')",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@concat(dataset().SRC_SYS_NM,'/',dataset().SRC_SCHEMA_NM)",
+					"type": "Expression"
+				},
+				"fileSystem": {
+					"value": "@dataset().SF_STAGE_ROOT_DIR",
+					"type": "Expression"
+				}
+			},
+			"columnDelimiter": "",
+			"escapeChar": "",
+			"quoteChar": ""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

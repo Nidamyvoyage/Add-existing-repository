@@ -1,0 +1,17 @@
+{
+	"name": "SnowflakeTable_missedOMNIVIPS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "MyVoyageSnowflake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SnowflakeTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "MYVOYAGE_STAGE",
+			"table": "RS_OMNI_VIPS_DAILY_PART_HEADER_STG_TEST"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

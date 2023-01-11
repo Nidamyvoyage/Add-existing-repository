@@ -1,0 +1,32 @@
+{
+	"name": "Daily_Omnivips",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "MVY_OMNI_VIPS_FULL",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"ENTITY_NAME": "DAILY_PART_HEADER",
+					"SRC_SYS_NM": "RS_OMNI",
+					"INGESTION_LOAD_TS": "2022-09-28 07:38:48.334",
+					"INGESTION_ETL_TYPE": "INCREMENTAL",
+					"SRC_SCHEMA_NM": "VIPS",
+					"LOB": "RS"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Minute",
+				"interval": 10,
+				"startTime": "2022-09-29T23:00:00Z",
+				"timeZone": "UTC"
+			}
+		}
+	}
+}

@@ -1,0 +1,25 @@
+{
+	"name": "ADLS_IDPSTAGE_TPA_F978P_PIF_U220",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "idprepos_src_vesstzuc1unitedm001_stage",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "TPA_F978P_PIF_U220.csv",
+				"folderPath": "IDP_STAGE_EXTRACTS",
+				"fileSystem": "idprepos-poc"
+			},
+			"columnDelimiter": "|",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": ""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

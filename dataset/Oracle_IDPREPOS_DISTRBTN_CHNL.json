@@ -1,0 +1,17 @@
+{
+	"name": "Oracle_IDPREPOS_DISTRBTN_CHNL",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Oracle_CODS_Intg",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "IDP_REPOS",
+			"table": "DISTRBTN_CHNL"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

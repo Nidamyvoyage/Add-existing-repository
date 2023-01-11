@@ -1,0 +1,1094 @@
+{
+	"name": "NULLHANDLER",
+	"properties": {
+		"activities": [
+			{
+				"name": "SnowFlakeToDataLake",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": "SELECT * FROM \"MYVOYAGE_MDM\".\"EB_MAX_DGTAL_PERSN_INFO_DELTA\" limit 100",
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": true,
+					"stagingSettings": {
+						"linkedServiceName": {
+							"referenceName": "vesstzuc1unitedm001_SF_SAS",
+							"type": "LinkedServiceReference"
+						},
+						"path": "snowflakeextstaging/sftosql"
+					},
+					"enableSkipIncompatibleRow": true,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "SOURCE_SYSTEM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SOURCE_SYSTEM",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SOURCE_KEY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SOURCE_KEY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PERSON_TECHID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PERSON_TECHID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "TITLE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "TITLE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "FNAME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "FNAME",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MNAME1",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MNAME1",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MNAME2",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MNAME2",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LNAME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LNAME",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "NAMESUFFIX",
+									"type": "String"
+								},
+								"sink": {
+									"name": "NAMESUFFIX",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "DOB"
+								},
+								"sink": {
+									"name": "DOB"
+								}
+							},
+							{
+								"source": {
+									"name": "GENDER",
+									"type": "String"
+								},
+								"sink": {
+									"name": "GENDER",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SSN",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SSN",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "P_A_COUNTRY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "P_A_COUNTRY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "P_A_MAILLINE1",
+									"type": "String"
+								},
+								"sink": {
+									"name": "P_A_MAILLINE1",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "P_A_MAILLINE2",
+									"type": "String"
+								},
+								"sink": {
+									"name": "P_A_MAILLINE2",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "P_A_CITY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "P_A_CITY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "P_A_STATE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "P_A_STATE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "P_A_POSTALCODE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "P_A_POSTALCODE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "P_A_COUNTY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "P_A_COUNTY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "P_A_PHONE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "P_A_PHONE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "P_A_CELLPHONE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "P_A_CELLPHONE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "P_A_FAX",
+									"type": "String"
+								},
+								"sink": {
+									"name": "P_A_FAX",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "P_A_TOLLFREENUMBER",
+									"type": "String"
+								},
+								"sink": {
+									"name": "P_A_TOLLFREENUMBER",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "P_A_EMAIL",
+									"type": "String"
+								},
+								"sink": {
+									"name": "P_A_EMAIL",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "S_A_COUNTRY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "S_A_COUNTRY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "S_A_MAILLINE1",
+									"type": "String"
+								},
+								"sink": {
+									"name": "S_A_MAILLINE1",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "S_A_MAILLINE2",
+									"type": "String"
+								},
+								"sink": {
+									"name": "S_A_MAILLINE2",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "S_A_CITY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "S_A_CITY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "S_A_STATE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "S_A_STATE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "S_A_POSTALCODE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "S_A_POSTALCODE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "S_A_COUNTY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "S_A_COUNTY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "S_A_PHONE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "S_A_PHONE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "S_A_CELLPHONE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "S_A_CELLPHONE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "S_A_FAX",
+									"type": "String"
+								},
+								"sink": {
+									"name": "S_A_FAX",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "S_A_TOLLFREENUMBER",
+									"type": "String"
+								},
+								"sink": {
+									"name": "S_A_TOLLFREENUMBER",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "S_A_EMAIL",
+									"type": "String"
+								},
+								"sink": {
+									"name": "S_A_EMAIL",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CHECK_SUM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CHECK_SUM",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CHANGE_CODE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CHANGE_CODE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_LOAD_ID",
+									"type": "Int64"
+								},
+								"sink": {
+									"name": "SWFDL_LOAD_ID",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_CREATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SWFDL_CREATED_BY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_CREATED_TS",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "SWFDL_CREATED_TS",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_UPDATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SWFDL_UPDATED_BY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_UPDATED_TS",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "SWFDL_UPDATED_TS",
+									"type": "DateTime"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "EB_MAX_DELTA",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SF_ADLS_OMNI_VIPS",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Data flow1",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "DataLakeToSQLServer",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "1.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "MAX_NULLHANDLER",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			},
+			{
+				"name": "DataLakeToSQLServer",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "SnowFlakeToDataLake",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "ParquetSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"wildcardFolderPath": "MAX_Parquest",
+							"wildcardFileName": "*.parquet",
+							"enablePartitionDiscovery": false
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false
+					},
+					"enableStaging": false,
+					"enableSkipIncompatibleRow": true,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "SOURCE_SYSTEM",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "SOURCE_SYSTEM",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "SOURCE_KEY",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "SOURCE_KEY",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "PERSON_TECHID",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "PERSON_TECHID",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "FNAME",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "FNAME",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "MNAME1",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "MNAME1",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "MNAME2",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "MNAME2",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "LNAME",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "LNAME",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "NAMESUFFIX",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "NAMESUFFIX",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "DOB",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "DOB",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "GENDER",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "GENDER",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "SSN",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "SSN",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "P_A_COUNTRY",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "P_A_COUNTRY",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "P_A_MAILLINE1",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "P_A_MAILLINE1",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "P_A_MAILLINE2",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "P_A_MAILLINE2",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "P_A_CITY",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "P_A_CITY",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "P_A_STATE",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "P_A_STATE",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "P_A_POSTALCODE",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "P_A_POSTALCODE",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "P_A_COUNTY",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "P_A_COUNTY",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "P_A_PHONE",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "P_A_PHONE",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "P_A_CELLPHONE",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "P_A_CELLPHONE",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "P_A_FAX",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "P_A_FAX",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "P_A_TOLLFREENUMBER",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "P_A_TOLLFREENUMBER",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "P_A_EMAIL",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "P_A_EMAIL",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "S_A_COUNTRY",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "S_A_COUNTRY",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "S_A_MAILLINE1",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "S_A_MAILLINE1",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "S_A_MAILLINE2",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "S_A_MAILLINE2",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "S_A_CITY",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "S_A_CITY",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "S_A_STATE",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "S_A_STATE",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "S_A_POSTALCODE",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "S_A_POSTALCODE",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "S_A_COUNTY",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "S_A_COUNTY",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "S_A_PHONE",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "S_A_PHONE",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "S_A_CELLPHONE",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "S_A_CELLPHONE",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "S_A_FAX",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "S_A_FAX",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "S_A_TOLLFREENUMBER",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "S_A_TOLLFREENUMBER",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "S_A_EMAIL",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "S_A_EMAIL",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "CHECK_SUM",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "CHECK_SUM",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "CHANGE_CODE",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "CHANGE_CODE",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_LOAD_ID",
+									"type": "Int64",
+									"physicalType": "INT64"
+								},
+								"sink": {
+									"name": "batch_id",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_CREATED_TS",
+									"type": "DateTime",
+									"physicalType": "INT96"
+								},
+								"sink": {
+									"name": "createDateTime",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_CREATED_BY",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "createdBy",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_UPDATED_TS",
+									"type": "DateTime",
+									"physicalType": "INT96"
+								},
+								"sink": {
+									"name": "lastUpdateDateTime",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_UPDATED_BY",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "lastUpdatedBy",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ADLS_ASQL_OMNI_VIPS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "EB_MAX_DELTA_STG",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "DataConsolidationR2/729142/Test"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-08-29T19:25:36Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,24 @@
+{
+	"name": "SFTP_TO_ADLS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_dfs_vesstzuc1unitedm001",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "sftpfile.csv",
+				"folderPath": "RS_OMNI/SFTPFile",
+				"fileSystem": "snowflakeextstaging"
+			},
+			"columnDelimiter": "|",
+			"escapeChar": "",
+			"quoteChar": ""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

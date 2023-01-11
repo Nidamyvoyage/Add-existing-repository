@@ -1,0 +1,297 @@
+{
+	"name": "SF_2_AZURE_CODS",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": "SELECT SOURCE_KEY\t,\nPSEUDO_MDM_ID\t,\nSSN\t,\nNVL(DATE_OF_BIRTH,NULL) DATE_OF_BIRTH,\nSALESFORCE_CONTACT_ID\t,\nSOURCE_SYSTEM\t,\nSOURCE_SYSTEM_UNDERLYING\t,\nNVL(AS_OF_DATE,NULL) AS_OF_DATE\t,\nPARTY_TYPE\t,\nTIN_TYPE\t,\nFULL_NAME\t,\nPREFIX_NAME\t,\nFIRST_NAME\t,\nMIDDLE_NAME\t,\nLAST_NAME\t,\nSUFFIX_NAME\t,\nGENDER\t,\nNVL(END_DATE,NULL) END_DATE\t,\nCHANGE_CODE\t,\nSWFDL_LOAD_ID\t,\nSWFDL_CREATED_TS\t,\nSWFDL_CREATED_BY\t,\nSWFDL_UPDATED_TS ,\nSWFDL_UPDATED_BY FROM MYVOYAGE_MDM.RS_CODS_REPOS_PARTY_DELTA",
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false
+					},
+					"enableStaging": true,
+					"stagingSettings": {
+						"linkedServiceName": {
+							"referenceName": "vesstzuc1unitedm001_SF_SAS",
+							"type": "LinkedServiceReference"
+						},
+						"path": "snowflakeextstaging/sftosql"
+					},
+					"enableSkipIncompatibleRow": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "SOURCE_KEY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SOURCE_KEY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PSEUDO_MDM_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PSEUDO_MDM_ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SSN",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SSN",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "DATE_OF_BIRTH"
+								},
+								"sink": {
+									"name": "DATE_OF_BIRTH"
+								}
+							},
+							{
+								"source": {
+									"name": "SALESFORCE_CONTACT_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SALESFORCE_CONTACT_ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SOURCE_SYSTEM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SOURCE_SYSTEM",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SOURCE_SYSTEM_UNDERLYING",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SOURCE_SYSTEM_UNDERLYING",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "AS_OF_DATE"
+								},
+								"sink": {
+									"name": "AS_OF_DATE"
+								}
+							},
+							{
+								"source": {
+									"name": "PARTY_TYPE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PARTY_TYPE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "TIN_TYPE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "TIN_TYPE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "FULL_NAME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "FULL_NAME",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PREFIX_NAME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PREFIX_NAME",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "FIRST_NAME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "FIRST_NAME",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MIDDLE_NAME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MIDDLE_NAME",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LAST_NAME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LAST_NAME",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SUFFIX_NAME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SUFFIX_NAME",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "GENDER",
+									"type": "String"
+								},
+								"sink": {
+									"name": "GENDER",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "END_DATE"
+								},
+								"sink": {
+									"name": "END_DATE"
+								}
+							},
+							{
+								"source": {
+									"name": "CHANGE_CODE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CHANGE_CODE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_LOAD_ID",
+									"type": "Int64"
+								},
+								"sink": {
+									"name": "batch_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_CREATED_TS",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "createDateTime",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_CREATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "createdBy",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_UPDATED_TS",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "lastUpdateDateTime",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_UPDATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "lastUpdatedBy",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "CODS_DELTA",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "CODS_DELTA_STG",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2022-08-29T19:25:35Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

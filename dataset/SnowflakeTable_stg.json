@@ -1,0 +1,17 @@
+{
+	"name": "SnowflakeTable_stg",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "MyVoyageSnowflake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SnowflakeTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "MYVOYAGE_STAGE",
+			"table": "EB_MAX_DGTAL_PERSN_INFO_STG"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

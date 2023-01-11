@@ -1,0 +1,17 @@
+{
+	"name": "OracleTable6",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "OracleOLTP",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "BPS",
+			"table": "PLAN_PART_OM_ASSUMPTION"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

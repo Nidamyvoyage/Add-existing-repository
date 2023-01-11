@@ -1,0 +1,30 @@
+{
+	"name": "AzureSqlTable9",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlServer_EBX",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "WS_EXT_PH_PLAN_NUM",
+				"type": "varchar"
+			},
+			{
+				"name": "WS_EXT_PH_PART_NUM",
+				"type": "varchar"
+			},
+			{
+				"name": "WS_EXT_PH_NAME",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "CMDM_STAGE",
+			"table": "OMNI_VIPS_DAILY_PART_TEST"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

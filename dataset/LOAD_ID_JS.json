@@ -1,0 +1,17 @@
+{
+	"name": "LOAD_ID_JS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "MyVoyageSnowflake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SnowflakeTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "MYVOYAGE_CONFORM",
+			"table": "CONFORM_LOAD_ID_SEQ"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

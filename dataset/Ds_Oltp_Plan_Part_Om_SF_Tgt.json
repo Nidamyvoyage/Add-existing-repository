@@ -1,0 +1,222 @@
+{
+	"name": "Ds_Oltp_Plan_Part_Om_SF_Tgt",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "MyVoyageSnowflake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SnowflakeTable",
+		"schema": [
+			{
+				"name": "CLIENT_ID",
+				"type": "VARCHAR",
+				"precision": 8,
+				"scale": 0
+			},
+			{
+				"name": "PLAN_ID",
+				"type": "VARCHAR",
+				"precision": 6,
+				"scale": 0
+			},
+			{
+				"name": "PARTICIPANT_ID",
+				"type": "VARCHAR",
+				"precision": 9,
+				"scale": 0
+			},
+			{
+				"name": "EE_MANDATORY_CONTRIB_DOLLAR",
+				"type": "NUMBER",
+				"precision": 9,
+				"scale": 2
+			},
+			{
+				"name": "EE_MANDATORY_CONTRIB_RATE",
+				"type": "NUMBER",
+				"precision": 5,
+				"scale": 2
+			},
+			{
+				"name": "ER_MANDATORY_CONTRIB_DOLLAR",
+				"type": "NUMBER",
+				"precision": 9,
+				"scale": 2
+			},
+			{
+				"name": "ER_MANDATORY_CONTRIB_RATE",
+				"type": "NUMBER",
+				"precision": 5,
+				"scale": 2
+			},
+			{
+				"name": "ER_OTHER_CONTRIB_DOLLAR",
+				"type": "NUMBER",
+				"precision": 9,
+				"scale": 2
+			},
+			{
+				"name": "ER_OTHER_CONTRIB_RATE",
+				"type": "NUMBER",
+				"precision": 5,
+				"scale": 2
+			},
+			{
+				"name": "LAST_SAVED_DATE",
+				"type": "DATE",
+				"precision": 10,
+				"scale": 0
+			},
+			{
+				"name": "MATCH_TIER1_PAYLEVEL",
+				"type": "NUMBER",
+				"precision": 5,
+				"scale": 2
+			},
+			{
+				"name": "MATCH_TIER1_RATE",
+				"type": "NUMBER",
+				"precision": 5,
+				"scale": 2
+			},
+			{
+				"name": "MATCH_TIER2_PAYLEVEL",
+				"type": "NUMBER",
+				"precision": 5,
+				"scale": 2
+			},
+			{
+				"name": "MATCH_TIER2_RATE",
+				"type": "NUMBER",
+				"precision": 5,
+				"scale": 2
+			},
+			{
+				"name": "AFTERTAX_CONTRIB_DOLLAR",
+				"type": "NUMBER",
+				"precision": 9,
+				"scale": 2
+			},
+			{
+				"name": "AFTERTAX_CONTRIB_RATE",
+				"type": "NUMBER",
+				"precision": 5,
+				"scale": 2
+			},
+			{
+				"name": "PRETAX_AGE_CATCHUP_DOLLAR",
+				"type": "NUMBER",
+				"precision": 9,
+				"scale": 2
+			},
+			{
+				"name": "PRETAX_AGE_CATCHUP_RATE",
+				"type": "NUMBER",
+				"precision": 5,
+				"scale": 2
+			},
+			{
+				"name": "PRETAX_CONTRIB_DOLLAR",
+				"type": "NUMBER",
+				"precision": 9,
+				"scale": 2
+			},
+			{
+				"name": "PRETAX_CONTRIB_RATE",
+				"type": "NUMBER",
+				"precision": 5,
+				"scale": 2
+			},
+			{
+				"name": "ROTH_AGE_CATCHUP_DOLLAR",
+				"type": "NUMBER",
+				"precision": 9,
+				"scale": 2
+			},
+			{
+				"name": "ROTH_AGE_CATCHUP_RATE",
+				"type": "NUMBER",
+				"precision": 5,
+				"scale": 2
+			},
+			{
+				"name": "ROTH_CONTRIB_DOLLAR",
+				"type": "NUMBER",
+				"precision": 9,
+				"scale": 2
+			},
+			{
+				"name": "ROTH_CONTRIB_RATE",
+				"type": "NUMBER",
+				"precision": 5,
+				"scale": 2
+			},
+			{
+				"name": "PAYCHECK_FREQ",
+				"type": "NUMBER",
+				"precision": 2,
+				"scale": 0
+			},
+			{
+				"name": "REPLICATION_UPDATE_DATE",
+				"type": "DATE",
+				"precision": 10,
+				"scale": 0
+			},
+			{
+				"name": "TERM_CONTRIB_RATE_RESET",
+				"type": "VARCHAR",
+				"precision": 1,
+				"scale": 0
+			},
+			{
+				"name": "PRETAX_SUPPL_DOLLAR",
+				"type": "NUMBER",
+				"precision": 9,
+				"scale": 2
+			},
+			{
+				"name": "PRETAX_SUPPL_RATE",
+				"type": "NUMBER",
+				"precision": 5,
+				"scale": 2
+			},
+			{
+				"name": "AFTERTAX_SUPPL_DOLLAR",
+				"type": "NUMBER",
+				"precision": 9,
+				"scale": 2
+			},
+			{
+				"name": "AFTERTAX_SUPPL_RATE",
+				"type": "NUMBER",
+				"precision": 5,
+				"scale": 2
+			},
+			{
+				"name": "ROTH_SUPPL_DOLLAR",
+				"type": "NUMBER",
+				"precision": 9,
+				"scale": 2
+			},
+			{
+				"name": "ROTH_SUPPL_RATE",
+				"type": "NUMBER",
+				"precision": 5,
+				"scale": 2
+			},
+			{
+				"name": "INCLUDE_ER_MATCH_CONT",
+				"type": "VARCHAR",
+				"precision": 1,
+				"scale": 0
+			}
+		],
+		"typeProperties": {
+			"schema": "MYVOYAGE_STAGE",
+			"table": "PLAN_PART_OM_ASSUMPTION"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,202 @@
+{
+	"name": "ADLS_IDPREPOS_TXN",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "idprepos_src_vesstzuc1unitedm001_stage",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "ADLS_idprepos_txn_src_stage.csv",
+				"folderPath": "staging",
+				"fileSystem": "idprepos-poc"
+			},
+			"columnDelimiter": "|",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "TXN_ID",
+				"type": "String"
+			},
+			{
+				"name": "TXN_TYPE_ID",
+				"type": "String"
+			},
+			{
+				"name": "TRIGGERED_BY_FEATR_ID",
+				"type": "String"
+			},
+			{
+				"name": "TXN_DT",
+				"type": "String"
+			},
+			{
+				"name": "CLEARING_DT",
+				"type": "String"
+			},
+			{
+				"name": "AS_OF_DT",
+				"type": "String"
+			},
+			{
+				"name": "TXN_DESCR",
+				"type": "String"
+			},
+			{
+				"name": "TXN_PURP",
+				"type": "String"
+			},
+			{
+				"name": "TXN_GAIN_LOSS_REASON",
+				"type": "String"
+			},
+			{
+				"name": "TXN_RVSL_TYPE",
+				"type": "String"
+			},
+			{
+				"name": "SRC_TXN_IDENTIFIER",
+				"type": "String"
+			},
+			{
+				"name": "SRC_TXN_POSTING_NUM",
+				"type": "String"
+			},
+			{
+				"name": "SRC_TXN_FOLDER_ID",
+				"type": "String"
+			},
+			{
+				"name": "SRC_TXN_PARTY_ID",
+				"type": "String"
+			},
+			{
+				"name": "SRC_TXN_TYPE_SET_CD",
+				"type": "String"
+			},
+			{
+				"name": "SRC_TXN_TYPE_CD_L1",
+				"type": "String"
+			},
+			{
+				"name": "SRC_TXN_TYPE_CD_L2",
+				"type": "String"
+			},
+			{
+				"name": "SRC_TXN_TYPE_CD_L3",
+				"type": "String"
+			},
+			{
+				"name": "SRC_TXN_TYPE_CD_L4",
+				"type": "String"
+			},
+			{
+				"name": "SRC_TXN_TYPE_CD_L5",
+				"type": "String"
+			},
+			{
+				"name": "SRC_TXN_TYPE_CD_L6",
+				"type": "String"
+			},
+			{
+				"name": "SRC_TXN_TYPE_CD_L7",
+				"type": "String"
+			},
+			{
+				"name": "SIERRA_TXN_TYPE_CD",
+				"type": "String"
+			},
+			{
+				"name": "SIERRA_TXN_GROUP_CD",
+				"type": "String"
+			},
+			{
+				"name": "SRC",
+				"type": "String"
+			},
+			{
+				"name": "IN_KIND_TXN_IND",
+				"type": "String"
+			},
+			{
+				"name": "ROW_STATUS",
+				"type": "String"
+			},
+			{
+				"name": "RECORDED_START_DT",
+				"type": "String"
+			},
+			{
+				"name": "RECORDED_END_DT",
+				"type": "String"
+			},
+			{
+				"name": "BATCH_ID",
+				"type": "String"
+			},
+			{
+				"name": "CHECK_SUM",
+				"type": "String"
+			},
+			{
+				"name": "CREATED_DT",
+				"type": "String"
+			},
+			{
+				"name": "CREATED_BY",
+				"type": "String"
+			},
+			{
+				"name": "LAST_UPDATED_DT",
+				"type": "String"
+			},
+			{
+				"name": "LAST_UPDATED_BY",
+				"type": "String"
+			},
+			{
+				"name": "SUSPENSE_CTRL_NUM",
+				"type": "String"
+			},
+			{
+				"name": "TAX_WTHLDG_STATE_ID",
+				"type": "String"
+			},
+			{
+				"name": "SRC_TXN_ALT_POSTING_NUM",
+				"type": "String"
+			},
+			{
+				"name": "GROSS_AMT",
+				"type": "String"
+			},
+			{
+				"name": "NET_AMT",
+				"type": "String"
+			},
+			{
+				"name": "TRIGGERED_BY_TXN_ID",
+				"type": "String"
+			},
+			{
+				"name": "ORIGNL_TXN_ID",
+				"type": "String"
+			},
+			{
+				"name": "TXN_DIRECTN",
+				"type": "String"
+			},
+			{
+				"name": "LAST_EXTRACT_FROM_SRC_DT",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

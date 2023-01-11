@@ -1,0 +1,400 @@
+{
+	"name": "MDM_PUBLISH_2_SF_REF",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "SourceIdentifier",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "SourceIdentifier",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "SourceIdentifierType",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "SourceIdentifierType",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "SourceSystem",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "SourceSystem",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "SSN",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "SSN",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "DateOfBirth",
+									"type": "DateTime",
+									"physicalType": "date"
+								},
+								"sink": {
+									"name": "DateOfBirth",
+									"type": "DateTime",
+									"physicalType": "INT_96"
+								}
+							},
+							{
+								"source": {
+									"name": "MDM_ID",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "MDM_ID",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "CreateDateTime",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								},
+								"sink": {
+									"name": "CreateDateTime",
+									"type": "DateTime",
+									"physicalType": "INT_96"
+								}
+							},
+							{
+								"source": {
+									"name": "CreatedBy",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "CreatedBy",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "LastUpdateDateTime",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								},
+								"sink": {
+									"name": "LastUpdateDateTime",
+									"type": "DateTime",
+									"physicalType": "INT_96"
+								}
+							},
+							{
+								"source": {
+									"name": "LastUpdatedBy",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "LastUpdatedBy",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "PARTY_ID",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "PARTY_ID",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "PUBLISH_PERSON_XREF",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SQL_ADLS_XREF",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Copy data2",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Copy data1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "ParquetSource",
+						"additionalColumns": [
+							{
+								"name": "REF_AS_OF_DATE",
+								"value": {
+									"value": "@utcNow('YYYY-MM-DD')",
+									"type": "Expression"
+								}
+							},
+							{
+								"name": "CURRENT_FLAG",
+								"value": {
+									"value": "'N'",
+									"type": "Expression"
+								}
+							}
+						],
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"wildcardFolderPath": "XREF_ADLS",
+							"wildcardFileName": "*.parquet",
+							"enablePartitionDiscovery": false
+						}
+					},
+					"sink": {
+						"type": "SnowflakeSink",
+						"importSettings": {
+							"type": "SnowflakeImportCopyCommand"
+						}
+					},
+					"enableStaging": true,
+					"stagingSettings": {
+						"linkedServiceName": {
+							"referenceName": "vesstzuc1unitedm001_SF_SAS",
+							"type": "LinkedServiceReference"
+						}
+					},
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "SourceIdentifier",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SOURCEIDENTIFIER",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SourceIdentifierType",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SOURCEIDENTIFIERTYPE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SourceSystem",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SOURCESYSTEM",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SSN",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SSN",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "DateOfBirth",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "DATEOFBIRTH",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "MDM_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MDM_ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CreateDateTime",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "CREATEDATETIME",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "CreatedBy",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CREATEDBY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LastUpdateDateTime",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "LASTUPDATEDATETIME",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "LastUpdatedBy",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LASTUPDATEDBY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PARTY_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PARTY_ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "REF_AS_OF_DATE"
+								},
+								"sink": {
+									"name": "REF_AS_OF_DATE",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "CURRENT_FLAG"
+								},
+								"sink": {
+									"name": "CURRENT_FLAG",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "XREF_ADLS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "REF_PERSON_XREF",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2022-08-29T19:25:16Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,17 @@
+{
+	"name": "Ds_Kpd_Fw_Cust_Calc_Src",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "OracleKPD",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "KPD_REPOS",
+			"table": "CUSTOMER_CALCULATIONS"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,66 @@
+{
+	"name": "IDPSTAGE-Oracle_2_ADLS-PRT_AVIPS_DAILY_PART_FUND",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data PRT_AVIPS_DAILY_PART_FUND",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "Select SOURCE_ID, WS_EXT_PF_PL_PREFIX, WS_EXT_PF_PL_SUFFIX, WS_EXT_PF_PART_NUM, WS_EXT_PF_PART_NUM_X, \nWS_EXT_PF_PART_SUB_PLAN, WS_EXT_PF_PART_EXT, WS_EXT_PF_FUND_IV, WS_EXT_PF_FUND_SRC, WS_EXT_PF_FUND_ID_1, \nWS_EXT_PF_FUND_ID_2, WS_EXT_PF_FUND_ID_3, WS_EXT_PF_UNIV_CASH, WS_EXT_PF_NET_CNTRBS, WS_EXT_PF_SHR_BAL_CUR, \nWS_EXT_PF_CNTRB_PAID_OUT, WS_EXT_PF_SHRS_PUR, WS_EXT_PF_SHRS_RCT, WS_EXT_PF_SHRS_SOLD, WS_EXT_PF_SHRS_DIST, \nWS_EXT_PF_SHRS_FORF, WS_EXT_PF_CNTRB, WS_EXT_PF_FORF_IN, WS_EXT_PF_XFER_IN, WS_EXT_PF_MISC_IN, WS_EXT_PF_CONV_IN, \nWS_EXT_PF_OTHER_IN, WS_EXT_PF_LOAN_REPAY_PRINC, WS_EXT_PF_LOAN_REPAY_INT, WS_EXT_PF_WDRL, WS_EXT_PF_TERM, WS_EXT_PF_FEES, \nWS_EXT_PF_FORF_OUT, WS_EXT_PF_XFER_OUT, WS_EXT_PF_MISC_OUT, WS_EXT_PF_CONV_OUT, WS_EXT_PF_OTHER_OUT, WS_EXT_PF_LOAN_ISSUE, \nWS_EXT_PF_PF999_BAL, WS_EXT_PF_PA999_BAL, WS_EXT_PF_PM540, WS_EXT_PF_PM545, WS_EXT_PF_AHIC_VRR_FUND_TICKER, \nWS_EXT_PF_AHIC_VRR_FUND_CODE, WS_EXT_PF_OMNI_VERSION, WS_EXT_PF_FILLER, BATCH_ID, CHECK_SUM, CREATED_AT, \nCREATED_BY, CREATED_IN_SOURCE_AT, CREATED_IN_SOURCE_BY, CURRENT_ROW_INDICATOR, SOURCE_CMDB_ID, WS_EXT_PF_PLAN_STATUS, \nWS_EXT_PF_DECONV_IND, WS_EXT_PF_CONV_PL_NUM, WS_EXT_PF_CLIENT_ID, WS_EXT_PF_SUB_CLIENT_ID, WS_EXT_PF_SSO_CLIENT_ID \nfrom idp_stage.PRT_AVIPS_DAILY_PART_FUND\nwhere batch_id = 20611",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".csv"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "Oracle_IDPSTAGE_PRT_AVIPS_DAILY_PART_FUND",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ADLS_IDPSTAGE_PRT_AVIPS_DAILY_PART_FUND",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "IDPREPOS_2_SF_Load"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-08-29T19:25:17Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

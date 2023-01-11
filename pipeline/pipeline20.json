@@ -1,0 +1,352 @@
+{
+	"name": "pipeline20",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": "select SOURCE_SYSTEM  \n,SOURCE_KEY\n,PART_ACCOUNT_STATUS\n,PART_TYPE\n,PART_TIN \n,NVL(PART_BIRTH_DATE,NULL) as PART_BIRTH_DATE\n,PART_GENDER\n,PART_FULL_NAME\n,PART_FIRST_NAME\n,PART_LAST_NAME\n,PART_MIDDLE_NAME\n,PART_SUFFIX_TITLE\n,PART_ADDRESS_LINE1\n,PART_ADDRESS_LINE2\n,PART_ADDRESS_LINE3\n,PART_CITY\n,PART_STATE\n,PART_POSTAL_CODE\n,PART_COUNTRY\n,PART_EMAIL\n,PART_PHONE\n,PART_MARITAL_STATUS\n,CHECK_SUM                   \n,CHANGE_CODE                 \n,SWFDL_LOAD_ID     \n,SWFDL_CREATED_TS                             \n,SWFDL_CREATED_BY                          \n,SWFDL_UPDATED_TS                     \n,SWFDL_UPDATED_BY                                                \nfrom MYVOYAGE_MDM.RS_SOMNI_DC_PARTICIPANT_DAILY_DELTA limit 1",
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false,
+						"disableMetricsCollection": false
+					},
+					"enableStaging": true,
+					"stagingSettings": {
+						"linkedServiceName": {
+							"referenceName": "vesstzuc1unitedm004_SF_SAS",
+							"type": "LinkedServiceReference"
+						},
+						"path": "snowflakeextstaging/sftosql_ease_omni"
+					},
+					"enableSkipIncompatibleRow": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "SOURCE_SYSTEM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SOURCE_SYSTEM",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SOURCE_KEY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SOURCE_KEY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PART_ACCOUNT_STATUS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PART_ACCOUNT_STATUS",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PART_TYPE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PART_TYPE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PART_TIN",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PART_TIN",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PART_BIRTH_DATE"
+								},
+								"sink": {
+									"name": "PART_BIRTH_DATE"
+								}
+							},
+							{
+								"source": {
+									"name": "PART_GENDER",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PART_GENDER",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PART_FULL_NAME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PART_FULL_NAME",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PART_FIRST_NAME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PART_FIRST_NAME",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PART_LAST_NAME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PART_LAST_NAME",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PART_MIDDLE_NAME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PART_MIDDLE_NAME",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PART_SUFFIX_TITLE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PART_SUFFIX_TITLE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PART_ADDRESS_LINE1",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PART_ADDRESS_LINE1",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PART_ADDRESS_LINE2",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PART_ADDRESS_LINE2",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PART_ADDRESS_LINE3",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PART_ADDRESS_LINE3",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PART_CITY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PART_CITY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PART_STATE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PART_STATE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PART_POSTAL_CODE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PART_POSTAL_CODE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PART_COUNTRY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PART_COUNTRY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PART_EMAIL",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PART_EMAIL",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PART_PHONE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PART_PHONE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PART_MARITAL_STATUS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PART_MARITAL_STATUS",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CHECK_SUM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CHECK_SUM",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CHANGE_CODE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CHANGE_CODE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_LOAD_ID",
+									"type": "Int64"
+								},
+								"sink": {
+									"name": "batch_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_CREATED_TS",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "createDateTime",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_CREATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "createdBy",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_UPDATED_TS",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "lastUpdateDateTime",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_UPDATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "lastUpdatedBy",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "EASEOMNI_DELTA",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "EASEOMNI_DELTA_STG",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2022-09-13T07:17:49Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

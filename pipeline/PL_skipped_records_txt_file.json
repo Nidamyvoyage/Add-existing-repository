@@ -1,0 +1,389 @@
+{
+	"name": "PL_skipped_records_txt_file",
+	"properties": {
+		"activities": [
+			{
+				"name": "SnowFlakeToDataLake",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": "select * from \"MYVOYAGE_UNIT\".\"MYVOYAGE_MDM\".\"RS_SOMNI_DC_PARTICIPANT_DAILY_DELTA_TESTING1\"\n",
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": true,
+					"stagingSettings": {
+						"linkedServiceName": {
+							"referenceName": "vesstzuc1unitedm001_SF_SAS",
+							"type": "LinkedServiceReference"
+						},
+						"path": "snowflakeextstaging/sftosql"
+					},
+					"enableSkipIncompatibleRow": true,
+					"logSettings": {
+						"enableCopyActivityLog": true,
+						"copyActivityLogSettings": {
+							"logLevel": "Warning",
+							"enableReliableLogging": false
+						},
+						"logLocationSettings": {
+							"linkedServiceName": {
+								"referenceName": "ls_dfs_vesstzuc1unitedm001",
+								"type": "LinkedServiceReference"
+							},
+							"path": {
+								"value": "@concat(pipeline().parameters.folder,'/',pipeline().Pipeline,'/',pipeline().parameters.TableName,'/')\n",
+								"type": "Expression"
+							}
+						}
+					},
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "SOURCE_SYSTEM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SOURCE_SYSTEM",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SOURCE_KEY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SOURCE_KEY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PART_ACCOUNT_STATUS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PART_ACCOUNT_STATUS",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PART_TYPE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PART_TYPE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PART_TIN",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PART_TIN",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PART_BIRTH_DATE",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "PART_BIRTH_DATE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PART_GENDER",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PART_GENDER",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PART_FULL_NAME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PART_FULL_NAME",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PART_FIRST_NAME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PART_FIRST_NAME",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PART_LAST_NAME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PART_LAST_NAME",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PART_MIDDLE_NAME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PART_MIDDLE_NAME",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PART_SUFFIX_TITLE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PART_SUFFIX_TITLE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PART_ADDRESS_LINE1",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PART_ADDRESS_LINE1",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PART_ADDRESS_LINE2",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PART_ADDRESS_LINE2",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PART_ADDRESS_LINE3",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PART_ADDRESS_LINE3",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PART_CITY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PART_CITY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PART_STATE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PART_STATE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PART_POSTAL_CODE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PART_POSTAL_CODE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PART_COUNTRY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PART_COUNTRY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PART_EMAIL",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PART_EMAIL",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PART_PHONE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PART_PHONE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PART_MARITAL_STATUS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PART_MARITAL_STATUS",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CHECK_SUM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CHECK_SUM",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CHANGE_CODE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CHANGE_CODE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_LOAD_ID",
+									"type": "Int64"
+								},
+								"sink": {
+									"name": "SWFDL_LOAD_ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_CREATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SWFDL_CREATED_BY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_CREATED_TS",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "SWFDL_CREATED_TS",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_UPDATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SWFDL_UPDATED_BY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_UPDATED_TS",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "SWFDL_UPDATED_TS",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "EASEOMNI_DELTA",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SF_MDM_TO_ADLS",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"parameters": {
+			"TableName": {
+				"type": "string",
+				"defaultValue": "RS_SOMNI_DC_PARTICIPANT_DAILY_DELTA_TESTING1_txtFile"
+			},
+			"folder": {
+				"type": "string",
+				"defaultValue": "mdm/BadRecords"
+			}
+		},
+		"folder": {
+			"name": "DataConsolidationR2/728950"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-08-29T19:25:35Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

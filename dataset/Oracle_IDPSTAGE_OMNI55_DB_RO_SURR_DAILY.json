@@ -1,0 +1,17 @@
+{
+	"name": "Oracle_IDPSTAGE_OMNI55_DB_RO_SURR_DAILY",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Oracle_CODS_Intg",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "IDP_STAGE",
+			"table": "OMNI55_DB_RO_SURR_DAILY"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

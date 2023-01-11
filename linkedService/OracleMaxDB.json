@@ -1,0 +1,23 @@
+{
+	"name": "OracleMaxDB",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "Oracle",
+		"typeProperties": {
+			"connectionString": "host=codsi.unit.apptoapp.net;port=50001;serviceName=codsi_Srvc.oracle.db;user id=SA202664",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "N_4_MyVoyage_1",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "SA202664-codsi-password"
+			}
+		},
+		"connectVia": {
+			"referenceName": "integrationRuntime-dstrwaac9245",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

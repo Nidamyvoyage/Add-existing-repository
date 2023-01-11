@@ -1,0 +1,39 @@
+{
+	"name": "SF_MDM_PREV",
+	"properties": {
+		"activities": [
+			{
+				"name": "Lookup1",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": "SELECT DISTINCT TRIM(CONCAT_WS('~',REGEXP_REPLACE(WS_EXT_PH_PART_NUM, ' +', ''),WS_EXT_PH_PLAN_NUM,WS_EXT_PH_CLIENT_ID),'~') SOURCE_KEY,SUBSTR(WS_EXT_PH_PART_NUM,1,9) WS_EXT_PH_PART_NUM,\nWS_EXT_PH_NAME,WS_EXT_PH_BRTH_DATE,WS_EXT_PH_ADDR_L1,WS_EXT_PH_ADDR_L2,WS_EXT_PH_ADDR_L3,WS_EXT_PH_CITY,WS_EXT_PH_STATE,WS_EXT_PH_ZIP,WS_EXT_PH_OMNI_VERSION,\nMD5(IFF(SUBSTR(WS_EXT_PH_PART_NUM,1,9) IS NULL,'0',SUBSTR(WS_EXT_PH_PART_NUM,1,9))||IFF(WS_EXT_PH_NAME IS NULL,'1',WS_EXT_PH_NAME)||IFF(WS_EXT_PH_BRTH_DATE IS NULL,'2',WS_EXT_PH_BRTH_DATE)||\n    IFF(WS_EXT_PH_ADDR_L1 IS NULL,'3',WS_EXT_PH_ADDR_L1)||IFF(WS_EXT_PH_ADDR_L2 IS NULL,'4',WS_EXT_PH_ADDR_L2)||IFF(WS_EXT_PH_ADDR_L3 IS NULL,'5',WS_EXT_PH_ADDR_L3)||IFF(WS_EXT_PH_CITY IS NULL,'6',WS_EXT_PH_CITY)||\n    IFF(WS_EXT_PH_STATE IS NULL,'7',WS_EXT_PH_STATE)||IFF(WS_EXT_PH_ZIP IS NULL,'8',WS_EXT_PH_ZIP)) CHECK_SUM\nFROM MYVOYAGE_CLEANSED.RS_OMNI_VIPS_DAILY_PART_HEADER_CLN;",
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "SnowflakeTable23",
+						"type": "DatasetReference"
+					}
+				}
+			}
+		],
+		"folder": {
+			"name": "DataConsolidationR2/729142/Bin"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-08-29T19:25:35Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

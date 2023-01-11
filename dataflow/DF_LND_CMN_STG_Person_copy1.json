@@ -1,0 +1,35 @@
+{
+	"name": "DF_LND_CMN_STG_Person_copy1",
+	"properties": {
+		"folder": {
+			"name": "MDM"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DS_SQL_Omni_vips_daily_part_header",
+						"type": "DatasetReference"
+					},
+					"name": "Omnivipsdailypartheader"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DS_SQL_CMN_STG_Person",
+						"type": "DatasetReference"
+					},
+					"name": "Person"
+				}
+			],
+			"transformations": [
+				{
+					"name": "DerivedColumn1"
+				}
+			],
+			"script": "source(output(\n\t\tSSN as string,\n\t\tLastName as string,\n\t\tMiddleName as string,\n\t\tFirstName as string,\n\t\tDateofBirth as string,\n\t\tSourcePrimaryKey as string,\n\t\tStreetAddress as string,\n\t\tPrimaryAddressLine1 as string,\n\t\tPrimaryAddressLine2 as string,\n\t\tPrimaryAddressCity as string,\n\t\tPrimaryAddressState as string,\n\t\tPrimaryAddressPostalCode as string,\n\t\tsourceSystem as string,\n\t\tCreateDateTime as timestamp,\n\t\tcreatedBy as string,\n\t\tLastUpdateDateTime as timestamp,\n\t\tLastUpdatedBY as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'Select  \\ntrim(WS_EXT_PH_PART_NUM) as SSN,\\nCASE WHEN ws_ext_ph_name  like \\'%,%\\'\\nthen ltrim(SUBSTRING(ws_ext_ph_name,1,(CHARINDEX(\\',\\',ws_ext_ph_name)-1)))\\nelse WS_EXT_PH_NAME end As LastName,\\nLtrim(SUBSTRING(ws_ext_ph_name,Isnull(Nullif(CHARINDEX(\\' \\',ws_ext_ph_name,Charindex(\\' \\',ws_ext_ph_name)+1),0),CHARINDEX(\\' \\',ws_ext_ph_name)),\\nCase when Charindex(\\' \\',ws_ext_ph_name)=0 then 0 else LEN(ws_ext_ph_name) end)) as MiddleName,\\nLtrim(SUBSTRING(ws_ext_ph_name,CharIndex(\\' \\',ws_ext_ph_name),\\nCAse When (CHARINDEX(\\' \\',ws_ext_ph_name,CHARINDEX(\\' \\',ws_ext_ph_name)+1)-CHARINDEX(\\' \\',ws_ext_ph_name))<=0 then 0 \\nelse CHARINDEX(\\' \\',ws_ext_ph_name,CHARINDEX(\\' \\',ws_ext_ph_name)+1)-CHARINDEX(\\' \\',ws_ext_ph_name) end )) as FirstName,\\ntrim(WS_EXT_PH_BRTH_DATE) AS DateofBirth,\\nSOURCE_ID as SourcePrimaryKey,\\nWS_EXT_PH_ADDR_L1 as StreetAddress,\\nWS_EXT_PH_ADDR_L1 as PrimaryAddressLine1,\\nWS_EXT_PH_ADDR_L2 as PrimaryAddressLine2,\\nWS_EXT_PH_CITY as PrimaryAddressCity,\\nWS_EXT_PH_STATE as PrimaryAddressState,\\nWS_EXT_PH_ZIP as PrimaryAddressPostalCode,\\nWS_EXT_PH_OMNI_VERSION as sourceSystem,\\ncurrent_timestamp as CreateDateTime,\\n\\'Test\\' as createdBy,\\ncurrent_timestamp as LastUpdateDateTime,\\n\\'Test12\\' as LastUpdatedBY\\nFrom CMDM_STAGE.Omni_vips_daily_part_header WHERE trim(WS_EXT_PH_PLAN_NUM) in \\n(\\'361110\\',\\'450716\\',\\'450599\\',\\'625065\\',\\'620049\\',\\'620018\\',\\'450104\\',\\'452517\\',\\'450628\\',\\'620129\\',\\'625065\\',\\'711028\\',\\n\\'740004\\',\\'740013\\',\\'454601\\',\\'450067\\',\\'620020\\',\\'623021\\',\\'450019\\',\\'627065\\',\\'625065\\',\\'450594\\') and batch_id = 28810',\n\tformat: 'query') ~> Omnivipsdailypartheader\nOmnivipsdailypartheader derive(DateofBirth = toDate(DateofBirth, 'dd/mm/yyyy')) ~> DerivedColumn1\nDerivedColumn1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tprefix as string,\n\t\tfirstName as string,\n\t\tmiddleName as string,\n\t\tlastName as string,\n\t\tsuffix as string,\n\t\tgender as string,\n\t\tbirthdate as date,\n\t\tbirthPlaceId as string,\n\t\tsrcPkey as string,\n\t\tsourceSystem as string,\n\t\tSSN as string,\n\t\tITIN as string,\n\t\tdriverLicense as string,\n\t\tprimaryEmail as string,\n\t\tprimeryPhone as string,\n\t\tstreetAddress as string,\n\t\tprimaryAddrLine1 as string,\n\t\tprimaryAddrLine2 as string,\n\t\tprimaryAddrLine3 as string,\n\t\tprimaryAddrCity as string,\n\t\tprimaryAddrState as string,\n\t\tprimaryAddrPostalCode as string,\n\t\tcountryCD as string,\n\t\tcountyName as string,\n\t\tPostalCode5 as string,\n\t\tstatus as string,\n\t\tcreateDateTime as timestamp,\n\t\tcreatedBy as string,\n\t\tlastUpdateDateTime as timestamp,\n\t\tlastUpdatedBy as string\n\t),\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\tfirstName = FirstName,\n\t\tmiddleName = MiddleName,\n\t\tlastName = LastName,\n\t\tsuffix = MiddleName,\n\t\tbirthdate = DateofBirth,\n\t\tsourceSystem,\n\t\tSSN,\n\t\tstreetAddress = StreetAddress,\n\t\tprimaryAddrLine1 = PrimaryAddressLine1,\n\t\tprimaryAddrLine2 = PrimaryAddressLine1,\n\t\tprimaryAddrLine3 = PrimaryAddressLine2,\n\t\tprimaryAddrCity = PrimaryAddressCity,\n\t\tprimaryAddrState = PrimaryAddressState,\n\t\tprimaryAddrPostalCode = PrimaryAddressPostalCode,\n\t\tstatus = PrimaryAddressPostalCode,\n\t\tcreateDateTime = CreateDateTime,\n\t\tcreatedBy,\n\t\tlastUpdateDateTime = LastUpdateDateTime,\n\t\tlastUpdatedBy = LastUpdatedBY\n\t)) ~> Person"
+		}
+	}
+}

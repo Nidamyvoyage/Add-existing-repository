@@ -1,0 +1,16 @@
+{
+	"name": "N_4_Azure_Data_Factory",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "Linked service to the Azure Key Vault, N-4-Azure-Data-Factory.",
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://N-4-Azure-Data-Factory.vault.azure.net/",
+			"credential": {
+				"referenceName": "credential1",
+				"type": "CredentialReference"
+			}
+		}
+	}
+}

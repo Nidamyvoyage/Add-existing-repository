@@ -1,0 +1,66 @@
+{
+	"name": "PUBLISH_PERSON_XREF",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase_MDMU3",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "SourceIdentifier",
+				"type": "varchar"
+			},
+			{
+				"name": "SourceIdentifierType",
+				"type": "varchar"
+			},
+			{
+				"name": "SourceSystem",
+				"type": "varchar"
+			},
+			{
+				"name": "SSN",
+				"type": "varchar"
+			},
+			{
+				"name": "DateOfBirth",
+				"type": "date"
+			},
+			{
+				"name": "MDM_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "CreateDateTime",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "CreatedBy",
+				"type": "varchar"
+			},
+			{
+				"name": "LastUpdateDateTime",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "LastUpdatedBy",
+				"type": "varchar"
+			},
+			{
+				"name": "PARTY_ID",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "MDM_PUBLISH",
+			"table": "MDM_PERSON_XREF"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

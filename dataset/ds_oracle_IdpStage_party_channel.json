@@ -1,0 +1,20 @@
+{
+	"name": "ds_oracle_IdpStage_party_channel",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "OracleIDPStage",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "DS_MDM"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "IDP_REPOS",
+			"table": "PARTY_CONTACT_CHNL"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

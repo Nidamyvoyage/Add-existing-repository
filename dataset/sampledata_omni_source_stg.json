@@ -1,0 +1,17 @@
+{
+	"name": "sampledata_omni_source_stg",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase_MDMU3",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "CMDM_STAGE",
+			"table": "RS_OMNI_VIPS_DAILY_PART_HEADER_DELTA_STG1"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

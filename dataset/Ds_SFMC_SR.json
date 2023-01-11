@@ -1,0 +1,24 @@
+{
+	"name": "Ds_SFMC_SR",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SFTPSterling_SFMC",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "SftpLocation",
+				"fileName": "Sent_20220624121228.csv",
+				"folderPath": "/FilesFromSFMC_Salesforce"
+			},
+			"columnDelimiter": "|",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,21 @@
+{
+	"name": "FASTU_PARTY_ADLS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Azure_SHIR_Cloned",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "FAST_ADLS/FASTUPARTY",
+				"fileSystem": "mdm"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

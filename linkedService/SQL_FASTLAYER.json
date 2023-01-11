@@ -1,0 +1,19 @@
+{
+	"name": "SQL_FASTLAYER",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=uuc1asql8001.database.windows.net;Initial Catalog=MYVOFASTU",
+			"credential": {
+				"referenceName": "id-uc1-u-edm-u001",
+				"type": "CredentialReference"
+			}
+		},
+		"connectVia": {
+			"referenceName": "integrationRuntime1",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

@@ -1,0 +1,39 @@
+{
+	"name": "SP_STG_OMNI_CLN_TEST",
+	"properties": {
+		"activities": [
+			{
+				"name": "SP_STG_OMNI_CLN_TEST",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": "call  \"MYVOYAGE_CLEANSED\".SP_MVY_ETL_STG_2_CLN_LOAD('RS_OMNI', 'VIPS','DAILY_PART_HEADER')",
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "DS_OMNI_CLN",
+						"type": "DatasetReference"
+					}
+				}
+			}
+		],
+		"folder": {
+			"name": "DataConsolidationR2/723058/bin folder"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-08-29T19:25:35Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

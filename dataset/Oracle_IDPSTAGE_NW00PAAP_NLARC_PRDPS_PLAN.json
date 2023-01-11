@@ -1,0 +1,17 @@
+{
+	"name": "Oracle_IDPSTAGE_NW00PAAP_NLARC_PRDPS_PLAN",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Oracle_CODS_Intg",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "IDP_STAGE",
+			"table": "NW00PAAP_NLARC_PRDPS_PLAN"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

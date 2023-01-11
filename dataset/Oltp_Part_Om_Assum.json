@@ -1,0 +1,17 @@
+{
+	"name": "Oltp_Part_Om_Assum",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "OracleOLTP",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "BPS",
+			"table": "PARTICIPANT_OM_ASSUMPTION"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

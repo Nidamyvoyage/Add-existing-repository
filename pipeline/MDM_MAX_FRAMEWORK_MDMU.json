@@ -1,0 +1,711 @@
+{
+	"name": "MDM_MAX_FRAMEWORK_MDMU",
+	"properties": {
+		"activities": [
+			{
+				"name": "GetMDMLoadId",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": {
+							"value": "CALL MYVOYAGE_MDM.PRC_MDM_ETL_LOADID('INITIATED','@{pipeline().parameters.IN_BATCH_NM}',0)",
+							"type": "Expression"
+						},
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "MDM_LOAD_ID",
+						"type": "DatasetReference"
+					}
+				}
+			},
+			{
+				"name": "NEW_LOAD_ID_ASSIGN",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "GetMDMLoadId",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "NEW_MDM_LOAD_ID",
+					"value": {
+						"value": "@string(activity('GetMDMLoadId').output.firstRow.PRC_MDM_ETL_LOADID)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "DELTA",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "NEW_LOAD_ID_ASSIGN",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": {
+							"value": "call MYVOYAGE_MDM.PRC_MAX_AUDIT_DELTA(@{variables('NEW_MDM_LOAD_ID')},'@{pipeline().parameters.IN_BATCH_NM}','@{pipeline().parameters.ENTITY_NM_DELTA}')",
+							"type": "Expression"
+						},
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "MAX_DELTA_BL",
+						"type": "DatasetReference"
+					}
+				}
+			},
+			{
+				"name": "PREV",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "DELTA",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": {
+							"value": "call MYVOYAGE_MDM.PRC_MAX_PREV_TEST(@{variables('NEW_MDM_LOAD_ID')},'@{pipeline().parameters.IN_BATCH_NM}','@{pipeline().parameters.ENTITY_NM_PREV}')",
+							"type": "Expression"
+						},
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "OMNI_PREV",
+						"type": "DatasetReference"
+					}
+				}
+			},
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "INITIATE_AZURE_LANDING",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": "SELECT * FROM \"MYVOYAGE_MDM\".\"EB_MAX_DGTAL_PERSN_INFO_DELTA_BASELINE\" ",
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false
+					},
+					"enableStaging": true,
+					"stagingSettings": {
+						"linkedServiceName": {
+							"referenceName": "vesstzuc1unitedm004_SF_SAS",
+							"type": "LinkedServiceReference"
+						}
+					},
+					"enableSkipIncompatibleRow": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "SOURCE_SYSTEM"
+								},
+								"sink": {
+									"name": "SOURCE_SYSTEM",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SOURCE_KEY"
+								},
+								"sink": {
+									"name": "SOURCE_KEY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PERSON_TECHID"
+								},
+								"sink": {
+									"name": "PERSON_TECHID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "TITLE"
+								},
+								"sink": {
+									"name": "TITLE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "FNAME"
+								},
+								"sink": {
+									"name": "FNAME",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MNAME1"
+								},
+								"sink": {
+									"name": "MNAME1",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MNAME2"
+								},
+								"sink": {
+									"name": "MNAME2",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LNAME"
+								},
+								"sink": {
+									"name": "LNAME",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "NAMESUFFIX"
+								},
+								"sink": {
+									"name": "NAMESUFFIX",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "DOB"
+								},
+								"sink": {
+									"name": "DOB",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "GENDER"
+								},
+								"sink": {
+									"name": "GENDER",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SSN"
+								},
+								"sink": {
+									"name": "SSN",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "P_A_COUNTRY"
+								},
+								"sink": {
+									"name": "P_A_COUNTRY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "P_A_MAILLINE1"
+								},
+								"sink": {
+									"name": "P_A_MAILLINE1",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "P_A_MAILLINE2"
+								},
+								"sink": {
+									"name": "P_A_MAILLINE2",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "P_A_CITY"
+								},
+								"sink": {
+									"name": "P_A_CITY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "P_A_STATE"
+								},
+								"sink": {
+									"name": "P_A_STATE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "P_A_POSTALCODE"
+								},
+								"sink": {
+									"name": "P_A_POSTALCODE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "P_A_COUNTY"
+								},
+								"sink": {
+									"name": "P_A_COUNTY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "P_A_PHONE"
+								},
+								"sink": {
+									"name": "P_A_PHONE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "P_A_CELLPHONE"
+								},
+								"sink": {
+									"name": "P_A_CELLPHONE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "P_A_FAX"
+								},
+								"sink": {
+									"name": "P_A_FAX",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "P_A_TOLLFREENUMBER"
+								},
+								"sink": {
+									"name": "P_A_TOLLFREENUMBER",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "P_A_EMAIL"
+								},
+								"sink": {
+									"name": "P_A_EMAIL",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "S_A_COUNTRY"
+								},
+								"sink": {
+									"name": "S_A_COUNTRY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "S_A_MAILLINE1"
+								},
+								"sink": {
+									"name": "S_A_MAILLINE1",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "S_A_MAILLINE2"
+								},
+								"sink": {
+									"name": "S_A_MAILLINE2",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "S_A_CITY"
+								},
+								"sink": {
+									"name": "S_A_CITY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "S_A_STATE"
+								},
+								"sink": {
+									"name": "S_A_STATE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "S_A_POSTALCODE"
+								},
+								"sink": {
+									"name": "S_A_POSTALCODE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "S_A_COUNTY"
+								},
+								"sink": {
+									"name": "S_A_COUNTY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "S_A_PHONE"
+								},
+								"sink": {
+									"name": "S_A_PHONE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "S_A_CELLPHONE"
+								},
+								"sink": {
+									"name": "S_A_CELLPHONE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "S_A_FAX"
+								},
+								"sink": {
+									"name": "S_A_FAX",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "S_A_TOLLFREENUMBER"
+								},
+								"sink": {
+									"name": "S_A_TOLLFREENUMBER",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "S_A_EMAIL"
+								},
+								"sink": {
+									"name": "S_A_EMAIL",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CHECK_SUM"
+								},
+								"sink": {
+									"name": "CHECK_SUM",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CHANGE_CODE"
+								},
+								"sink": {
+									"name": "CHANGE_CODE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_LOAD_ID"
+								},
+								"sink": {
+									"name": "batch_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_CREATED_BY"
+								},
+								"sink": {
+									"name": "createdBy",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_CREATED_TS"
+								},
+								"sink": {
+									"name": "createDateTime",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_UPDATED_BY"
+								},
+								"sink": {
+									"name": "lastUpdatedBy",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_UPDATED_TS"
+								},
+								"sink": {
+									"name": "lastUpdateDateTime",
+									"type": "DateTime"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "MAX_DELTA_BL",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "MAX_DELTA_STG",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "INITIATE_AZURE_LANDING",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "PREV",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": {
+							"value": "CALL MYVOYAGE_MDM.PRC_MDM_ETL_AUDIT('INITIATED',@{variables('NEW_MDM_LOAD_ID')},'@{pipeline().parameters.IN_BATCH_NM}','@{pipeline().parameters.ENTITY_NM_DELTA_STG}',null,null,NULL,NULL,NULL,NULL);",
+							"type": "Expression"
+						},
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "MDM_ETL_AUDIT",
+						"type": "DatasetReference"
+					}
+				}
+			},
+			{
+				"name": "COMPLETE_AZURE_LANDING",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "Copy data1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": {
+							"value": "CALL MYVOYAGE_MDM.PRC_MDM_ETL_AUDIT('COMPLETED',@{variables('NEW_MDM_LOAD_ID')},'@{pipeline().parameters.IN_BATCH_NM}','@{pipeline().parameters.ENTITY_NM_DELTA_STG}',null,null,@{activity('Copy data1').output.RowsRead},@{activity('Copy data1').output.rowsCopied},NULL,NULL);",
+							"type": "Expression"
+						},
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "MDM_ETL_AUDIT",
+						"type": "DatasetReference"
+					}
+				}
+			},
+			{
+				"name": "COMPLETE_LOADID",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "COMPLETE_AZURE_LANDING",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": {
+							"value": "CALL MYVOYAGE_MDM.PRC_MDM_ETL_LOADID('COMPLETED','@{pipeline().parameters.IN_BATCH_NM}',@{variables('NEW_MDM_LOAD_ID')})",
+							"type": "Expression"
+						},
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "MDM_LOAD_ID",
+						"type": "DatasetReference"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"IN_BATCH_NM": {
+				"type": "string",
+				"defaultValue": "EB_MAX_MDM_LOAD"
+			},
+			"ENTITY_NM_DELTA": {
+				"type": "string",
+				"defaultValue": "EB_MAX_DGTAL_PERSN_INFO_DELTA"
+			},
+			"ENTITY_NM_PREV": {
+				"type": "string",
+				"defaultValue": "EB_MAX_DGTAL_PERSN_INFO_PREV"
+			},
+			"ENTITY_NM_DELTA_STG": {
+				"type": "string",
+				"defaultValue": "EB_MAX_DGTAL_PERSN_INFO_DELTA_STG"
+			}
+		},
+		"variables": {
+			"NEW_MDM_LOAD_ID": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "DataConsolidationR2/MAX"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-09-26T12:22:25Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,17 @@
+{
+	"name": "Oracle_IDPREPOS_PORTFOLIO_ARRGMT",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Oracle_CODS_Intg",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "IDP_REPOS",
+			"table": "PORTFOLIO_ARRGMT"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

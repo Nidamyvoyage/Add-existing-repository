@@ -1,0 +1,21 @@
+{
+	"name": "SF_ADLS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Datalake_SHIR",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "EaseOmni",
+				"fileSystem": "mdm"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

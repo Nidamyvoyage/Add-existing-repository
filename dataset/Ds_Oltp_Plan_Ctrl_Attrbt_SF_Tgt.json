@@ -1,0 +1,78 @@
+{
+	"name": "Ds_Oltp_Plan_Ctrl_Attrbt_SF_Tgt",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "MyVoyageSnowflake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SnowflakeTable",
+		"schema": [
+			{
+				"name": "CLIENT_ID",
+				"type": "VARCHAR",
+				"precision": 8,
+				"scale": 0
+			},
+			{
+				"name": "PLAN_ID",
+				"type": "VARCHAR",
+				"precision": 6,
+				"scale": 0
+			},
+			{
+				"name": "CONTROL_TYPE",
+				"type": "VARCHAR",
+				"precision": 3,
+				"scale": 0
+			},
+			{
+				"name": "ATTRIBUTE_NAME",
+				"type": "VARCHAR",
+				"precision": 30,
+				"scale": 0
+			},
+			{
+				"name": "ATTRIBUTE_VALUE",
+				"type": "VARCHAR",
+				"precision": 0,
+				"scale": 0
+			},
+			{
+				"name": "SOURCE",
+				"type": "VARCHAR",
+				"precision": 30,
+				"scale": 0
+			},
+			{
+				"name": "CREATED_TS",
+				"type": "TIMESTAMP_NTZ",
+				"precision": 26,
+				"scale": 6
+			},
+			{
+				"name": "CREATED_BY",
+				"type": "VARCHAR",
+				"precision": 50,
+				"scale": 0
+			},
+			{
+				"name": "UPDATED_TS",
+				"type": "TIMESTAMP_NTZ",
+				"precision": 26,
+				"scale": 6
+			},
+			{
+				"name": "UPDATED_BY",
+				"type": "VARCHAR",
+				"precision": 50,
+				"scale": 0
+			}
+		],
+		"typeProperties": {
+			"schema": "MYVOYAGE_STAGE",
+			"table": "PLAN_CONTROL_ATTRIBUTE"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

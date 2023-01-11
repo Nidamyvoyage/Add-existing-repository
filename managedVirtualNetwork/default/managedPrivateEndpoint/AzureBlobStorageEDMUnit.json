@@ -1,0 +1,10 @@
+{
+	"name": "AzureBlobStorageEDMUnit",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/8964a126-b57d-470d-9f43-73df029f50ba/resourceGroups/VES-RG-zUC1-UNIT-EDM-001/providers/Microsoft.Storage/storageAccounts/vesstzuc1unitedm002",
+		"groupId": "blob",
+		"fqdns": [
+			"vesstzuc1unitedm002.blob.core.windows.net"
+		]
+	}
+}

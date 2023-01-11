@@ -1,0 +1,56 @@
+{
+	"name": "ADLS_ARCHIVE_FILES",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_dfs_vesstzuc1unitedm001",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"ARCHIVE_FOLDER": {
+				"type": "string",
+				"defaultValue": "Archive"
+			},
+			"RetirementOrBenefits_Folder": {
+				"type": "string",
+				"defaultValue": "1"
+			},
+			"IncrementalOrFullLoad_Folder": {
+				"type": "string",
+				"defaultValue": "1"
+			},
+			"SRC_SYS_Folder": {
+				"type": "string",
+				"defaultValue": "1"
+			},
+			"Schema_Folder": {
+				"type": "string",
+				"defaultValue": "1"
+			},
+			"File_Name": {
+				"type": "string",
+				"defaultValue": "1"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@Concat(dataset().File_Name, '_',formatDateTime(utcNow(),'MM_dd_yyyy') ,'.csv')",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@concat(dataset().ARCHIVE_FOLDER, '/' , dataset().RetirementOrBenefits_Folder, '/' , dataset().IncrementalOrFullLoad_Folder, '/' ,dataset().SRC_SYS_Folder, '/' , dataset().Schema_Folder, '/' )",
+					"type": "Expression"
+				},
+				"fileSystem": "snowflakeextstaging"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

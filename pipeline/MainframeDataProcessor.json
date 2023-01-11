@@ -1,0 +1,52 @@
+{
+	"name": "MainframeDataProcessor",
+	"properties": {
+		"activities": [
+			{
+				"name": "MainframeCorbix",
+				"type": "DatabricksSparkJar",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"mainClassName": "com.voya.iif.MainframeCsvAzureLoad",
+					"parameters": [
+						"@pipeline().parameters.parameter1",
+						"@pipeline().parameters.parameter2"
+					],
+					"libraries": [
+						{
+							"jar": "dbfs:/FileStore/jars/792c1f5a_4660_4f42_917f_8f6dd904a442-iif_to_azure_4_0-e56a5.jar"
+						}
+					]
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureDatabricksForMainframe",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"parameters": {
+			"parameter1": {
+				"type": "string",
+				"defaultValue": "SI_TAX_REC_ID"
+			},
+			"parameter2": {
+				"type": "string",
+				"defaultValue": "2"
+			}
+		},
+		"folder": {
+			"name": "ADFMainframe"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-08-29T19:24:10Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

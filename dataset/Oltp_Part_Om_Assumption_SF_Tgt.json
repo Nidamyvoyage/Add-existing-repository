@@ -1,0 +1,330 @@
+{
+	"name": "Oltp_Part_Om_Assumption_SF_Tgt",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "MyVoyageSnowflake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SnowflakeTable",
+		"schema": [
+			{
+				"name": "CLIENT_ID",
+				"type": "VARCHAR",
+				"precision": 8,
+				"scale": 0
+			},
+			{
+				"name": "PARTICIPANT_ID",
+				"type": "VARCHAR",
+				"precision": 9,
+				"scale": 0
+			},
+			{
+				"name": "ANTICIP_MONTHLY_PENSION_INCOME",
+				"type": "NUMBER",
+				"precision": 9,
+				"scale": 2
+			},
+			{
+				"name": "ANTICIP_RETIREMENT_AGE",
+				"type": "NUMBER",
+				"precision": 3,
+				"scale": 0
+			},
+			{
+				"name": "ASSUMED_ANN_INFLATION_RATE",
+				"type": "NUMBER",
+				"precision": 5,
+				"scale": 2
+			},
+			{
+				"name": "ASSUMED_ANN_SALARY_INC",
+				"type": "NUMBER",
+				"precision": 5,
+				"scale": 2
+			},
+			{
+				"name": "BIRTH_DATE",
+				"type": "DATE",
+				"precision": 10,
+				"scale": 0
+			},
+			{
+				"name": "CURR_ANN_BASE_SALARY",
+				"type": "NUMBER",
+				"precision": 9,
+				"scale": 2
+			},
+			{
+				"name": "DONT_SHOW_ME_AGAIN",
+				"type": "VARCHAR",
+				"precision": 1,
+				"scale": 0
+			},
+			{
+				"name": "ELIGIBLE_SS",
+				"type": "VARCHAR",
+				"precision": 1,
+				"scale": 0
+			},
+			{
+				"name": "LAST_SAVED_DATE",
+				"type": "DATE",
+				"precision": 10,
+				"scale": 0
+			},
+			{
+				"name": "MADLIB_COMPLETE",
+				"type": "VARCHAR",
+				"precision": 1,
+				"scale": 0
+			},
+			{
+				"name": "OUTSIDE_RET_ASSETS_ANN_ADDTN",
+				"type": "NUMBER",
+				"precision": 9,
+				"scale": 2
+			},
+			{
+				"name": "OUTSIDE_RET_ASSETS_CURRENT_BAL",
+				"type": "NUMBER",
+				"precision": 9,
+				"scale": 2
+			},
+			{
+				"name": "OUTSIDE_RET_ASSETS_LUMPSUM",
+				"type": "NUMBER",
+				"precision": 9,
+				"scale": 2
+			},
+			{
+				"name": "OUTSIDE_RET_ASSETS_MONTHLY_INC",
+				"type": "NUMBER",
+				"precision": 9,
+				"scale": 2
+			},
+			{
+				"name": "PRE_RETIRE_RATE_RETURN",
+				"type": "NUMBER",
+				"precision": 4,
+				"scale": 2
+			},
+			{
+				"name": "RETIREMENT_INCOME_NEEDED",
+				"type": "NUMBER",
+				"precision": 5,
+				"scale": 2
+			},
+			{
+				"name": "SURVEY_DATE",
+				"type": "DATE",
+				"precision": 10,
+				"scale": 0
+			},
+			{
+				"name": "SURVEY_HOW_DO_YOU_FEEL",
+				"type": "VARCHAR",
+				"precision": 20,
+				"scale": 0
+			},
+			{
+				"name": "REPLICATION_UPDATE_DATE",
+				"type": "DATE",
+				"precision": 10,
+				"scale": 0
+			},
+			{
+				"name": "HEALTH_CARE_VIEW",
+				"type": "VARCHAR",
+				"precision": 1,
+				"scale": 0
+			},
+			{
+				"name": "HEALTH_CARE_AGE",
+				"type": "NUMBER",
+				"precision": 3,
+				"scale": 0
+			},
+			{
+				"name": "HEALTH_CARE_CODE",
+				"type": "VARCHAR",
+				"precision": 8,
+				"scale": 0
+			},
+			{
+				"name": "HEALTH_CARE_INCOME_HSA",
+				"type": "NUMBER",
+				"precision": 9,
+				"scale": 2
+			},
+			{
+				"name": "HEALTH_CARE_INCOME_LUMPSUM",
+				"type": "NUMBER",
+				"precision": 9,
+				"scale": 2
+			},
+			{
+				"name": "SOCIAL_SEC_VIEW",
+				"type": "VARCHAR",
+				"precision": 1,
+				"scale": 0
+			},
+			{
+				"name": "SOCIAL_SEC_AGE",
+				"type": "NUMBER",
+				"precision": 3,
+				"scale": 0
+			},
+			{
+				"name": "SOCIAL_SEC_EST_INCOME",
+				"type": "NUMBER",
+				"precision": 9,
+				"scale": 2
+			},
+			{
+				"name": "ANTIC_LMP_SUM_PEN_BEN_RETIREM",
+				"type": "NUMBER",
+				"precision": 9,
+				"scale": 2
+			},
+			{
+				"name": "ANTICIP_ANN_PEN_BENEF_RETIREM",
+				"type": "NUMBER",
+				"precision": 9,
+				"scale": 2
+			},
+			{
+				"name": "EMPLOY_STATE",
+				"type": "VARCHAR",
+				"precision": 2,
+				"scale": 0
+			},
+			{
+				"name": "RET_SYSTEM_CODE",
+				"type": "VARCHAR",
+				"precision": 11,
+				"scale": 0
+			},
+			{
+				"name": "RETSYS_COLA",
+				"type": "NUMBER",
+				"precision": 4,
+				"scale": 2
+			},
+			{
+				"name": "RETSYS_DOE",
+				"type": "DATE",
+				"precision": 10,
+				"scale": 0
+			},
+			{
+				"name": "RETSYS_DOH",
+				"type": "DATE",
+				"precision": 10,
+				"scale": 0
+			},
+			{
+				"name": "RETSYS_YOS_YTD",
+				"type": "NUMBER",
+				"precision": 5,
+				"scale": 3
+			},
+			{
+				"name": "RETSYS_YOS_SPEC",
+				"type": "NUMBER",
+				"precision": 2,
+				"scale": 0
+			},
+			{
+				"name": "RETSYS_YOS_PRIOR",
+				"type": "NUMBER",
+				"precision": 2,
+				"scale": 0
+			},
+			{
+				"name": "RETSYS_YOS_PRIOR_NY",
+				"type": "NUMBER",
+				"precision": 2,
+				"scale": 0
+			},
+			{
+				"name": "RETSYS_FINAL_MTHLY_SALRY",
+				"type": "NUMBER",
+				"precision": 9,
+				"scale": 2
+			},
+			{
+				"name": "PENSION_CALCULATION_METHOD",
+				"type": "VARCHAR",
+				"precision": 1,
+				"scale": 0
+			},
+			{
+				"name": "RETSYS_SPECIAL_1_VARIABLE",
+				"type": "VARCHAR",
+				"precision": 15,
+				"scale": 0
+			},
+			{
+				"name": "RETSYS_SPECIAL_2_VARIABLE",
+				"type": "VARCHAR",
+				"precision": 15,
+				"scale": 0
+			},
+			{
+				"name": "CALC_MTHLY_PEN_BEN_RETIREM",
+				"type": "NUMBER",
+				"precision": 9,
+				"scale": 2
+			},
+			{
+				"name": "OM_SECTION_EXPANDED",
+				"type": "VARCHAR",
+				"precision": 1,
+				"scale": 0
+			},
+			{
+				"name": "OTHER_ACCOUNT_PROMPT",
+				"type": "VARCHAR",
+				"precision": 1,
+				"scale": 0
+			},
+			{
+				"name": "OUTSIDE_RET_ASSET_PROMPT",
+				"type": "VARCHAR",
+				"precision": 1,
+				"scale": 0
+			},
+			{
+				"name": "OTHER_ACCOUNT_PROMPT_DATE",
+				"type": "DATE",
+				"precision": 10,
+				"scale": 0
+			},
+			{
+				"name": "RETSYS_MANDATORY_CONTRIB",
+				"type": "NUMBER",
+				"precision": 4,
+				"scale": 2
+			},
+			{
+				"name": "SOCIAL_SEC_ADDL_BENEFITS",
+				"type": "NUMBER",
+				"precision": 9,
+				"scale": 2
+			},
+			{
+				"name": "SOCIAL_SEC_ADDL_BENEFITS_CHG",
+				"type": "VARCHAR",
+				"precision": 1,
+				"scale": 0
+			}
+		],
+		"typeProperties": {
+			"schema": "MYVOYAGE_STAGE",
+			"table": "PARTICIPANT_OM_ASSUMPTION"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

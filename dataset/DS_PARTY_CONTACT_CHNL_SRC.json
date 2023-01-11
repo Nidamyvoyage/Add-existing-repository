@@ -1,0 +1,20 @@
+{
+	"name": "DS_PARTY_CONTACT_CHNL_SRC",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "OracleIDPStage",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "DS_MDM"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "IDP_REPOS",
+			"table": "H_PARTY_CONTACT_CHNL"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

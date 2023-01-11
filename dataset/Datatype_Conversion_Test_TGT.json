@@ -1,0 +1,48 @@
+{
+	"name": "Datatype_Conversion_Test_TGT",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlServer_EBX",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "SWFDL_CREATED_TS",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "SWFDL_UPDATED_TS",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "WS_EXT_PH_ATTAINED_AGE",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "WS_EXT_PH_PF_PF999_BAL",
+				"type": "decimal",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "WS_EXT_PH_PA999_BAL",
+				"type": "decimal",
+				"precision": 38,
+				"scale": 0
+			}
+		],
+		"typeProperties": {
+			"schema": "CMDM_STAGE",
+			"table": "OVDPH1"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

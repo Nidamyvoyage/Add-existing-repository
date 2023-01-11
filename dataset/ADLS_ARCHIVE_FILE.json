@@ -1,0 +1,102 @@
+{
+	"name": "ADLS_ARCHIVE_FILE",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_dfs_vesstzuc1unitedm001",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"SRC_SYS_NM": {
+				"type": "string"
+			},
+			"SCHEMA_NM": {
+				"type": "string"
+			},
+			"ENTITY_NM": {
+				"type": "string"
+			},
+			"LOB": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@concat(dataset().SRC_SYS_NM,'_',dataset().SCHEMA_NM,'_',dataset().ENTITY_NM,'.csv_',string(formatDateTime(utcNow(),'yyyymmddHHmmss')))",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@concat('/landing/',dataset().LOB,'/',dataset().SRC_SYS_NM,'/',string(formatDateTime(utcNow(),'yyyymm')))",
+					"type": "Expression"
+				},
+				"fileSystem": "landing"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "JOURNEY_ID",
+				"type": "String"
+			},
+			{
+				"name": "JOURNEY_NAME",
+				"type": "String"
+			},
+			{
+				"name": "JOURNEY_CMS_TAG_ID",
+				"type": "String"
+			},
+			{
+				"name": "JOURNEY_HEADER_TXT",
+				"type": "String"
+			},
+			{
+				"name": "JOURNEY_START_MESSAGE_TXT",
+				"type": "String"
+			},
+			{
+				"name": "JOURNEY_IMG_URL",
+				"type": "String"
+			},
+			{
+				"name": "CREATED_BY",
+				"type": "String"
+			},
+			{
+				"name": "CREATED_DT",
+				"type": "String"
+			},
+			{
+				"name": "LAST_UPDATED_BY",
+				"type": "String"
+			},
+			{
+				"name": "LAST_UPDATED_DT",
+				"type": "String"
+			},
+			{
+				"name": "ADF_Name",
+				"type": "String"
+			},
+			{
+				"name": "Pipeline_Name",
+				"type": "String"
+			},
+			{
+				"name": "Pipeline_Runid",
+				"type": "String"
+			},
+			{
+				"name": "Pipeline_Runtime",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

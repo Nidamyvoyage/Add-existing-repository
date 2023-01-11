@@ -1,0 +1,23 @@
+{
+	"name": "SqlServerAppDB",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": "Integrated Security=False;Data Source=DSTRWAAC9274\\SQLD01;Initial Catalog=MYVOYAGEU;User ID=SA202990",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "N_4_MyVoyage_1",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "SA202990-DSTRWAAC9274-password"
+			}
+		},
+		"connectVia": {
+			"referenceName": "integrationRuntime-dstrwaac9245",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

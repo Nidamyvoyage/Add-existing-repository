@@ -1,0 +1,351 @@
+{
+	"name": "MVY_MDM_DELTA_PREV_CDC_TO_MDMU_OMNI_VIPS",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "LKP_MDM_PREV_copy1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": "SELECT * FROM \"MYVOYAGE_MDM\".\"RS_OMNI_VIPS_DAILY_PART_HEADER_DELTA_BASELINE\" ",
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false
+					},
+					"enableStaging": true,
+					"stagingSettings": {
+						"linkedServiceName": {
+							"referenceName": "vesstzuc1unitedm004_SF_SAS",
+							"type": "LinkedServiceReference"
+						}
+					},
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "SOURCE_KEY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SOURCE_KEY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_PART_NUM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_PART_NUM",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_NAME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_NAME",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_BRTH_DATE",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_BRTH_DATE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_ADDR_L1",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_ADDR_L1",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_ADDR_L2",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_ADDR_L2",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_ADDR_L3",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_ADDR_L3",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_CITY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_CITY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_STATE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_STATE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_ZIP",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_ZIP",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_OMNI_VERSION",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_OMNI_VERSION",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_STAT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_STAT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CHECK_SUM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CHECK_SUM",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CHANGE_CODE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CHANGE_CODE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_LOAD_ID",
+									"type": "Int64"
+								},
+								"sink": {
+									"name": "batch_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_CREATED_TS",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "createDateTime",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_CREATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "createdBy",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_UPDATED_TS",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "lastUpdateDateTime",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_UPDATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "lastUpdatedBy",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "OMNI_DELTA",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "OMNI_VIPS_DELTA_STG",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Data flow1",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "Copy data1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "1.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "OMNI_NULLHANDLER",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 32,
+						"computeType": "MemoryOptimized"
+					},
+					"traceLevel": "Fine"
+				}
+			},
+			{
+				"name": "LKP_MDM_DELTA_copy1",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": "call \"MYVOYAGE_MDM\".\"PRC_OMNI_VIPS_DELTA\"();",
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "OMNI_DELTA",
+						"type": "DatasetReference"
+					}
+				}
+			},
+			{
+				"name": "LKP_MDM_PREV_copy1",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "LKP_MDM_DELTA_copy1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": "call \"MYVOYAGE_MDM\".\"PRC_OMNI_VIPS_PREV\"();",
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "OMNI_PREV",
+						"type": "DatasetReference"
+					}
+				}
+			}
+		],
+		"folder": {
+			"name": "DataConsolidationR2"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-09-26T12:22:25Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

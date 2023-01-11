@@ -1,0 +1,270 @@
+{
+	"name": "IDPREPOS-Oracle_2_SF-POSITION_MSRMT_4",
+	"properties": {
+		"description": "SRC IN ('OMNIIPS') AND MEASURED_DT = TO_DATE ('01-APR-21','DD-MON-YY')",
+		"activities": [
+			{
+				"name": "Oracle2ADLS-POSITION_MSRMT_4",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "IDP_REPOS.PRD_FAMILY"
+					},
+					{
+						"name": "Destination",
+						"value": "CORE.PRD_FAMILY"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "Select \nPOSITION_MSRMT_ID \n, POSITION_ID \n, METRIC_ID \n, CURRENCY_ID \n, AMT \n, MEASURED_DT \n, SRC \n, ROW_STATUS \n, RECORDED_START_DT \n, RECORDED_END_DT \n, BATCH_ID \n, CHECK_SUM \n, CREATED_DT \n, CREATED_BY \n, LAST_UPDATED_DT \n, LAST_UPDATED_BY \n, ARRGMT_MONEY_SRC_ID \n, UNIT_QTY \n, UNIT_PRICE \nFROM IDP_REPOS.POSITION_MSRMT\nwhere SRC IN ('OMNIIPS') AND MEASURED_DT = TO_DATE ('01-APR-21','DD-MON-YY')",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "SnowflakeSink",
+						"importSettings": {
+							"type": "SnowflakeImportCopyCommand",
+							"additionalCopyOptions": {
+								"ON_ERROR": "CONTINUE"
+							}
+						}
+					},
+					"enableStaging": true,
+					"stagingSettings": {
+						"linkedServiceName": {
+							"referenceName": "Snowflake_staging_container",
+							"type": "LinkedServiceReference"
+						},
+						"path": "idprepos-poc",
+						"enableCompression": true
+					},
+					"enableSkipIncompatibleRow": true,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "POSITION_MSRMT_ID",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "POSITION_MSRMT_ID",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "POSITION_ID",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "POSITION_ID",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "METRIC_ID",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "METRIC_ID",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "CURRENCY_ID",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "CURRENCY_ID",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "AMT",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "AMT",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "MEASURED_DT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "MEASURED_DT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "SRC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SRC",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ROW_STATUS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ROW_STATUS",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "RECORDED_START_DT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "RECORDED_START_DT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "RECORDED_END_DT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "RECORDED_END_DT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "BATCH_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BATCH_ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CHECK_SUM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CHECK_SUM",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATED_DT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "CREATED_DT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CREATED_BY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LAST_UPDATED_DT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "LAST_UPDATED_DT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "LAST_UPDATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LAST_UPDATED_BY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ARRGMT_MONEY_SRC_ID",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "ARRGMT_MONEY_SRC_ID",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "UNIT_QTY",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "UNIT_QTY",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "UNIT_PRICE",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "UNIT_PRICE",
+									"type": "Int64"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "Oracle_IDPREPOS_POSITION_MSRMT",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "Snowflake_IDPREPOS_POSITION_MSRMT",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "IDPREPOS_2_SF_Load"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-08-29T19:25:17Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

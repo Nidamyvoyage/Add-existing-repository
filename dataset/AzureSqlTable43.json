@@ -1,0 +1,174 @@
+{
+	"name": "AzureSqlTable43",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase_MDMU3",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "prefix",
+				"type": "varchar"
+			},
+			{
+				"name": "FullName",
+				"type": "varchar"
+			},
+			{
+				"name": "firstName",
+				"type": "varchar"
+			},
+			{
+				"name": "middleName",
+				"type": "varchar"
+			},
+			{
+				"name": "lastName",
+				"type": "varchar"
+			},
+			{
+				"name": "suffix",
+				"type": "varchar"
+			},
+			{
+				"name": "gender",
+				"type": "varchar"
+			},
+			{
+				"name": "birthdate",
+				"type": "date"
+			},
+			{
+				"name": "birthPlace",
+				"type": "varchar"
+			},
+			{
+				"name": "srcPkey",
+				"type": "varchar"
+			},
+			{
+				"name": "sourceSystem",
+				"type": "varchar"
+			},
+			{
+				"name": "SSN",
+				"type": "varchar"
+			},
+			{
+				"name": "ITIN",
+				"type": "varchar"
+			},
+			{
+				"name": "driverLicense",
+				"type": "varchar"
+			},
+			{
+				"name": "primaryEmail",
+				"type": "varchar"
+			},
+			{
+				"name": "primeryPhone",
+				"type": "varchar"
+			},
+			{
+				"name": "streetAddress",
+				"type": "varchar"
+			},
+			{
+				"name": "primaryAddrLine1",
+				"type": "varchar"
+			},
+			{
+				"name": "primaryAddrLine2",
+				"type": "varchar"
+			},
+			{
+				"name": "primaryAddrLine3",
+				"type": "varchar"
+			},
+			{
+				"name": "primaryAddrCity",
+				"type": "varchar"
+			},
+			{
+				"name": "primaryAddrState",
+				"type": "varchar"
+			},
+			{
+				"name": "primaryAddrPostalCode",
+				"type": "varchar"
+			},
+			{
+				"name": "countryCD",
+				"type": "varchar"
+			},
+			{
+				"name": "countyName",
+				"type": "varchar"
+			},
+			{
+				"name": "PostalCode5",
+				"type": "varchar"
+			},
+			{
+				"name": "SourceDeletedInd",
+				"type": "varchar"
+			},
+			{
+				"name": "SourceStatus",
+				"type": "varchar"
+			},
+			{
+				"name": "row_status",
+				"type": "varchar"
+			},
+			{
+				"name": "batch_id",
+				"type": "varchar"
+			},
+			{
+				"name": "check_sum",
+				"type": "varchar"
+			},
+			{
+				"name": "createDateTime",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "createdBy",
+				"type": "varchar"
+			},
+			{
+				"name": "lastUpdateDateTime",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "lastUpdatedBy",
+				"type": "varchar"
+			},
+			{
+				"name": "SourceCreateDateTime",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "SourceLastUpdateDateTime",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			}
+		],
+		"typeProperties": {
+			"schema": "CMDM_STAGE",
+			"table": "Person"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

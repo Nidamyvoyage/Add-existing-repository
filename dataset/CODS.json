@@ -1,0 +1,17 @@
+{
+	"name": "CODS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "OracleCustomerODS",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "ODS_UUID",
+			"table": "MYHEALTH_WEALTH_CUSTOMER"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

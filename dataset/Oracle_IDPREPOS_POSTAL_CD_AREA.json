@@ -1,0 +1,17 @@
+{
+	"name": "Oracle_IDPREPOS_POSTAL_CD_AREA",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Oracle_CODS_Intg",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "IDP_REPOS",
+			"table": "POSTAL_CD_AREA"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,17 @@
+{
+	"name": "Oracle_IDPSTAGE_OMNI_VIPS_DAILY_PLAN",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Oracle_CODS_Intg",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "IDP_STAGE",
+			"table": "OMNI_VIPS_DAILY_PLAN"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

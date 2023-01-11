@@ -1,0 +1,45 @@
+{
+	"name": "FL_max_Delete",
+	"properties": {
+		"activities": [
+			{
+				"name": "Delete1",
+				"type": "Delete",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "onprem_to_adls_max_FL",
+						"type": "DatasetReference"
+					},
+					"logStorageSettings": {
+						"linkedServiceName": {
+							"referenceName": "ls_dfs_vesstzuc1unitedm001",
+							"type": "LinkedServiceReference"
+						},
+						"path": "snowflakeextstaging/Archive/OMNI"
+					},
+					"enableLogging": true,
+					"storeSettings": {
+						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
+						"enablePartitionDiscovery": false
+					}
+				}
+			}
+		],
+		"folder": {
+			"name": "DataConsolidationR2/728952/Test"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-10-07T15:30:45Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

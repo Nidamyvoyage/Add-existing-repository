@@ -1,0 +1,38 @@
+{
+	"name": "filepicksrc",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_dfs_vesstzuc1unitedm001",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"FileName": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().FileName",
+					"type": "Expression"
+				},
+				"folderPath": "RS_OMNI/Test",
+				"fileSystem": "snowflakeextstaging"
+			},
+			"columnDelimiter": "|",
+			"escapeChar": "",
+			"firstRowAsHeader": true,
+			"quoteChar": ""
+		},
+		"schema": [
+			{
+				"name": "WS_EXT_PH_PLAN_NUM|WS_EXT_PH_PART_NUM|WS_EXT_PH_NAME|WS_EXT_PH_PART_DIV_SUB|WS_EXT_PH_BRTH_DATE|WS_EXT_PH_PLENT_DATE|WS_EXT_PH_ADDR_L1|WS_EXT_PH_ADDR_L2|WS_EXT_PH_ADDR_L3|WS_EXT_PH_CITY|WS_EXT_PH_STATE|WS_EXT_PH_ZIP|WS_EXT_PH_STAT|WS_EXT_PH_TERM_DATE|WS_EXT_PH_LAST_CNTRB_DATE|WS_EXT_PH_STAT_REASON|WS_EXT_PH_LOC_TAX_CODE|WS_EXT_PH_ALT_STATE|WS_EXT_PH_FIRST_CNTRB_DATE|WS_EXT_PH_ATTAINED_AGE|WS_EXT_PH_PF999_BAL|WS_EXT_PH_PA999_BAL|WS_EXT_PH_ADV_ACCT_IND|WS_EXT_PH_OMNI_VERSION|WS_EXT_PH_VRR_PL_STATUS|WS_EXT_PH_VRR_PL_TERM|WS_EXT_PH_CONV_PL_NUM|WS_EXT_PH_CLIENT_ID|WS_EXT_PH_SUB_CLIENT_ID|WS_EXT_PH_SSO_CLIENT_ID|WS_EXT_PH_CLIENT_STATUS",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

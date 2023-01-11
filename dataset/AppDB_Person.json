@@ -1,0 +1,105 @@
+{
+	"name": "AppDB_Person",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SqlServerAppDB",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "PERSON_ID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "SRC_PARTY_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "PREFIX",
+				"type": "varchar"
+			},
+			{
+				"name": "FIRST_NAME",
+				"type": "varchar"
+			},
+			{
+				"name": "MIDDLE_NAME",
+				"type": "varchar"
+			},
+			{
+				"name": "LAST_NAME",
+				"type": "varchar"
+			},
+			{
+				"name": "SUFFIX",
+				"type": "varchar"
+			},
+			{
+				"name": "NAME",
+				"type": "varchar"
+			},
+			{
+				"name": "GENDER",
+				"type": "varchar"
+			},
+			{
+				"name": "BIRTH_DT",
+				"type": "date"
+			},
+			{
+				"name": "BIRTH_PLACE_ID",
+				"type": "date"
+			},
+			{
+				"name": "DEATH_DT",
+				"type": "date"
+			},
+			{
+				"name": "DEATH_PLACE_ID",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 0
+			},
+			{
+				"name": "CAUSE_OF_DEATH_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "DEATH_NOTIFCTN_RCVD_DT",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "DEATH_CONFRMD_DT",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "CREATED_BY",
+				"type": "varchar"
+			},
+			{
+				"name": "CREATED_DT",
+				"type": "date"
+			},
+			{
+				"name": "LAST_UPDATED_BY",
+				"type": "varchar"
+			},
+			{
+				"name": "LAST_UPDATED_DT",
+				"type": "date"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "PERSON"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

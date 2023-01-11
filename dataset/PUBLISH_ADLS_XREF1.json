@@ -1,0 +1,78 @@
+{
+	"name": "PUBLISH_ADLS_XREF1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Datalake_SHIR",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "CODS_ONPREM/PUBLISH_XREF",
+				"fileSystem": "mdm"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "SourceIdentifier",
+				"type": "UTF8"
+			},
+			{
+				"name": "SourceIdentifierType",
+				"type": "UTF8"
+			},
+			{
+				"name": "SourceSystem",
+				"type": "UTF8"
+			},
+			{
+				"name": "SSN",
+				"type": "UTF8"
+			},
+			{
+				"name": "DateOfBirth",
+				"type": "UTF8"
+			},
+			{
+				"name": "MDM_ID",
+				"type": "UTF8"
+			},
+			{
+				"name": "PARTY_ID",
+				"type": "UTF8"
+			},
+			{
+				"name": "XREF_CHECK_SUM",
+				"type": "UTF8"
+			},
+			{
+				"name": "PARTY_XREF_CHECK_SUM",
+				"type": "UTF8"
+			},
+			{
+				"name": "BATCH_ID",
+				"type": "UTF8"
+			},
+			{
+				"name": "CREATED_TS",
+				"type": "UTF8"
+			},
+			{
+				"name": "CREATED_BY",
+				"type": "UTF8"
+			},
+			{
+				"name": "UPDATED_TS",
+				"type": "UTF8"
+			},
+			{
+				"name": "UPDATED_BY",
+				"type": "UTF8"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,441 @@
+{
+	"name": "MDM_PUBLISH_2_CODS_PERSON_XREF_copy1",
+	"properties": {
+		"activities": [
+			{
+				"name": "ADLS2CODS_PERSONXREF",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Data flow1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "ParquetSource",
+						"additionalColumns": [
+							{
+								"name": "BATCH_ID",
+								"value": "2"
+							},
+							{
+								"name": "CREATED_TS",
+								"value": {
+									"value": "@{formatDateTime(pipeline().TriggerTime,'yyyy-MM-dd HH:mm:ss.fff')}",
+									"type": "Expression"
+								}
+							},
+							{
+								"name": "CREATED_BY",
+								"value": {
+									"value": "@{pipeline().Pipeline}",
+									"type": "Expression"
+								}
+							},
+							{
+								"name": "UPDATED_TS",
+								"value": {
+									"value": "@{formatDateTime(pipeline().TriggerTime,'yyyy-MM-dd HH:mm:ss.fff')}",
+									"type": "Expression"
+								}
+							},
+							{
+								"name": "UPDATED_BY",
+								"value": {
+									"value": "@{pipeline().Pipeline}",
+									"type": "Expression"
+								}
+							}
+						],
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"wildcardFolderPath": "PUBLISH_ADLS_CODS/PERSONXref",
+							"wildcardFileName": "*.parquet",
+							"enablePartitionDiscovery": false
+						}
+					},
+					"sink": {
+						"type": "OracleSink",
+						"writeBatchSize": 10000
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "SourceIdentifier"
+								},
+								"sink": {
+									"name": "SOURCEIDENTIFIER",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SourceSystem"
+								},
+								"sink": {
+									"name": "SOURCESYSTEM",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SourceIdentifierType"
+								},
+								"sink": {
+									"name": "SOURCEIDENTIFIERTYPE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SSN"
+								},
+								"sink": {
+									"name": "SSN",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "DateOfBirth"
+								},
+								"sink": {
+									"name": "DATEOFBIRTH",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "MDM_ID"
+								},
+								"sink": {
+									"name": "PARTY_ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "XREF_CHECK_SUM"
+								},
+								"sink": {
+									"name": "CHECK_SUM",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BATCH_ID"
+								},
+								"sink": {
+									"name": "BATCH_ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATED_TS"
+								},
+								"sink": {
+									"name": "CREATED_TS",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATED_BY"
+								},
+								"sink": {
+									"name": "CREATED_BY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "UPDATED_TS"
+								},
+								"sink": {
+									"name": "UPDATED_TS",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "UPDATED_BY"
+								},
+								"sink": {
+									"name": "UPDATED_BY",
+									"type": "String"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ADLS_CODS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "PERSON_XREF_CODS",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Data flow1",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "Copy data1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "dataflow1",
+						"type": "DataFlowReference"
+					},
+					"integrationRuntime": {
+						"referenceName": "integrationRuntime1",
+						"type": "IntegrationRuntimeReference"
+					},
+					"traceLevel": "Fine"
+				}
+			},
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select * from ODS_UUID.MDM_PERSON_XREF",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "SOURCEIDENTIFIER",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SOURCEIDENTIFIER",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "SOURCESYSTEM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SOURCESYSTEM",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "MDM_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MDM_ID",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "SOURCEIDENTIFIERTYPE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SOURCEIDENTIFIERTYPE",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "SSN",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SSN",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "DATEOFBIRTH",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "DATEOFBIRTH",
+									"type": "DateTime",
+									"physicalType": "INT_96"
+								}
+							},
+							{
+								"source": {
+									"name": "PARTY_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PARTY_ID",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "CHECK_SUM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CHECK_SUM",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "BATCH_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BATCH_ID",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATED_TS",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "CREATED_TS",
+									"type": "DateTime",
+									"physicalType": "INT_96"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CREATED_BY",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "UPDATED_TS",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "UPDATED_TS",
+									"type": "DateTime",
+									"physicalType": "INT_96"
+								}
+							},
+							{
+								"source": {
+									"name": "UPDATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UPDATED_BY",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "PERSON_XREF_CODS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "CODS_ADLS",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "DataConsolidationR2/729142/Test"
+		},
+		"annotations": [],
+		"lastPublishTime": "2023-01-05T11:38:03Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

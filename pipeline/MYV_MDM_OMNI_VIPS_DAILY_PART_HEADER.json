@@ -1,0 +1,602 @@
+{
+	"name": "MYV_MDM_OMNI_VIPS_DAILY_PART_HEADER",
+	"properties": {
+		"activities": [
+			{
+				"name": "CheckLoadID",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": {
+							"value": "select  NVL(t1.LOAD_ID,'-1') as LOAD_ID from (\n(select max(LOAD_ID) as LOAD_ID from \"MYVOYAGE_UNIT\".\"MYVOYAGE_CONFORM\".\"MYVOYAGE_ETL_AUDIT\" \nwhere entity_nm='@{pipeline().parameters.ENTITY_NAME}' \nand src_sys_nm='@{pipeline().parameters.SRC_SYS_NM}' \nand (RAW_LOAD_END_TS is null or STG_LOAD_END_TS is null)) t1\nleft outer join  (select -1 as LOAD_ID from dual) t2\non t1.LOAD_ID=t2.LOAD_ID)",
+							"type": "Expression"
+						},
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "LOAD_ID",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": true
+				}
+			},
+			{
+				"name": "Assign_INGESTION_LOAD_ID",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "CheckLoadID",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@equals(string(activity('CheckLoadID').output.firstRow.LOAD_ID),'-1')",
+						"type": "Expression"
+					},
+					"ifFalseActivities": [
+						{
+							"name": "INGESTION_LOAD_ID_ASSIGN_OLD",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "INGESTION_LOAD_ID",
+								"value": {
+									"value": "@activity('CheckLoadID').output.firstRow.LOAD_ID",
+									"type": "Expression"
+								}
+							}
+						}
+					],
+					"ifTrueActivities": [
+						{
+							"name": "LOAD_ID_ASSIGN_NEW",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "NewLoadID",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "INGESTION_LOAD_ID",
+								"value": {
+									"value": "@string(activity('NewLoadID').output.firstRow.NEXTVAL)",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "NewLoadID",
+							"type": "Lookup",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "SnowflakeSource",
+									"query": "select MYVOYAGE_UNIT.MYVOYAGE_CONFORM.CONFORM_LOAD_ID_SEQ.nextval from dual;",
+									"exportSettings": {
+										"type": "SnowflakeExportCopyCommand"
+									}
+								},
+								"dataset": {
+									"referenceName": "SnowflakeTable9",
+									"type": "DatasetReference"
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "RAW_LOAD_AUDIT",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "SF_CLN_SF_MDM",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": {
+							"value": "call MYVOYAGE_UNIT.MYVOYAGE_MDM.SP_MYVOYAGE_ETL_AUDIT_LOAD_MDM(@{variables('INGESTION_LOAD_ID')},'@{pipeline().parameters.SRC_SYS_NM}',\n'@{pipeline().parameters.ENTITY_NAME}','@{string(formatDateTime(activity('SF_CLN_SF_MDM').output.executionDetails[0].start,'yyyy-MM-dd HH:mm:ss.fff'))}',\n'@{string(formatDateTime(addSeconds(activity('SF_CLN_SF_MDM').output.executionDetails[0].start,activity('SF_CLN_SF_MDM').output.copyDuration),'yyyy-MM-dd HH:mm:ss.fff'))}',@{activity('SF_CLN_SF_MDM').output.RowsRead},\n@{activity('SF_CLN_SF_MDM').output.rowsCopied})",
+							"type": "Expression"
+						},
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "LOAD_ID",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": true
+				}
+			},
+			{
+				"name": "SF_CLN_SF_MDM",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Assign_INGESTION_LOAD_ID",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"sink": {
+						"type": "SnowflakeSink",
+						"importSettings": {
+							"type": "SnowflakeImportCopyCommand"
+						}
+					},
+					"enableStaging": true,
+					"stagingSettings": {
+						"linkedServiceName": {
+							"referenceName": "vesstzuc1unitedm001_SF_SAS",
+							"type": "LinkedServiceReference"
+						}
+					},
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "WS_EXT_PH_PLAN_NUM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_PLAN_NUM",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_PART_NUM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_PART_NUM",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_NAME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_NAME",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_PART_DIV_SUB",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_PART_DIV_SUB",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_BRTH_DATE",
+									"type": "Int64"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_BRTH_DATE",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_PLENT_DATE",
+									"type": "Int64"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_PLENT_DATE",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_ADDR_L1",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_ADDR_L1",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_ADDR_L2",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_ADDR_L2",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_ADDR_L3",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_ADDR_L3",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_CITY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_CITY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_STATE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_STATE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_ZIP",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_ZIP",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_STAT",
+									"type": "Int64"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_STAT",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_TERM_DATE",
+									"type": "Int64"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_TERM_DATE",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_LAST_CNTRB_DATE",
+									"type": "Int64"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_LAST_CNTRB_DATE",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_STAT_REASON",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_STAT_REASON",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_LOC_TAX_CODE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_LOC_TAX_CODE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_ALT_STATE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_ALT_STATE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_FIRST_CNTRB_DATE",
+									"type": "Int64"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_FIRST_CNTRB_DATE",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_ATTAINED_AGE",
+									"type": "Int64"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_ATTAINED_AGE",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_PF999_BAL",
+									"type": "Int64"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_PF999_BAL",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_PA999_BAL",
+									"type": "Int64"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_PA999_BAL",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_ADV_ACCT_IND",
+									"type": "Int64"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_ADV_ACCT_IND",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_OMNI_VERSION",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_OMNI_VERSION",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_VRR_PL_STATUS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_VRR_PL_STATUS",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_VRR_PL_TERM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_VRR_PL_TERM",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_CONV_PL_NUM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_CONV_PL_NUM",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_CLIENT_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_CLIENT_ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_SUB_CLIENT_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_SUB_CLIENT_ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_SSO_CLIENT_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_SSO_CLIENT_ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_CLIENT_STATUS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_CLIENT_STATUS",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_LOAD_ID",
+									"type": "Int64"
+								},
+								"sink": {
+									"name": "SWFDL_LOAD_ID",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_CREATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SWFDL_CREATED_BY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_CREATED_TS",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "SWFDL_CREATED_TS",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_UPDATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SWFDL_UPDATED_BY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_UPDATED_TS",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "SWFDL_UPDATED_TS",
+									"type": "DateTime"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SnowFlake",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SnowFlake",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"parameters": {
+			"ENTITY_NAME": {
+				"type": "string",
+				"defaultValue": "OMNI_VIPS_DAILY_PART_HEADER"
+			},
+			"SRC_SYS_NM": {
+				"type": "string",
+				"defaultValue": "OMNI"
+			},
+			"INGESTION_LOAD_TS": {
+				"type": "string"
+			},
+			"INGESTION_ETL_TYPE": {
+				"type": "string",
+				"defaultValue": "FULL"
+			}
+		},
+		"variables": {
+			"INGESTION_LOAD_ID": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "DataConsolidationR1/Others/728527"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-09-20T10:40:15Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

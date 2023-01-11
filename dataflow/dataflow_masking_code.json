@@ -1,0 +1,38 @@
+{
+	"name": "dataflow_masking_code",
+	"properties": {
+		"folder": {
+			"name": "masking_code"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "AzureSqlmaskingemp",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTablemaskingemp_sink",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "AlterRow1"
+				},
+				{
+					"name": "Masking"
+				}
+			],
+			"script": "source(output(\n\t\tempid as integer,\n\t\tempname as string,\n\t\tsal as integer\n\t),\n\tallowSchemaDrift: false,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> source1\nMasking alterRow(updateIf(true())) ~> AlterRow1\nsource1 derive(sal = toInteger(null()),\n\t\tempname = sha2(256,empname)) ~> Masking\nAlterRow1 sink(allowSchemaDrift: false,\n\tvalidateSchema: false,\n\tinput(\n\t\tempid as integer,\n\t\tempname as string,\n\t\tsal as integer\n\t),\n\tdeletable:false,\n\tinsertable:false,\n\tupdateable:true,\n\tupsertable:false,\n\tkeys:['empid'],\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError') ~> sink1"
+		}
+	}
+}

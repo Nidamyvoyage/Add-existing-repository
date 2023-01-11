@@ -1,0 +1,113 @@
+{
+	"name": "OMNI_NULLHANDLER",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "OMNI_VIPS_DELTA_STG",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "OMNI_VIPS_DELTA_STG",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "alterRow1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          SOURCE_KEY as string,",
+				"          WS_EXT_PH_PART_NUM as string,",
+				"          WS_EXT_PH_NAME as string,",
+				"          WS_EXT_PH_BRTH_DATE as string,",
+				"          WS_EXT_PH_ADDR_L1 as string,",
+				"          WS_EXT_PH_ADDR_L2 as string,",
+				"          WS_EXT_PH_ADDR_L3 as string,",
+				"          WS_EXT_PH_CITY as string,",
+				"          WS_EXT_PH_STATE as string,",
+				"          WS_EXT_PH_ZIP as string,",
+				"          WS_EXT_PH_OMNI_VERSION as string,",
+				"          WS_EXT_PH_STAT as string,",
+				"          CHECK_SUM as string,",
+				"          CHANGE_CODE as string,",
+				"          batch_id as string,",
+				"          createDateTime as timestamp,",
+				"          createdBy as string,",
+				"          lastUpdateDateTime as timestamp,",
+				"          lastUpdatedBy as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     query: 'select top 50\\ncase when upper(TRIM(SOURCE_KEY))=\\'\\' then null else TRIM(SOURCE_KEY) end as SOURCE_KEY,\\ncase when upper(TRIM(WS_EXT_PH_PART_NUM))=\\'\\' then null else TRIM(WS_EXT_PH_PART_NUM) end as WS_EXT_PH_PART_NUM,\\ncase when upper(TRIM(WS_EXT_PH_NAME))=\\'\\' then null else TRIM(WS_EXT_PH_NAME) end as WS_EXT_PH_NAME,\\ncase when upper(TRIM(WS_EXT_PH_BRTH_DATE))=\\'\\' then null else TRIM(WS_EXT_PH_BRTH_DATE) end as WS_EXT_PH_BRTH_DATE,\\ncase when upper(TRIM(WS_EXT_PH_ADDR_L1))=\\'\\' then null else TRIM(WS_EXT_PH_ADDR_L1) end as WS_EXT_PH_ADDR_L1,\\ncase when upper(TRIM(WS_EXT_PH_ADDR_L2))=\\'\\' then null else TRIM(WS_EXT_PH_ADDR_L2) end as WS_EXT_PH_ADDR_L2,\\ncase when upper(TRIM(WS_EXT_PH_ADDR_L3))=\\'\\' then null else TRIM(WS_EXT_PH_ADDR_L3) end as WS_EXT_PH_ADDR_L3,\\ncase when upper(TRIM(WS_EXT_PH_CITY))=\\'\\' then null else TRIM(WS_EXT_PH_CITY) end as WS_EXT_PH_CITY,\\ncase when upper(TRIM(WS_EXT_PH_STATE))=\\'\\' then null else TRIM(WS_EXT_PH_STATE) end as WS_EXT_PH_STATE,\\ncase when upper(replace(WS_EXT_PH_ZIP,\\' \\',\\'\\'))=\\'\\' then null else (replace(WS_EXT_PH_ZIP,\\' \\',\\'\\')) end as WS_EXT_PH_ZIP,\\ncase when upper(TRIM(WS_EXT_PH_OMNI_VERSION))=\\'\\' then null else TRIM(WS_EXT_PH_OMNI_VERSION) end as WS_EXT_PH_OMNI_VERSION,\\ncase when upper(TRIM(WS_EXT_PH_STAT))=\\'\\' then null else TRIM(WS_EXT_PH_STAT) end as WS_EXT_PH_STAT,\\ncase when upper(TRIM(CHECK_SUM))=\\'\\' then null else TRIM(CHECK_SUM) end as CHECK_SUM,\\ncase when upper(TRIM(CHANGE_CODE))=\\'\\' then null else TRIM(CHANGE_CODE) end as CHANGE_CODE,\\ncase when upper(TRIM(batch_id))=\\'\\' then null else TRIM(batch_id) end as batch_id,\\ncreateDateTime,\\ncreatedBy,\\nlastUpdateDateTime,\\nlastUpdatedBy\\nfrom [CMDM_STAGE].[RS_OMNI_VIPS_DAILY_PART_HEADER_DELTA_STG__zip5]',",
+				"     format: 'query') ~> source1",
+				"source1 alterRow(updateIf(1==1)) ~> alterRow1",
+				"alterRow1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          SOURCE_KEY as string,",
+				"          WS_EXT_PH_PART_NUM as string,",
+				"          WS_EXT_PH_NAME as string,",
+				"          WS_EXT_PH_BRTH_DATE as string,",
+				"          WS_EXT_PH_ADDR_L1 as string,",
+				"          WS_EXT_PH_ADDR_L2 as string,",
+				"          WS_EXT_PH_ADDR_L3 as string,",
+				"          WS_EXT_PH_CITY as string,",
+				"          WS_EXT_PH_STATE as string,",
+				"          WS_EXT_PH_ZIP as string,",
+				"          WS_EXT_PH_OMNI_VERSION as string,",
+				"          WS_EXT_PH_STAT as string,",
+				"          CHECK_SUM as string,",
+				"          CHANGE_CODE as string,",
+				"          batch_id as string,",
+				"          createDateTime as timestamp,",
+				"          createdBy as string,",
+				"          lastUpdateDateTime as timestamp,",
+				"          lastUpdatedBy as string",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:false,",
+				"     updateable:true,",
+				"     upsertable:false,",
+				"     keys:['batch_id','SOURCE_KEY'],",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          SOURCE_KEY,",
+				"          WS_EXT_PH_PART_NUM,",
+				"          WS_EXT_PH_NAME,",
+				"          WS_EXT_PH_BRTH_DATE,",
+				"          WS_EXT_PH_ADDR_L1,",
+				"          WS_EXT_PH_ADDR_L2,",
+				"          WS_EXT_PH_ADDR_L3,",
+				"          WS_EXT_PH_CITY,",
+				"          WS_EXT_PH_STATE,",
+				"          WS_EXT_PH_ZIP,",
+				"          WS_EXT_PH_OMNI_VERSION,",
+				"          WS_EXT_PH_STAT,",
+				"          CHECK_SUM,",
+				"          CHANGE_CODE,",
+				"          batch_id,",
+				"          createDateTime,",
+				"          createdBy,",
+				"          lastUpdateDateTime,",
+				"          lastUpdatedBy",
+				"     )) ~> sink1"
+			]
+		}
+	}
+}

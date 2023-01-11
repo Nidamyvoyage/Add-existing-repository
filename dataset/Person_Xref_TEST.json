@@ -1,0 +1,13 @@
+{
+	"name": "Person_Xref_TEST",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "OracleCustomerODS",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

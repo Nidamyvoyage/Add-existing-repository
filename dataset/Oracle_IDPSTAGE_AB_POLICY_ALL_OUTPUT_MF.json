@@ -1,0 +1,17 @@
+{
+	"name": "Oracle_IDPSTAGE_AB_POLICY_ALL_OUTPUT_MF",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Oracle_CODS_Intg",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "IDP_STAGE",
+			"table": "AB_POLICY_ALL_OUTPUT_MF"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

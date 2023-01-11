@@ -1,0 +1,121 @@
+{
+	"name": "DF_Identifire_CODS_REPOS_fl",
+	"properties": {
+		"folder": {
+			"name": "MDM"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DS_AZURESQL_CODS_REPOS_STG_1_4",
+						"type": "DatasetReference"
+					},
+					"name": "source1CODS"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_IDENTIFIRE_CODS_TGT_day2_4",
+						"type": "DatasetReference"
+					},
+					"name": "TgtPersonIdentifire1cods"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_IDENTIFIRE_CODS_TGT_day2_4",
+						"type": "DatasetReference"
+					},
+					"name": "TgtPersonIdent"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DS_IDENTIFIRE_CODS_TGT_day2_4",
+						"type": "DatasetReference"
+					},
+					"name": "PersonIdentInsert"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_IDENTIFIRE_CODS_TGT_day2_4",
+						"type": "DatasetReference"
+					},
+					"name": "PersonIdentUpdate"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_IDENTIFIRE_CODS_TGT_day2_4",
+						"type": "DatasetReference"
+					},
+					"name": "PersonIdentinsert1"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_IDENTIFIRE_CODS_TGT_day2_4",
+						"type": "DatasetReference"
+					},
+					"name": "PersonIdentupdt1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "SourceDeleteInd"
+				},
+				{
+					"name": "Insert"
+				},
+				{
+					"name": "doesntexists1"
+				},
+				{
+					"name": "derivedColumn2"
+				},
+				{
+					"name": "updated"
+				},
+				{
+					"name": "split4"
+				},
+				{
+					"name": "derivedColumn3"
+				},
+				{
+					"name": "insert1"
+				},
+				{
+					"name": "split5"
+				},
+				{
+					"name": "notexists4"
+				},
+				{
+					"name": "exists6"
+				},
+				{
+					"name": "filter1"
+				},
+				{
+					"name": "exists7"
+				},
+				{
+					"name": "split6"
+				},
+				{
+					"name": "exists8"
+				},
+				{
+					"name": "derivedColumn4"
+				},
+				{
+					"name": "update1"
+				}
+			],
+			"script": "source(output(\n\t\tSOURCE_KEY as string,\n\t\tSOURCE_SYSTEM as string,\n\t\tPSEUDO_MDM_ID as string,\n\t\tSSN as string,\n\t\tDATE_OF_BIRTH as string,\n\t\tSALESFORCE_CONTACT_ID as string,\n\t\tSOURCE_SYSTEM_UNDERLYING as string,\n\t\tPARTY_TYPE as string,\n\t\tFULL_NAME as string,\n\t\tPREFIX_NAME as string,\n\t\tFIRST_NAME as string,\n\t\tMIDDLE_NAME as string,\n\t\tLAST_NAME as string,\n\t\tSUFFIX_NAME as string,\n\t\tGENDER as string,\n\t\tCHANGE_CODE as string,\n\t\tbatch_id as string,\n\t\tPERSON_CHECK_SUM as string,\n\t\tPERSONIDENT_CHECK_SUM as string\n\t),\n\tallowSchemaDrift: false,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'SELECT SOURCE_KEY,SOURCE_SYSTEM,PSEUDO_MDM_ID,SSN,DATE_OF_BIRTH,SALESFORCE_CONTACT_ID,SOURCE_SYSTEM_UNDERLYING,PARTY_TYPE,\\nFULL_NAME,PREFIX_NAME,FIRST_NAME,MIDDLE_NAME,LAST_NAME,SUFFIX_NAME,GENDER,CHANGE_CODE ,batch_id,\\nCONVERT(NVARCHAR(32),HashBytes(\\'MD5\\',ISNULL(SSN,\\'1\\')+ISNULL(CAST(DATE_OF_BIRTH AS VARCHAR),\\'2\\')+ISNULL(SALESFORCE_CONTACT_ID,\\'3\\')+ISNULL(SOURCE_SYSTEM_UNDERLYING,\\'4\\')+ISNULL(PARTY_TYPE,\\'5\\')+ISNULL(FULL_NAME,\\'6\\')+ISNULL(PREFIX_NAME,\\'7\\')+ISNULL(FIRST_NAME,\\'8\\')+ISNULL(MIDDLE_NAME,\\'9\\')+ISNULL(LAST_NAME,\\'10\\') +ISNULL(SUFFIX_NAME,\\'11\\')+ISNULL(GENDER,\\'12\\') ),2) PERSON_CHECK_SUM,\\nCONVERT(NVARCHAR(32),HashBytes(\\'MD5\\',ISNULL(SSN ,\\'1\\')),2) PERSONIDENT_CHECK_SUM\\nFROM CMDM_STAGE.RS_CODS_REPOS_PARTY_DELTA_STG_day4',\n\tformat: 'query') ~> source1CODS\nsource(output(\n\t\tidentifierType as string,\n\t\tidentifierValue as string,\n\t\tsrcPersonPkey as string,\n\t\tsourceSystem as string,\n\t\tsrcIdentPkey as string,\n\t\trow_status as string,\n\t\tbatch_id as string,\n\t\tcheck_sum as string,\n\t\tcreateDate as timestamp,\n\t\tcreatedBy as string,\n\t\tlastUpdateDateTime as timestamp,\n\t\tlastUpdatedBy as string,\n\t\tSourceCreateDateTime as timestamp,\n\t\tSourceLastUpdateDateTime as timestamp\n\t),\n\tallowSchemaDrift: false,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'select * from [CMDM_STAGE].[personidentifier_day2] where sourceSystem=\\'CODS\\'\\n',\n\tformat: 'query') ~> TgtPersonIdentifire1cods\nsource(output(\n\t\tidentifierType as string,\n\t\tidentifierValue as string,\n\t\tsrcPersonPkey as string,\n\t\tsourceSystem as string,\n\t\tsrcIdentPkey as string,\n\t\trow_status as string,\n\t\tbatch_id as string,\n\t\tcheck_sum as string,\n\t\tcreateDate as timestamp,\n\t\tcreatedBy as string,\n\t\tlastUpdateDateTime as timestamp,\n\t\tlastUpdatedBy as string,\n\t\tSourceCreateDateTime as timestamp,\n\t\tSourceLastUpdateDateTime as timestamp\n\t),\n\tallowSchemaDrift: false,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'select * from [CMDM_STAGE].[personidentifier_day2] where sourceSystem=\\'CODS\\'\\n',\n\tformat: 'query') ~> TgtPersonIdent\nSourceDeleteInd derive(row_status = 'A',\n\t\tLastupdatetime = currentTimestamp(),\n\t\tCreateDateTime = currentTimestamp(),\n\t\tIDentifierType = 'SSN',\n\t\tcreatedBy = 'MYV_CODS_STG_TO_COMMON_CREATE_LOAD',\n\t\tlastUpdatedBy = 'MYV_CODS_STG_TO_COMMON_CREATE_LOAD',\n\t\tsourcecreatedateTime = 'NULL',\n\t\tsourcelastupdatedateTime = 'NULL') ~> derivedColumn1\nnotexists4 derive(SourceDeletedInd = 'N') ~> SourceDeleteInd\nderivedColumn1 alterRow(insertIf(true())) ~> Insert\nsplit6@ifNerorUpdate, TgtPersonIdentifire1cods exists(PERSONIDENT_CHECK_SUM==check_sum && row_status=='A',\n\tnegate:true,\n\tbroadcast: 'auto')~> doesntexists1\nexists6 derive(Row_Status = 'I',\n\t\tLastUpdatedTime = currentTimestamp(),\n\t\tupdatedby = 'MYV_EASE_OMNI_STG_TO_COMMON_UPDT_LOAD') ~> derivedColumn2\nderivedColumn2 alterRow(updateIf(true())) ~> updated\ndoesntexists1 split(CHANGE_CODE=='NEW'||CHANGE_CODE=='UPDATE',\n\tCHANGE_CODE=='NEW'||CHANGE_CODE=='UPDATE',\n\tdisjoint: true) ~> split4@(updateI, InsertA)\nsplit4@InsertA derive(SrcDelInd = case(CHANGE_CODE=='DELETE', 'Y','N'),\n\t\tRowStatus = 'A',\n\t\tLastUpdated_Time = currentTimestamp(),\n\t\tCreateDateTime = currentTimestamp(),\n\t\tIDentifierType = 'SSN',\n\t\tcreatedBy = 'MYV_CODS_STG_TO_COMMON_CREATE_LOAD',\n\t\tlastUpdatedBy = 'MYV_CODS_STG_TO_COMMON_UPD_LOAD',\n\t\tsourcecreatedateTime = 'NULL',\n\t\tsourcelastUpdatedatetime = 'NULL') ~> derivedColumn3\nderivedColumn3 alterRow(insertIf(true())) ~> insert1\nfilter1 split(CHANGE_CODE=='UPDATE'||CHANGE_CODE=='NEW',\n\tCHANGE_CODE=='NEW',\n\tdisjoint: true) ~> split5@(if1, if2)\nsplit5@if2, TgtPersonIdentifire1cods exists((SOURCE_KEY == srcPersonPkey\n && SOURCE_SYSTEM == sourceSystem && row_status == 'A' && identifierType == 'SSN'),\n\tnegate:true,\n\tbroadcast: 'auto')~> notexists4\nTgtPersonIdent, split4@updateI exists(srcPersonPkey == SOURCE_KEY  && row_status =='A',\n\tnegate:false,\n\tbroadcast: 'auto')~> exists6\nsource1CODS filter(SSN != 'NULL') ~> filter1\nsplit5@if1, TgtPersonIdentifire1cods exists((SOURCE_KEY == srcPersonPkey\n && SOURCE_SYSTEM == sourceSystem && row_status == 'A' && identifierType == 'SSN'),\n\tnegate:false,\n\tbroadcast: 'auto')~> exists7\nexists7 split(CHANGE_CODE=='UPDATE'||CHANGE_CODE=='NEW',\n\tCHANGE_CODE=='NEW',\n\tdisjoint: true) ~> split6@(ifNerorUpdate, elseNew)\nTgtPersonIdentifire1cods, split6@elseNew exists(check_sum==PERSONIDENT_CHECK_SUM && row_status=='A',\n\tnegate:false,\n\tbroadcast: 'auto')~> exists8\nexists8 derive(updatedby = 'MYV_CODS_OMNI_STG_TO_COMMON_UPDT_LOAD',\n\t\tlastupdatedtime = currentTimestamp(),\n\t\tsrcdltindd = 'N',\n\t\tbatch_id1 = '4') ~> derivedColumn4\nderivedColumn4 alterRow(updateIf(true())) ~> update1\nInsert sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tidentifierType as string,\n\t\tidentifierValue as string,\n\t\tsrcPersonPkey as string,\n\t\tsourceSystem as string,\n\t\tsrcIdentPkey as string,\n\t\trow_status as string,\n\t\tbatch_id as string,\n\t\tcheck_sum as string,\n\t\tcreateDate as timestamp,\n\t\tcreatedBy as string,\n\t\tlastUpdateDateTime as timestamp,\n\t\tlastUpdatedBy as string,\n\t\tSourceCreateDateTime as timestamp,\n\t\tSourceLastUpdateDateTime as timestamp\n\t),\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tsaveOrder: 4,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\tidentifierType = IDentifierType,\n\t\tidentifierValue = SSN,\n\t\tsrcPersonPkey = SOURCE_KEY,\n\t\tsourceSystem = SOURCE_SYSTEM,\n\t\trow_status,\n\t\tbatch_id,\n\t\tcheck_sum = PERSONIDENT_CHECK_SUM,\n\t\tcreateDate = CreateDateTime,\n\t\tcreatedBy,\n\t\tlastUpdateDateTime = Lastupdatetime,\n\t\tlastUpdatedBy,\n\t\tSourceCreateDateTime = sourcecreatedateTime,\n\t\tSourceLastUpdateDateTime = sourcelastupdatedateTime\n\t)) ~> PersonIdentInsert\nupdated sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tidentifierType as string,\n\t\tidentifierValue as string,\n\t\tsrcPersonPkey as string,\n\t\tsourceSystem as string,\n\t\tsrcIdentPkey as string,\n\t\trow_status as string,\n\t\tbatch_id as string,\n\t\tcheck_sum as string,\n\t\tcreateDate as timestamp,\n\t\tcreatedBy as string,\n\t\tlastUpdateDateTime as timestamp,\n\t\tlastUpdatedBy as string,\n\t\tSourceCreateDateTime as timestamp,\n\t\tSourceLastUpdateDateTime as timestamp\n\t),\n\tdeletable:false,\n\tinsertable:false,\n\tupdateable:true,\n\tupsertable:false,\n\tkeys:['batch_id','srcPersonPkey'],\n\tskipKeyWrites:true,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tsaveOrder: 2,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\tidentifierType,\n\t\tidentifierValue,\n\t\tsrcPersonPkey,\n\t\tsourceSystem,\n\t\tsrcIdentPkey,\n\t\trow_status = derivedColumn2@Row_Status,\n\t\tbatch_id,\n\t\tcheck_sum,\n\t\tcreateDate,\n\t\tcreatedBy,\n\t\tlastUpdateDateTime,\n\t\tlastUpdatedBy,\n\t\tSourceCreateDateTime,\n\t\tSourceLastUpdateDateTime\n\t)) ~> PersonIdentUpdate\ninsert1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tidentifierType as string,\n\t\tidentifierValue as string,\n\t\tsrcPersonPkey as string,\n\t\tsourceSystem as string,\n\t\tsrcIdentPkey as string,\n\t\trow_status as string,\n\t\tbatch_id as string,\n\t\tcheck_sum as string,\n\t\tcreateDate as timestamp,\n\t\tcreatedBy as string,\n\t\tlastUpdateDateTime as timestamp,\n\t\tlastUpdatedBy as string,\n\t\tSourceCreateDateTime as timestamp,\n\t\tSourceLastUpdateDateTime as timestamp\n\t),\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tsaveOrder: 3,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\tidentifierType = IDentifierType,\n\t\tidentifierValue = SSN,\n\t\tsrcPersonPkey = SOURCE_KEY,\n\t\tsourceSystem = SOURCE_SYSTEM,\n\t\trow_status = RowStatus,\n\t\tbatch_id,\n\t\tcheck_sum = PERSONIDENT_CHECK_SUM,\n\t\tcreateDate = CreateDateTime,\n\t\tcreatedBy,\n\t\tlastUpdateDateTime = LastUpdated_Time,\n\t\tlastUpdatedBy,\n\t\tSourceCreateDateTime = sourcecreatedateTime,\n\t\tSourceLastUpdateDateTime = sourcelastUpdatedatetime\n\t)) ~> PersonIdentinsert1\nupdate1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tidentifierType as string,\n\t\tidentifierValue as string,\n\t\tsrcPersonPkey as string,\n\t\tsourceSystem as string,\n\t\tsrcIdentPkey as string,\n\t\trow_status as string,\n\t\tbatch_id as string,\n\t\tcheck_sum as string,\n\t\tcreateDate as timestamp,\n\t\tcreatedBy as string,\n\t\tlastUpdateDateTime as timestamp,\n\t\tlastUpdatedBy as string,\n\t\tSourceCreateDateTime as timestamp,\n\t\tSourceLastUpdateDateTime as timestamp\n\t),\n\tdeletable:false,\n\tinsertable:false,\n\tupdateable:true,\n\tupsertable:false,\n\tkeys:['row_status','srcPersonPkey'],\n\tskipKeyWrites:true,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tsaveOrder: 1,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\tidentifierType,\n\t\tidentifierValue,\n\t\tsrcPersonPkey,\n\t\tsourceSystem,\n\t\tsrcIdentPkey,\n\t\trow_status,\n\t\tbatch_id = batch_id1,\n\t\tcheck_sum,\n\t\tcreateDate,\n\t\tcreatedBy,\n\t\tlastUpdateDateTime,\n\t\tlastUpdatedBy,\n\t\tSourceCreateDateTime,\n\t\tSourceLastUpdateDateTime\n\t)) ~> PersonIdentupdt1"
+		}
+	}
+}

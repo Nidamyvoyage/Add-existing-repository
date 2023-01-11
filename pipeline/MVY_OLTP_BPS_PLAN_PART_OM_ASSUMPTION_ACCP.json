@@ -1,0 +1,917 @@
+{
+	"name": "MVY_OLTP_BPS_PLAN_PART_OM_ASSUMPTION_ACCP",
+	"properties": {
+		"activities": [
+			{
+				"name": "OnPrem_to_RAW",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "LOAD_ID_ASSIGN_NEW",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"additionalColumns": [
+							{
+								"name": "SWFDL_LOAD_ID",
+								"value": {
+									"value": "@variables('INGESTION_LOAD_ID')",
+									"type": "Expression"
+								}
+							},
+							{
+								"name": "SWFDL_CREATED_BY",
+								"value": {
+									"value": "'@{pipeline().Pipeline}'",
+									"type": "Expression"
+								}
+							},
+							{
+								"name": "SWFDL_CREATED_TS",
+								"value": {
+									"value": "'@{formatDateTime(pipeline().TriggerTime,'yyyy-MM-dd HH:mm:ss.fff')}'",
+									"type": "Expression"
+								}
+							},
+							{
+								"name": "SWFDL_UPDATED_BY",
+								"value": {
+									"value": "'@{pipeline().Pipeline}'",
+									"type": "Expression"
+								}
+							},
+							{
+								"name": "SWFDL_UPDATED_TS",
+								"value": {
+									"value": "'@{formatDateTime(pipeline().TriggerTime,'yyyy-MM-dd HH:mm:ss.fff')}'",
+									"type": "Expression"
+								}
+							}
+						],
+						"oracleReaderQuery": "SELECT * FROM BPS.PLAN_PART_OM_ASSUMPTION ",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "CLIENT_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CLIENT_ID",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PLAN_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PLAN_ID",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PARTICIPANT_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PARTICIPANT_ID",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "EE_MANDATORY_CONTRIB_DOLLAR",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "EE_MANDATORY_CONTRIB_DOLLAR",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "EE_MANDATORY_CONTRIB_RATE",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "EE_MANDATORY_CONTRIB_RATE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ER_MANDATORY_CONTRIB_DOLLAR",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "ER_MANDATORY_CONTRIB_DOLLAR",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ER_MANDATORY_CONTRIB_RATE",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "ER_MANDATORY_CONTRIB_RATE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ER_OTHER_CONTRIB_DOLLAR",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "ER_OTHER_CONTRIB_DOLLAR",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ER_OTHER_CONTRIB_RATE",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "ER_OTHER_CONTRIB_RATE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LAST_SAVED_DATE",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "LAST_SAVED_DATE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MATCH_TIER1_PAYLEVEL",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "MATCH_TIER1_PAYLEVEL",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MATCH_TIER1_RATE",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "MATCH_TIER1_RATE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MATCH_TIER2_PAYLEVEL",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "MATCH_TIER2_PAYLEVEL",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MATCH_TIER2_RATE",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "MATCH_TIER2_RATE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "AFTERTAX_CONTRIB_DOLLAR",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "AFTERTAX_CONTRIB_DOLLAR",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "AFTERTAX_CONTRIB_RATE",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "AFTERTAX_CONTRIB_RATE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PRETAX_AGE_CATCHUP_DOLLAR",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "PRETAX_AGE_CATCHUP_DOLLAR",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PRETAX_AGE_CATCHUP_RATE",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "PRETAX_AGE_CATCHUP_RATE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PRETAX_CONTRIB_DOLLAR",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "PRETAX_CONTRIB_DOLLAR",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PRETAX_CONTRIB_RATE",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "PRETAX_CONTRIB_RATE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ROTH_AGE_CATCHUP_DOLLAR",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "ROTH_AGE_CATCHUP_DOLLAR",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ROTH_AGE_CATCHUP_RATE",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "ROTH_AGE_CATCHUP_RATE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ROTH_CONTRIB_DOLLAR",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "ROTH_CONTRIB_DOLLAR",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ROTH_CONTRIB_RATE",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "ROTH_CONTRIB_RATE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PAYCHECK_FREQ",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "PAYCHECK_FREQ",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "REPLICATION_UPDATE_DATE",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "REPLICATION_UPDATE_DATE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "TERM_CONTRIB_RATE_RESET",
+									"type": "String"
+								},
+								"sink": {
+									"name": "TERM_CONTRIB_RATE_RESET",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PRETAX_SUPPL_DOLLAR",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "PRETAX_SUPPL_DOLLAR",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PRETAX_SUPPL_RATE",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "PRETAX_SUPPL_RATE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "AFTERTAX_SUPPL_DOLLAR",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "AFTERTAX_SUPPL_DOLLAR",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "AFTERTAX_SUPPL_RATE",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "AFTERTAX_SUPPL_RATE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ROTH_SUPPL_DOLLAR",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "ROTH_SUPPL_DOLLAR",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ROTH_SUPPL_RATE",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "ROTH_SUPPL_RATE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "INCLUDE_ER_MATCH_CONT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "INCLUDE_ER_MATCH_CONT",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_LOAD_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SWFDL_LOAD_ID",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_CREATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SWFDL_CREATED_BY",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_CREATED_TS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SWFDL_CREATED_TS",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_UPDATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SWFDL_UPDATED_BY",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_UPDATED_TS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SWFDL_UPDATED_TS",
+									"type": "String",
+									"physicalType": "String"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "OLTP",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ADLS_Tilda",
+						"type": "DatasetReference",
+						"parameters": {
+							"SRC_SYS_NM": "@pipeline().parameters.SRC_SYS_NM",
+							"SRC_SCHEMA_NM": "@pipeline().parameters.SRC_SCHEMA_NM",
+							"ENTITY_NAME": "@pipeline().parameters.ENTITY_NAME",
+							"SF_STAGE_ROOT_DIR": "@pipeline().parameters.SF_STAGE_ROOT_DIR"
+						}
+					}
+				]
+			},
+			{
+				"name": "RAW_FILE_LOAD_AUDIT",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "OnPrem_to_RAW",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": {
+							"value": "call MYVOYAGE_UNIT.MYVOYAGE_CLEANSED.PRC_MVY_ETL_RAW_AUDIT_LOAD(@{variables('INGESTION_LOAD_ID')},'@{pipeline().parameters.SRC_SYS_NM}','@{pipeline().parameters.ENTITY_NAME}','@{string(formatDateTime(activity('OnPrem_to_RAW').output.executionDetails[0].start,'yyyy-MM-dd HH:mm:ss.fff'))}','@{string(formatDateTime(addSeconds(activity('OnPrem_to_RAW').output.executionDetails[0].start,activity('OnPrem_to_RAW').output.copyDuration),'yyyy-MM-dd HH:mm:ss.fff'))}',@{activity('OnPrem_to_RAW').output.RowsRead},@{activity('OnPrem_to_RAW').output.rowsCopied})",
+							"type": "Expression"
+						},
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "LOAD_ID",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": true
+				}
+			},
+			{
+				"name": "RAW_FILE_TO_SF_STG_TABLE_LOAD",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "RAW_FILE_LOAD_AUDIT",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": "COPY INTO \"MYVOYAGE_STAGE\".\"OLTP_BPS_PLAN_PART_OM_ASSUMPTION_STG\" ( \"CLIENT_ID\",\"PLAN_ID\",\"PARTICIPANT_ID\",\"EE_MANDATORY_CONTRIB_DOLLAR\",\"EE_MANDATORY_CONTRIB_RATE\",\"ER_MANDATORY_CONTRIB_DOLLAR\",\"ER_MANDATORY_CONTRIB_RATE\",\"ER_OTHER_CONTRIB_DOLLAR\",\"ER_OTHER_CONTRIB_RATE\",\"LAST_SAVED_DATE\",\"MATCH_TIER1_PAYLEVEL\",\"MATCH_TIER1_RATE\",\"MATCH_TIER2_PAYLEVEL\",\"MATCH_TIER2_RATE\",\"AFTERTAX_CONTRIB_DOLLAR\",\"AFTERTAX_CONTRIB_RATE\",\"PRETAX_AGE_CATCHUP_DOLLAR\",\"PRETAX_AGE_CATCHUP_RATE\",\"PRETAX_CONTRIB_DOLLAR\",\"PRETAX_CONTRIB_RATE\",\"ROTH_AGE_CATCHUP_DOLLAR\",\"ROTH_AGE_CATCHUP_RATE\",\"ROTH_CONTRIB_DOLLAR\",\"ROTH_CONTRIB_RATE\",\"PAYCHECK_FREQ\",\"REPLICATION_UPDATE_DATE\",\"TERM_CONTRIB_RATE_RESET\",\"PRETAX_SUPPL_DOLLAR\",\"PRETAX_SUPPL_RATE\",\"AFTERTAX_SUPPL_DOLLAR\",\"AFTERTAX_SUPPL_RATE\",\"ROTH_SUPPL_DOLLAR\",\"ROTH_SUPPL_RATE\",\"INCLUDE_ER_MATCH_CONT\",\"SWFDL_LOAD_ID\",\"SWFDL_CREATED_BY\",\"SWFDL_CREATED_TS\",\"SWFDL_UPDATED_BY\",\"SWFDL_UPDATED_TS\") FROM (select $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29, $30, $31, $32, $33, $34, $35, $36, $37, $38, $39 from @MYVOYAGE_STAGE.EXT_STAGE_ADF_VESSTZUC1UNITEDM001/OLTP/BPS/OLTP_BPS_PLAN_PART_OM_ASSUMPTION.csv (file_format => 'MYVOYAGE_CLEANSED.MVYCSVFMT_HDROFF_TILDE')) FORCE = TRUE LOAD_UNCERTAIN_FILES = TRUE ON_ERROR = ABORT_STATEMENT;",
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "SNOWFLAKE_MYVOYAGE_STAGE",
+						"type": "DatasetReference",
+						"parameters": {
+							"STG_TABLE_NAME": "@concat(pipeline().parameters.SRC_SYS_NM,'_',pipeline().parameters.SRC_SCHEMA_NM,'_',pipeline().parameters.ENTITY_NAME)",
+							"STG_SCHEMA_NAME": "MYVOYAGE_STAGE"
+						}
+					}
+				}
+			},
+			{
+				"name": "SF_STG_TABLE_LOAD_AUDIT",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "RAW_FILE_TO_SF_STG_TABLE_LOAD",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": {
+							"value": "call MYVOYAGE_UNIT.MYVOYAGE_CLEANSED.PRC_MVY_ETL_STG_AUDIT_LOAD(@{variables('INGESTION_LOAD_ID')},'@{pipeline().parameters.SRC_SYS_NM}','@{pipeline().parameters.ENTITY_NAME}','@{string(formatDateTime(addSeconds(activity('OnPrem_to_RAW').output.executionDetails[0].start,activity('OnPrem_to_RAW').output.copyDuration),'yyyy-MM-dd HH:mm:ss.fff'))}','@{string(formatDateTime(addSeconds(addSeconds(activity('OnPrem_to_RAW').output.executionDetails[0].start,activity('OnPrem_to_RAW').output.copyDuration),int(string(mul(activity('RAW_FILE_TO_SF_STG_TABLE_LOAD').output.billingReference.billableDuration[0].duration,3600)))),'yyyy-MM-dd HH:mm:ss.fff'))}',@{activity('RAW_FILE_TO_SF_STG_TABLE_LOAD').output.firstRow.rows_parsed},@{activity('RAW_FILE_TO_SF_STG_TABLE_LOAD').output.firstRow.rows_loaded})",
+							"type": "Expression"
+						},
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "SNOWFLAKE_MYVOYAGE_CLEANSED",
+						"type": "DatasetReference",
+						"parameters": {
+							"CLN_TABLE_NAME": "@concat(pipeline().parameters.SRC_SYS_NM,'_',pipeline().parameters.SRC_SCHEMA_NM,'_',pipeline().parameters.ENTITY_NAME,'_CLN')",
+							"CLN_SCHEMA_NAME": "MYVOYAGE_CLEANSED"
+						}
+					},
+					"firstRowOnly": true
+				}
+			},
+			{
+				"name": "STG_TO_CLN_LOAD",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "SF_STG_TABLE_LOAD_AUDIT",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": {
+							"value": "call MYVOYAGE_UNIT.MYVOYAGE_CLEANSED.PRC_MVY_ETL_STG_2_CLN_LOAD ('@{pipeline().parameters.SRC_SYS_NM}','@{pipeline().parameters.SRC_SCHEMA_NM}','@{pipeline().parameters.ENTITY_NAME}',@{variables('INGESTION_LOAD_ID')})",
+							"type": "Expression"
+						},
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "SNOWFLAKE_MYVOYAGE_CLEANSED",
+						"type": "DatasetReference",
+						"parameters": {
+							"CLN_TABLE_NAME": "@concat(pipeline().parameters.SRC_SYS_NM,'_',pipeline().parameters.SRC_SCHEMA_NM,'_',pipeline().parameters.ENTITY_NAME,'_STG')",
+							"CLN_SCHEMA_NAME": "MYVOYAGE_CLEANSED"
+						}
+					}
+				}
+			},
+			{
+				"name": "GetLoadID",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": {
+							"value": "call MYVOYAGE_CLEANSED.PRC_MVY_GET_LOADID('@{pipeline().parameters.ENTITY_NAME}','@{pipeline().parameters.SRC_SYS_NM}','@{pipeline().parameters.SRC_SCHEMA_NM}')",
+							"type": "Expression"
+						},
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "LOAD_ID",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": true
+				}
+			},
+			{
+				"name": "LOAD_ID_ASSIGN_NEW",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "GetLoadID",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "INGESTION_LOAD_ID",
+					"value": {
+						"value": "@string(activity('GetLoadID').output.firstRow.PRC_MVY_GET_LOADID)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Move_File_To_ADLS",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "STG_TO_CLN_LOAD",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SF_COMMON_STAGE",
+						"type": "DatasetReference",
+						"parameters": {
+							"SRC_SYS_NM": "@pipeline().parameters.SRC_SYS_NM",
+							"SRC_SCHEMA_NM": "@pipeline().parameters.SRC_SCHEMA_NM",
+							"ENTITY_NAME": "@pipeline().parameters.ENTITY_NAME",
+							"SF_STAGE_ROOT_DIR": "@pipeline().parameters.SF_STAGE_ROOT_DIR"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ADLS_ARCHIVE_FILE",
+						"type": "DatasetReference",
+						"parameters": {
+							"SRC_SYS_NM": "@pipeline().parameters.SRC_SYS_NM",
+							"SCHEMA_NM": "@pipeline().parameters.SRC_SCHEMA_NM",
+							"ENTITY_NM": "@pipeline().parameters.ENTITY_NAME",
+							"LOB": "@pipeline().parameters.LOB"
+						}
+					}
+				]
+			},
+			{
+				"name": "DeleteFile",
+				"type": "Delete",
+				"dependsOn": [
+					{
+						"activity": "Move_File_To_ADLS",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "SF_COMMON_STAGE",
+						"type": "DatasetReference",
+						"parameters": {
+							"SRC_SYS_NM": "@pipeline().parameters.SRC_SYS_NM",
+							"SRC_SCHEMA_NM": "@pipeline().parameters.SRC_SCHEMA_NM",
+							"ENTITY_NAME": "@pipeline().parameters.ENTITY_NAME",
+							"SF_STAGE_ROOT_DIR": "@pipeline().parameters.SF_STAGE_ROOT_DIR"
+						}
+					},
+					"logStorageSettings": {
+						"linkedServiceName": {
+							"referenceName": "AzureDataLakeStorage1",
+							"type": "LinkedServiceReference"
+						},
+						"path": "snowflakeextstaging/Archive/Retirement"
+					},
+					"enableLogging": true,
+					"storeSettings": {
+						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
+						"enablePartitionDiscovery": false
+					}
+				}
+			}
+		],
+		"parameters": {
+			"ENTITY_NAME": {
+				"type": "string",
+				"defaultValue": "PLAN_PART_OM_ASSUMPTION"
+			},
+			"SRC_SYS_NM": {
+				"type": "string",
+				"defaultValue": "OLTP"
+			},
+			"INGESTION_LOAD_TS": {
+				"type": "string",
+				"defaultValue": "9999-12-31"
+			},
+			"INGESTION_ETL_TYPE": {
+				"type": "string",
+				"defaultValue": "INCREMENTAL"
+			},
+			"SRC_SCHEMA_NM": {
+				"type": "string",
+				"defaultValue": "BPS"
+			},
+			"SF_STAGE_ROOT_DIR": {
+				"type": "string",
+				"defaultValue": "snowflakeextstaging"
+			},
+			"ADLS_LANDING_ROOT_DIR": {
+				"type": "string",
+				"defaultValue": "vesstzuc1unitedm001/landing"
+			},
+			"LOB": {
+				"type": "string",
+				"defaultValue": "rs"
+			},
+			"SNOWFLAKE_EXT_STAGE_DIR": {
+				"type": "string",
+				"defaultValue": "@MYVOYAGE_STAGE.EXT_STAGE_ADF_VESSTZUC1UNITEDM001"
+			}
+		},
+		"variables": {
+			"INGESTION_LOAD_ID": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "DataConsolidationR1/Others/728527"
+		},
+		"annotations": [],
+		"lastPublishTime": "2023-01-10T07:28:21Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,128 @@
+{
+	"name": "CODS_NULL_HANDLER",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "CODS_DELTA_STG",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "CODS_DELTA_STG",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "alterRow1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          SOURCE_KEY as string,",
+				"          PSEUDO_MDM_ID as string,",
+				"          SSN as string,",
+				"          DATE_OF_BIRTH as string,",
+				"          SALESFORCE_CONTACT_ID as string,",
+				"          SOURCE_SYSTEM as string,",
+				"          SOURCE_SYSTEM_UNDERLYING as string,",
+				"          AS_OF_DATE as string,",
+				"          PARTY_TYPE as string,",
+				"          TIN_TYPE as string,",
+				"          FULL_NAME as string,",
+				"          PREFIX_NAME as string,",
+				"          FIRST_NAME as string,",
+				"          MIDDLE_NAME as string,",
+				"          LAST_NAME as string,",
+				"          SUFFIX_NAME as string,",
+				"          GENDER as string,",
+				"          END_DATE as string,",
+				"          CHANGE_CODE as string,",
+				"          batch_id as string,",
+				"          createDateTime as timestamp,",
+				"          createdBy as string,",
+				"          lastUpdateDateTime as timestamp,",
+				"          lastUpdatedBy as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     query: 'select \\ncase when upper(TRIM(SOURCE_KEY))=\\'\\' then null else TRIM(SOURCE_KEY) end as SOURCE_KEY,\\ncase when upper(TRIM(PSEUDO_MDM_ID))=\\'\\' then null else TRIM(PSEUDO_MDM_ID) end as PSEUDO_MDM_ID,\\ncase when upper(TRIM(SSN))=\\'\\' then null else TRIM(SSN) end as SSN,\\ncase when TRIM(DATE_OF_BIRTH)=\\'\\' then null else TRIM(DATE_OF_BIRTH) end as DATE_OF_BIRTH,\\ncase when upper(TRIM(SALESFORCE_CONTACT_ID))=\\'\\' then null else TRIM(SALESFORCE_CONTACT_ID) end as SALESFORCE_CONTACT_ID,\\ncase when upper(TRIM(SOURCE_SYSTEM))=\\'\\' then null else TRIM(SOURCE_SYSTEM) end as SOURCE_SYSTEM,\\ncase when upper(TRIM(SOURCE_SYSTEM_UNDERLYING))=\\'\\' then null else TRIM(SOURCE_SYSTEM_UNDERLYING) end as SOURCE_SYSTEM_UNDERLYING,\\ncase when TRIM(AS_OF_DATE)=\\'\\' then null else TRIM(AS_OF_DATE) end as AS_OF_DATE,\\ncase when upper(TRIM(PARTY_TYPE))=\\'\\' then null else TRIM(PARTY_TYPE) end as PARTY_TYPE,\\ncase when upper(TRIM(TIN_TYPE))=\\'\\' then null else TRIM(TIN_TYPE) end as TIN_TYPE,\\ncase when upper(TRIM(FULL_NAME))=\\'\\' then null else TRIM(FULL_NAME) end as FULL_NAME,\\ncase when upper(TRIM(PREFIX_NAME))=\\'\\' then null else TRIM(PREFIX_NAME) end as PREFIX_NAME,\\ncase when upper(TRIM(FIRST_NAME))=\\'\\' then null else TRIM(FIRST_NAME) end as FIRST_NAME,\\ncase when upper(TRIM(MIDDLE_NAME))=\\'\\' then null else TRIM(MIDDLE_NAME) end as MIDDLE_NAME,\\ncase when upper(TRIM(LAST_NAME))=\\'\\' then null else TRIM(LAST_NAME) end as LAST_NAME,\\ncase when upper(TRIM(SUFFIX_NAME))=\\'\\' then null else TRIM(SUFFIX_NAME) end as SUFFIX_NAME,\\ncase when upper(TRIM(GENDER))=\\'\\' then null else TRIM(GENDER) end as GENDER,\\ncase when upper(TRIM(END_DATE))=\\'\\' then null else TRIM(END_DATE) end as END_DATE,\\ncase when upper(TRIM(CHANGE_CODE))=\\'\\' then null else TRIM(CHANGE_CODE) end as CHANGE_CODE,\\ncase when upper(TRIM(batch_id))=\\'\\' then null else TRIM(batch_id) end as batch_id,\\ncreateDateTime,\\ncreatedBy,\\nlastUpdateDateTime,\\nlastUpdatedBy\\nfrom [CMDM_STAGE].[RS_CODS_REPOS_PARTY_DELTA_STG]',",
+				"     format: 'query') ~> source1",
+				"source1 alterRow(updateIf(1==1)) ~> alterRow1",
+				"alterRow1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          SOURCE_KEY as string,",
+				"          PSEUDO_MDM_ID as string,",
+				"          SSN as string,",
+				"          DATE_OF_BIRTH as string,",
+				"          SALESFORCE_CONTACT_ID as string,",
+				"          SOURCE_SYSTEM as string,",
+				"          SOURCE_SYSTEM_UNDERLYING as string,",
+				"          AS_OF_DATE as string,",
+				"          PARTY_TYPE as string,",
+				"          TIN_TYPE as string,",
+				"          FULL_NAME as string,",
+				"          PREFIX_NAME as string,",
+				"          FIRST_NAME as string,",
+				"          MIDDLE_NAME as string,",
+				"          LAST_NAME as string,",
+				"          SUFFIX_NAME as string,",
+				"          GENDER as string,",
+				"          END_DATE as string,",
+				"          CHANGE_CODE as string,",
+				"          batch_id as string,",
+				"          createDateTime as timestamp,",
+				"          createdBy as string,",
+				"          lastUpdateDateTime as timestamp,",
+				"          lastUpdatedBy as string",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:false,",
+				"     updateable:true,",
+				"     upsertable:false,",
+				"     keys:['batch_id','SOURCE_KEY'],",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          SOURCE_KEY,",
+				"          PSEUDO_MDM_ID,",
+				"          SSN,",
+				"          DATE_OF_BIRTH,",
+				"          SALESFORCE_CONTACT_ID,",
+				"          SOURCE_SYSTEM,",
+				"          SOURCE_SYSTEM_UNDERLYING,",
+				"          AS_OF_DATE,",
+				"          PARTY_TYPE,",
+				"          TIN_TYPE,",
+				"          FULL_NAME,",
+				"          PREFIX_NAME,",
+				"          FIRST_NAME,",
+				"          MIDDLE_NAME,",
+				"          LAST_NAME,",
+				"          SUFFIX_NAME,",
+				"          GENDER,",
+				"          END_DATE,",
+				"          CHANGE_CODE,",
+				"          batch_id,",
+				"          createDateTime,",
+				"          createdBy,",
+				"          lastUpdateDateTime,",
+				"          lastUpdatedBy",
+				"     )) ~> sink1"
+			]
+		}
+	}
+}

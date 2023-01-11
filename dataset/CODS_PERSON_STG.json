@@ -1,0 +1,17 @@
+{
+	"name": "CODS_PERSON_STG",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "OracleCODS2",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "ODS_UUID",
+			"table": "MDM_PERSON_STG"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

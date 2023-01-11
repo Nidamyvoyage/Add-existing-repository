@@ -1,0 +1,276 @@
+{
+	"name": "Snowflake_IDPREPOS_PARTY_CLASS_SCHEME_VERSN",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "IDP_REPOS_SF_UNIT",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SnowflakeTable",
+		"schema": [
+			{
+				"name": "TXN_ID",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "TXN_TYPE_ID",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "TRIGGERED_BY_FEATR_ID",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "TXN_DT",
+				"type": "DATE",
+				"precision": 10,
+				"scale": 0
+			},
+			{
+				"name": "CLEARING_DT",
+				"type": "DATE",
+				"precision": 10,
+				"scale": 0
+			},
+			{
+				"name": "AS_OF_DT",
+				"type": "DATE",
+				"precision": 10,
+				"scale": 0
+			},
+			{
+				"name": "TXN_DESCR",
+				"type": "VARCHAR",
+				"precision": 160,
+				"scale": 0
+			},
+			{
+				"name": "TXN_PURP",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "TXN_GAIN_LOSS_REASON",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "TXN_RVSL_TYPE",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "SRC_TXN_IDENTIFIER",
+				"type": "VARCHAR",
+				"precision": 244,
+				"scale": 0
+			},
+			{
+				"name": "SRC_TXN_POSTING_NUM",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "SRC_TXN_FOLDER_ID",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "SRC_TXN_PARTY_ID",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "SRC_TXN_TYPE_SET_CD",
+				"type": "VARCHAR",
+				"precision": 18,
+				"scale": 0
+			},
+			{
+				"name": "SRC_TXN_TYPE_CD_L1",
+				"type": "VARCHAR",
+				"precision": 18,
+				"scale": 0
+			},
+			{
+				"name": "SRC_TXN_TYPE_CD_L2",
+				"type": "VARCHAR",
+				"precision": 18,
+				"scale": 0
+			},
+			{
+				"name": "SRC_TXN_TYPE_CD_L3",
+				"type": "VARCHAR",
+				"precision": 50,
+				"scale": 0
+			},
+			{
+				"name": "SRC_TXN_TYPE_CD_L4",
+				"type": "VARCHAR",
+				"precision": 18,
+				"scale": 0
+			},
+			{
+				"name": "SRC_TXN_TYPE_CD_L5",
+				"type": "VARCHAR",
+				"precision": 18,
+				"scale": 0
+			},
+			{
+				"name": "SRC_TXN_TYPE_CD_L6",
+				"type": "VARCHAR",
+				"precision": 18,
+				"scale": 0
+			},
+			{
+				"name": "SRC_TXN_TYPE_CD_L7",
+				"type": "VARCHAR",
+				"precision": 18,
+				"scale": 0
+			},
+			{
+				"name": "SIERRA_TXN_TYPE_CD",
+				"type": "VARCHAR",
+				"precision": 18,
+				"scale": 0
+			},
+			{
+				"name": "SIERRA_TXN_GROUP_CD",
+				"type": "VARCHAR",
+				"precision": 100,
+				"scale": 0
+			},
+			{
+				"name": "SRC",
+				"type": "VARCHAR",
+				"precision": 100,
+				"scale": 0
+			},
+			{
+				"name": "IN_KIND_TXN_IND",
+				"type": "VARCHAR",
+				"precision": 18,
+				"scale": 0
+			},
+			{
+				"name": "ROW_STATUS",
+				"type": "VARCHAR",
+				"precision": 1,
+				"scale": 0
+			},
+			{
+				"name": "RECORDED_START_DT",
+				"type": "DATE",
+				"precision": 10,
+				"scale": 0
+			},
+			{
+				"name": "RECORDED_END_DT",
+				"type": "DATE",
+				"precision": 10,
+				"scale": 0
+			},
+			{
+				"name": "BATCH_ID",
+				"type": "VARCHAR",
+				"precision": 10,
+				"scale": 0
+			},
+			{
+				"name": "CHECK_SUM",
+				"type": "VARCHAR",
+				"precision": 36,
+				"scale": 0
+			},
+			{
+				"name": "CREATED_DT",
+				"type": "DATE",
+				"precision": 10,
+				"scale": 0
+			},
+			{
+				"name": "CREATED_BY",
+				"type": "VARCHAR",
+				"precision": 50,
+				"scale": 0
+			},
+			{
+				"name": "LAST_UPDATED_DT",
+				"type": "DATE",
+				"precision": 10,
+				"scale": 0
+			},
+			{
+				"name": "LAST_UPDATED_BY",
+				"type": "VARCHAR",
+				"precision": 50,
+				"scale": 0
+			},
+			{
+				"name": "SUSPENSE_CTRL_NUM",
+				"type": "VARCHAR",
+				"precision": 50,
+				"scale": 0
+			},
+			{
+				"name": "TAX_WTHLDG_STATE_ID",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "SRC_TXN_ALT_POSTING_NUM",
+				"type": "VARCHAR",
+				"precision": 50,
+				"scale": 0
+			},
+			{
+				"name": "GROSS_AMT",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "NET_AMT",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "TRIGGERED_BY_TXN_ID",
+				"type": "NUMBER",
+				"precision": 22,
+				"scale": 0
+			},
+			{
+				"name": "ORIGNL_TXN_ID",
+				"type": "NUMBER",
+				"precision": 22,
+				"scale": 0
+			},
+			{
+				"name": "TXN_DIRECTN",
+				"type": "VARCHAR",
+				"precision": 72,
+				"scale": 0
+			},
+			{
+				"name": "LAST_EXTRACT_FROM_SRC_DT",
+				"type": "DATE",
+				"precision": 10,
+				"scale": 0
+			}
+		],
+		"typeProperties": {
+			"schema": "CORE",
+			"table": "PARTY_CLASS_SCHEME_VERSN"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

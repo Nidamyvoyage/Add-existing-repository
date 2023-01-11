@@ -1,0 +1,25 @@
+{
+	"name": "ADLS_IDPSTAGE_ACES_CASEPROFILE_F944XB_U300_C",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "idprepos_src_vesstzuc1unitedm001_stage",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "ACES_CASEPROFILE_F944XB_U300_C.csv",
+				"folderPath": "IDP_STAGE_EXTRACTS",
+				"fileSystem": "idprepos-poc"
+			},
+			"columnDelimiter": "|",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": ""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

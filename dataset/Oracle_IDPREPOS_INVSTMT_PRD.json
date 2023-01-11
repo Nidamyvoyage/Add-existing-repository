@@ -1,0 +1,17 @@
+{
+	"name": "Oracle_IDPREPOS_INVSTMT_PRD",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Oracle_CODS_Intg",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "IDP_REPOS",
+			"table": "INVSTMT_PRD"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

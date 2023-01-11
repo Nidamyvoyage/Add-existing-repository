@@ -1,0 +1,106 @@
+{
+	"name": "Ds_PersonAddress_TGT_Pqt",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "Testing",
+				"fileSystem": "mdm"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "addressType",
+				"type": "UTF8"
+			},
+			{
+				"name": "addressLine1",
+				"type": "UTF8"
+			},
+			{
+				"name": "addressLine2",
+				"type": "UTF8"
+			},
+			{
+				"name": "addressLine3",
+				"type": "UTF8"
+			},
+			{
+				"name": "cityName",
+				"type": "UTF8"
+			},
+			{
+				"name": "stateCD",
+				"type": "UTF8"
+			},
+			{
+				"name": "postalCode",
+				"type": "UTF8"
+			},
+			{
+				"name": "countryCD",
+				"type": "UTF8"
+			},
+			{
+				"name": "postalCode5",
+				"type": "UTF8"
+			},
+			{
+				"name": "srcPersonPkey",
+				"type": "UTF8"
+			},
+			{
+				"name": "sourceSystem",
+				"type": "UTF8"
+			},
+			{
+				"name": "row_status",
+				"type": "UTF8"
+			},
+			{
+				"name": "batch_id",
+				"type": "UTF8"
+			},
+			{
+				"name": "primaryFlag",
+				"type": "UTF8"
+			},
+			{
+				"name": "check_sum",
+				"type": "UTF8"
+			},
+			{
+				"name": "lastUpdateDateTime",
+				"type": "INT96"
+			},
+			{
+				"name": "lastUpdatedBy",
+				"type": "UTF8"
+			},
+			{
+				"name": "createDateTime",
+				"type": "INT96"
+			},
+			{
+				"name": "createdBy",
+				"type": "UTF8"
+			},
+			{
+				"name": "SourceLastUpdateDateTime",
+				"type": "UTF8"
+			},
+			{
+				"name": "SourceCreateDateTime",
+				"type": "UTF8"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

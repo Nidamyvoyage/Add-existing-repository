@@ -1,0 +1,17 @@
+{
+	"name": "sf_mask_emp",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "MyVoyageSnowflake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SnowflakeTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "MYVOYAGE_STAGE",
+			"table": "MYVOYAGE_EMP_MASK_tgt"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

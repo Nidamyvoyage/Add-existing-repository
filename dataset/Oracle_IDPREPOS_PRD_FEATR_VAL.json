@@ -1,0 +1,17 @@
+{
+	"name": "Oracle_IDPREPOS_PRD_FEATR_VAL",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Oracle_CODS_Intg",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "IDP_REPOS",
+			"table": "PRD_FEATR_VAL"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

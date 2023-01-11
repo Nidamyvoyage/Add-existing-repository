@@ -1,0 +1,16 @@
+{
+	"name": "Oracle_IDPStage",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "OracleIDPStage",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "DataConsolidationR1"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

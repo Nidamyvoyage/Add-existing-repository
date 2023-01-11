@@ -1,0 +1,119 @@
+{
+	"name": "MDM_ETL_AUDIT2",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "MyVoyageSnowflake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SnowflakeTable",
+		"schema": [
+			{
+				"name": "LOAD_ID",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "BATCH_NM",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "SRC_SYS_NM",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "ENTITY_SCHEMA_NM",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "ENTITY_NM",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "ENTITY_LOAD_STATUS",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "QUERY_STRING",
+				"type": "VARCHAR",
+				"precision": 0,
+				"scale": 0
+			},
+			{
+				"name": "SRC_RECORD_COUNT",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "TGT_RECORD_INS_COUNT",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "TGT_RECORD_DEL_COUNT",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "TGT_RECORD_UPD_COUNT",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "LOAD_START_TS",
+				"type": "TIMESTAMP_NTZ",
+				"precision": 29,
+				"scale": 9
+			},
+			{
+				"name": "LOAD_END_TS",
+				"type": "TIMESTAMP_NTZ",
+				"precision": 29,
+				"scale": 9
+			},
+			{
+				"name": "CREATED_BY",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "CREATED_TS",
+				"type": "TIMESTAMP_NTZ",
+				"precision": 29,
+				"scale": 9
+			},
+			{
+				"name": "UPDATED_BY",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "UPDATED_TS",
+				"type": "TIMESTAMP_NTZ",
+				"precision": 29,
+				"scale": 9
+			},
+			{
+				"name": "ERROR_MSG",
+				"type": "VARCHAR",
+				"precision": 0,
+				"scale": 0
+			}
+		],
+		"typeProperties": {
+			"schema": "MYVOYAGE_MDM",
+			"table": "MDM_ETL_AUDIT"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

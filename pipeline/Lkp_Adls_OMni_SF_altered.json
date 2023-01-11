@@ -1,0 +1,39 @@
+{
+	"name": "Lkp_Adls_OMni_SF_altered",
+	"properties": {
+		"activities": [
+			{
+				"name": "Lkp_ADLS_Omnidata_SF_copy1",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": "COPY INTO \"MYVOYAGE_STAGE\".\"MYVOYAGE_OMNI_VIPS_SF\" ( \"WS_EXT_PH_PLAN_NUM\",\"WS_EXT_PH_PART_NUM\",\"WS_EXT_PH_NAME\",\"WS_EXT_PH_PART_DIV_SUB\",\"WS_EXT_PH_BRTH_DATE\",\"WS_EXT_PH_PLENT_DATE\",\n\"WS_EXT_PH_ADDR_L1\",\"WS_EXT_PH_ADDR_L2\",\"WS_EXT_PH_ADDR_L3\",\"WS_EXT_PH_CITY\",\"WS_EXT_PH_STATE\",\"WS_EXT_PH_ZIP\",\"WS_EXT_PH_STAT\",\n\"WS_EXT_PH_TERM_DATE\",\"WS_EXT_PH_LAST_CNTRB_DATE\",\"WS_EXT_PH_STAT_REASON\",\"WS_EXT_PH_LOC_TAX_CODE\",\"WS_EXT_PH_ALT_STATE\",\n\"WS_EXT_PH_FIRST_CNTRB_DATE\",\"WS_EXT_PH_ATTAINED_AGE\",\"WS_EXT_PH_PF999_BAL\",\"WS_EXT_PH_PA999_BAL\",\"WS_EXT_PH_ADV_ACCT_IND\",\"WS_EXT_PH_OMNI_VERSION\",\"WS_EXT_PH_VRR_PL_STATUS\",\"WS_EXT_PH_VRR_PL_TERM\",\"WS_EXT_PH_CONV_PL_NUM\",\"WS_EXT_PH_CLIENT_ID\",\"WS_EXT_PH_SUB_CLIENT_ID\",\n\"WS_EXT_PH_SSO_CLIENT_ID\",\"WS_EXT_PH_CLIENT_STATUS\") FROM (select $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, \n$18, $19, $20, $21, $22, $23 ,$24, $25, $26, $27, $28, $29, $30, $31 from\n @MYVOYAGE_STAGE.EXT_STAGE_ADF_VESSTZUC1UNITEDM001/omni_adls_nw.csv\n )file_format => 'MYVOYAGE_CONFORM.MYCSVFMT_HDROFF' ;",
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "Ds_adls_omni_sf_copy1",
+						"type": "DatasetReference"
+					}
+				}
+			}
+		],
+		"folder": {
+			"name": "DataConsolidationR2/728952/Bin Folder"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-10-07T15:30:45Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

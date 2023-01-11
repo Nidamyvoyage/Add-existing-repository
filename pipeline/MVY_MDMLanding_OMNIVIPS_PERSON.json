@@ -1,0 +1,43 @@
+{
+	"name": "MVY_MDMLanding_OMNIVIPS_PERSON",
+	"properties": {
+		"activities": [
+			{
+				"name": "mdm_Vips_Landing_Common_Person",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[CMDM_STAGE].[Vips_Landing_person_Temp_par]",
+					"storedProcedureParameters": {
+						"i_batchid": {
+							"value": "701",
+							"type": "Int64"
+						},
+						"i_restart_step": {
+							"value": "1",
+							"type": "Int64"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase_MDMU3",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"folder": {
+			"name": "DataConsolidationR2/728950"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-11-15T14:50:34Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

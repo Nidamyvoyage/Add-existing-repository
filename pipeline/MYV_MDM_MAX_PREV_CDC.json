@@ -1,0 +1,39 @@
+{
+	"name": "MYV_MDM_MAX_PREV_CDC",
+	"properties": {
+		"activities": [
+			{
+				"name": "LKP_MDM_PREV_MAX",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": "call \"MYVOYAGE_MDM\".\"PREV_MDM_MAX\"();",
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "SnowflakeTable28_Prev",
+						"type": "DatasetReference"
+					}
+				}
+			}
+		],
+		"folder": {
+			"name": "DataConsolidationR2/729142/Test"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-08-29T19:25:27Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

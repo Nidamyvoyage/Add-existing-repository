@@ -1,0 +1,42 @@
+{
+	"name": "DF_SPLIT_LESS_COLUMN_copy1",
+	"properties": {
+		"folder": {
+			"name": "MDM"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "SFTP_TO_ADLS",
+						"type": "DatasetReference"
+					},
+					"name": "SFTPFILE"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "EXpectedColumns",
+						"type": "DatasetReference"
+					},
+					"name": "ExpectSink"
+				},
+				{
+					"dataset": {
+						"referenceName": "LessColumns",
+						"type": "DatasetReference"
+					},
+					"name": "LessColSink"
+				}
+			],
+			"transformations": [
+				{
+					"name": "ExpectedColm"
+				}
+			],
+			"script": "parameters{\n\theader as string ('WS_EXT_PH_PLAN_NUM|WS_EXT_PH_PART_NUM|WS_EXT_PH_NAME|WS_EXT_PH_PART_DIV_SUB|WS_EXT_PH_BRTH_DATE|WS_EXT_PH_PLENT_DATE|WS_EXT_PH_ADDR_L1|WS_EXT_PH_ADDR_L2|WS_EXT_PH_ADDR_L3|WS_EXT_PH_CITY|WS_EXT_PH_STATE|WS_EXT_PH_ZIP|WS_EXT_PH_STAT|WS_EXT_PH_TERM_DATE|WS_EXT_PH_LAST_CNTRB_DATE|WS_EXT_PH_STAT_REASON|WS_EXT_PH_LOC_TAX_CODE|WS_EXT_PH_ALT_STATE|WS_EXT_PH_FIRST_CNTRB_DATE|WS_EXT_PH_ATTAINED_AGE|WS_EXT_PH_PF999_BAL|WS_EXT_PH_PA999_BAL|WS_EXT_PH_ADV_ACCT_IND|WS_EXT_PH_OMNI_VERSION|WS_EXT_PH_VRR_PL_STATUS|WS_EXT_PH_VRR_PL_TERM|WS_EXT_PH_CONV_PL_NUM|WS_EXT_PH_CLIENT_ID|WS_EXT_PH_SUB_CLIENT_ID|WS_EXT_PH_SSO_CLIENT_ID|WS_EXT_PH_CLIENT_STATUS')\n}\nsource(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tmultiLineRow: true) ~> SFTPFILE\nSFTPFILE split(10<30,\n\t10>5,\n\tdisjoint: true) ~> ExpectedColm@(Expectedcol, lesscolLesscol)\nExpectedColm@Expectedcol sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tpartitionFileNames:['RS_OMNI_VIPS_DAILY_PART_HEADER1.csv'],\n\ttruncate: true,\n\tumask: 0022,\n\tpreCommands: [],\n\tpostCommands: [],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\theader: (['WS_EXT_PH_PLAN_NUM|WS_EXT_PH_PART_NUM|WS_EXT_PH_NAME|WS_EXT_PH_PART_DIV_SUB|WS_EXT_PH_BRTH_DATE|WS_EXT_PH_PLENT_DATE|WS_EXT_PH_ADDR_L1|WS_EXT_PH_ADDR_L2|WS_EXT_PH_ADDR_L3|WS_EXT_PH_CITY|WS_EXT_PH_STATE|WS_EXT_PH_ZIP|WS_EXT_PH_STAT|WS_EXT_PH_TERM_DATE|WS_EXT_PH_LAST_CNTRB_DATE|WS_EXT_PH_STAT_REASON|WS_EXT_PH_LOC_TAX_CODE|WS_EXT_PH_ALT_STATE|WS_EXT_PH_FIRST_CNTRB_DATE|WS_EXT_PH_ATTAINED_AGE|WS_EXT_PH_PF999_BAL|WS_EXT_PH_PA999_BAL|WS_EXT_PH_ADV_ACCT_IND|WS_EXT_PH_OMNI_VERSION|WS_EXT_PH_VRR_PL_STATUS|WS_EXT_PH_VRR_PL_TERM|WS_EXT_PH_CONV_PL_NUM|WS_EXT_PH_CLIENT_ID|WS_EXT_PH_SUB_CLIENT_ID|WS_EXT_PH_SSO_CLIENT_ID|WS_EXT_PH_CLIENT_STATUS|SWFDL_LOAD_ID|SWFDL_CREATED_BY|SWFDL_CREATED_TS|SWFDL_UPDATED_BY|SWFDL_UPDATED_TS']),\n\tpartitionBy('hash', 1)) ~> ExpectSink\nExpectedColm@lesscolLesscol sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tColumn_1 as string,\n\t\tColumn_2 as string,\n\t\tColumn_3 as string,\n\t\tColumn_4 as string,\n\t\tColumn_5 as string,\n\t\tColumn_6 as string,\n\t\tColumn_7 as string,\n\t\tColumn_8 as string,\n\t\tColumn_9 as string,\n\t\tColumn_10 as string,\n\t\tColumn_11 as string,\n\t\tColumn_12 as string,\n\t\tColumn_13 as string,\n\t\tColumn_14 as string,\n\t\tColumn_15 as string,\n\t\tColumn_16 as string,\n\t\tColumn_17 as string,\n\t\tColumn_18 as string,\n\t\tColumn_19 as string,\n\t\tColumn_20 as string,\n\t\tColumn_21 as string\n\t),\n\tpartitionFileNames:['RS_OMNI_VIPS_DAILY_PART_HEADER2.csv'],\n\ttruncate: true,\n\tumask: 0022,\n\tpreCommands: [],\n\tpostCommands: [],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\theader: (['WS_EXT_PH_PLAN_NUM|WS_EXT_PH_PART_NUM|WS_EXT_PH_NAME|WS_EXT_PH_PART_DIV_SUB|WS_EXT_PH_BRTH_DATE|WS_EXT_PH_PLENT_DATE|WS_EXT_PH_ADDR_L1|WS_EXT_PH_ADDR_L2|WS_EXT_PH_ADDR_L3|WS_EXT_PH_CITY|WS_EXT_PH_STATE|WS_EXT_PH_ZIP|WS_EXT_PH_STAT|WS_EXT_PH_TERM_DATE|WS_EXT_PH_LAST_CNTRB_DATE|WS_EXT_PH_STAT_REASON|WS_EXT_PH_LOC_TAX_CODE|WS_EXT_PH_ALT_STATE|WS_EXT_PH_FIRST_CNTRB_DATE|WS_EXT_PH_ATTAINED_AGE|WS_EXT_PH_PF999_BAL|WS_EXT_PH_PA999_BAL|WS_EXT_PH_ADV_ACCT_IND|WS_EXT_PH_OMNI_VERSION|WS_EXT_PH_VRR_PL_STATUS|WS_EXT_PH_VRR_PL_TERM|WS_EXT_PH_CONV_PL_NUM|WS_EXT_PH_CLIENT_ID|WS_EXT_PH_SUB_CLIENT_ID|WS_EXT_PH_SSO_CLIENT_ID|WS_EXT_PH_CLIENT_STATUS|SWFDL_LOAD_ID|SWFDL_CREATED_BY|SWFDL_CREATED_TS|SWFDL_UPDATED_BY|SWFDL_UPDATED_TS']),\n\tsaveOrder: 1,\n\tpartitionBy('hash', 1)) ~> LessColSink"
+		}
+	}
+}

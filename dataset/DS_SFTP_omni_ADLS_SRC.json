@@ -1,0 +1,24 @@
+{
+	"name": "DS_SFTP_omni_ADLS_SRC",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SFTPSterling",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "SftpLocation",
+				"fileName": "OMNI.VIPS.DAILY.PART.HEADER.EXTRACT.20211112",
+				"folderPath": "/FilesFromOmni_Dev"
+			},
+			"columnDelimiter": "|",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

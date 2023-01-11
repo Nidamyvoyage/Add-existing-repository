@@ -1,0 +1,283 @@
+{
+	"name": "REF_PERSON",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "MyVoyageSnowflake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SnowflakeTable",
+		"schema": [
+			{
+				"name": "GROUPID",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "MM_STATUS",
+				"type": "VARCHAR",
+				"precision": 16,
+				"scale": 0
+			},
+			{
+				"name": "MM_SCORE",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "T_LAST_USER_ID",
+				"type": "VARCHAR",
+				"precision": 50,
+				"scale": 0
+			},
+			{
+				"name": "T_CREATOR_ID",
+				"type": "VARCHAR",
+				"precision": 50,
+				"scale": 0
+			},
+			{
+				"name": "T_CREATION_DATE",
+				"type": "TIMESTAMP_NTZ",
+				"precision": 29,
+				"scale": 9
+			},
+			{
+				"name": "T_LAST_WRITE",
+				"type": "TIMESTAMP_NTZ",
+				"precision": 29,
+				"scale": 9
+			},
+			{
+				"name": "MDMPERSONID",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "ENTERPRISEID",
+				"type": "VARCHAR",
+				"precision": 32,
+				"scale": 0
+			},
+			{
+				"name": "PREFIX00",
+				"type": "VARCHAR",
+				"precision": 55,
+				"scale": 0
+			},
+			{
+				"name": "FIRSTNAME",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "MIDDLENAME",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "LASTNAME",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "FULLNAME",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "SUFFIX",
+				"type": "VARCHAR",
+				"precision": 55,
+				"scale": 0
+			},
+			{
+				"name": "GENDER",
+				"type": "VARCHAR",
+				"precision": 100,
+				"scale": 0
+			},
+			{
+				"name": "BIRTHDATE",
+				"type": "DATE",
+				"precision": 10,
+				"scale": 0
+			},
+			{
+				"name": "BIRTHPLACE",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "DEATHDATE",
+				"type": "DATE",
+				"precision": 10,
+				"scale": 0
+			},
+			{
+				"name": "SRCPERSONPKEY",
+				"type": "VARCHAR",
+				"precision": 55,
+				"scale": 0
+			},
+			{
+				"name": "SOURCESYSTEMINFO_SRCSYSTEM_",
+				"type": "VARCHAR",
+				"precision": 50,
+				"scale": 0
+			},
+			{
+				"name": "SOURCESYSTEMINFO_SRCCREATEDTTM",
+				"type": "TIMESTAMP_NTZ",
+				"precision": 29,
+				"scale": 9
+			},
+			{
+				"name": "SOURCESYSTEMINFO_SRCLASTUPDTDTTM",
+				"type": "TIMESTAMP_NTZ",
+				"precision": 29,
+				"scale": 9
+			},
+			{
+				"name": "SSN",
+				"type": "VARCHAR",
+				"precision": 9,
+				"scale": 0
+			},
+			{
+				"name": "ITIN",
+				"type": "VARCHAR",
+				"precision": 9,
+				"scale": 0
+			},
+			{
+				"name": "DRIVERLICENSE",
+				"type": "VARCHAR",
+				"precision": 55,
+				"scale": 0
+			},
+			{
+				"name": "PRIMARYEMAIL",
+				"type": "VARCHAR",
+				"precision": 64,
+				"scale": 0
+			},
+			{
+				"name": "PRIMARYPHONE",
+				"type": "VARCHAR",
+				"precision": 25,
+				"scale": 0
+			},
+			{
+				"name": "PRIMARYSTREETADDR",
+				"type": "VARCHAR",
+				"precision": 208,
+				"scale": 0
+			},
+			{
+				"name": "PRIMARYADDRLINE1",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "PRIMARYADDRLINE2",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "PRIMARYADDRLINE3",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "PRIMARYADDRCITY",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "PRIMARYADDRSTATECODE",
+				"type": "VARCHAR",
+				"precision": 50,
+				"scale": 0
+			},
+			{
+				"name": "PRIMARYADDRPOSTALCODE",
+				"type": "VARCHAR",
+				"precision": 50,
+				"scale": 0
+			},
+			{
+				"name": "PRIMARYCOUNTRYCODE",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "PRIMARYCOUNTYNAME",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "PRIMARYPOSTALCODE5",
+				"type": "VARCHAR",
+				"precision": 50,
+				"scale": 0
+			},
+			{
+				"name": "STATUS",
+				"type": "VARCHAR",
+				"precision": 10,
+				"scale": 0
+			},
+			{
+				"name": "ENDDATE",
+				"type": "DATE",
+				"precision": 10,
+				"scale": 0
+			},
+			{
+				"name": "MARITALSTATUS",
+				"type": "VARCHAR",
+				"precision": 100,
+				"scale": 0
+			},
+			{
+				"name": "PERSONFLAG",
+				"type": "VARCHAR",
+				"precision": 10,
+				"scale": 0
+			},
+			{
+				"name": "BATCHID",
+				"type": "VARCHAR",
+				"precision": 32,
+				"scale": 0
+			},
+			{
+				"name": "PROCESSNAME",
+				"type": "VARCHAR",
+				"precision": 0,
+				"scale": 0
+			},
+			{
+				"name": "REF_AS_OF_DATE",
+				"type": "TIMESTAMP_NTZ",
+				"precision": 29,
+				"scale": 9
+			},
+			{
+				"name": "CURRENT_FLAG",
+				"type": "VARCHAR",
+				"precision": 1,
+				"scale": 0
+			}
+		],
+		"typeProperties": {
+			"schema": "MYVOYAGE_REFERENCE",
+			"table": "EBX_MDM_PERSON"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

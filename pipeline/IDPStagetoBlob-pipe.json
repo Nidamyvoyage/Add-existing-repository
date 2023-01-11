@@ -1,0 +1,68 @@
+{
+	"name": "IDPStagetoBlob-pipe",
+	"properties": {
+		"description": "Loads the data from the table idp_stage.Omni_vips_daily_part_header to Blob storage\n",
+		"activities": [
+			{
+				"name": "IDPStagetoBlob",
+				"description": "Loads the data from the table idp_stage.Omni_vips_daily_part_header to Blob storage\n",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select count(*) as countoftable from IDP_STAGE.OMNI_VIPS_DAILY_PART_HEADER",
+						"partitionOption": "None",
+						"queryTimeout": "05:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "IDPStageOmniVips_Src",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "IDPStageOmniVips_Tgt",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "DataConsolidationR2/728952/Bin Folder"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-10-07T15:30:45Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

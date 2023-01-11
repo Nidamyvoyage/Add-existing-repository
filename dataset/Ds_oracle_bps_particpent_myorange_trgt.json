@@ -1,0 +1,64 @@
+{
+	"name": "Ds_oracle_bps_particpent_myorange_trgt",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_blob_vesstzuc1unitedm002",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "DataConsolidationR1"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "myorangeparticipenttrgt.CSV",
+				"container": "dataconsolidation"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "3661517d-40c6-07f1-e053-d22aac0a763b",
+				"type": "String"
+			},
+			{
+				"name": "MYVOYA1",
+				"type": "String"
+			},
+			{
+				"name": "PROTECTION",
+				"type": "String"
+			},
+			{
+				"name": "2016-06-29 06:47:52.0000000",
+				"type": "String"
+			},
+			{
+				"name": "MYVOYA4",
+				"type": "String"
+			},
+			{
+				"name": "2016-06-29 06:48:01.0000000",
+				"type": "String"
+			},
+			{
+				"name": "MYVOYA6",
+				"type": "String"
+			},
+			{
+				"name": "Prop_7",
+				"type": "String"
+			},
+			{
+				"name": "eyJpbnB1dCI6eyJwYXJ0aWFsVXBkYXRlIjpmYWxzZSwic2hvd0RyYXdlciI6dHJ1ZSwidm95YUxpZmVJbnN1cmFuY2UiOjAsImZpbmFsTWVkaWNhbEV4cGVuc2VzTXZjIjoxNTAwMCwibW9ydGdhZ2VCYWxhbmNlTXZjIjowLCJvdGhlckRlYnRNdmMiOjAsImNvbGxlZ2VGdW5kTXZjIjowLCJlc3RhdGVUcmFuc2ZlckNvc3RzTXZjIjowLCJjaGFyaXRhYmxlQ29udHJpYnV0aW9uc012YyI6MCwiZW1lcmdlbmN5RnVuZE12YyI6MCwibW9udGhseUluY29tZU5lZWRlZE12YyI6MCwieWVhcnNNb250aGx5SW5jb21lTXZjIjowLCJhbnRpY2lwYXRlZFJhdGVPZlJldHVybk12YyI6NiwiYW50aWNpcGF0ZWRJbmZsYXRpb25SYXRlTXZjIjoyLCJwcmVzZXJ2ZVByaW5jaXBhbE12YyI6ZmFsc2UsImN1cnJlbnRBc3NldHNNdmMiOjAsImN1cnJlbnRMaWZlSW5zdXJhbmNlTXZjIjowfSwib3V0cHV0Ijp7InJlc3VsdCI6InN1Y2Nlc3MiLCJjYXNoTmVlZHNBdERlYXRoIjoiMTUwMDAiLCJjYXNoRm9yU3Vydml2b3JzSW5jb21lIjoiMCIsInRvdGFsTmVlZGVkQXREZWF0aCI6IjE1MDAwIiwiY3VycmVudEFzc2V0cyI6IjAiLCJjdXJyZW50TGlmZUluc3VyYW5jZSI6IjAiLCJ0b3RhbEFzc2V0cyI6IjAiLCJhZGRpdGlvbmFsSW5zdXJhbmNlTmVlZGVkIjoiMTUwMDAiLCJzaG93UHJlc2VydmVQcmluY2lwYWwiOnRydWUsInByZXNlcnZlUHJpbmNpcGFsIjpmYWxzZSwic2hvd0NoYXJ0Ijp0cnVlLCJjb250ZW50IjpudWxsfSwiZGF0YVN0YXR1cyI6bnVsbCwiZGF0YVN0YXR1c01lc3NhZ2UiOm51bGwsImNtc2NvbnRlbnQiOm51bGx9",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

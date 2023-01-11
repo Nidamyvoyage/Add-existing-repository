@@ -1,0 +1,157 @@
+{
+	"name": "CODS_DELTA",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "MyVoyageSnowflake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SnowflakeTable",
+		"schema": [
+			{
+				"name": "SOURCE_KEY",
+				"type": "VARCHAR",
+				"precision": 36,
+				"scale": 0
+			},
+			{
+				"name": "PSEUDO_MDM_ID",
+				"type": "VARCHAR",
+				"precision": 36,
+				"scale": 0
+			},
+			{
+				"name": "SSN",
+				"type": "VARCHAR",
+				"precision": 9,
+				"scale": 0
+			},
+			{
+				"name": "DATE_OF_BIRTH",
+				"type": "DATE",
+				"precision": 10,
+				"scale": 0
+			},
+			{
+				"name": "SALESFORCE_CONTACT_ID",
+				"type": "VARCHAR",
+				"precision": 18,
+				"scale": 0
+			},
+			{
+				"name": "SOURCE_SYSTEM",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "SOURCE_SYSTEM_UNDERLYING",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "AS_OF_DATE",
+				"type": "DATE",
+				"precision": 10,
+				"scale": 0
+			},
+			{
+				"name": "PARTY_TYPE",
+				"type": "VARCHAR",
+				"precision": 20,
+				"scale": 0
+			},
+			{
+				"name": "TIN_TYPE",
+				"type": "VARCHAR",
+				"precision": 20,
+				"scale": 0
+			},
+			{
+				"name": "FULL_NAME",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "PREFIX_NAME",
+				"type": "VARCHAR",
+				"precision": 80,
+				"scale": 0
+			},
+			{
+				"name": "FIRST_NAME",
+				"type": "VARCHAR",
+				"precision": 80,
+				"scale": 0
+			},
+			{
+				"name": "MIDDLE_NAME",
+				"type": "VARCHAR",
+				"precision": 80,
+				"scale": 0
+			},
+			{
+				"name": "LAST_NAME",
+				"type": "VARCHAR",
+				"precision": 80,
+				"scale": 0
+			},
+			{
+				"name": "SUFFIX_NAME",
+				"type": "VARCHAR",
+				"precision": 80,
+				"scale": 0
+			},
+			{
+				"name": "GENDER",
+				"type": "VARCHAR",
+				"precision": 8,
+				"scale": 0
+			},
+			{
+				"name": "END_DATE",
+				"type": "DATE",
+				"precision": 10,
+				"scale": 0
+			},
+			{
+				"name": "CHANGE_CODE",
+				"type": "VARCHAR",
+				"precision": 10,
+				"scale": 0
+			},
+			{
+				"name": "SWFDL_LOAD_ID",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "SWFDL_CREATED_BY",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "SWFDL_CREATED_TS",
+				"type": "TIMESTAMP_NTZ",
+				"precision": 29,
+				"scale": 9
+			},
+			{
+				"name": "SWFDL_UPDATED_BY",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "SWFDL_UPDATED_TS",
+				"type": "TIMESTAMP_NTZ",
+				"precision": 29,
+				"scale": 9
+			}
+		],
+		"typeProperties": {
+			"schema": "MYVOYAGE_MDM",
+			"table": "RS_CODS_REPOS_PARTY_DELTA"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,22 @@
+{
+	"name": "ds_census_txt",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "DS_MDM"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "NRGUID_TEST_EB_CENSUS_20210730.txt",
+				"fileSystem": "1108mdm"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

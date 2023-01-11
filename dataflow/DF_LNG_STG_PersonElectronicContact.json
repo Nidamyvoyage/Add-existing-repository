@@ -1,0 +1,31 @@
+{
+	"name": "DF_LNG_STG_PersonElectronicContact",
+	"properties": {
+		"folder": {
+			"name": "MDM"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DS_Censen_Landing_SRC",
+						"type": "DatasetReference"
+					},
+					"name": "CENSUSEMPLOYEE"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DS_PersonElectronicContact_STG",
+						"type": "DatasetReference"
+					},
+					"name": "PersonElectronicContact"
+				}
+			],
+			"transformations": [],
+			"script": "source(output(\n\t\tcontactType as string,\n\t\tContactValue as string,\n\t\tContactChannel as string,\n\t\tsrcPersonPkey as string,\n\t\tsourceSystem as string,\n\t\tSrcContactPKey as string,\n\t\tStatus as string,\n\t\tPrimaryFlag as string,\n\t\tCreateDateTime as timestamp,\n\t\tcreatedBy as string,\n\t\tLastUpdateDateTime as timestamp,\n\t\tLastUpdatedBY as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'SELECT\\n\\'Personal\\' as contactType,\\nemail AS ContactValue,\\n\\'Phone\\' as ContactChannel,\\n\\'1001\\' as srcPersonPkey,\\n\\'SAVVI\\' as sourceSystem,\\nCONCAT(SSN,\\'|\\',DATE_OF_BIRTH) AS SrcContactPKey,\\n\\'A\\' AS Status,\\n\\'Y\\' AS PrimaryFlag,\\ncurrent_timestamp as CreateDateTime,\\n\\'User\\' as createdBy,\\ncurrent_timestamp as LastUpdateDateTime,\\n\\'User1\\' as LastUpdatedBY\\nFROM CMDM_STAGE.CENSUS_EMPLOYEE',\n\tformat: 'query') ~> CENSUSEMPLOYEE\nCENSUSEMPLOYEE sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tcontactType as string,\n\t\tcontactValue as string,\n\t\tcontactChannel as string,\n\t\tsrcPersonPkey as string,\n\t\tsourceSystem as string,\n\t\tsrcContactPkey as string,\n\t\tstatus as string,\n\t\tprimaryFlag as string,\n\t\tcreateDateTime as timestamp,\n\t\tcreatedBy as string,\n\t\tlastUpdateDateTime as timestamp,\n\t\tlastUpdatedBy as string\n\t),\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\tcontactType,\n\t\tcontactValue = ContactValue,\n\t\tcontactChannel = ContactChannel,\n\t\tsrcPersonPkey,\n\t\tsourceSystem,\n\t\tsourceSystem = SrcContactPKey,\n\t\tstatus = Status,\n\t\tprimaryFlag = PrimaryFlag,\n\t\tcreateDateTime = CreateDateTime,\n\t\tcreatedBy,\n\t\tlastUpdateDateTime = LastUpdateDateTime,\n\t\tlastUpdatedBy = LastUpdatedBY\n\t)) ~> PersonElectronicContact"
+		}
+	}
+}

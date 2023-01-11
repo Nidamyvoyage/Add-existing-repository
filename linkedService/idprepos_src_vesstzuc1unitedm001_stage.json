@@ -1,0 +1,19 @@
+{
+	"name": "idprepos_src_vesstzuc1unitedm001_stage",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://vesstzuc1unitedm001.dfs.core.windows.net/",
+			"credential": {
+				"referenceName": "credential_POC_IDPREPOS_Source",
+				"type": "CredentialReference"
+			}
+		},
+		"connectVia": {
+			"referenceName": "integrationRuntime-dstrwaac9246",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

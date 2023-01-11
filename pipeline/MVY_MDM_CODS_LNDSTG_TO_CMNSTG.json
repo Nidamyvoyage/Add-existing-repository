@@ -1,0 +1,48 @@
+{
+	"name": "MVY_MDM_CODS_LNDSTG_TO_CMNSTG",
+	"properties": {
+		"activities": [
+			{
+				"name": "MDMCODS_STG_TO_CMN_TBL",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderStoredProcedureName": "[CMDM_STAGE].[USP_RSCODS_MDMLANDING_TO_COMMON_TBL]",
+						"storedProcedureParameters": {
+							"i_batchid": {
+								"type": "Int64",
+								"value": "30"
+							},
+							"i_restart_step": {
+								"type": "Int64",
+								"value": "0"
+							}
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "MDM_CODS",
+						"type": "DatasetReference"
+					}
+				}
+			}
+		],
+		"folder": {
+			"name": "DataConsolidationR2/728950"
+		},
+		"annotations": [],
+		"lastPublishTime": "2023-01-04T14:53:27Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

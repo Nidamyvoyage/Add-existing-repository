@@ -1,0 +1,16 @@
+{
+	"name": "vesstzuc1unitedm002_SF_SAS",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobStorage",
+		"typeProperties": {
+			"sasUri": "https://vesstzuc1unitedm002.blob.core.windows.net/staging",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJmZGU0NWE4NS00YjE0LTQzNGUtYjI5Mi1mN2E2MGFjZjhhZTAiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "integrationRuntime-uuc1wshr9002",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

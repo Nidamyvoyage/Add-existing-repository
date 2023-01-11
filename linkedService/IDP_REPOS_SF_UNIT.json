@@ -1,0 +1,23 @@
+{
+	"name": "IDP_REPOS_SF_UNIT",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "Snowflake",
+		"typeProperties": {
+			"connectionString": "jdbc:snowflake://voyatest.central-us.privatelink.snowflakecomputing.com/?user=SID_ADF_IDPREPOS_UNIT&db=IDP_REPOS_UNIT&warehouse=WH_IDP_REPOS_WRITE&role=ROLE_IDP_REPOS_UNIT_DDLADMIN_ALL",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "N_4_MyVoyage_1",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "sid-adf-idprepos-sf-unit-password"
+			}
+		},
+		"connectVia": {
+			"referenceName": "integrationRuntime-dstrwaac9246",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

@@ -1,0 +1,158 @@
+{
+	"name": "FASTU_PARTY_STG",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SQL_FASTLAYER",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "PERSON_MDM_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "PARTY_TYPE",
+				"type": "varchar"
+			},
+			{
+				"name": "PREFIX",
+				"type": "varchar"
+			},
+			{
+				"name": "FIRST_NAME",
+				"type": "varchar"
+			},
+			{
+				"name": "MIDDLE_NAME",
+				"type": "varchar"
+			},
+			{
+				"name": "LAST_NAME",
+				"type": "varchar"
+			},
+			{
+				"name": "FULL_NAME",
+				"type": "varchar"
+			},
+			{
+				"name": "SUFFIX",
+				"type": "varchar"
+			},
+			{
+				"name": "GENDER",
+				"type": "varchar"
+			},
+			{
+				"name": "MARITAL_STATUS",
+				"type": "varchar"
+			},
+			{
+				"name": "BIRTH_DT",
+				"type": "varchar"
+			},
+			{
+				"name": "BIRTH_PLACE",
+				"type": "varchar"
+			},
+			{
+				"name": "DEATH_DT ",
+				"type": "varchar"
+			},
+			{
+				"name": "SSN",
+				"type": "varchar"
+			},
+			{
+				"name": "ITIN",
+				"type": "varchar"
+			},
+			{
+				"name": "DRIVER_LICENSE",
+				"type": "varchar"
+			},
+			{
+				"name": "PRIMARY_STREET_ADDR",
+				"type": "varchar"
+			},
+			{
+				"name": "PRIMARY_ADDR_LINE1",
+				"type": "varchar"
+			},
+			{
+				"name": "PRIMARY_ADDR_LINE2",
+				"type": "varchar"
+			},
+			{
+				"name": "PRIMARY_ADDR_LINE3",
+				"type": "varchar"
+			},
+			{
+				"name": "PRIMARY_ADDR_CITY",
+				"type": "varchar"
+			},
+			{
+				"name": "PRIMARY_ADDR_STATECODE",
+				"type": "varchar"
+			},
+			{
+				"name": "PRIMARY_ADDR_POSTALCODE",
+				"type": "varchar"
+			},
+			{
+				"name": "PRIMARY_COUNTRYCODE",
+				"type": "varchar"
+			},
+			{
+				"name": "PRIMARY_COUNTYNAME",
+				"type": "varchar"
+			},
+			{
+				"name": "PERSON_FLAG ",
+				"type": "varchar"
+			},
+			{
+				"name": "SRC_SYS_NAME",
+				"type": "varchar"
+			},
+			{
+				"name": "PERSON_CHECK_SUM",
+				"type": "varchar"
+			},
+			{
+				"name": "PARTY_CHECK_SUM",
+				"type": "varchar"
+			},
+			{
+				"name": "batch_id",
+				"type": "varchar"
+			},
+			{
+				"name": "createDateTime",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "createdBy",
+				"type": "varchar"
+			},
+			{
+				"name": "lastUpdateDateTime",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "lastUpdatedBy",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "PARTYACCT_STAGE",
+			"table": "EBX_MDM_PERSON_STG"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,74 @@
+{
+	"name": "PERSON_XREF_FAST",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Azure_SHIR_Cloned",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "FAST_ADLS/PERSONXREF",
+				"fileSystem": "mdm"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "SourceIdentifier",
+				"type": "UTF8"
+			},
+			{
+				"name": "SourceIdentifierType",
+				"type": "UTF8"
+			},
+			{
+				"name": "SourceSystem",
+				"type": "UTF8"
+			},
+			{
+				"name": "SSN",
+				"type": "UTF8"
+			},
+			{
+				"name": "DateOfBirth",
+				"type": "DATE"
+			},
+			{
+				"name": "MDM_ID",
+				"type": "UTF8"
+			},
+			{
+				"name": "PARTY_ID",
+				"type": "UTF8"
+			},
+			{
+				"name": "XREF_CHECK_SUM",
+				"type": "UTF8"
+			},
+			{
+				"name": "batch_id",
+				"type": "UTF8"
+			},
+			{
+				"name": "createDateTime",
+				"type": "UTF8"
+			},
+			{
+				"name": "createdBy",
+				"type": "UTF8"
+			},
+			{
+				"name": "lastUpdateDateTime",
+				"type": "UTF8"
+			},
+			{
+				"name": "lastUpdatedBy",
+				"type": "UTF8"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

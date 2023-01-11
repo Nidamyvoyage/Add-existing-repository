@@ -1,0 +1,17 @@
+{
+	"name": "AzureSqlTable5",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlServer_EBX",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "CMDM_STAGE",
+			"table": "OMNI_VIPS_DAILY_PART_HEADER_MDM"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,11 @@
+{
+	"name": "N_4_Salesforce_Health_1",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://n-4-salesforce-health-1.vault.azure.net"
+		}
+	}
+}

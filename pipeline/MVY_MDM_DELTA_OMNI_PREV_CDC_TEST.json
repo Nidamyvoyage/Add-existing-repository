@@ -1,0 +1,72 @@
+{
+	"name": "MVY_MDM_DELTA_OMNI_PREV_CDC_TEST",
+	"properties": {
+		"activities": [
+			{
+				"name": "LKP_MDM_DELTA",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": "call \"MYVOYAGE_MDM\".\"PRC_OMNI_VIPS_DELTA\"();",
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "OMNI_DELTA",
+						"type": "DatasetReference"
+					}
+				}
+			},
+			{
+				"name": "LKP_MDM_PREV",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "LKP_MDM_DELTA",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": "call \"MYVOYAGE_MDM\".\"PRC_OMNI_VIPS_PREV\"();",
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "OMNI_PREV",
+						"type": "DatasetReference"
+					}
+				}
+			}
+		],
+		"folder": {
+			"name": "DataConsolidationR2"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-09-12T20:08:25Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

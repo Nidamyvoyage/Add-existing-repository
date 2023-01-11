@@ -1,0 +1,854 @@
+{
+	"name": "CODS_ON_PREM_PERSON_SP",
+	"properties": {
+		"activities": [
+			{
+				"name": "PUBLISH2ADLS",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "select MDM_ID,SOURCE_SYSTEM,PREFIX,FIRSTNAME,MIDDLENAME,LASTNAME,SUFFIX,FULLNAME,GENDER,MARITALSTATUS,BIRTHDATE,SSN,PRIMARYEMAIL,PRIMARYPHONE,PRIMARYSTREETADDR,PRIMARYADDRLINE1,PRIMARYADDRLINE2,\nPRIMARYADDRLINE3,PRIMARYADDRCITY,PRIMARYADDRSTATECODE,PRIMARYADDRPOSTALCODE,PRIMARYCOUNTRYCODE,STATUS,ENDDATE,PERSONFLAG,BATCH_ID,CREATED_TS,CREATED_BY,UPDATED_TS,UPDATED_BY\nfrom (\nSELECT TRIM(ENTERPRISEID) AS MDM_ID,'MDM' AS SOURCE_SYSTEM,\nTRIM(PREFIX00) AS PREFIX  ,TRIM(FIRSTNAME) AS FIRSTNAME,TRIM(MIDDLENAME) AS MIDDLENAME,TRIM(LASTNAME) AS LASTNAME, TRIM(SUFFIX) AS SUFFIX ,TRIM(FULLNAME) AS FULLNAME, TRIM(GENDER) AS GENDER,\n  TRIM(MARITALSTATUS) AS MARITALSTATUS,CONVERT(varchar, BIRTHDATE, 112) AS BIRTHDATE,TRIM(SSN) AS SSN,TRIM(PRIMARYEMAIL) AS PRIMARYEMAIL,TRIM(PRIMARYPHONE) AS PRIMARYPHONE,\n  TRIM(PRIMARYSTREETADDR) AS PRIMARYSTREETADDR,TRIM(PRIMARYADDRLINE1) AS PRIMARYADDRLINE1,  TRIM(PRIMARYADDRLINE2) AS PRIMARYADDRLINE2 ,TRIM(PRIMARYADDRLINE3) AS PRIMARYADDRLINE3 ,\n  TRIM(PRIMARYADDRCITY) AS PRIMARYADDRCITY ,TRIM(PRIMARYADDRSTATECODE) AS PRIMARYADDRSTATECODE, TRIM(PRIMARYADDRPOSTALCODE) AS PRIMARYADDRPOSTALCODE ,\n  TRIM(PRIMARYCOUNTRYCODE) AS PRIMARYCOUNTRYCODE,TRIM(STATUS) AS STATUS,CONVERT(varchar, ENDDATE, 112) AS ENDDATE,TRIM(PERSONFLAG) AS PERSONFLAG,TRIM(BATCHID) AS BATCH_ID, GETDATE() as CREATED_TS, 'MDM_PERSON_BATCH_INS' AS CREATED_BY, GETDATE() AS UPDATED_TS, 'MDM_PERSON_BATCH_INS' AS UPDATED_BY\nFROM MDM_PUBLISH.EBX_MDM_PERSON WHERE MM_STATUS = 'GOLDEN' AND ISNULL(TRIM(ENTERPRISEID),'') <> '' AND ISNULL(TRIM(SSN),'') <> '' )t",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "MDM_ID",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "MDM_ID",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "SOURCE_SYSTEM",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "SOURCE_SYSTEM",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "PREFIX",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "PREFIX",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "FIRSTNAME",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "FIRSTNAME",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "MIDDLENAME",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "MIDDLENAME",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "LASTNAME",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "LASTNAME",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "SUFFIX",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "SUFFIX",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "FULLNAME",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "FULLNAME",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "GENDER",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "GENDER",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "MARITALSTATUS",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "MARITALSTATUS",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "BIRTHDATE",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "BIRTHDATE",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "SSN",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "SSN",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "PRIMARYEMAIL",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "PRIMARYEMAIL",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "PRIMARYPHONE",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "PRIMARYPHONE",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "PRIMARYSTREETADDR",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "PRIMARYSTREETADDR",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "PRIMARYADDRLINE1",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "PRIMARYADDRLINE1",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "PRIMARYADDRLINE2",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "PRIMARYADDRLINE2",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "PRIMARYADDRLINE3",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "PRIMARYADDRLINE3",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "PRIMARYADDRCITY",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "PRIMARYADDRCITY",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "PRIMARYADDRSTATECODE",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "PRIMARYADDRSTATECODE",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "PRIMARYADDRPOSTALCODE",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "PRIMARYADDRPOSTALCODE",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "PRIMARYCOUNTRYCODE",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "PRIMARYCOUNTRYCODE",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "STATUS",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "STATUS",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "ENDDATE",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "ENDDATE",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "PERSONFLAG",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "PERSONFLAG",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "BATCH_ID",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "BATCH_ID",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATED_TS",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								},
+								"sink": {
+									"name": "CREATED_TS",
+									"type": "DateTime",
+									"physicalType": "INT_96"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATED_BY",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "CREATED_BY",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "UPDATED_TS",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								},
+								"sink": {
+									"name": "UPDATED_TS",
+									"type": "DateTime",
+									"physicalType": "INT_96"
+								}
+							},
+							{
+								"source": {
+									"name": "UPDATED_BY",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "UPDATED_BY",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "PUBLISH_PERSON",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "PUBLISH_PERSON_ADLS",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "ADLS2CODS_MDM_PERSON",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "PUBLISH2ADLS",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "ParquetSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"wildcardFolderPath": "CODS_ONPREM/PUBLISH_PERSON",
+							"wildcardFileName": "*.parquet",
+							"enablePartitionDiscovery": false
+						}
+					},
+					"sink": {
+						"type": "OracleSink",
+						"writeBatchSize": 10000,
+						"preCopyScript": "delete from ODS_UUID.MDM_PERSON_STG where UPDATED_BY='MDM_PERSON_BATCH_INS'"
+					},
+					"enableStaging": false,
+					"enableSkipIncompatibleRow": true,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "MDM_ID",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "MDM_ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SOURCE_SYSTEM",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "SOURCE_SYSTEM",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PREFIX",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "PREFIX",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "FIRSTNAME",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "FIRSTNAME",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MIDDLENAME",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "MIDDLENAME",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LASTNAME",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "LASTNAME",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "FULLNAME",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "FULLNAME",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SUFFIX",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "SUFFIX",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "GENDER",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "GENDER",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BIRTHDATE",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "BIRTHDATE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SSN",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "SSN",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MARITALSTATUS",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "MARITALSTATUS",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PRIMARYEMAIL",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "PRIMARYEMAIL",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PRIMARYPHONE",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "PRIMARYPHONE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PRIMARYSTREETADDR",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "PRIMARYSTREETADDR",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PRIMARYADDRLINE1",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "PRIMARYADDRLINE1",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PRIMARYADDRLINE2",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "PRIMARYADDRLINE2",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PRIMARYADDRLINE3",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "PRIMARYADDRLINE3",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PRIMARYADDRCITY",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "PRIMARYADDRCITY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PRIMARYADDRSTATECODE",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "PRIMARYADDRSTATECODE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PRIMARYADDRPOSTALCODE",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "PRIMARYADDRPOSTALCODE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PRIMARYCOUNTRYCODE",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "PRIMARYCOUNTRYCODE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "STATUS",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "STATUS",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ENDDATE",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "ENDDATE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PERSONFLAG",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "PERSONFLAG",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BATCH_ID",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "BATCH_ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATED_TS",
+									"type": "DateTime",
+									"physicalType": "INT96"
+								},
+								"sink": {
+									"name": "CREATED_TS",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATED_BY",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "CREATED_BY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "UPDATED_TS",
+									"type": "DateTime",
+									"physicalType": "INT96"
+								},
+								"sink": {
+									"name": "UPDATED_TS",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "UPDATED_BY",
+									"type": "String",
+									"physicalType": "UTF8"
+								},
+								"sink": {
+									"name": "UPDATED_BY",
+									"type": "String"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "PUBLISH_PERSON_ADLS_SHIR",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "CODS_PERSON_STG",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "ADLS_DELETE",
+				"type": "Delete",
+				"dependsOn": [
+					{
+						"activity": "ADLS2CODS_MDM_PERSON",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "PUBLISH_PERSON_ADLS",
+						"type": "DatasetReference"
+					},
+					"enableLogging": false,
+					"storeSettings": {
+						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
+						"enablePartitionDiscovery": false
+					}
+				}
+			}
+		],
+		"variables": {
+			"return_msg": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "DataConsolidationR2/CODS - backwardCompatibility"
+		},
+		"annotations": [],
+		"lastPublishTime": "2023-01-05T18:34:27Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

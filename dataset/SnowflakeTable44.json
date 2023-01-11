@@ -1,0 +1,106 @@
+{
+	"name": "SnowflakeTable44",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "MyVoyageSnowflake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SnowflakeTable",
+		"schema": [
+			{
+				"name": "JOURNEY_ID",
+				"type": "NUMBER",
+				"precision": 18,
+				"scale": 0
+			},
+			{
+				"name": "JOURNEY_NAME",
+				"type": "VARCHAR",
+				"precision": 40,
+				"scale": 0
+			},
+			{
+				"name": "CREATED_BY",
+				"type": "VARCHAR",
+				"precision": 40,
+				"scale": 0
+			},
+			{
+				"name": "CREATED_DT",
+				"type": "DATE",
+				"precision": 10,
+				"scale": 0
+			},
+			{
+				"name": "LAST_UPDATED_BY",
+				"type": "VARCHAR",
+				"precision": 40,
+				"scale": 0
+			},
+			{
+				"name": "LAST_UPDATED_DT",
+				"type": "DATE",
+				"precision": 10,
+				"scale": 0
+			},
+			{
+				"name": "CURRENT_FLAG",
+				"type": "VARCHAR",
+				"precision": 1,
+				"scale": 0
+			},
+			{
+				"name": "EFFECTIVE_DATE",
+				"type": "DATE",
+				"precision": 10,
+				"scale": 0
+			},
+			{
+				"name": "EXPIRATION_DATE",
+				"type": "DATE",
+				"precision": 10,
+				"scale": 0
+			},
+			{
+				"name": "SWFDL_LOAD_ID",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "SWFDL_CREATED_BY",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "SWFDL_CREATED_TS",
+				"type": "TIMESTAMP_NTZ",
+				"precision": 29,
+				"scale": 9
+			},
+			{
+				"name": "SWFDL_UPDATED_BY",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "SWFDL_UPDATED_TS",
+				"type": "TIMESTAMP_NTZ",
+				"precision": 29,
+				"scale": 9
+			},
+			{
+				"name": "HASH_KEY",
+				"type": "NUMBER",
+				"precision": 22,
+				"scale": 0
+			}
+		],
+		"typeProperties": {
+			"schema": "MYVOYAGE_CLEANSED",
+			"table": "APPDB_DBO_JOURNEY_CLN"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

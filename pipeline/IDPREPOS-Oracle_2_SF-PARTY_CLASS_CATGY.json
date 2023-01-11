@@ -1,0 +1,248 @@
+{
+	"name": "IDPREPOS-Oracle_2_SF-PARTY_CLASS_CATGY",
+	"properties": {
+		"activities": [
+			{
+				"name": "Oracle2ADLS-PARTY_CLASS_CATGY",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "IDP_REPOS.PARTY_CLASS_CATGY"
+					},
+					{
+						"name": "Destination",
+						"value": "CORE.PARTY_CLASS_CATGY"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "SnowflakeSink",
+						"importSettings": {
+							"type": "SnowflakeImportCopyCommand",
+							"additionalCopyOptions": {
+								"ON_ERROR": "CONTINUE"
+							}
+						}
+					},
+					"enableStaging": true,
+					"stagingSettings": {
+						"linkedServiceName": {
+							"referenceName": "Snowflake_staging_container",
+							"type": "LinkedServiceReference"
+						},
+						"path": "idprepos-poc",
+						"enableCompression": true
+					},
+					"enableSkipIncompatibleRow": true,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "PARTY_CLASS_CATGY_ID",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "PARTY_CLASS_CATGY_ID",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "PARTY_CLASS_SCHEME_VERSN_ID",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "PARTY_CLASS_SCHEME_VERSN_ID",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "PARTY_CLASS_CATGY_CD",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PARTY_CLASS_CATGY_CD",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PARTY_CLASS_CATGY_NAME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PARTY_CLASS_CATGY_NAME",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PARTY_CLASS_CATGY_DESCR",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PARTY_CLASS_CATGY_DESCR",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "RANGE_FROM",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "RANGE_FROM",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "RANGE_TO",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "RANGE_TO",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "CLASS_CATGY_TYPE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CLASS_CATGY_TYPE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ROW_STATUS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ROW_STATUS",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "RECORDED_START_DT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "RECORDED_START_DT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "RECORDED_END_DT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "RECORDED_END_DT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "BATCH_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BATCH_ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CHECK_SUM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CHECK_SUM",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATED_DT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "CREATED_DT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CREATED_BY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LAST_UPDATED_DT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "LAST_UPDATED_DT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "LAST_UPDATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LAST_UPDATED_BY",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "Oracle_IDPREPOS_PARTY_CLASS_CATGY",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "Snowflake_IDPREPOS_PARTY_CLASS_CATGY",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "IDPREPOS_2_SF_Load"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-08-29T19:25:05Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

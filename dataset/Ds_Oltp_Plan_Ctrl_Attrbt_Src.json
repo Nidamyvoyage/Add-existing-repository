@@ -1,0 +1,20 @@
+{
+	"name": "Ds_Oltp_Plan_Ctrl_Attrbt_Src",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "OracleOLTP",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "DataConsolidationR1"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "BPS",
+			"table": "PLAN_CONTROL_ATTRIBUTE"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

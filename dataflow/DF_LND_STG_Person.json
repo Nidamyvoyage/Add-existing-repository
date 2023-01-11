@@ -1,0 +1,31 @@
+{
+	"name": "DF_LND_STG_Person",
+	"properties": {
+		"folder": {
+			"name": "MDM"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DS_Censen_Landing_SRC",
+						"type": "DatasetReference"
+					},
+					"name": "CENSUSEMPLOYEE"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DS_Person_STG",
+						"type": "DatasetReference"
+					},
+					"name": "Person"
+				}
+			],
+			"transformations": [],
+			"script": "source(output(\n\t\tFIRST_NAME as string,\n\t\tLAST_NAME as string,\n\t\tDATE_OF_BIRTH as date,\n\t\tSSN as string,\n\t\tEMAIL as string,\n\t\tMOBILE_PHONE as string,\n\t\tSrcPkey as string,\n\t\tsourceSystem as string,\n\t\tCreateDateTime as timestamp,\n\t\tcreatedBy as string,\n\t\tLastUpdateDateTime as timestamp,\n\t\tLastUpdatedBY as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'SELECT \\nFIRST_NAME,\\nLAST_NAME,\\nDATE_OF_BIRTH,\\nSSN,\\nEMAIL,\\nMOBILE_PHONE,\\nCONCAT(SSN, \\'|\\', DATE_OF_BIRTH) AS SrcPkey,\\n\\'SAVVI\\' as sourceSystem,\\ncurrent_timestamp as CreateDateTime,\\n\\'Test\\' as createdBy,\\ncurrent_timestamp as LastUpdateDateTime,\\n\\'Test12\\' as LastUpdatedBY\\nFROM CMDM_STAGE.CENSUS_EMPLOYEE',\n\tformat: 'query') ~> CENSUSEMPLOYEE\nCENSUSEMPLOYEE sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\tfirstName = FIRST_NAME,\n\t\tlastName = LAST_NAME,\n\t\tbirthdate = DATE_OF_BIRTH,\n\t\tsrcPkey = SrcPkey,\n\t\tsourceSystem,\n\t\tSSN,\n\t\tprimaryEmail = EMAIL,\n\t\tprimeryPhone = MOBILE_PHONE,\n\t\tcreateDateTime = CreateDateTime,\n\t\tcreatedBy,\n\t\tlastUpdateDateTime = LastUpdateDateTime,\n\t\tlastUpdatedBy = LastUpdatedBY\n\t)) ~> Person"
+		}
+	}
+}

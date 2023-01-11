@@ -1,0 +1,36 @@
+{
+	"name": "VENDOR_EVENT_MSG",
+	"properties": {
+		"activities": [
+			{
+				"name": "VENDOR_EVENT_MSG Insert",
+				"type": "Script",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"linkedServiceName": {
+					"referenceName": "MyVoyageSnowflake",
+					"type": "LinkedServiceReference"
+				},
+				"typeProperties": {
+					"scripts": [
+						{
+							"type": "NonQuery",
+							"text": "insert into MYVOYAGE_CLEANSED.EVENT_MSG_CLN2 select EVENT_MSG_ID,\n\t   MSG_VENDOR_NAME,\n\t   MSG_CONTENT:insight.template as MSG_CATGY,                                        \n\t   MSG_CONTENT:insight.user_id  as MSG_SRC_PARTY_ID,\n\t   'insight' as MSG_TYPE,\n\t   convert_timezone('UTC','EST',to_timestamp(MSG_CONTENT:insight.created_at)) AS MSG_CREATION_DT_TIME,\n\t   MSG_RECEPTION_DT_TIME,  \n       MSG_CONTENT:insight.title as MSG_TITLE,\n\t   MSG_CONTENT:insight.description as MSG_DESCR,\n       '' as MSG_ACTION_CALL,\n       '' as MSG_STATUS,\n       convert_timezone('UTC','EST',to_timestamp(MSG_CONTENT:insight.active_at)) AS MSG_PROCESSING_DT_TIME,\n       SWFDL_LOAD_ID,\n\t   SWFDL_UPDATED_TS,\n\t   SWFDL_CREATED_BY,\n\t   SWFDL_CREATED_TS,\n\t   SWFDL_UPDATED_BY from MYVOYAGE_STAGE.EVENT_MSG_RAW where EVENT_MSG_ID > (select NVL(max(EVENT_MSG_ID),0) from MYVOYAGE_CLEANSED.EVENT_MSG_CLN2);"
+						}
+					],
+					"scriptBlockExecutionTimeout": "02:00:00"
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2022-12-08T13:48:44Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

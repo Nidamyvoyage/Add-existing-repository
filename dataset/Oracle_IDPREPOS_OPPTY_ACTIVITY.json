@@ -1,0 +1,17 @@
+{
+	"name": "Oracle_IDPREPOS_OPPTY_ACTIVITY",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Oracle_CODS_Intg",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "IDP_REPOS",
+			"table": "OPPTY_ACTIVITY"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

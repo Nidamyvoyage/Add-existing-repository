@@ -1,0 +1,1259 @@
+{
+	"name": "MVY_OLTP_BPS_CLIENT",
+	"properties": {
+		"activities": [
+			{
+				"name": "OnPrem_to_RAW",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "LOAD_ID_ASSIGN_NEW",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"additionalColumns": [
+							{
+								"name": "SWFDL_LOAD_ID",
+								"value": {
+									"value": "@variables('INGESTION_LOAD_ID')",
+									"type": "Expression"
+								}
+							},
+							{
+								"name": "SWFDL_CREATED_BY",
+								"value": {
+									"value": "@{pipeline().Pipeline}",
+									"type": "Expression"
+								}
+							},
+							{
+								"name": "SWFDL_CREATED_TS",
+								"value": {
+									"value": "@{formatDateTime(pipeline().TriggerTime,'yyyy-MM-dd HH:mm:ss.fff')}",
+									"type": "Expression"
+								}
+							},
+							{
+								"name": "SWFDL_UPDATED_BY",
+								"value": {
+									"value": "@{pipeline().Pipeline}",
+									"type": "Expression"
+								}
+							},
+							{
+								"name": "SWFDL_UPDATED_TS",
+								"value": {
+									"value": "@{formatDateTime(pipeline().TriggerTime,'yyyy-MM-dd HH:mm:ss.fff')}",
+									"type": "Expression"
+								}
+							}
+						],
+						"oracleReaderQuery": "select * from BPS.CLIENT",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "CLIENT_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CLIENT_ID",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CLIENT_NAME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CLIENT_NAME",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CLIENT_UPLOAD_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CLIENT_UPLOAD_ID",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "DNIS_DIGITS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "DNIS_DIGITS",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PIN_REQUIRED_FLAG",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PIN_REQUIRED_FLAG",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PROCESS_FREQUENCY_FLAG",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PROCESS_FREQUENCY_FLAG",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "AUTHENTICATE_PROMPT_TEXT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "AUTHENTICATE_PROMPT_TEXT",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PIN_REMINDER_PROMPT_TEXT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PIN_REMINDER_PROMPT_TEXT",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PIN_CHANGE_PROMPT_TEXT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PIN_CHANGE_PROMPT_TEXT",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CHANGE_PLAN_PROMPT_TEXT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CHANGE_PLAN_PROMPT_TEXT",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "END_CALL_PROMPT_TEXT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "END_CALL_PROMPT_TEXT",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CSR_START_TIME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CSR_START_TIME",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CSR_END_TIME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CSR_END_TIME",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CSRS_OBSERVE_HOLIDAYS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CSRS_OBSERVE_HOLIDAYS",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BROKER_START_TIME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BROKER_START_TIME",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BROKER_END_TIME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BROKER_END_TIME",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BROKERS_OBSERVE_HOLIDAYS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BROKERS_OBSERVE_HOLIDAYS",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "UPLOAD_SWITCH_FLAG",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UPLOAD_SWITCH_FLAG",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "HELP_AVAILABLE_FLAG",
+									"type": "String"
+								},
+								"sink": {
+									"name": "HELP_AVAILABLE_FLAG",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CSR_TRANSFER_EXT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CSR_TRANSFER_EXT",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BROKER_TRANSFER_EXT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BROKER_TRANSFER_EXT",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CLIENT_TRANSACTION_SET_CUTOFF",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CLIENT_TRANSACTION_SET_CUTOFF",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WITHDRAWALS_EXCLUDE_SMAS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WITHDRAWALS_EXCLUDE_SMAS",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ALTERNATE_PIN_ALLOWED",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ALTERNATE_PIN_ALLOWED",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BROKER_TRANSFER_EXT_SITE1",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BROKER_TRANSFER_EXT_SITE1",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BROKER_TRANSFER_EXT_SITE2",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BROKER_TRANSFER_EXT_SITE2",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CLIENT_INTERNET_ALLOWED",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CLIENT_INTERNET_ALLOWED",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "TIME_ZONE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "TIME_ZONE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "OBSOLETE_CLIENT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "OBSOLETE_CLIENT",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CLIENT_URL",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CLIENT_URL",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "GENEX_URL",
+									"type": "String"
+								},
+								"sink": {
+									"name": "GENEX_URL",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CLIENT_SHORT_NAME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CLIENT_SHORT_NAME",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "REMOTE_URL_01",
+									"type": "String"
+								},
+								"sink": {
+									"name": "REMOTE_URL_01",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "FA_START_TIME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "FA_START_TIME",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "FA_END_TIME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "FA_END_TIME",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "FA_AVAILABLE_EXTENSION_Q",
+									"type": "String"
+								},
+								"sink": {
+									"name": "FA_AVAILABLE_EXTENSION_Q",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "FA_AVAILABLE_EXTENSION_M",
+									"type": "String"
+								},
+								"sink": {
+									"name": "FA_AVAILABLE_EXTENSION_M",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ADVICE_ALLOWED",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ADVICE_ALLOWED",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "FILE_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "FILE_ID",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SHARED_PLAN_INFO_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SHARED_PLAN_INFO_ID",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PIN_CHANGE_ALLOWED",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PIN_CHANGE_ALLOWED",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MAINFRAME_ENROLLMENT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MAINFRAME_ENROLLMENT",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "USE_ALTERNATE_FILE_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "USE_ALTERNATE_FILE_ID",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "REPLICATION_UPDATE_DATE",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "REPLICATION_UPDATE_DATE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "USE_NEW_PENDING_FUNCTION",
+									"type": "String"
+								},
+								"sink": {
+									"name": "USE_NEW_PENDING_FUNCTION",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SKIP_INIT_VRU_THANK_YOU",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SKIP_INIT_VRU_THANK_YOU",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "VRU_CALL_RETURN_ALLWD",
+									"type": "String"
+								},
+								"sink": {
+									"name": "VRU_CALL_RETURN_ALLWD",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "NON_DC_PLANS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "NON_DC_PLANS",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MARITAL_STATUS_RECEIVED",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MARITAL_STATUS_RECEIVED",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CLIENT_EXPANDED_HOURS_FORMAT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CLIENT_EXPANDED_HOURS_FORMAT",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "FOLLOWS_DAYLIGHT_SAVINGS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "FOLLOWS_DAYLIGHT_SAVINGS",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "UPDATE_ACH_BT_RECORDS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "UPDATE_ACH_BT_RECORDS",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LOCATION",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LOCATION",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "INSTALL_ASSUMED_INTEREST_RATE",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "INSTALL_ASSUMED_INTEREST_RATE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "OM_SKIP_SETUP_MOBILE_ALLOWED",
+									"type": "String"
+								},
+								"sink": {
+									"name": "OM_SKIP_SETUP_MOBILE_ALLOWED",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "NQ_ENROLL_SUMMARY_ALLOWED",
+									"type": "String"
+								},
+								"sink": {
+									"name": "NQ_ENROLL_SUMMARY_ALLOWED",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "INTENT_TO_RETIRE_ALLOWED",
+									"type": "String"
+								},
+								"sink": {
+									"name": "INTENT_TO_RETIRE_ALLOWED",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CLIENT_NQ_CONFIG",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CLIENT_NQ_CONFIG",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SAVE_WITH_DRS_ALLOWED",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SAVE_WITH_DRS_ALLOWED",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PLAN_CHOICE_FROM_VENDOR",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PLAN_CHOICE_FROM_VENDOR",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_LOAD_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SWFDL_LOAD_ID",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_CREATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SWFDL_CREATED_BY",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_CREATED_TS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SWFDL_CREATED_TS",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_UPDATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SWFDL_UPDATED_BY",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SWFDL_UPDATED_TS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SWFDL_UPDATED_TS",
+									"type": "String",
+									"physicalType": "String"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "OLTP",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SF_COMMON_STAGE",
+						"type": "DatasetReference",
+						"parameters": {
+							"SRC_SYS_NM": {
+								"value": "@pipeline().parameters.SRC_SYS_NM",
+								"type": "Expression"
+							},
+							"SRC_SCHEMA_NM": {
+								"value": "@pipeline().parameters.SRC_SCHEMA_NM",
+								"type": "Expression"
+							},
+							"ENTITY_NAME": {
+								"value": "@pipeline().parameters.ENTITY_NAME",
+								"type": "Expression"
+							},
+							"SF_STAGE_ROOT_DIR": {
+								"value": "@pipeline().parameters.SF_STAGE_ROOT_DIR",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			},
+			{
+				"name": "RAW_FILE_LOAD_AUDIT",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "OnPrem_to_RAW",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": {
+							"value": "call MYVOYAGE_UNIT.MYVOYAGE_CLEANSED.PRC_MVY_ETL_RAW_AUDIT_LOAD(@{variables('INGESTION_LOAD_ID')},'@{pipeline().parameters.SRC_SYS_NM}','@{pipeline().parameters.ENTITY_NAME}','@{string(formatDateTime(activity('OnPrem_to_RAW').output.executionDetails[0].start,'yyyy-MM-dd HH:mm:ss.fff'))}','@{string(formatDateTime(addSeconds(activity('OnPrem_to_RAW').output.executionDetails[0].start,activity('OnPrem_to_RAW').output.copyDuration),'yyyy-MM-dd HH:mm:ss.fff'))}',@{activity('OnPrem_to_RAW').output.RowsRead},@{activity('OnPrem_to_RAW').output.rowsCopied})",
+							"type": "Expression"
+						},
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "LOAD_ID",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": true
+				}
+			},
+			{
+				"name": "RAW_FILE_TO_SF_STG_TABLE_LOAD",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "RAW_FILE_LOAD_AUDIT",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": "COPY INTO \"MYVOYAGE_STAGE\".\"OLTP_BPS_CLIENT_STG\" ( \"CLIENT_ID\",\"CLIENT_NAME\",\"CLIENT_UPLOAD_ID\",\"DNIS_DIGITS\",\"PIN_REQUIRED_FLAG\",\"PROCESS_FREQUENCY_FLAG\",\"AUTHENTICATE_PROMPT_TEXT\",\"PIN_REMINDER_PROMPT_TEXT\",\"PIN_CHANGE_PROMPT_TEXT\",\"CHANGE_PLAN_PROMPT_TEXT\",\"END_CALL_PROMPT_TEXT\",\"CSR_START_TIME\",\"CSR_END_TIME\",\"CSRS_OBSERVE_HOLIDAYS\",\"BROKER_START_TIME\",\"BROKER_END_TIME\",\"BROKERS_OBSERVE_HOLIDAYS\",\"UPLOAD_SWITCH_FLAG\",\"HELP_AVAILABLE_FLAG\",\"CSR_TRANSFER_EXT\",\"BROKER_TRANSFER_EXT\",\"CLIENT_TRANSACTION_SET_CUTOFF\",\"WITHDRAWALS_EXCLUDE_SMAS\",\"ALTERNATE_PIN_ALLOWED\",\"BROKER_TRANSFER_EXT_SITE1\",\"BROKER_TRANSFER_EXT_SITE2\", \"CLIENT_INTERNET_ALLOWED\",\"TIME_ZONE\",\"OBSOLETE_CLIENT\",\"CLIENT_URL\",\"GENEX_URL\",\"CLIENT_SHORT_NAME\",\"REMOTE_URL_01\",\"FA_START_TIME\",\"FA_END_TIME\",\"FA_AVAILABLE_EXTENSION_Q\",\"FA_AVAILABLE_EXTENSION_M\",\"ADVICE_ALLOWED\",\"FILE_ID\",\"SHARED_PLAN_INFO_ID\",\"PIN_CHANGE_ALLOWED\",\"MAINFRAME_ENROLLMENT\",\"USE_ALTERNATE_FILE_ID\",\"REPLICATION_UPDATE_DATE\",\"USE_NEW_PENDING_FUNCTION\",\"SKIP_INIT_VRU_THANK_YOU\",\"VRU_CALL_RETURN_ALLWD\",\"NON_DC_PLANS\",\"MARITAL_STATUS_RECEIVED\",\"CLIENT_EXPANDED_HOURS_FORMAT\",\"FOLLOWS_DAYLIGHT_SAVINGS\",\"UPDATE_ACH_BT_RECORDS\",\"LOCATION\",\"INSTALL_ASSUMED_INTEREST_RATE\",\"OM_SKIP_SETUP_MOBILE_ALLOWED\",\"NQ_ENROLL_SUMMARY_ALLOWED\",\"INTENT_TO_RETIRE_ALLOWED\",\"CLIENT_NQ_CONFIG\",\"SAVE_WITH_DRS_ALLOWED\",\"PLAN_CHOICE_FROM_VENDOR\",\"SWFDL_LOAD_ID\",\"SWFDL_CREATED_BY\",\"SWFDL_CREATED_TS\",\"SWFDL_UPDATED_BY\",\"SWFDL_UPDATED_TS\") FROM (select $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13 ,$14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29, $30, $31, $32, $33, $34, $35, $36, $37, $38, $39, $40, $41, $42, $43, $44, $45, $46, $47, $48, $49, $50, $51, $52, $53, $54, $55, $56, $57, $58, $59, $60, $61, $62, $63, $64, $65 from @MYVOYAGE_STAGE.EXT_STAGE_ADF_VESSTZUC1UNITEDM001/OLTP/BPS/OLTP_BPS_CLIENT.csv (file_format => 'MYVOYAGE_CONFORM.MYCSVFMT_HDROFF')) FORCE = TRUE LOAD_UNCERTAIN_FILES = TRUE ON_ERROR = ABORT_STATEMENT;",
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "SNOWFLAKE_MYVOYAGE_STAGE",
+						"type": "DatasetReference",
+						"parameters": {
+							"STG_TABLE_NAME": {
+								"value": "@concat(pipeline().parameters.SRC_SYS_NM,'_',pipeline().parameters.SRC_SCHEMA_NM,'_',pipeline().parameters.ENTITY_NAME)",
+								"type": "Expression"
+							},
+							"STG_SCHEMA_NAME": "MYVOYAGE_STAGE"
+						}
+					}
+				}
+			},
+			{
+				"name": "SF_STG_TABLE_LOAD_AUDIT",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "RAW_FILE_TO_SF_STG_TABLE_LOAD",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": {
+							"value": "call MYVOYAGE_UNIT.MYVOYAGE_CLEANSED.PRC_MVY_ETL_STG_AUDIT_LOAD(@{variables('INGESTION_LOAD_ID')},'@{pipeline().parameters.SRC_SYS_NM}','@{pipeline().parameters.ENTITY_NAME}','@{string(formatDateTime(addSeconds(activity('OnPrem_to_RAW').output.executionDetails[0].start,activity('OnPrem_to_RAW').output.copyDuration),'yyyy-MM-dd HH:mm:ss.fff'))}','@{string(formatDateTime(addSeconds(addSeconds(activity('OnPrem_to_RAW').output.executionDetails[0].start,activity('OnPrem_to_RAW').output.copyDuration),int(string(mul(activity('RAW_FILE_TO_SF_STG_TABLE_LOAD').output.billingReference.billableDuration[0].duration,3600)))),'yyyy-MM-dd HH:mm:ss.fff'))}',@{activity('RAW_FILE_TO_SF_STG_TABLE_LOAD').output.firstRow.rows_parsed},@{activity('RAW_FILE_TO_SF_STG_TABLE_LOAD').output.firstRow.rows_loaded})",
+							"type": "Expression"
+						},
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "SNOWFLAKE_MYVOYAGE_CLEANSED",
+						"type": "DatasetReference",
+						"parameters": {
+							"CLN_TABLE_NAME": {
+								"value": "@concat(pipeline().parameters.SRC_SYS_NM,'_',pipeline().parameters.SRC_SCHEMA_NM,'_',pipeline().parameters.ENTITY_NAME,'_CLN')",
+								"type": "Expression"
+							},
+							"CLN_SCHEMA_NAME": "MYVOYAGE_CLEANSED"
+						}
+					},
+					"firstRowOnly": true
+				}
+			},
+			{
+				"name": "STG_TO_CLN_LOAD",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "SF_STG_TABLE_LOAD_AUDIT",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": {
+							"value": "call MYVOYAGE_UNIT.MYVOYAGE_CLEANSED.PRC_MVY_ETL_STG_2_CLN_LOAD ('@{pipeline().parameters.SRC_SYS_NM}','@{pipeline().parameters.SRC_SCHEMA_NM}','@{pipeline().parameters.ENTITY_NAME}',@{variables('INGESTION_LOAD_ID')})",
+							"type": "Expression"
+						},
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "SNOWFLAKE_MYVOYAGE_CLEANSED",
+						"type": "DatasetReference",
+						"parameters": {
+							"CLN_TABLE_NAME": {
+								"value": "@concat(pipeline().parameters.SRC_SYS_NM,'_',pipeline().parameters.SRC_SCHEMA_NM,'_',pipeline().parameters.ENTITY_NAME,'_STG')",
+								"type": "Expression"
+							},
+							"CLN_SCHEMA_NAME": "MYVOYAGE_CLEANSED"
+						}
+					}
+				}
+			},
+			{
+				"name": "GetLoadID",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": {
+							"value": "call MYVOYAGE_CLEANSED.PRC_MVY_GET_LOADID('@{pipeline().parameters.ENTITY_NAME}','@{pipeline().parameters.SRC_SYS_NM}','@{pipeline().parameters.SRC_SCHEMA_NM}')",
+							"type": "Expression"
+						},
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "LOAD_ID",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": true
+				}
+			},
+			{
+				"name": "LOAD_ID_ASSIGN_NEW",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "GetLoadID",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "INGESTION_LOAD_ID",
+					"value": {
+						"value": "@string(activity('GetLoadID').output.firstRow.PRC_MVY_GET_LOADID)",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Move_File_To_ADLS",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "STG_TO_CLN_LOAD",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SF_COMMON_STAGE",
+						"type": "DatasetReference",
+						"parameters": {
+							"SRC_SYS_NM": {
+								"value": "@pipeline().parameters.SRC_SYS_NM",
+								"type": "Expression"
+							},
+							"SRC_SCHEMA_NM": {
+								"value": "@pipeline().parameters.SRC_SCHEMA_NM",
+								"type": "Expression"
+							},
+							"ENTITY_NAME": {
+								"value": "@pipeline().parameters.ENTITY_NAME",
+								"type": "Expression"
+							},
+							"SF_STAGE_ROOT_DIR": {
+								"value": "@pipeline().parameters.SF_STAGE_ROOT_DIR",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ADLS_ARCHIVE_FILE",
+						"type": "DatasetReference",
+						"parameters": {
+							"SRC_SYS_NM": {
+								"value": "@pipeline().parameters.SRC_SYS_NM",
+								"type": "Expression"
+							},
+							"SCHEMA_NM": {
+								"value": "@pipeline().parameters.SRC_SCHEMA_NM",
+								"type": "Expression"
+							},
+							"ENTITY_NM": {
+								"value": "@pipeline().parameters.ENTITY_NAME",
+								"type": "Expression"
+							},
+							"LOB": {
+								"value": "@pipeline().parameters.LOB",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			},
+			{
+				"name": "DeleteFile",
+				"type": "Delete",
+				"dependsOn": [
+					{
+						"activity": "Move_File_To_ADLS",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "SF_COMMON_STAGE",
+						"type": "DatasetReference",
+						"parameters": {
+							"SRC_SYS_NM": {
+								"value": "@pipeline().parameters.SRC_SYS_NM",
+								"type": "Expression"
+							},
+							"SRC_SCHEMA_NM": {
+								"value": "@pipeline().parameters.SRC_SCHEMA_NM",
+								"type": "Expression"
+							},
+							"ENTITY_NAME": {
+								"value": "@pipeline().parameters.ENTITY_NAME",
+								"type": "Expression"
+							},
+							"SF_STAGE_ROOT_DIR": {
+								"value": "@pipeline().parameters.SF_STAGE_ROOT_DIR",
+								"type": "Expression"
+							}
+						}
+					},
+					"logStorageSettings": {
+						"linkedServiceName": {
+							"referenceName": "AzureDataLakeStorage1",
+							"type": "LinkedServiceReference"
+						},
+						"path": "snowflakeextstaging/Archive/Retirement"
+					},
+					"enableLogging": true,
+					"storeSettings": {
+						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
+						"enablePartitionDiscovery": false
+					}
+				}
+			}
+		],
+		"parameters": {
+			"ENTITY_NAME": {
+				"type": "string",
+				"defaultValue": "CLIENT"
+			},
+			"SRC_SYS_NM": {
+				"type": "string",
+				"defaultValue": "OLTP"
+			},
+			"INGESTION_LOAD_TS": {
+				"type": "string"
+			},
+			"INGESTION_ETL_TYPE": {
+				"type": "string",
+				"defaultValue": "INCREMENTAL"
+			},
+			"SRC_SCHEMA_NM": {
+				"type": "string",
+				"defaultValue": "BPS"
+			},
+			"SF_STAGE_ROOT_DIR": {
+				"type": "string",
+				"defaultValue": "snowflakeextstaging"
+			},
+			"ADLS_LANDING_ROOT_DIR": {
+				"type": "string",
+				"defaultValue": "vesstzuc1unitedm001/landing"
+			},
+			"LOB": {
+				"type": "string",
+				"defaultValue": "rs"
+			},
+			"SNOWFLAKE_EXT_STAGE_DIR": {
+				"type": "string",
+				"defaultValue": "@MYVOYAGE_STAGE.EXT_STAGE_ADF_VESSTZUC1UNITEDM001"
+			}
+		},
+		"variables": {
+			"INGESTION_LOAD_ID": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "DataConsolidationR1/OLTP"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-09-20T08:18:44Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

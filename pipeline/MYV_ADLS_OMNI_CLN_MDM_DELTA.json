@@ -1,0 +1,187 @@
+{
+	"name": "MYV_ADLS_OMNI_CLN_MDM_DELTA",
+	"properties": {
+		"activities": [
+			{
+				"name": "CheckLoadID",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": {
+							"value": "select  NVL(t1.LOAD_ID,'-1') as LOAD_ID from (\n(select max(LOAD_ID) as LOAD_ID from \"MYVOYAGE_UNIT\".\"MYVOYAGE_CLEANSED\".\"MVY_ETL_AUDIT\" \nwhere entity_nm='@{pipeline().parameters.ENTITY_NAME}' \nand src_sys_nm='@{pipeline().parameters.SRC_SYS_NM}' \nand (RAW_LOAD_END_TS is null or STG_LOAD_END_TS is null or CLN_LOAD_END_TS is null or MDM_LOAD_END_TS is null )) t1\nleft outer join  (select -1 as LOAD_ID from dual) t2\non t1.LOAD_ID=t2.LOAD_ID)",
+							"type": "Expression"
+						},
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "LOAD_ID",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": true
+				}
+			},
+			{
+				"name": "Assign_INGESTION_LOAD_ID",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "CheckLoadID",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@equals(string(activity('CheckLoadID').output.firstRow.LOAD_ID),'-1')",
+						"type": "Expression"
+					},
+					"ifFalseActivities": [
+						{
+							"name": "INGESTION_LOAD_ID_ASSIGN_OLD",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "INGESTION_LOAD_ID",
+								"value": {
+									"value": "@activity('CheckLoadID').output.firstRow.LOAD_ID",
+									"type": "Expression"
+								}
+							}
+						}
+					],
+					"ifTrueActivities": [
+						{
+							"name": "LOAD_ID_ASSIGN_NEW",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "NewLoadID",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "INGESTION_LOAD_ID",
+								"value": {
+									"value": "@string(activity('NewLoadID').output.firstRow.NEXTVAL)",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "NewLoadID",
+							"type": "Lookup",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "SnowflakeSource",
+									"query": "select MYVOYAGE_UNIT.MYVOYAGE_CLEANSED.CLEANSED_LOAD_ID_SEQ.nextval from dual;",
+									"exportSettings": {
+										"type": "SnowflakeExportCopyCommand"
+									}
+								},
+								"dataset": {
+									"referenceName": "SnowflakeTable9",
+									"type": "DatasetReference"
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "CLN_TO_MDM_LOAD",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "Assign_INGESTION_LOAD_ID",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": {
+							"value": "call MYVOYAGE_UNIT.MYVOYAGE_CLEANSED.SP_MVY_ETL_CLN_2_MDM_DELTA_LOAD (@{variables('INGESTION_LOAD_ID')},'@{pipeline().parameters.SRC_SYS_NM}','@{pipeline().parameters.SRC_SCHEMA_NM}','@{pipeline().parameters.ENTITY_NAME}')",
+							"type": "Expression"
+						},
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "SnowflakeTable39",
+						"type": "DatasetReference"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"ENTITY_NAME": {
+				"type": "string",
+				"defaultValue": "DAILY_PART_HEADER"
+			},
+			"SRC_SYS_NM": {
+				"type": "string",
+				"defaultValue": "RS_OMNI"
+			},
+			"INGESTION_LOAD_TS": {
+				"type": "string"
+			},
+			"INGESTION_ETL_TYPE": {
+				"type": "string",
+				"defaultValue": "FULL"
+			},
+			"SRC_SCHEMA_NM": {
+				"type": "string",
+				"defaultValue": "VIPS"
+			}
+		},
+		"variables": {
+			"INGESTION_LOAD_ID": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "Test_SF"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-08-29T19:25:25Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

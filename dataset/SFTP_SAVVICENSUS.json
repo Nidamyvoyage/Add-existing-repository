@@ -1,0 +1,29 @@
+{
+	"name": "SFTP_SAVVICENSUS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SFTPSterlingMax",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "SftpLocation",
+				"fileName": "INGWIN_666431_RS_CENSUS_20210928145148.txt",
+				"folderPath": "/CENSUSFilesFromSAVVI_Integ"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "\"INGWIN_666431\"|\"Dummy_130 Health Co. Pvt Ltd\"|\"666431\"|\"\"|\"RS\"|\"HEALTHWEALTH\"|\"Pinkie\"|\"Vivika-DP\"|\"A0JU\"|\"19621114\"|\"129825768\"|\"\"|\"\"|\"\"|\"Y\"",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

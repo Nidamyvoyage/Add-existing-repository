@@ -1,0 +1,43 @@
+{
+	"name": "SRC_CLN_MDM",
+	"properties": {
+		"activities": [
+			{
+				"name": "SRC_TO_CLN",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "P1",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "CLN_TO_MDM",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "SRC_TO_CLN",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "P2",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2022-12-27T09:24:35Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

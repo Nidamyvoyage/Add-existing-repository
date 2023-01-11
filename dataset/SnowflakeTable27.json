@@ -1,0 +1,17 @@
+{
+	"name": "SnowflakeTable27",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "MyVoyageSnowflake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SnowflakeTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "MYVOYAGE_MDM",
+			"table": "RS_OMNI_VIPS_DAILY_PART_HEADER_DELTA"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,145 @@
+{
+	"name": "SqlServerTable5",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SqlServerAppDB",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "PAYROLL_SRC_RAW_ID",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "FEIN",
+				"type": "varchar"
+			},
+			{
+				"name": "EMPLOYEE_SSN",
+				"type": "varchar"
+			},
+			{
+				"name": "DATE_OF_BIRTH",
+				"type": "varchar"
+			},
+			{
+				"name": "COMPANY_NAME",
+				"type": "varchar"
+			},
+			{
+				"name": "EMPLOYEE_FIRST_NAME",
+				"type": "varchar"
+			},
+			{
+				"name": "EMPLOYEE_MI",
+				"type": "char"
+			},
+			{
+				"name": "EMPLOYEE_LAST_NAME",
+				"type": "varchar"
+			},
+			{
+				"name": "EMPLOYEE_ADDR_LINE1",
+				"type": "varchar"
+			},
+			{
+				"name": "EMPLOYEE_ADDR_LINE2",
+				"type": "varchar"
+			},
+			{
+				"name": "EMPLOYEE_ADDR_CITY",
+				"type": "varchar"
+			},
+			{
+				"name": "EMPLOYEE_ADDR_STATE",
+				"type": "char"
+			},
+			{
+				"name": "EMPLOYEE_ADDR_ZIP",
+				"type": "varchar"
+			},
+			{
+				"name": "DEDUCTION_CD",
+				"type": "varchar"
+			},
+			{
+				"name": "DEDUCTION_NAME",
+				"type": "varchar"
+			},
+			{
+				"name": "PYMT_DT",
+				"type": "varchar"
+			},
+			{
+				"name": "LINE_AMT",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 2
+			},
+			{
+				"name": "GROSS_PAY",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 2
+			},
+			{
+				"name": "NET_PAY",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 2
+			},
+			{
+				"name": "PERIOD_PAY",
+				"type": "varchar"
+			},
+			{
+				"name": "PERIOD_PAY_START_DT",
+				"type": "varchar"
+			},
+			{
+				"name": "PERIOD_PAY_END_DT",
+				"type": "varchar"
+			},
+			{
+				"name": "PAY_GROUP",
+				"type": "varchar"
+			},
+			{
+				"name": "SRC_PARTY_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "SRC_ORG_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "CREATED_BY",
+				"type": "varchar"
+			},
+			{
+				"name": "CREATED_DT",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "LAST_UPDATED_BY",
+				"type": "varchar"
+			},
+			{
+				"name": "LAST_UPDATED_DT",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "PAYROLL_SRC_RAW"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

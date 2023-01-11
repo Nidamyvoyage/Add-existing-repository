@@ -1,0 +1,72 @@
+{
+	"name": "MVY_MDM_DELTA_EASEOMNI_PREV_CDC",
+	"properties": {
+		"activities": [
+			{
+				"name": "LKP_MDM_DELTA",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": "call \"MYVOYAGE_MDM\".\"SP_EASEOMNI_DELTA\"();",
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "EASEOMNI_DELTA",
+						"type": "DatasetReference"
+					}
+				}
+			},
+			{
+				"name": "LKP_MDM_PREV",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "LKP_MDM_DELTA",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": "call \"MYVOYAGE_MDM\".\"SP_EASEOMNI_PREV\"();",
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "EASEOMNI_PREV",
+						"type": "DatasetReference"
+					}
+				}
+			}
+		],
+		"folder": {
+			"name": "DataConsolidationR2"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-08-29T19:25:27Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

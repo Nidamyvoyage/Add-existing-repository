@@ -1,0 +1,163 @@
+{
+	"name": "EASEOMNI_PREV",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "MyVoyageSnowflake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SnowflakeTable",
+		"schema": [
+			{
+				"name": "SOURCE_SYSTEM",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "SOURCE_KEY",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "PART_ACCOUNT_STATUS",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "PART_TYPE",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "PART_TIN",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "PART_BIRTH_DATE",
+				"type": "DATE",
+				"precision": 10,
+				"scale": 0
+			},
+			{
+				"name": "PART_GENDER",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "PART_FULL_NAME",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "PART_FIRST_NAME",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "PART_LAST_NAME",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "PART_MIDDLE_NAME",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "PART_SUFFIX_TITLE",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "PART_ADDRESS_LINE1",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "PART_ADDRESS_LINE2",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "PART_ADDRESS_LINE3",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "PART_CITY",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "PART_STATE",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "PART_POSTAL_CODE",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "PART_COUNTRY",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "PART_EMAIL",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "PART_PHONE",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "PART_MARITAL_STATUS",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "CHECK_SUM",
+				"type": "VARCHAR",
+				"precision": 32,
+				"scale": 0
+			},
+			{
+				"name": "SWFDL_LOAD_ID",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "SWFDL_CREATED_BY",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "SWFDL_CREATED_TS",
+				"type": "TIMESTAMP_NTZ",
+				"precision": 29,
+				"scale": 9
+			},
+			{
+				"name": "SWFDL_UPDATED_BY",
+				"type": "VARCHAR",
+				"scale": 0
+			},
+			{
+				"name": "SWFDL_UPDATED_TS",
+				"type": "TIMESTAMP_NTZ",
+				"precision": 29,
+				"scale": 9
+			}
+		],
+		"typeProperties": {
+			"schema": "MYVOYAGE_MDM",
+			"table": "RS_SOMNI_DC_PARTICIPANT_DAILY_PREV"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

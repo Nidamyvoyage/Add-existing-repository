@@ -1,0 +1,22 @@
+{
+	"name": "AzureDatabricksNew",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureDatabricks",
+		"typeProperties": {
+			"domain": "https://adb-4863470714049105.5.azuredatabricks.net/",
+			"authentication": "MSI",
+			"workspaceResourceId": "/subscriptions/8964a126-b57d-470d-9f43-73df029f50ba/resourceGroups/VES-RG-zUC1-UNIT-EDP-001/providers/Microsoft.Databricks/workspaces/ves-zuc1-eshared-unit-dbk-001",
+			"credential": {
+				"referenceName": "credential1",
+				"type": "CredentialReference"
+			},
+			"existingClusterId": "0816-132059-bykw4kdz"
+		},
+		"connectVia": {
+			"referenceName": "integrationRuntime1",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

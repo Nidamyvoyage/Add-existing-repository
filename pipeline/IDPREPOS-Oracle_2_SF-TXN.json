@@ -1,0 +1,509 @@
+{
+	"name": "IDPREPOS-Oracle_2_SF-TXN",
+	"properties": {
+		"activities": [
+			{
+				"name": "Oracle2ADLS-TXN",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "SnowflakeSink",
+						"importSettings": {
+							"type": "SnowflakeImportCopyCommand",
+							"additionalCopyOptions": {
+								"ON_ERROR": "CONTINUE"
+							}
+						}
+					},
+					"enableStaging": true,
+					"stagingSettings": {
+						"linkedServiceName": {
+							"referenceName": "Snowflake_staging_container",
+							"type": "LinkedServiceReference"
+						},
+						"path": "idprepos-poc",
+						"enableCompression": true
+					},
+					"enableSkipIncompatibleRow": true,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "TXN_ID",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "TXN_ID",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "TXN_TYPE_ID",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "TXN_TYPE_ID",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "TRIGGERED_BY_FEATR_ID",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "TRIGGERED_BY_FEATR_ID",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "TXN_DT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "TXN_DT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "CLEARING_DT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "CLEARING_DT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "AS_OF_DT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "AS_OF_DT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "TXN_DESCR",
+									"type": "String"
+								},
+								"sink": {
+									"name": "TXN_DESCR",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "TXN_PURP",
+									"type": "String"
+								},
+								"sink": {
+									"name": "TXN_PURP",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "TXN_GAIN_LOSS_REASON",
+									"type": "String"
+								},
+								"sink": {
+									"name": "TXN_GAIN_LOSS_REASON",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "TXN_RVSL_TYPE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "TXN_RVSL_TYPE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SRC_TXN_IDENTIFIER",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SRC_TXN_IDENTIFIER",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SRC_TXN_POSTING_NUM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SRC_TXN_POSTING_NUM",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SRC_TXN_FOLDER_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SRC_TXN_FOLDER_ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SRC_TXN_PARTY_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SRC_TXN_PARTY_ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SRC_TXN_TYPE_SET_CD",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SRC_TXN_TYPE_SET_CD",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SRC_TXN_TYPE_CD_L1",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SRC_TXN_TYPE_CD_L1",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SRC_TXN_TYPE_CD_L2",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SRC_TXN_TYPE_CD_L2",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SRC_TXN_TYPE_CD_L3",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SRC_TXN_TYPE_CD_L3",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SRC_TXN_TYPE_CD_L4",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SRC_TXN_TYPE_CD_L4",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SRC_TXN_TYPE_CD_L5",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SRC_TXN_TYPE_CD_L5",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SRC_TXN_TYPE_CD_L6",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SRC_TXN_TYPE_CD_L6",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SRC_TXN_TYPE_CD_L7",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SRC_TXN_TYPE_CD_L7",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SIERRA_TXN_TYPE_CD",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SIERRA_TXN_TYPE_CD",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SIERRA_TXN_GROUP_CD",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SIERRA_TXN_GROUP_CD",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SRC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SRC",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "IN_KIND_TXN_IND",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IN_KIND_TXN_IND",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ROW_STATUS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ROW_STATUS",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "RECORDED_START_DT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "RECORDED_START_DT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "RECORDED_END_DT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "RECORDED_END_DT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "BATCH_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BATCH_ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CHECK_SUM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CHECK_SUM",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATED_DT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "CREATED_DT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CREATED_BY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LAST_UPDATED_DT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "LAST_UPDATED_DT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "LAST_UPDATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LAST_UPDATED_BY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SUSPENSE_CTRL_NUM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SUSPENSE_CTRL_NUM",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "TAX_WTHLDG_STATE_ID",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "TAX_WTHLDG_STATE_ID",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "SRC_TXN_ALT_POSTING_NUM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SRC_TXN_ALT_POSTING_NUM",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "GROSS_AMT",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "GROSS_AMT",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "NET_AMT",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "NET_AMT",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "TRIGGERED_BY_TXN_ID",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "TRIGGERED_BY_TXN_ID",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "ORIGNL_TXN_ID",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "ORIGNL_TXN_ID",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "TXN_DIRECTN",
+									"type": "String"
+								},
+								"sink": {
+									"name": "TXN_DIRECTN",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LAST_EXTRACT_FROM_SRC_DT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "LAST_EXTRACT_FROM_SRC_DT",
+									"type": "DateTime"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "Oracle_IDPREPOS_TXN",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "Snowflake_IDPREPOS_TXN",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "IDPREPOS_2_SF_Load"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-08-29T19:25:17Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

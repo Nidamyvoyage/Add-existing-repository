@@ -1,0 +1,66 @@
+{
+	"name": "Ds_Oltp_Plan_Ctrl_Attrbt_SF_Src",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_dfs_vesstzuc1unitedm001",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "oracletrgtFW.txt",
+				"folderPath": "Digital",
+				"fileSystem": "sfstaging"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "CLIENT_ID",
+				"type": "String"
+			},
+			{
+				"name": "PLAN_ID",
+				"type": "String"
+			},
+			{
+				"name": "CONTROL_TYPE",
+				"type": "String"
+			},
+			{
+				"name": "ATTRIBUTE_NAME",
+				"type": "String"
+			},
+			{
+				"name": "ATTRIBUTE_VALUE",
+				"type": "String"
+			},
+			{
+				"name": "SOURCE",
+				"type": "String"
+			},
+			{
+				"name": "CREATED_TS",
+				"type": "String"
+			},
+			{
+				"name": "CREATED_BY",
+				"type": "String"
+			},
+			{
+				"name": "UPDATED_TS",
+				"type": "String"
+			},
+			{
+				"name": "UPDATED_BY",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

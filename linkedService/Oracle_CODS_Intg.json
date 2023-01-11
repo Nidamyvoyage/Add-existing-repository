@@ -1,0 +1,24 @@
+{
+	"name": "Oracle_CODS_Intg",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "This linked service is to connect to Customer Integ ODS database for one time load into Snowflake.",
+		"annotations": [],
+		"type": "Oracle",
+		"typeProperties": {
+			"connectionString": "host=codsi.unit.apptoapp.net;port=50001;serviceName=codsi_Srvc.oracle.db;user id=SA202487",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "N_4_MyVoyage_1",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "SA202487-codsi-password"
+			}
+		},
+		"connectVia": {
+			"referenceName": "integrationRuntime-dstrwaac9246",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

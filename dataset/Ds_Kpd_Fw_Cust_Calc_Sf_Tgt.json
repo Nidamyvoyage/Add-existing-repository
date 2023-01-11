@@ -1,0 +1,78 @@
+{
+	"name": "Ds_Kpd_Fw_Cust_Calc_Sf_Tgt",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "MyVoyageSnowflake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SnowflakeTable",
+		"schema": [
+			{
+				"name": "CUSTOMER_PROFILE_ID",
+				"type": "VARCHAR",
+				"precision": 36,
+				"scale": 0
+			},
+			{
+				"name": "CLIENT_ID",
+				"type": "VARCHAR",
+				"precision": 8,
+				"scale": 0
+			},
+			{
+				"name": "TYPE",
+				"type": "VARCHAR",
+				"precision": 20,
+				"scale": 0
+			},
+			{
+				"name": "CREATED_TS",
+				"type": "TIMESTAMP_NTZ",
+				"precision": 26,
+				"scale": 6
+			},
+			{
+				"name": "CREATED_BY",
+				"type": "VARCHAR",
+				"precision": 50,
+				"scale": 0
+			},
+			{
+				"name": "UPDATED_TS",
+				"type": "TIMESTAMP_NTZ",
+				"precision": 26,
+				"scale": 6
+			},
+			{
+				"name": "UPDATED_BY",
+				"type": "VARCHAR",
+				"precision": 50,
+				"scale": 0
+			},
+			{
+				"name": "DATA_CLOB",
+				"type": "VARCHAR",
+				"precision": 0,
+				"scale": 0
+			},
+			{
+				"name": "DATA",
+				"type": "VARCHAR",
+				"precision": 160,
+				"scale": 0
+			},
+			{
+				"name": "FW_VISITED_DATE",
+				"type": "TIMESTAMP_NTZ",
+				"precision": 26,
+				"scale": 6
+			}
+		],
+		"typeProperties": {
+			"schema": "MYVOYAGE_STAGE",
+			"table": "CUSTOMER_CALCULATIONS"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

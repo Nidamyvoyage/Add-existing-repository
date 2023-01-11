@@ -1,0 +1,38 @@
+{
+	"name": "dataflow_masking_code_azure_omni_data",
+	"properties": {
+		"folder": {
+			"name": "masking_code"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "Ds_ADLS_omni_sample",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "omni_adls_masking",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "AlterRow1"
+				},
+				{
+					"name": "Masking"
+				}
+			],
+			"script": "source(output(\n\t\tSOURCE_ID as string,\n\t\tWS_EXT_PH_PLAN_NUM as string,\n\t\tWS_EXT_PH_PART_NUM as string,\n\t\tWS_EXT_PH_NAME as string,\n\t\tWS_EXT_PH_PART_DIV_SUB as string,\n\t\tWS_EXT_PH_BRTH_DATE as string,\n\t\tWS_EXT_PH_PLENT_DATE as string,\n\t\tWS_EXT_PH_ADDR_L1 as string,\n\t\tWS_EXT_PH_ADDR_L2 as string,\n\t\tWS_EXT_PH_ADDR_L3 as string,\n\t\tWS_EXT_PH_CITY as string,\n\t\tWS_EXT_PH_STATE as string,\n\t\tWS_EXT_PH_ZIP as string,\n\t\tWS_EXT_PH_STAT as string,\n\t\tWS_EXT_PH_TERM_DATE as string,\n\t\tWS_EXT_PH_LAST_CNTRB_DATE as string,\n\t\tWS_EXT_PH_STAT_REASON as string,\n\t\tWS_EXT_PH_LOC_TAX_CODE as string,\n\t\tWS_EXT_PH_ALT_STATE as string,\n\t\tWS_EXT_PH_FIRST_CNTRB_DATE as string,\n\t\tWS_EXT_PH_ATTAINED_AGE as string,\n\t\tWS_EXT_PH_PF999_BAL as string,\n\t\tWS_EXT_PH_PA999_BAL as string,\n\t\tWS_EXT_PH_ADV_ACCT_IND as string,\n\t\tWS_EXT_PH_OMNI_VERSION as string,\n\t\tBATCH_ID as string,\n\t\tCHECK_SUM as string,\n\t\tCREATED_AT as string,\n\t\tCREATED_BY as string,\n\t\tCREATED_IN_SOURCE_AT as string,\n\t\tCREATED_IN_SOURCE_BY as string,\n\t\tCURRENT_ROW_INDICATOR as string,\n\t\tSOURCE_CMDB_ID as string,\n\t\tWS_EXT_PH_VRR_PL_STATUS as string,\n\t\tWS_EXT_PH_VRR_PL_TERM as string,\n\t\tWS_EXT_PH_CONV_PL_NUM as string,\n\t\tWS_EXT_PH_CLIENT_ID as string,\n\t\tWS_EXT_PH_SUB_CLIENT_ID as string,\n\t\tWS_EXT_PH_SSO_CLIENT_ID as string,\n\t\tWS_EXT_PH_CLIENT_STATUS as string,\n\t\tRAW_ETL_TYPE as string,\n\t\tRAW_LOAD_ID as string,\n\t\tORIGIN_ENTITY_NAME as string,\n\t\tSRC_SYS_NM as string,\n\t\tRAW_LOAD_TS as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> source1\nMasking alterRow(updateIf(true())) ~> AlterRow1\nsource1 derive(WS_EXT_PH_NAME = sha2(256,WS_EXT_PH_NAME),\n\t\tWS_EXT_PH_BRTH_DATE = sha2(256,WS_EXT_PH_BRTH_DATE)) ~> Masking\nAlterRow1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tumask: 0022,\n\tpreCommands: [],\n\tpostCommands: [],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> sink1"
+		}
+	}
+}

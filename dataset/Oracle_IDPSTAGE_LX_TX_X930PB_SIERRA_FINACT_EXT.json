@@ -1,0 +1,17 @@
+{
+	"name": "Oracle_IDPSTAGE_LX_TX_X930PB_SIERRA_FINACT_EXT",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Oracle_CODS_Intg",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "IDP_STAGE",
+			"table": "LX_TX_X930PB_SIERRA_FINACT_EXT"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

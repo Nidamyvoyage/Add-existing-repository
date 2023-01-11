@@ -1,0 +1,19 @@
+{
+	"name": "AzureSqlServer_MDMU",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=uuc1asql8001.database.windows.net;Initial Catalog=MDMU",
+			"credential": {
+				"referenceName": "credential1",
+				"type": "CredentialReference"
+			}
+		},
+		"connectVia": {
+			"referenceName": "integrationRuntime-dstrwaac9245",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

@@ -1,0 +1,13 @@
+{
+	"name": "CODS_PERSON_XREF2",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "OracleCODS2",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

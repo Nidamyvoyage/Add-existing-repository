@@ -1,0 +1,25 @@
+{
+	"name": "ADLS_IDPSTAGE_SUPER_OMNI_PLAN_DAILY",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "idprepos_src_vesstzuc1unitedm001_stage",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "SUPER_OMNI_PLAN_DAILY.csv",
+				"folderPath": "IDP_STAGE_EXTRACTS",
+				"fileSystem": "idprepos-poc"
+			},
+			"columnDelimiter": "|",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": ""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

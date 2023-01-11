@@ -1,0 +1,17 @@
+{
+	"name": "AzureSqlTable14",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlServer_MDMU",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "CMDM_STAGE",
+			"table": "RS_OMNI_VIPS_DAILY_PART_HEADER_DELTA_STG"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

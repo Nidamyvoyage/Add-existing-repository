@@ -1,0 +1,17 @@
+{
+	"name": "SnowflakeTable28_max",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "MyVoyageSnowflake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SnowflakeTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "MYVOYAGE_STAGE",
+			"table": "OMNI_VIPS_DAILY_PART_HEADER_MASKING_TEST_TGT"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

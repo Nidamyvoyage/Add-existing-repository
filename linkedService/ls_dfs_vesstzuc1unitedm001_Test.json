@@ -1,0 +1,26 @@
+{
+	"name": "ls_dfs_vesstzuc1unitedm001_Test",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "dynamic paramters testing ",
+		"parameters": {
+			"LS_ADF_URL": {
+				"type": "string",
+				"defaultValue": "https://vesstzuc1unitedm001.dfs.core.windows.net"
+			}
+		},
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "@{linkedService().LS_ADF_URL}",
+			"credential": {
+				"referenceName": "credential1",
+				"type": "CredentialReference"
+			}
+		},
+		"connectVia": {
+			"referenceName": "integrationRuntime1",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

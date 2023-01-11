@@ -1,0 +1,17 @@
+{
+	"name": "Oracle_IDPSTAGE_PACE_ID_EXTRACT",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Oracle_CODS_Intg",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "IDP_STAGE",
+			"table": "PACE_ID_EXTRACT"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

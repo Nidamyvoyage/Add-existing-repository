@@ -1,0 +1,61 @@
+{
+	"name": "DF_LNG_CMN_PersonIdentifier_Max",
+	"properties": {
+		"folder": {
+			"name": "MDM/MAX"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DS_EB_MAX_DGTAL_PERSN_INFO_FULL",
+						"type": "DatasetReference"
+					},
+					"name": "EBMAXDGTALPERSNINFOFULL"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_Person_Omin_VIPS",
+						"type": "DatasetReference"
+					},
+					"name": "Person"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_EB_MAX_DGTAL_PERSN_INFO_FULL",
+						"type": "DatasetReference"
+					},
+					"name": "RefEBX"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DS_Person_Omin_VIPS",
+						"type": "DatasetReference"
+					},
+					"name": "PersonIdentifier"
+				}
+			],
+			"transformations": [
+				{
+					"name": "JNSrcKey"
+				},
+				{
+					"name": "DerivedColumn1"
+				},
+				{
+					"name": "Aggregate1"
+				},
+				{
+					"name": "Filter1"
+				},
+				{
+					"name": "Join1"
+				}
+			],
+			"script": "source(output(\n\t\tPERSON_TECHID as string,\n\t\tSRC as string,\n\t\tSSN as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'SELECT \\nDISTINCT PERSON_TECHID,\\nSRC,\\nSSN\\nFROM CMDM_STAGE.EB_MAX_DGTAL_PERSN_INFO_FULL WHERE\\nGBP_NUMBER IN\\n(\\'2262886-9\\',\\'2253074-0\\',\\'2231855-6\\',\\'2229493-6\\',\\'2216237-8\\',\\'2262368-1\\',\\'2230282-2\\',\\'2235890-1\\',\\'2260166-7\\',\\'2234136-5\\',\\'2236461-7\\',\\n\\'2238240-1\\',\\'2231863-0\\',\\'2230192-4\\',\\'2236210-7\\',\\'2233054-0\\',\\'2235788-7\\',\\'2234801-8\\',\\'2234766-8\\',\\'2250555-8\\',\\'2231837-9\\',\\'2237988-8\\',\\n\\'2238108-3\\',\\'2230233-3\\',\\'2229827-2\\',\\'2230336-1\\',\\'2234228-0\\',\\'2234669-0\\',\\'2270992-3\\',\\'2230454-5\\',\\'2262399-4\\',\\'2217091-2\\',\\'2234908-7\\',\\n\\'2250124-8\\',\\'2234885-1\\',\\'2217920-9\\',\\'2235105-7\\',\\'2262003-8\\',\\'2250330-2\\',\\'2238808-8\\',\\'2234955-6\\',\\'2238572-2\\',\\'2234109-8\\',\\'2260184-2\\',\\n\\'2262577-0\\',\\'2262363-0\\',\\'2253588-5\\',\\'2234502-3\\',\\'2260658-8\\',\\'2237151-9\\',\\'2237573-0\\',\\'2260244-2\\',\\'2262545-8\\',\\'2234642-5\\',\\'2234010-7\\',\\n\\'2234544-0\\',\\'2262945-6\\',\\'2238124-0\\',\\'2238034-9\\',\\'2234929-3\\',\\'2238183-5\\',\\'2234556-9\\',\\'2260137-9\\',\\'2262334-6\\',\\'2233364-1\\',\\'2235150-6\\',\\n\\'2237072-7\\',\\'2260925-5\\',\\'2231167-3\\',\\'2238673-4\\',\\'2205588-9\\',\\'2235963-8\\',\\'2260059-0\\',\\'2234299-5\\',\\'2234935-7\\',\\'2235722-0\\',\\'2277122-5\\',\\n\\'2277009-2\\',\\'2260609-8\\',\\'2237413-3\\',\\'2235596-7\\',\\'2260628-5\\',\\'2239779-2\\',\\'2260071-3\\',\\'2239148-4\\',\\'2239778-8\\',\\'2234276-1\\',\\n\\'2262173-2\\',\\'2234861-7\\',\\'2262192-5\\',\\'2262382-6\\',\\'2260188-9\\',\\'2260657-9\\',\\'2239837-0\\',\\'2260150-0\\',\\'2260182-6\\',\\'2262121-0\\',\\'2260692-0\\',\\n\\'2260624-8\\',\\'2214827-6\\',\\'2239817-0\\',\\'2239037-8\\',\\'2262519-0\\',\\'2262804-4\\',\\'2261134-1\\',\\'2262653-9\\',\\'2237866-6\\',\\'2260843-9\\') and ROW_STATUS=\\'A\\'',\n\tformat: 'query') ~> EBMAXDGTALPERSNINFOFULL\nsource(output(\n\t\tsrcPkey as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'SELECT srcPkey FROM CMDM_STAGE.Person WHERE sourceSystem=\\'EB-MAX\\'',\n\tformat: 'query') ~> Person\nsource(output(\n\t\tPERSON_TECHID as string,\n\t\tSRC as string,\n\t\tSSN as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'SELECT \\nDISTINCT PERSON_TECHID,\\nSRC,\\nSSN\\nFROM CMDM_STAGE.EB_MAX_DGTAL_PERSN_INFO_FULL WHERE\\nGBP_NUMBER IN\\n(\\'2262886-9\\',\\'2253074-0\\',\\'2231855-6\\',\\'2229493-6\\',\\'2216237-8\\',\\'2262368-1\\',\\'2230282-2\\',\\'2235890-1\\',\\'2260166-7\\',\\'2234136-5\\',\\'2236461-7\\',\\n\\'2238240-1\\',\\'2231863-0\\',\\'2230192-4\\',\\'2236210-7\\',\\'2233054-0\\',\\'2235788-7\\',\\'2234801-8\\',\\'2234766-8\\',\\'2250555-8\\',\\'2231837-9\\',\\'2237988-8\\',\\n\\'2238108-3\\',\\'2230233-3\\',\\'2229827-2\\',\\'2230336-1\\',\\'2234228-0\\',\\'2234669-0\\',\\'2270992-3\\',\\'2230454-5\\',\\'2262399-4\\',\\'2217091-2\\',\\'2234908-7\\',\\n\\'2250124-8\\',\\'2234885-1\\',\\'2217920-9\\',\\'2235105-7\\',\\'2262003-8\\',\\'2250330-2\\',\\'2238808-8\\',\\'2234955-6\\',\\'2238572-2\\',\\'2234109-8\\',\\'2260184-2\\',\\n\\'2262577-0\\',\\'2262363-0\\',\\'2253588-5\\',\\'2234502-3\\',\\'2260658-8\\',\\'2237151-9\\',\\'2237573-0\\',\\'2260244-2\\',\\'2262545-8\\',\\'2234642-5\\',\\'2234010-7\\',\\n\\'2234544-0\\',\\'2262945-6\\',\\'2238124-0\\',\\'2238034-9\\',\\'2234929-3\\',\\'2238183-5\\',\\'2234556-9\\',\\'2260137-9\\',\\'2262334-6\\',\\'2233364-1\\',\\'2235150-6\\',\\n\\'2237072-7\\',\\'2260925-5\\',\\'2231167-3\\',\\'2238673-4\\',\\'2205588-9\\',\\'2235963-8\\',\\'2260059-0\\',\\'2234299-5\\',\\'2234935-7\\',\\'2235722-0\\',\\'2277122-5\\',\\n\\'2277009-2\\',\\'2260609-8\\',\\'2237413-3\\',\\'2235596-7\\',\\'2260628-5\\',\\'2239779-2\\',\\'2260071-3\\',\\'2239148-4\\',\\'2239778-8\\',\\'2234276-1\\',\\n\\'2262173-2\\',\\'2234861-7\\',\\'2262192-5\\',\\'2262382-6\\',\\'2260188-9\\',\\'2260657-9\\',\\'2239837-0\\',\\'2260150-0\\',\\'2260182-6\\',\\'2262121-0\\',\\'2260692-0\\',\\n\\'2260624-8\\',\\'2214827-6\\',\\'2239817-0\\',\\'2239037-8\\',\\'2262519-0\\',\\'2262804-4\\',\\'2261134-1\\',\\'2262653-9\\',\\'2237866-6\\',\\'2260843-9\\') and ROW_STATUS=\\'A\\'',\n\tformat: 'query') ~> RefEBX\nJoin1, Person join(Aggregate1@PERSON_TECHID == srcPkey,\n\tjoinType:'inner',\n\tmatchType:'exact',\n\tignoreSpaces: false,\n\tbroadcast: 'auto')~> JNSrcKey\nJNSrcKey derive(CreatedDate = currentUTC(),\n\t\tLastUpdateDT = currentUTC(),\n\t\tCreatedBY = 'i728525',\n\t\tLastUpdateBY = 'i728525',\n\t\tIdentifierType = 'SSN') ~> DerivedColumn1\nEBMAXDGTALPERSNINFOFULL aggregate(groupBy(PERSON_TECHID),\n\tCNT_PersonTechID = count(PERSON_TECHID)) ~> Aggregate1\nAggregate1 filter(CNT_PersonTechID==1) ~> Filter1\nFilter1, RefEBX join(Aggregate1@PERSON_TECHID == RefEBX@PERSON_TECHID,\n\tjoinType:'inner',\n\tmatchType:'exact',\n\tignoreSpaces: false,\n\tbroadcast: 'auto')~> Join1\nDerivedColumn1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tidentifierType as string,\n\t\tidentifierValue as string,\n\t\tsrcPersonPkey as string,\n\t\tsourceSystem as string,\n\t\tsrcIdentPkey as string,\n\t\tcreateDate as timestamp,\n\t\tcreatedBy as string,\n\t\tlastUpdateDateTime as timestamp,\n\t\tlastUpdatedBy as string\n\t),\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\tidentifierType = IdentifierType,\n\t\tidentifierValue = SSN,\n\t\tsrcPersonPkey = srcPkey,\n\t\tsourceSystem = SRC,\n\t\tcreateDate = CreatedDate,\n\t\tcreatedBy = CreatedBY,\n\t\tlastUpdateDateTime = LastUpdateDT,\n\t\tlastUpdatedBy = LastUpdateBY\n\t)) ~> PersonIdentifier"
+		}
+	}
+}

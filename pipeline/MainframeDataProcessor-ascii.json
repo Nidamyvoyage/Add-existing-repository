@@ -1,0 +1,40 @@
+{
+	"name": "MainframeDataProcessor-ascii",
+	"properties": {
+		"description": "Mainframe ascii format ADF processor",
+		"activities": [
+			{
+				"name": "MainframeAsciiToAdfJar",
+				"type": "DatabricksSparkJar",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"mainClassName": "com.voya.iif.MainframeCsvAzureLoad",
+					"parameters": [],
+					"libraries": [
+						{
+							"jar": "dbfs:/FileStore/jars/75c5ac77_7267_4ce2_b842_97b00c414474-iif_to_azure_ascii_3_0-cfc7d.jar"
+						}
+					]
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureDatabricks1",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"folder": {
+			"name": "ADFMainframe"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-10-17T06:49:35Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

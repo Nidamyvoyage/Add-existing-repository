@@ -1,0 +1,142 @@
+{
+	"name": "PUBLISH_PERSON_ADLS_SHIR",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Datalake_SHIR",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "CODS_ONPREM/PUBLISH_PERSON",
+				"fileSystem": "mdm"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "MDM_ID",
+				"type": "UTF8"
+			},
+			{
+				"name": "SOURCE_SYSTEM",
+				"type": "UTF8"
+			},
+			{
+				"name": "PREFIX",
+				"type": "UTF8"
+			},
+			{
+				"name": "FIRSTNAME",
+				"type": "UTF8"
+			},
+			{
+				"name": "MIDDLENAME",
+				"type": "UTF8"
+			},
+			{
+				"name": "LASTNAME",
+				"type": "UTF8"
+			},
+			{
+				"name": "SUFFIX",
+				"type": "UTF8"
+			},
+			{
+				"name": "FULLNAME",
+				"type": "UTF8"
+			},
+			{
+				"name": "GENDER",
+				"type": "UTF8"
+			},
+			{
+				"name": "MARITALSTATUS",
+				"type": "UTF8"
+			},
+			{
+				"name": "BIRTHDATE",
+				"type": "UTF8"
+			},
+			{
+				"name": "SSN",
+				"type": "UTF8"
+			},
+			{
+				"name": "PRIMARYEMAIL",
+				"type": "UTF8"
+			},
+			{
+				"name": "PRIMARYPHONE",
+				"type": "UTF8"
+			},
+			{
+				"name": "PRIMARYSTREETADDR",
+				"type": "UTF8"
+			},
+			{
+				"name": "PRIMARYADDRLINE1",
+				"type": "UTF8"
+			},
+			{
+				"name": "PRIMARYADDRLINE2",
+				"type": "UTF8"
+			},
+			{
+				"name": "PRIMARYADDRLINE3",
+				"type": "UTF8"
+			},
+			{
+				"name": "PRIMARYADDRCITY",
+				"type": "UTF8"
+			},
+			{
+				"name": "PRIMARYADDRSTATECODE",
+				"type": "UTF8"
+			},
+			{
+				"name": "PRIMARYADDRPOSTALCODE",
+				"type": "UTF8"
+			},
+			{
+				"name": "PRIMARYCOUNTRYCODE",
+				"type": "UTF8"
+			},
+			{
+				"name": "STATUS",
+				"type": "UTF8"
+			},
+			{
+				"name": "ENDDATE",
+				"type": "UTF8"
+			},
+			{
+				"name": "PERSONFLAG",
+				"type": "UTF8"
+			},
+			{
+				"name": "BATCH_ID",
+				"type": "UTF8"
+			},
+			{
+				"name": "CREATED_TS",
+				"type": "INT96"
+			},
+			{
+				"name": "CREATED_BY",
+				"type": "UTF8"
+			},
+			{
+				"name": "UPDATED_TS",
+				"type": "INT96"
+			},
+			{
+				"name": "UPDATED_BY",
+				"type": "UTF8"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

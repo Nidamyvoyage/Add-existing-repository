@@ -1,0 +1,238 @@
+{
+	"name": "IDPREPOS-Oracle_2_SF-LOAN",
+	"properties": {
+		"activities": [
+			{
+				"name": "Oracle2ADLS-LOAN",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "IDP_REPOS.LOAN"
+					},
+					{
+						"name": "Destination",
+						"value": "CORE.LOAN"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "SnowflakeSink",
+						"importSettings": {
+							"type": "SnowflakeImportCopyCommand",
+							"additionalCopyOptions": {
+								"ON_ERROR": "CONTINUE"
+							}
+						}
+					},
+					"enableStaging": true,
+					"stagingSettings": {
+						"linkedServiceName": {
+							"referenceName": "Snowflake_staging_container",
+							"type": "LinkedServiceReference"
+						},
+						"path": "idprepos-poc",
+						"enableCompression": true
+					},
+					"enableSkipIncompatibleRow": true,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "ARRGMT_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ARRGMT_ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LOAN_PRINCPL_AMT",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "LOAN_PRINCPL_AMT",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "CHECK_SUM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CHECK_SUM",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ROW_STATUS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ROW_STATUS",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "RECORDED_START_DT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "RECORDED_START_DT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "RECORDED_END_DT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "RECORDED_END_DT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "BATCH_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BATCH_ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATED_DT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "CREATED_DT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CREATED_BY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LAST_UPDATED_DT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "LAST_UPDATED_DT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "LAST_UPDATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LAST_UPDATED_BY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "INTEREST_RATE_RESET_PERIOD",
+									"type": "String"
+								},
+								"sink": {
+									"name": "INTEREST_RATE_RESET_PERIOD",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "INTEREST_RATE_TYPE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "INTEREST_RATE_TYPE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "DELINQ_IND",
+									"type": "String"
+								},
+								"sink": {
+									"name": "DELINQ_IND",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LOAN_TYPE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LOAN_TYPE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MOST_RECENT_PYMT_RCVD_DT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "MOST_RECENT_PYMT_RCVD_DT",
+									"type": "DateTime"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "Oracle_IDPREPOS_LOAN",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "Snowflake_IDPREPOS_LOAN",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "IDPREPOS_2_SF_Load"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-08-29T19:25:05Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

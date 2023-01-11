@@ -1,0 +1,58 @@
+{
+	"name": "DS_Person_Omin_VIPS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlServer_EBX",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "identifierType",
+				"type": "varchar"
+			},
+			{
+				"name": "identifierValue",
+				"type": "varchar"
+			},
+			{
+				"name": "srcPersonPkey",
+				"type": "varchar"
+			},
+			{
+				"name": "sourceSystem",
+				"type": "varchar"
+			},
+			{
+				"name": "srcIdentPkey",
+				"type": "varchar"
+			},
+			{
+				"name": "createDate",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "createdBy",
+				"type": "varchar"
+			},
+			{
+				"name": "lastUpdateDateTime",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "lastUpdatedBy",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "CMDM_STAGE",
+			"table": "PersonIdentifier"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,182 @@
+{
+	"name": "DF_PERS_ELECTRONIC_CONTACT_EASE_OMNI",
+	"properties": {
+		"folder": {
+			"name": "MDM"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DS_AZURESQL_EASE_OMNI_STAGE",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_ELECTRONIC_CTC_EASEOMNI_TGT",
+						"type": "DatasetReference"
+					},
+					"name": "TgtPersonelectronicCtc"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_ELECTRONIC_CTC_EASEOMNI_TGT",
+						"type": "DatasetReference"
+					},
+					"name": "source2"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_ELECTRONIC_CTC_EASEOMNI_TGT",
+						"type": "DatasetReference"
+					},
+					"name": "source3"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DS_ELECTRONIC_CTC_EASEOMNI_SINK",
+						"type": "DatasetReference"
+					},
+					"name": "personinsert1"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_ELECTRONIC_CTC_EASEOMNI_SINK",
+						"type": "DatasetReference"
+					},
+					"name": "PersonInsert2"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_ELECTRONIC_CTC_EASEOMNI_SINK",
+						"type": "DatasetReference"
+					},
+					"name": "updateEmail"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_ELECTRONIC_CTC_EASEOMNI_SINK",
+						"type": "DatasetReference"
+					},
+					"name": "insertday2email"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_ELECTRONIC_CTC_EASEOMNI_SINK",
+						"type": "DatasetReference"
+					},
+					"name": "day4new"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_ELECTRONIC_CTC_EASEOMNI_SINK",
+						"type": "DatasetReference"
+					},
+					"name": "insertday2phone"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_ELECTRONIC_CTC_EASEOMNI_SINK",
+						"type": "DatasetReference"
+					},
+					"name": "updatephone"
+				}
+			],
+			"transformations": [
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "split5"
+				},
+				{
+					"name": "exists4"
+				},
+				{
+					"name": "split6"
+				},
+				{
+					"name": "split8"
+				},
+				{
+					"name": "derivedColumn5"
+				},
+				{
+					"name": "derivedColumn6"
+				},
+				{
+					"name": "Insert3"
+				},
+				{
+					"name": "Insert4"
+				},
+				{
+					"name": "split9"
+				},
+				{
+					"name": "exists6"
+				},
+				{
+					"name": "split10"
+				},
+				{
+					"name": "exists7"
+				},
+				{
+					"name": "derivedColumn8"
+				},
+				{
+					"name": "alterRow1"
+				},
+				{
+					"name": "exists9"
+				},
+				{
+					"name": "derivedColumn9"
+				},
+				{
+					"name": "derivedColumn11"
+				},
+				{
+					"name": "alterRow3"
+				},
+				{
+					"name": "exists10"
+				},
+				{
+					"name": "exists11"
+				},
+				{
+					"name": "derivedColumn12"
+				},
+				{
+					"name": "alterRow4"
+				},
+				{
+					"name": "split11"
+				},
+				{
+					"name": "derivedColumn13"
+				},
+				{
+					"name": "alterRow5"
+				},
+				{
+					"name": "derivedColumn14"
+				},
+				{
+					"name": "alterRow6"
+				},
+				{
+					"name": "exists12"
+				}
+			],
+			"script": "source(output(\n\t\tSOURCE_KEY as string,\n\t\tSOURCE_SYSTEM as string,\n\t\tBATCH_ID as string,\n\t\tPART_TIN as string,\n\t\tPART_BIRTH_DATE as string,\n\t\tPART_GENDER as string,\n\t\tPART_ACCOUNT_STATUS as string,\n\t\tPART_TYPE as string,\n\t\tPART_MARITAL_STATUS as string,\n\t\tPART_FULL_NAME as string,\n\t\tPART_FIRST_NAME as string,\n\t\tPART_LAST_NAME as string,\n\t\tPART_MIDDLE_NAME as string,\n\t\tPART_SUFFIX_TITLE as string,\n\t\tPART_ADDRESS_LINE1 as string,\n\t\tPART_ADDRESS_LINE2 as string,\n\t\tPART_ADDRESS_LINE3 as string,\n\t\tPART_CITY as string,\n\t\tPART_STATE as string,\n\t\tPART_POSTAL_CODE as string,\n\t\tPART_POSTAL_CODE5 as string,\n\t\tPART_COUNTRY as string,\n\t\tPART_COUNTRY_CD as string,\n\t\tPART_EMAIL as string,\n\t\tPART_PHONE as string,\n\t\tCHANGE_CODE as string,\n\t\tPERSON_CHECK_SUM as string,\n\t\tPERADDR_CHECK_SUM as string,\n\t\tPERSONIDENT_CHECK_SUM as string,\n\t\tPERCONT_P_PH_CHECK_SUM as string,\n\t\tPERCONT_P_EMAIL_CHECK_SUM as string\n\t),\n\tallowSchemaDrift: false,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'SELECT SOURCE_KEY,SOURCE_SYSTEM,BATCH_ID,PART_TIN,PART_BIRTH_DATE,PART_GENDER,PART_ACCOUNT_STATUS,PART_TYPE,PART_MARITAL_STATUS,PART_FULL_NAME,PART_FIRST_NAME,PART_LAST_NAME,PART_MIDDLE_NAME,\\nPART_SUFFIX_TITLE,PART_ADDRESS_LINE1,PART_ADDRESS_LINE2,PART_ADDRESS_LINE3,PART_CITY,PART_STATE,PART_POSTAL_CODE,SUBSTRING(PART_POSTAL_CODE,1,5) PART_POSTAL_CODE5,PART_COUNTRY,CASE WHEN TRIM(PART_COUNTRY) = \\'UNITED STATES\\' THEN \\'US\\' ELSE TRIM(PART_COUNTRY) END AS PART_COUNTRY_CD, \\nPART_EMAIL,PART_PHONE,CHANGE_CODE , \\nCONVERT(NVARCHAR(32),HashBytes(\\'MD5\\',ISNULL(PART_TIN,\\'1\\')+ISNULL(PART_FULL_NAME,\\'2\\')+ISNULL(PART_FIRST_NAME,\\'3\\')+ISNULL(PART_MIDDLE_NAME,\\'4\\')+ISNULL(PART_LAST_NAME,\\'5\\')+ISNULL(PART_SUFFIX_TITLE,\\'6\\')+ISNULL(PART_GENDER,\\'7\\')+\\nISNULL(PART_BIRTH_DATE,\\'8\\')+ISNULL(PART_ADDRESS_LINE1,\\'9\\')+ISNULL(PART_ADDRESS_LINE2,\\'10\\') +ISNULL(PART_ADDRESS_LINE3,\\'11\\')+ISNULL(PART_CITY,\\'12\\')+ISNULL(PART_STATE,\\'13\\')+ISNULL(PART_POSTAL_CODE,\\'14\\')+ISNULL(PART_COUNTRY,\\'15\\')+\\nISNULL(PART_EMAIL,\\'16\\')+ISNULL(PART_PHONE,\\'17\\')+ISNULL(PART_TYPE,\\'18\\')+ISNULL(PART_MARITAL_STATUS,\\'19\\') ),2) PERSON_CHECK_SUM,\\nCONVERT(NVARCHAR(32),HashBytes(\\'MD5\\',ISNULL(PART_ADDRESS_LINE1,\\'1\\')+ISNULL(PART_ADDRESS_LINE2,\\'2\\') +ISNULL(PART_ADDRESS_LINE3,\\'3\\')+ISNULL(PART_CITY,\\'4\\')+ISNULL(PART_STATE,\\'5\\')+ISNULL(PART_POSTAL_CODE,\\'6\\')+ISNULL(PART_COUNTRY,\\'7\\')),2) PERADDR_CHECK_SUM,\\nCONVERT(NVARCHAR(32),HashBytes(\\'MD5\\',ISNULL(PART_TIN ,\\'1\\')),2) PERSONIDENT_CHECK_SUM,\\nCONVERT(NVARCHAR(32),HashBytes(\\'MD5\\',ISNULL(PART_PHONE,\\'1\\')+\\'PERSONAL\\'+\\'PHONE\\'),2) PERCONT_P_PH_CHECK_SUM,\\nCONVERT(NVARCHAR(32),HashBytes(\\'MD5\\',ISNULL(PART_EMAIL,\\'1\\')+\\'PERSONAL\\'+\\'EMAIL\\'),2) PERCONT_P_EMAIL_CHECK_SUM\\nFROM CMDM_STAGE.RS_SOMNI_DC_PARTICIPANT_DAILY_DELTA_STG',\n\tformat: 'query') ~> source1\nsource(output(\n\t\tcontactType as string,\n\t\tcontactValue as string,\n\t\tcontactChannel as string,\n\t\tsrcPersonPkey as string,\n\t\tsourceSystem as string,\n\t\tsrcContactPkey as string,\n\t\tprimaryFlag as string,\n\t\trow_status as string,\n\t\tbatch_id as string,\n\t\tcheck_sum as string,\n\t\tcreateDateTime as timestamp,\n\t\tcreatedBy as string,\n\t\tlastUpdateDateTime as timestamp,\n\t\tlastUpdatedBy as string,\n\t\tSourceCreateDateTime as timestamp,\n\t\tSourceLastUpdateDateTime as timestamp\n\t),\n\tallowSchemaDrift: false,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'select * from  [CMDM_STAGE].[PersonElectronicContact] where sourceSystem=\\'SUPEROMNI\\'',\n\tformat: 'query') ~> TgtPersonelectronicCtc\nsource(output(\n\t\tcontactType as string,\n\t\tcontactValue as string,\n\t\tcontactChannel as string,\n\t\tsrcPersonPkey as string,\n\t\tsourceSystem as string,\n\t\tsrcContactPkey as string,\n\t\tprimaryFlag as string,\n\t\trow_status as string,\n\t\tbatch_id as string,\n\t\tcheck_sum as string,\n\t\tcreateDateTime as timestamp,\n\t\tcreatedBy as string,\n\t\tlastUpdateDateTime as timestamp,\n\t\tlastUpdatedBy as string,\n\t\tSourceCreateDateTime as timestamp,\n\t\tSourceLastUpdateDateTime as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'select * from  [CMDM_STAGE].[PersonElectronicContact] where sourceSystem=\\'SUPEROMNI\\'',\n\tformat: 'query') ~> source2\nsource(output(\n\t\tcontactType as string,\n\t\tcontactValue as string,\n\t\tcontactChannel as string,\n\t\tsrcPersonPkey as string,\n\t\tsourceSystem as string,\n\t\tsrcContactPkey as string,\n\t\tprimaryFlag as string,\n\t\trow_status as string,\n\t\tbatch_id as string,\n\t\tcheck_sum as string,\n\t\tcreateDateTime as timestamp,\n\t\tcreatedBy as string,\n\t\tlastUpdateDateTime as timestamp,\n\t\tlastUpdatedBy as string,\n\t\tSourceCreateDateTime as timestamp,\n\t\tSourceLastUpdateDateTime as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'select * from  [CMDM_STAGE].[PersonElectronicContact] where sourceSystem=\\'SUPEROMNI\\'',\n\tformat: 'query') ~> source3\nexists4 derive(CreateDateTime = currentTimestamp(),\n\t\trow_status = 'A',\n\t\tLastupdatetime = currentTimestamp(),\n\t\tcreatedBy = 'MYV_EASE_OMNI_STG_TO_COMMON_CREATE_LOAD',\n\t\tlastUpdatedBy = 'MYV_EASE_OMNI_STG_TO_COMMON_CREATE_LOAD') ~> derivedColumn1\nsplit6@Insert split(CHANGE_CODE=='NEW',\n\tCHANGE_CODE=='NEW'||CHANGE_CODE=='UPDATE',\n\tdisjoint: true) ~> split5@(if1, if2)\nsplit5@if1, TgtPersonelectronicCtc exists((SOURCE_KEY == srcPersonPkey\n && SOURCE_SYSTEM == sourceSystem),\n\tnegate:true,\n\tbroadcast: 'auto')~> exists4\nsource1 split((PART_PHONE!='') || (PART_EMAIL!=''),\n\tdisjoint: true) ~> split6@(Insert)\nderivedColumn1 split((PART_PHONE!=''),\n\t(PART_EMAIL!=''),\n\tdisjoint: true) ~> split8@(PAPHONE, PAMAIL)\nsplit8@PAPHONE derive(contactTypPAphone = 'PERS',\n\t\tcontactchannel = 'PHONE',\n\t\tprimaryflag = 'Y') ~> derivedColumn5\nsplit8@PAMAIL derive(contactTypePAmail = 'WORK',\n\t\tcontactchannelPAmail = 'EMAIL',\n\t\tprimaryflagPAmail = 'Y') ~> derivedColumn6\nderivedColumn5 alterRow(insertIf(true())) ~> Insert3\nderivedColumn6 alterRow(insertIf(true())) ~> Insert4\nderivedColumn9 split((CHANGE_CODE=='UPDATE') || (CHANGE_CODE=='NEW'),\n\tCHANGE_CODE=='NEW',\n\t(CHANGE_CODE=='UPDATE') || (CHANGE_CODE=='NEW'),\n\tdisjoint: true) ~> split9@(ifneworupdateday2email, elseNew, ifneworupdateday2phone)\nsplit9@ifneworupdateday2email, TgtPersonelectronicCtc exists((PERCONT_P_EMAIL_CHECK_SUM == check_sum),\n\tnegate:true,\n\tbroadcast: 'auto')~> exists6\nexists6 split(CHANGE_CODE=='NEW'||CHANGE_CODE=='UPDATE',\n\t(PART_EMAIL!=''),\n\tdisjoint: true) ~> split10@(update, PAMAIL1)\nTgtPersonelectronicCtc, split10@update exists((srcPersonPkey == SOURCE_KEY) && (row_status == 'A') && (contactChannel == 'EMAIL'),\n\tnegate:false,\n\tbroadcast: 'auto')~> exists7\nexists7 derive(Rowstatus = 'I',\n\t\tlut = currentTimestamp(),\n\t\tUpdatedBy = 'MYV_EASE_OMNI_STG_TO_COMMON_UPD_LOAD') ~> derivedColumn8\nderivedColumn8 alterRow(updateIf(true())) ~> alterRow1\nsplit5@if2, TgtPersonelectronicCtc exists((SOURCE_KEY == srcPersonPkey\n && SOURCE_SYSTEM == sourceSystem),\n\tnegate:false,\n\tbroadcast: 'auto')~> exists9\nexists9 derive(createdTs = currentTimestamp(),\n\t\tUpdatedTs = currentTimestamp(),\n\t\tcreatedBy = 'MYV_EASE_OMNI_STG_TO_COMMON_CREATE_LOAD',\n\t\tupdatedBy = 'MYV_EASE_OMNI_STG_TO_COMMON_UPD_LOAD',\n\t\trs = 'A') ~> derivedColumn9\nsplit10@PAMAIL1 derive(contactTypePAmail = 'WORK',\n\t\tcontactchannelPAmail = 'EMAIL',\n\t\tprimaryflagPAmail = 'Y') ~> derivedColumn11\nderivedColumn11 alterRow(insertIf(1==1)) ~> alterRow3\nsplit9@ifneworupdateday2phone, TgtPersonelectronicCtc exists((PERCONT_P_PH_CHECK_SUM==check_sum),\n\tnegate:true,\n\tbroadcast: 'auto')~> exists10\nsource2, split9@elseNew exists((check_sum == \nPERCONT_P_PH_CHECK_SUM ) ||\n(check_sum ==  PERCONT_P_EMAIL_CHECK_SUM ) && (row_status=='A') && srcPersonPkey== SOURCE_KEY,\n\tnegate:false,\n\tbroadcast: 'auto')~> exists11\nexists11 derive(batchID = '517',\n\t\tlut = currentTimestamp(),\n\t\tUpdatedBy = 'MYV_EASE_OMNI_STG_TO_COMMON_UPD_LOAD') ~> derivedColumn12\nderivedColumn12 alterRow(updateIf(1==1)) ~> alterRow4\nexists10 split(CHANGE_CODE=='UPDATE' ||  CHANGE_CODE=='NEW',\n\t(PART_PHONE!=''),\n\tdisjoint: true) ~> split11@(update1, paphone)\nsplit11@paphone derive(contactTypPAphone = 'PERS',\n\t\tcontactchannel = 'PHONE',\n\t\tprimaryFlag = 'Y') ~> derivedColumn13\nderivedColumn13 alterRow(insertIf(1==1)) ~> alterRow5\nexists12 derive(rs = 'I',\n\t\tlut = currentTimestamp(),\n\t\tupdatedBY = 'MYV_EASE_OMNI_STG_TO_COMMON_UPD_LOAD') ~> derivedColumn14\nderivedColumn14 alterRow(updateIf(1==1)) ~> alterRow6\nsource3, split11@update1 exists((srcPersonPkey==SOURCE_KEY) && (row_status=='A') && (contactChannel == 'PHONE'),\n\tnegate:false,\n\tbroadcast: 'auto')~> exists12\nInsert3 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tcontactType as string,\n\t\tcontactValue as string,\n\t\tcontactChannel as string,\n\t\tsrcPersonPkey as string,\n\t\tsourceSystem as string,\n\t\tsrcContactPkey as string,\n\t\tprimaryFlag as string,\n\t\trow_status as string,\n\t\tbatch_id as string,\n\t\tcheck_sum as string,\n\t\tcreateDateTime as timestamp,\n\t\tcreatedBy as string,\n\t\tlastUpdateDateTime as timestamp,\n\t\tlastUpdatedBy as string,\n\t\tSourceCreateDateTime as timestamp,\n\t\tSourceLastUpdateDateTime as timestamp\n\t),\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tsaveOrder: 6,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\tcontactType = contactTypPAphone,\n\t\tcontactValue = PART_PHONE,\n\t\tcontactChannel = contactchannel,\n\t\tsrcPersonPkey = SOURCE_KEY,\n\t\tsourceSystem = SOURCE_SYSTEM,\n\t\tprimaryFlag = primaryflag,\n\t\trow_status,\n\t\tbatch_id = BATCH_ID,\n\t\tcheck_sum = PERCONT_P_PH_CHECK_SUM,\n\t\tcreateDateTime = CreateDateTime,\n\t\tcreatedBy,\n\t\tlastUpdateDateTime = Lastupdatetime,\n\t\tlastUpdatedBy\n\t)) ~> personinsert1\nInsert4 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tcontactType as string,\n\t\tcontactValue as string,\n\t\tcontactChannel as string,\n\t\tsrcPersonPkey as string,\n\t\tsourceSystem as string,\n\t\tsrcContactPkey as string,\n\t\tprimaryFlag as string,\n\t\trow_status as string,\n\t\tbatch_id as string,\n\t\tcheck_sum as string,\n\t\tcreateDateTime as timestamp,\n\t\tcreatedBy as string,\n\t\tlastUpdateDateTime as timestamp,\n\t\tlastUpdatedBy as string,\n\t\tSourceCreateDateTime as timestamp,\n\t\tSourceLastUpdateDateTime as timestamp\n\t),\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tsaveOrder: 7,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\tcontactType = contactTypePAmail,\n\t\tcontactValue = PART_EMAIL,\n\t\tcontactChannel = contactchannelPAmail,\n\t\tsrcPersonPkey = SOURCE_KEY,\n\t\tsourceSystem = SOURCE_SYSTEM,\n\t\tprimaryFlag = primaryflagPAmail,\n\t\trow_status,\n\t\tbatch_id = BATCH_ID,\n\t\tcheck_sum = PERCONT_P_EMAIL_CHECK_SUM,\n\t\tcreatedBy,\n\t\tlastUpdateDateTime = Lastupdatetime,\n\t\tlastUpdatedBy,\n\t\tcreateDateTime = CreateDateTime\n\t)) ~> PersonInsert2\nalterRow1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tcontactType as string,\n\t\tcontactValue as string,\n\t\tcontactChannel as string,\n\t\tsrcPersonPkey as string,\n\t\tsourceSystem as string,\n\t\tsrcContactPkey as string,\n\t\tprimaryFlag as string,\n\t\trow_status as string,\n\t\tbatch_id as string,\n\t\tcheck_sum as string,\n\t\tcreateDateTime as timestamp,\n\t\tcreatedBy as string,\n\t\tlastUpdateDateTime as timestamp,\n\t\tlastUpdatedBy as string,\n\t\tSourceCreateDateTime as timestamp,\n\t\tSourceLastUpdateDateTime as timestamp\n\t),\n\tdeletable:false,\n\tinsertable:false,\n\tupdateable:true,\n\tupsertable:false,\n\tkeys:['srcPersonPkey','contactValue','batch_id'],\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tsaveOrder: 3,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\tcontactType,\n\t\tcontactValue,\n\t\tcontactChannel,\n\t\tsrcPersonPkey,\n\t\tsourceSystem,\n\t\tsrcContactPkey,\n\t\tprimaryFlag,\n\t\trow_status = Rowstatus,\n\t\tbatch_id,\n\t\tcheck_sum,\n\t\tcreateDateTime,\n\t\tcreatedBy,\n\t\tlastUpdateDateTime,\n\t\tlastUpdatedBy = UpdatedBy,\n\t\tSourceCreateDateTime,\n\t\tSourceLastUpdateDateTime\n\t)) ~> updateEmail\nalterRow3 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tcontactType as string,\n\t\tcontactValue as string,\n\t\tcontactChannel as string,\n\t\tsrcPersonPkey as string,\n\t\tsourceSystem as string,\n\t\tsrcContactPkey as string,\n\t\tprimaryFlag as string,\n\t\trow_status as string,\n\t\tbatch_id as string,\n\t\tcheck_sum as string,\n\t\tcreateDateTime as timestamp,\n\t\tcreatedBy as string,\n\t\tlastUpdateDateTime as timestamp,\n\t\tlastUpdatedBy as string,\n\t\tSourceCreateDateTime as timestamp,\n\t\tSourceLastUpdateDateTime as timestamp\n\t),\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tsaveOrder: 5,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\tcontactType = contactTypePAmail,\n\t\tcontactValue = PART_EMAIL,\n\t\tcontactChannel = contactchannelPAmail,\n\t\tsrcPersonPkey = SOURCE_KEY,\n\t\tsourceSystem = SOURCE_SYSTEM,\n\t\tprimaryFlag = primaryflagPAmail,\n\t\trow_status = rs,\n\t\tbatch_id = BATCH_ID,\n\t\tcheck_sum = PERCONT_P_EMAIL_CHECK_SUM,\n\t\tcreateDateTime = createdTs,\n\t\tcreatedBy,\n\t\tlastUpdateDateTime = UpdatedTs,\n\t\tlastUpdatedBy = updatedBy\n\t)) ~> insertday2email\nalterRow4 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tcontactType as string,\n\t\tcontactValue as string,\n\t\tcontactChannel as string,\n\t\tsrcPersonPkey as string,\n\t\tsourceSystem as string,\n\t\tsrcContactPkey as string,\n\t\tprimaryFlag as string,\n\t\trow_status as string,\n\t\tbatch_id as string,\n\t\tcheck_sum as string,\n\t\tcreateDateTime as timestamp,\n\t\tcreatedBy as string,\n\t\tlastUpdateDateTime as timestamp,\n\t\tlastUpdatedBy as string,\n\t\tSourceCreateDateTime as timestamp,\n\t\tSourceLastUpdateDateTime as timestamp\n\t),\n\tdeletable:false,\n\tinsertable:false,\n\tupdateable:true,\n\tupsertable:false,\n\tkeys:['row_status','srcPersonPkey'],\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tsaveOrder: 1,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\tcontactType,\n\t\tcontactValue,\n\t\tcontactChannel,\n\t\tsrcPersonPkey,\n\t\tsourceSystem,\n\t\tsrcContactPkey,\n\t\tprimaryFlag,\n\t\trow_status,\n\t\tbatch_id = batchID,\n\t\tcheck_sum,\n\t\tcreateDateTime,\n\t\tcreatedBy,\n\t\tlastUpdateDateTime = lut,\n\t\tlastUpdatedBy = UpdatedBy,\n\t\tSourceCreateDateTime,\n\t\tSourceLastUpdateDateTime\n\t)) ~> day4new\nalterRow5 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tcontactType as string,\n\t\tcontactValue as string,\n\t\tcontactChannel as string,\n\t\tsrcPersonPkey as string,\n\t\tsourceSystem as string,\n\t\tsrcContactPkey as string,\n\t\tprimaryFlag as string,\n\t\trow_status as string,\n\t\tbatch_id as string,\n\t\tcheck_sum as string,\n\t\tcreateDateTime as timestamp,\n\t\tcreatedBy as string,\n\t\tlastUpdateDateTime as timestamp,\n\t\tlastUpdatedBy as string,\n\t\tSourceCreateDateTime as timestamp,\n\t\tSourceLastUpdateDateTime as timestamp\n\t),\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tsaveOrder: 4,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\tcontactType = contactTypPAphone,\n\t\tcontactValue = PART_PHONE,\n\t\tcontactChannel = contactchannel,\n\t\tsrcPersonPkey = SOURCE_KEY,\n\t\tsourceSystem = SOURCE_SYSTEM,\n\t\tprimaryFlag,\n\t\trow_status = rs,\n\t\tbatch_id = BATCH_ID,\n\t\tcheck_sum = PERCONT_P_PH_CHECK_SUM,\n\t\tcreateDateTime = createdTs,\n\t\tcreatedBy,\n\t\tlastUpdateDateTime = UpdatedTs,\n\t\tlastUpdatedBy = updatedBy\n\t)) ~> insertday2phone\nalterRow6 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tcontactType as string,\n\t\tcontactValue as string,\n\t\tcontactChannel as string,\n\t\tsrcPersonPkey as string,\n\t\tsourceSystem as string,\n\t\tsrcContactPkey as string,\n\t\tprimaryFlag as string,\n\t\trow_status as string,\n\t\tbatch_id as string,\n\t\tcheck_sum as string,\n\t\tcreateDateTime as timestamp,\n\t\tcreatedBy as string,\n\t\tlastUpdateDateTime as timestamp,\n\t\tlastUpdatedBy as string,\n\t\tSourceCreateDateTime as timestamp,\n\t\tSourceLastUpdateDateTime as timestamp\n\t),\n\tdeletable:false,\n\tinsertable:false,\n\tupdateable:true,\n\tupsertable:false,\n\tkeys:['batch_id','contactValue','srcPersonPkey'],\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tsaveOrder: 2,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\tcontactType,\n\t\tcontactValue,\n\t\tcontactChannel,\n\t\tsrcPersonPkey,\n\t\tsourceSystem,\n\t\tsrcContactPkey,\n\t\tprimaryFlag,\n\t\trow_status = rs,\n\t\tbatch_id,\n\t\tcheck_sum,\n\t\tcreateDateTime,\n\t\tcreatedBy,\n\t\tlastUpdateDateTime,\n\t\tlastUpdatedBy = updatedBY,\n\t\tSourceCreateDateTime,\n\t\tSourceLastUpdateDateTime\n\t)) ~> updatephone"
+		}
+	}
+}

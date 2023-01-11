@@ -1,0 +1,66 @@
+{
+	"name": "HS_MAX_CLAIM_ACCOUNT",
+	"properties": {
+		"description": "This pipeline is intended to Ingest data for Max Claim Account into SF",
+		"activities": [
+			{
+				"name": "RAW_FILE_TO_SF_STG_TABLE_LOAD",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": "COPY INTO \"MYVOYAGE_STAGE\".\"HS_MAX_CLAIM_ACCOUNT_TGT\"  (\"CLMACCTTABLENSID\", \"CLMACCTTABLEID\", \"CLMACCTTABLEXGRPNSID\", \"CLMACCTTABLEXGRPID\", \"CLMACCTNUMBER\", \"CLMACCTTYPE\", \"CLMACCTSTARTDATE\", \"CLMACCTENDDATE\",\"CLMACCTPREMACCTNUMBER\",\"CLMACCTNAME\",\"CLMACCTDESCRIPTION\",\"CLMACCTTABLEXCONTACTNSID\",\"CLMACCTTABLEXCONTACTID\", \"CLMACCTLASTCHANGEDATE\") FROM (select $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14 from @MYVOYAGE_STAGE.EXT_STAGE_ADF_VESSTZUC1UNITEDM001/HealthSolutions/CRMMAXClaimAccountTable20220406.csv (file_format => 'MYVOYAGE_STAGE.HS_MAX_LEGAL_ENTITY')) FORCE = TRUE LOAD_UNCERTAIN_FILES = TRUE ON_ERROR = ABORT_STATEMENT;",
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "STG_HS_MAX_CLAIM_ACCOUNT_TGT",
+						"type": "DatasetReference"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"ENTITY_NAME": {
+				"type": "string",
+				"defaultValue": "MYHEALTH_WEALTH_CUSTOMER"
+			},
+			"SRC_SYS_NM": {
+				"type": "string",
+				"defaultValue": "CODS"
+			},
+			"INGESTION_LOAD_TS": {
+				"type": "string"
+			},
+			"INGESTION_ETL_TYPE": {
+				"type": "string",
+				"defaultValue": "FULL"
+			},
+			"SRC_SCHEMA_NM": {
+				"type": "string",
+				"defaultValue": "ODS_UUID"
+			}
+		},
+		"variables": {
+			"INGESTION_LOAD_ID": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "HS_CRM_Phase_1"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-08-29T19:25:16Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

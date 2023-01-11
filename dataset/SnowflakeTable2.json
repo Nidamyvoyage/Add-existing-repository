@@ -1,0 +1,17 @@
+{
+	"name": "SnowflakeTable2",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "MyVoyageSnowflake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SnowflakeTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "MYVOYAGE_STAGE",
+			"table": "PLAN_PART_OM_ASSUMPTION"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

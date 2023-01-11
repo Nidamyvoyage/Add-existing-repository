@@ -1,0 +1,34 @@
+{
+	"name": "SNOWFLAKE_MYVOYAGE_STAGE1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "MyVoyageSnowflake",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"STG_TABLE_NAME": {
+				"type": "string"
+			},
+			"STG_SCHEMA_NAME": {
+				"type": "string"
+			},
+			"SNOWFLAKE_MYVOYAGE_STAGE": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "SnowflakeTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().STG_SCHEMA_NAME",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().STG_TABLE_NAME",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

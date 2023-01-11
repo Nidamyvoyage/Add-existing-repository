@@ -1,0 +1,19 @@
+{
+	"name": "DS_Censen_Landing_SRC",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlServer_EBX",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "DS_MDM"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "SELECT  FIRST_NAME, LAST_NAME, DATE_OF_BIRTH, SSN, EMAIL, MOBILE_PHONE FROM CMDM_STAGE.CENSUS_EMPLOYEE"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

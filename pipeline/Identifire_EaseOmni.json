@@ -1,0 +1,37 @@
+{
+	"name": "Identifire_EaseOmni",
+	"properties": {
+		"activities": [
+			{
+				"name": "DF_identifire_EaseOmni",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "1.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "DF_identifire_EaseOmni",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			}
+		],
+		"folder": {
+			"name": "DataConsolidationR2/729142/Test"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-08-29T19:25:14Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

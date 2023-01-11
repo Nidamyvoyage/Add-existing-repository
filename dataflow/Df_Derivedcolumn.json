@@ -1,0 +1,32 @@
+{
+	"name": "Df_Derivedcolumn",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText8",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText9",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "DerivedColumn1"
+				}
+			],
+			"script": "source(output(\n\t\tEid as short,\n\t\tname as string,\n\t\tgender as string,\n\t\tcountry as string,\n\t\tdept_id as string,\n\t\tdateofbirth as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> source1\nsource1 derive(dateofbirth = concat(substring(dateofbirth,instr(dateofbirth,\"_\")+1,4),\"-\",substring(dateofbirth,instr(dateofbirth,\"_\")+5,2),\"-\",substring(dateofbirth,instr(dateofbirth,\"_\")+7,2))) ~> DerivedColumn1\nDerivedColumn1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tumask: 0022,\n\tpreCommands: [],\n\tpostCommands: [],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> sink1"
+		}
+	}
+}

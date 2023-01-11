@@ -1,0 +1,66 @@
+{
+	"name": "XREF_ADLS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "XREF_ADLS",
+				"fileSystem": "mdm"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "SourceIdentifier",
+				"type": "UTF8"
+			},
+			{
+				"name": "SourceIdentifierType",
+				"type": "UTF8"
+			},
+			{
+				"name": "SourceSystem",
+				"type": "UTF8"
+			},
+			{
+				"name": "SSN",
+				"type": "UTF8"
+			},
+			{
+				"name": "DateOfBirth",
+				"type": "DATE"
+			},
+			{
+				"name": "MDM_ID",
+				"type": "UTF8"
+			},
+			{
+				"name": "CreateDateTime",
+				"type": "INT96"
+			},
+			{
+				"name": "CreatedBy",
+				"type": "UTF8"
+			},
+			{
+				"name": "LastUpdateDateTime",
+				"type": "INT96"
+			},
+			{
+				"name": "LastUpdatedBy",
+				"type": "UTF8"
+			},
+			{
+				"name": "PARTY_ID",
+				"type": "UTF8"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

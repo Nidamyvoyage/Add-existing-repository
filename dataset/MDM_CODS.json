@@ -1,0 +1,17 @@
+{
+	"name": "MDM_CODS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase_MDMU3",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "CMDM_STAGE",
+			"table": "RS_CODS_REPOS_PARTY_DELTA_STG"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

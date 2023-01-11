@@ -1,0 +1,13 @@
+{
+	"name": "SF_OLTP_BPS_PARTICIPANT_OM_ASSUMPTION",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "MyVoyageSnowflake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SnowflakeTable",
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,130 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "PUBLISH_PERSON_XREF",
+						"type": "DatasetReference"
+					},
+					"name": "PublishPerson"
+				},
+				{
+					"dataset": {
+						"referenceName": "CODS_ADLS",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "PUBLISH_ADLS_CODS",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				},
+				{
+					"dataset": {
+						"referenceName": "PUBLISH_ADLS_CODS",
+						"type": "DatasetReference"
+					},
+					"name": "sink2"
+				}
+			],
+			"transformations": [
+				{
+					"name": "exists1"
+				},
+				{
+					"name": "alterRow1"
+				},
+				{
+					"name": "exists2"
+				},
+				{
+					"name": "exists3"
+				},
+				{
+					"name": "alterRow2"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          SourceIdentifier as string,",
+				"          SourceIdentifierType as string,",
+				"          SourceSystem as string,",
+				"          SSN as string,",
+				"          DateOfBirth as date,",
+				"          MDM_ID as string,",
+				"          PARTY_ID as string,",
+				"          XREF_CHECK_SUM as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     query: 'SELECT SourceIdentifier,SourceIdentifierType,SourceSystem,SSN,DateOfBirth,MDM_ID,PARTY_ID,\\nCONVERT(NVARCHAR(32),HashBytes(\\'MD5\\',ISNULL(SSN,\\'1\\')+ISNULL(CAST(DateOfBirth AS VARCHAR),\\'2\\')+ISNULL(MDM_ID,\\'3\\')+ISNULL(PARTY_ID,\\'4\\')),2) XREF_CHECK_SUM\\nFROM MDM_PUBLISH.MDM_PERSON_XREF where SSN is not null',",
+				"     format: 'query') ~> PublishPerson",
+				"source(output(",
+				"          SOURCEIDENTIFIER as string,",
+				"          SOURCESYSTEM as string,",
+				"          MDM_ID as string,",
+				"          SOURCEIDENTIFIERTYPE as string,",
+				"          SSN as string,",
+				"          DATEOFBIRTH as timestamp,",
+				"          PARTY_ID as string,",
+				"          CHECK_SUM as string,",
+				"          BATCH_ID as string,",
+				"          CREATED_TS as timestamp,",
+				"          CREATED_BY as string,",
+				"          UPDATED_TS as timestamp,",
+				"          UPDATED_BY as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet') ~> source1",
+				"PublishPerson, source1 exists(PublishPerson@SourceIdentifier == source1@SOURCEIDENTIFIER && PublishPerson@SourceIdentifierType == source1@SOURCEIDENTIFIERTYPE && PublishPerson@SourceSystem == source1@SOURCESYSTEM,",
+				"     negate:true,",
+				"     broadcast: 'auto')~> exists1",
+				"exists1 alterRow(insertIf(1==1)) ~> alterRow1",
+				"PublishPerson, source1 exists(PublishPerson@SourceIdentifier == source1@SOURCEIDENTIFIER && PublishPerson@SourceIdentifierType == source1@SOURCEIDENTIFIERTYPE && PublishPerson@SourceSystem == source1@SOURCESYSTEM,",
+				"     negate:false,",
+				"     broadcast: 'auto')~> exists2",
+				"exists2, source1 exists(XREF_CHECK_SUM == CHECK_SUM,",
+				"     negate:true,",
+				"     broadcast: 'auto')~> exists3",
+				"exists3 alterRow(updateIf(1==1)) ~> alterRow2",
+				"alterRow1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'parquet',",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     mapColumn(",
+				"          SourceIdentifier,",
+				"          SourceIdentifierType,",
+				"          SourceSystem,",
+				"          SSN,",
+				"          DateOfBirth,",
+				"          MDM_ID,",
+				"          PARTY_ID,",
+				"          XREF_CHECK_SUM",
+				"     )) ~> sink1",
+				"alterRow2 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'parquet',",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink2"
+			]
+		}
+	}
+}

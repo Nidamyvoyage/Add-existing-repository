@@ -1,0 +1,17 @@
+{
+	"name": "Oracle_IDPREPOS_SPEC_ELGBL_INVSTMT_MSRMT_PRT",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Oracle_CODS_Intg",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "IDP_REPOS",
+			"table": "SPEC_ELGBL_INVSTMT_MSRMT_PRT"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

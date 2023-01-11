@@ -1,0 +1,62 @@
+{
+	"name": "FASTU_PARTY1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SQL_FASTLAYER",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "PARTY_MDM_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "PARTY_TYPE_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "RISK_IND",
+				"type": "varchar"
+			},
+			{
+				"name": "SRC_SYS_NAME",
+				"type": "varchar"
+			},
+			{
+				"name": "DELETE_IND",
+				"type": "varchar"
+			},
+			{
+				"name": "BATCH_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "CHECK_SUM",
+				"type": "varchar"
+			},
+			{
+				"name": "CREATED_TS",
+				"type": "varchar"
+			},
+			{
+				"name": "CREATED_BY",
+				"type": "varchar"
+			},
+			{
+				"name": "LAST_UPDATED_TS",
+				"type": "varchar"
+			},
+			{
+				"name": "LAST_UPDATED_BY",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "PARTYACCT_REPOS",
+			"table": "PARTY_TEST"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

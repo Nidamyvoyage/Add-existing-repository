@@ -1,0 +1,17 @@
+{
+	"name": "SnowflakeTable_masking",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "MyVoyageSnowflake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SnowflakeTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "MYVOYAGE_CLEANSED",
+			"table": "MYVOYAGE_EMP_MASK"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

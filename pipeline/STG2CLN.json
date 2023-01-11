@@ -1,0 +1,39 @@
+{
+	"name": "STG2CLN",
+	"properties": {
+		"activities": [
+			{
+				"name": "STG_TO_CLN_LOAD_copy1",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": "call \"MYVOYAGE_CLEANSED\".\"STAGE_TO_CLEANSED_MAX_DATA\"();",
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"dataset": {
+						"referenceName": "SnowflakeTable36",
+						"type": "DatasetReference"
+					}
+				}
+			}
+		],
+		"folder": {
+			"name": "DataConsolidationR2/729142/Test"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-08-29T19:25:34Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

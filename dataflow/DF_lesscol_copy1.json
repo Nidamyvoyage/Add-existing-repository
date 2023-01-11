@@ -1,0 +1,42 @@
+{
+	"name": "DF_lesscol_copy1",
+	"properties": {
+		"folder": {
+			"name": "MDM"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "colmmissmatchadlsfile1",
+						"type": "DatasetReference"
+					},
+					"name": "columnfile"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "exactcolfiloutput",
+						"type": "DatasetReference"
+					},
+					"name": "sinkcolum"
+				},
+				{
+					"dataset": {
+						"referenceName": "misspiperecord",
+						"type": "DatasetReference"
+					},
+					"name": "sink1misscol"
+				}
+			],
+			"transformations": [
+				{
+					"name": "split1"
+				}
+			],
+			"script": "source(output(\n\t\tcolumn1 as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tmultiLineRow: true) ~> columnfile\ncolumnfile split(((length(column1)) - (length( replace(column1, '|', ''))))== 30,\n\t((length(column1)) - (length( replace(column1, '|', ''))))!= 30,\n\tdisjoint: true) ~> split1@(expectedcol, lesscol)\nsplit1@expectedcol sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tpartitionFileNames:['colmop_file.csv'],\n\tumask: 0022,\n\tpreCommands: [],\n\tpostCommands: [],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tpartitionBy('hash', 1)) ~> sinkcolum\nsplit1@lesscol sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tpartitionFileNames:['missdcol.csv'],\n\tumask: 0022,\n\tpreCommands: [],\n\tpostCommands: [],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\theader: (['WS_EXT_PH_PLAN_NUM|WS_EXT_PH_PART_NUM|WS_EXT_PH_NAME|WS_EXT_PH_PART_DIV_SUB|WS_EXT_PH_BRTH_DATE|WS_EXT_PH_PLENT_DATE|WS_EXT_PH_ADDR_L1|WS_EXT_PH_ADDR_L2|WS_EXT_PH_ADDR_L3|WS_EXT_PH_CITY|WS_EXT_PH_STATE|WS_EXT_PH_ZIP|WS_EXT_PH_STAT|WS_EXT_PH_TERM_DATE|WS_EXT_PH_LAST_CNTRB_DATE|WS_EXT_PH_STAT_REASON|WS_EXT_PH_LOC_TAX_CODE|WS_EXT_PH_ALT_STATE|WS_EXT_PH_FIRST_CNTRB_DATE|WS_EXT_PH_ATTAINED_AGE|WS_EXT_PH_PF999_BAL|WS_EXT_PH_PA999_BAL|WS_EXT_PH_ADV_ACCT_IND|WS_EXT_PH_OMNI_VERSION|WS_EXT_PH_VRR_PL_STATUS|WS_EXT_PH_VRR_PL_TERM|WS_EXT_PH_CONV_PL_NUM|WS_EXT_PH_CLIENT_ID|WS_EXT_PH_SUB_CLIENT_ID|WS_EXT_PH_SSO_CLIENT_ID|WS_EXT_PH_CLIENT_STATUS']),\n\tsaveOrder: 1,\n\tpartitionBy('hash', 1)) ~> sink1misscol"
+		}
+	}
+}

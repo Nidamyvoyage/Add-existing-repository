@@ -1,0 +1,17 @@
+{
+	"name": "ODS_UUID_PARTY_XREF",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "OracleCustomerODS",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "ODS_UUID",
+			"table": "PARTY_XREF"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

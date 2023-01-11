@@ -1,0 +1,90 @@
+{
+	"name": "DS_ELECTRONIC_CTC_EASEOMNI_TGT",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase_MDMU3",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "contactType",
+				"type": "varchar"
+			},
+			{
+				"name": "contactValue",
+				"type": "varchar"
+			},
+			{
+				"name": "contactChannel",
+				"type": "varchar"
+			},
+			{
+				"name": "srcPersonPkey",
+				"type": "varchar"
+			},
+			{
+				"name": "sourceSystem",
+				"type": "varchar"
+			},
+			{
+				"name": "srcContactPkey",
+				"type": "varchar"
+			},
+			{
+				"name": "primaryFlag",
+				"type": "varchar"
+			},
+			{
+				"name": "row_status",
+				"type": "varchar"
+			},
+			{
+				"name": "batch_id",
+				"type": "varchar"
+			},
+			{
+				"name": "check_sum",
+				"type": "varchar"
+			},
+			{
+				"name": "createDateTime",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "createdBy",
+				"type": "varchar"
+			},
+			{
+				"name": "lastUpdateDateTime",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "lastUpdatedBy",
+				"type": "varchar"
+			},
+			{
+				"name": "SourceCreateDateTime",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "SourceLastUpdateDateTime",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			}
+		],
+		"typeProperties": {
+			"schema": "CMDM_STAGE",
+			"table": "PersonElectronicContact"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

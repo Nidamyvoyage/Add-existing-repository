@@ -1,0 +1,42 @@
+{
+	"name": "Join two tables",
+	"properties": {
+		"folder": {
+			"name": "Join"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "rempdataset",
+						"type": "DatasetReference"
+					},
+					"name": "Rempsource"
+				},
+				{
+					"dataset": {
+						"referenceName": "rdeptdataset",
+						"type": "DatasetReference"
+					},
+					"name": "Rdeptsource"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "Rjoinoutoutdataset",
+						"type": "DatasetReference"
+					},
+					"name": "empdeptsink"
+				}
+			],
+			"transformations": [
+				{
+					"name": "EmpDeptJoin"
+				}
+			],
+			"script": "source(output(\n\t\tEid as string,\n\t\tname as string,\n\t\tgender as string,\n\t\tcountry as string,\n\t\tdept_id as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> Rempsource\nsource(output(\n\t\tdeptNo as string,\n\t\tDname as string,\n\t\tLocation as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> Rdeptsource\nRempsource, Rdeptsource join(dept_id == deptNo,\n\tjoinType:'inner',\n\tmatchType:'exact',\n\tignoreSpaces: false,\n\tbroadcast: 'auto')~> EmpDeptJoin\nEmpDeptJoin sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tColumn_1 as string,\n\t\tColumn_2 as string,\n\t\tColumn_3 as string,\n\t\tColumn_4 as string,\n\t\tColumn_5 as string,\n\t\tColumn_6 as string,\n\t\tColumn_7 as string,\n\t\tColumn_8 as string,\n\t\tColumn_9 as string,\n\t\tColumn_10 as string\n\t),\n\tumask: 0022,\n\tpreCommands: [],\n\tpostCommands: [],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> empdeptsink"
+		}
+	}
+}

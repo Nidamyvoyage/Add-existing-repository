@@ -1,0 +1,202 @@
+{
+	"name": "PUBLISH_PERSON",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase_MDMU3",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "GROUPID",
+				"type": "decimal",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "MM_STATUS",
+				"type": "varchar"
+			},
+			{
+				"name": "MM_SCORE",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "T_LAST_USER_ID",
+				"type": "nvarchar"
+			},
+			{
+				"name": "T_CREATOR_ID",
+				"type": "nvarchar"
+			},
+			{
+				"name": "T_CREATION_DATE",
+				"type": "datetime2",
+				"scale": 7
+			},
+			{
+				"name": "T_LAST_WRITE",
+				"type": "datetime2",
+				"scale": 7
+			},
+			{
+				"name": "mdmPersonId",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "enterpriseId",
+				"type": "nvarchar"
+			},
+			{
+				"name": "prefix00",
+				"type": "nvarchar"
+			},
+			{
+				"name": "firstName",
+				"type": "nvarchar"
+			},
+			{
+				"name": "middleName",
+				"type": "nvarchar"
+			},
+			{
+				"name": "lastName",
+				"type": "nvarchar"
+			},
+			{
+				"name": "fullName",
+				"type": "nvarchar"
+			},
+			{
+				"name": "suffix",
+				"type": "nvarchar"
+			},
+			{
+				"name": "gender",
+				"type": "nvarchar"
+			},
+			{
+				"name": "birthDate",
+				"type": "date"
+			},
+			{
+				"name": "birthPlace",
+				"type": "nvarchar"
+			},
+			{
+				"name": "deathDate",
+				"type": "date"
+			},
+			{
+				"name": "srcPersonPkey",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SourceSystemInfo_srcSystem_",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SourceSystemInfo_srcCreateDttm",
+				"type": "datetime2",
+				"scale": 7
+			},
+			{
+				"name": "SourceSystemInfo_srclastUpdtDttm",
+				"type": "datetime2",
+				"scale": 7
+			},
+			{
+				"name": "ssn",
+				"type": "nvarchar"
+			},
+			{
+				"name": "itin",
+				"type": "nvarchar"
+			},
+			{
+				"name": "driverLicense",
+				"type": "nvarchar"
+			},
+			{
+				"name": "primaryEmail",
+				"type": "nvarchar"
+			},
+			{
+				"name": "primaryPhone",
+				"type": "nvarchar"
+			},
+			{
+				"name": "primaryStreetAddr",
+				"type": "nvarchar"
+			},
+			{
+				"name": "primaryAddrLine1",
+				"type": "nvarchar"
+			},
+			{
+				"name": "primaryAddrLine2",
+				"type": "nvarchar"
+			},
+			{
+				"name": "primaryAddrLine3",
+				"type": "nvarchar"
+			},
+			{
+				"name": "primaryAddrCity",
+				"type": "nvarchar"
+			},
+			{
+				"name": "primaryAddrStateCode",
+				"type": "nvarchar"
+			},
+			{
+				"name": "primaryAddrPostalCode",
+				"type": "nvarchar"
+			},
+			{
+				"name": "primaryCountryCode",
+				"type": "nvarchar"
+			},
+			{
+				"name": "primaryCountyName",
+				"type": "nvarchar"
+			},
+			{
+				"name": "primaryPostalCode5",
+				"type": "nvarchar"
+			},
+			{
+				"name": "status",
+				"type": "nvarchar"
+			},
+			{
+				"name": "endDate",
+				"type": "date"
+			},
+			{
+				"name": "maritalStatus",
+				"type": "nvarchar"
+			},
+			{
+				"name": "personFlag",
+				"type": "nvarchar"
+			},
+			{
+				"name": "batchId",
+				"type": "nvarchar"
+			},
+			{
+				"name": "processName",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "MDM_PUBLISH",
+			"table": "EBX_MDM_PERSON"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

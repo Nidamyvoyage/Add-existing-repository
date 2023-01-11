@@ -1,0 +1,194 @@
+{
+	"name": "ADLS_ASQL_MAX",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "MAX_TEST",
+				"fileSystem": "mdm"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "SOURCE_SYSTEM",
+				"type": "UTF8"
+			},
+			{
+				"name": "SOURCE_KEY",
+				"type": "UTF8"
+			},
+			{
+				"name": "PERSON_TECHID",
+				"type": "UTF8"
+			},
+			{
+				"name": "TITLE",
+				"type": "UTF8"
+			},
+			{
+				"name": "FNAME",
+				"type": "UTF8"
+			},
+			{
+				"name": "MNAME1",
+				"type": "UTF8"
+			},
+			{
+				"name": "MNAME2",
+				"type": "UTF8"
+			},
+			{
+				"name": "LNAME",
+				"type": "UTF8"
+			},
+			{
+				"name": "NAMESUFFIX",
+				"type": "UTF8"
+			},
+			{
+				"name": "DOB",
+				"type": "UTF8"
+			},
+			{
+				"name": "GENDER",
+				"type": "UTF8"
+			},
+			{
+				"name": "SSN",
+				"type": "UTF8"
+			},
+			{
+				"name": "P_A_COUNTRY",
+				"type": "UTF8"
+			},
+			{
+				"name": "P_A_MAILLINE1",
+				"type": "UTF8"
+			},
+			{
+				"name": "P_A_MAILLINE2",
+				"type": "UTF8"
+			},
+			{
+				"name": "P_A_CITY",
+				"type": "UTF8"
+			},
+			{
+				"name": "P_A_STATE",
+				"type": "UTF8"
+			},
+			{
+				"name": "P_A_POSTALCODE",
+				"type": "UTF8"
+			},
+			{
+				"name": "P_A_COUNTY",
+				"type": "UTF8"
+			},
+			{
+				"name": "P_A_PHONE",
+				"type": "UTF8"
+			},
+			{
+				"name": "P_A_CELLPHONE",
+				"type": "UTF8"
+			},
+			{
+				"name": "P_A_FAX",
+				"type": "UTF8"
+			},
+			{
+				"name": "P_A_TOLLFREENUMBER",
+				"type": "UTF8"
+			},
+			{
+				"name": "P_A_EMAIL",
+				"type": "UTF8"
+			},
+			{
+				"name": "S_A_COUNTRY",
+				"type": "UTF8"
+			},
+			{
+				"name": "S_A_MAILLINE1",
+				"type": "UTF8"
+			},
+			{
+				"name": "S_A_MAILLINE2",
+				"type": "UTF8"
+			},
+			{
+				"name": "S_A_CITY",
+				"type": "UTF8"
+			},
+			{
+				"name": "S_A_STATE",
+				"type": "UTF8"
+			},
+			{
+				"name": "S_A_POSTALCODE",
+				"type": "UTF8"
+			},
+			{
+				"name": "S_A_COUNTY",
+				"type": "UTF8"
+			},
+			{
+				"name": "S_A_PHONE",
+				"type": "UTF8"
+			},
+			{
+				"name": "S_A_CELLPHONE",
+				"type": "UTF8"
+			},
+			{
+				"name": "S_A_FAX",
+				"type": "UTF8"
+			},
+			{
+				"name": "S_A_TOLLFREENUMBER",
+				"type": "UTF8"
+			},
+			{
+				"name": "S_A_EMAIL",
+				"type": "UTF8"
+			},
+			{
+				"name": "CHECK_SUM",
+				"type": "UTF8"
+			},
+			{
+				"name": "CHANGE_CODE",
+				"type": "UTF8"
+			},
+			{
+				"name": "SWFDL_LOAD_ID",
+				"type": "INT64"
+			},
+			{
+				"name": "SWFDL_CREATED_BY",
+				"type": "UTF8"
+			},
+			{
+				"name": "SWFDL_CREATED_TS",
+				"type": "INT96"
+			},
+			{
+				"name": "SWFDL_UPDATED_BY",
+				"type": "UTF8"
+			},
+			{
+				"name": "SWFDL_UPDATED_TS",
+				"type": "INT96"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

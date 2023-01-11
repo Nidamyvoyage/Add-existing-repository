@@ -1,0 +1,24 @@
+{
+	"name": "SFTP_OMNI",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SFTPSterling",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "SftpLocation",
+				"fileName": "OMNI.VIPS.DAILY.PART.HEADER.EXTRACT.20211111",
+				"folderPath": "/FilesFromOmni_Dev"
+			},
+			"columnDelimiter": "|",
+			"escapeChar": "",
+			"firstRowAsHeader": true,
+			"quoteChar": ""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

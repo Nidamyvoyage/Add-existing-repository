@@ -1,0 +1,17 @@
+{
+	"name": "Oracle_IDPSTAGE_ACES_CASEPROFILE_F944XB_U300_C",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Oracle_CODS_Intg",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "IDP_STAGE",
+			"table": "ACES_CASEPROFILE_F944XB_U300_C"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,17 @@
+{
+	"name": "Oracle_IDPSTAGE_PREM_X951PB_SRACASH_DATA",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Oracle_CODS_Intg",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "IDP_STAGE",
+			"table": "PREM_X951PB_SRACASH_DATA"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

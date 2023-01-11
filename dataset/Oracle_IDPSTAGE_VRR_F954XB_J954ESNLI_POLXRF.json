@@ -1,0 +1,17 @@
+{
+	"name": "Oracle_IDPSTAGE_VRR_F954XB_J954ESNLI_POLXRF",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Oracle_CODS_Intg",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "IDP_STAGE",
+			"table": "VRR_F954XB_J954ESNLI_POLXRF"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

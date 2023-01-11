@@ -1,0 +1,32 @@
+{
+	"name": "Df_splitingdata_ws_ext_ph_name",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable1",
+						"type": "DatasetReference"
+					},
+					"name": "source2"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "Json1",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "Parse1"
+				}
+			],
+			"script": "source(output(\n\t\tWS_EXT_PH_NAME as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'select WS_EXT_PH_NAME from CMDM_STAGE.Omni_vips_daily_part_header',\n\tformat: 'query') ~> source2\nsource2 parse(WS_EXT_PH_NAME = WS_EXT_PH_NAME ? (firstname as string,\n\t\tsecondname as string),\n\tformat: 'delimited',\n\tcolumnNamesAsHeader: false,\n\tcolumnDelimiter: ',',\n\tnullValue: '') ~> Parse1\nParse1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> sink1"
+		}
+	}
+}

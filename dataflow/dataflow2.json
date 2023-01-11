@@ -1,0 +1,201 @@
+{
+	"name": "dataflow2",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "PERSON_XREF_FAST",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				},
+				{
+					"dataset": {
+						"referenceName": "person_Xref_fastu",
+						"type": "DatasetReference"
+					},
+					"name": "source2"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "person_Xref_fastu",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				},
+				{
+					"dataset": {
+						"referenceName": "person_Xref_fastu",
+						"type": "DatasetReference"
+					},
+					"name": "sink2"
+				}
+			],
+			"transformations": [
+				{
+					"name": "exists1"
+				},
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "alterRow1"
+				},
+				{
+					"name": "exists2"
+				},
+				{
+					"name": "exists3"
+				},
+				{
+					"name": "derivedColumn2"
+				},
+				{
+					"name": "alterRow2"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          SourceIdentifier as string,",
+				"          SourceIdentifierType as string,",
+				"          SourceSystem as string,",
+				"          SSN as string,",
+				"          DateOfBirth as date,",
+				"          MDM_ID as string,",
+				"          PARTY_ID as string,",
+				"          XREF_CHECK_SUM as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     moveFiles: ['/FAST_ADLS/PERSONXREF','DELETED_FAST_ADLS/PERSONXREF'],",
+				"     format: 'parquet') ~> source1",
+				"source(output(",
+				"          SourceIdentifier as string,",
+				"          SourceIdentifierType as string,",
+				"          SourceSystem as string,",
+				"          SSN as string,",
+				"          DateOfBirth as date,",
+				"          MDM_ID as string,",
+				"          PARTY_ID as string,",
+				"          BATCH_ID as string,",
+				"          CHECK_SUM as string,",
+				"          CREATED_TS as timestamp,",
+				"          CREATED_BY as string,",
+				"          LAST_UPDATED_TS as timestamp,",
+				"          LAST_UPDATED_BY as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     query: 'select * from PARTYACCT_REPOS.MDM_PERSON_XREF\\n\\n',",
+				"     format: 'query') ~> source2",
+				"source1, source2 exists(source1@SourceIdentifier ==source2@SourceIdentifier && source1@SourceIdentifierType == source2@SourceIdentifierType && source1@SourceSystem == source2@SourceSystem,",
+				"     negate:true,",
+				"     broadcast: 'auto')~> exists1",
+				"exists1 derive(BATCH_ID = 100,",
+				"          CREATED_BY = 'DEV',",
+				"          CREATED_TS = currentTimestamp(),",
+				"          UPDATED_BY = 'DEV',",
+				"          UPDATED_TS = currentTimestamp()) ~> derivedColumn1",
+				"derivedColumn1 alterRow(insertIf(1==1)) ~> alterRow1",
+				"source2, source1 exists(source1@SourceIdentifier ==source2@SourceIdentifier && source1@SourceIdentifierType == source2@SourceIdentifierType && source1@SourceSystem == source2@SourceSystem,",
+				"     negate:false,",
+				"     broadcast: 'auto')~> exists2",
+				"exists2, source1 exists(CHECK_SUM == XREF_CHECK_SUM,",
+				"     negate:true,",
+				"     broadcast: 'auto')~> exists3",
+				"exists3 derive(Batchid = 101,",
+				"          createdts = currentTimestamp(),",
+				"          createdby = 'DEV',",
+				"          updatedts = currentTimestamp(),",
+				"          updatedby = 'DEV') ~> derivedColumn2",
+				"derivedColumn2 alterRow(updateIf(1==1)) ~> alterRow2",
+				"alterRow1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          SourceIdentifier as string,",
+				"          SourceIdentifierType as string,",
+				"          SourceSystem as string,",
+				"          SSN as string,",
+				"          DateOfBirth as date,",
+				"          MDM_ID as string,",
+				"          PARTY_ID as string,",
+				"          BATCH_ID as string,",
+				"          CHECK_SUM as string,",
+				"          CREATED_TS as timestamp,",
+				"          CREATED_BY as string,",
+				"          LAST_UPDATED_TS as timestamp,",
+				"          LAST_UPDATED_BY as string",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          SourceIdentifier,",
+				"          SourceIdentifierType,",
+				"          SourceSystem,",
+				"          SSN,",
+				"          DateOfBirth,",
+				"          MDM_ID,",
+				"          PARTY_ID,",
+				"          BATCH_ID,",
+				"          CHECK_SUM = XREF_CHECK_SUM,",
+				"          CREATED_TS,",
+				"          CREATED_BY,",
+				"          LAST_UPDATED_TS = UPDATED_TS,",
+				"          LAST_UPDATED_BY = UPDATED_BY",
+				"     )) ~> sink1",
+				"alterRow2 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          SourceIdentifier as string,",
+				"          SourceIdentifierType as string,",
+				"          SourceSystem as string,",
+				"          SSN as string,",
+				"          DateOfBirth as date,",
+				"          MDM_ID as string,",
+				"          PARTY_ID as string,",
+				"          BATCH_ID as string,",
+				"          CHECK_SUM as string,",
+				"          CREATED_TS as timestamp,",
+				"          CREATED_BY as string,",
+				"          LAST_UPDATED_TS as timestamp,",
+				"          LAST_UPDATED_BY as string",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          SourceIdentifier,",
+				"          SourceIdentifierType,",
+				"          SourceSystem,",
+				"          SSN,",
+				"          DateOfBirth,",
+				"          MDM_ID,",
+				"          PARTY_ID,",
+				"          BATCH_ID = Batchid,",
+				"          CHECK_SUM,",
+				"          CREATED_TS = createdts,",
+				"          CREATED_BY = createdby,",
+				"          LAST_UPDATED_TS = updatedts,",
+				"          LAST_UPDATED_BY = updatedby",
+				"     )) ~> sink2"
+			]
+		}
+	}
+}

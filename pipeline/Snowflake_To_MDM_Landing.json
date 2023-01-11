@@ -1,0 +1,445 @@
+{
+	"name": "Snowflake_To_MDM_Landing",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SnowflakeSource",
+						"query": "SELECT \nSOURCE_KEY, \nWS_EXT_PH_PART_NUM,  \nWS_EXT_PH_NAME,       \nWS_EXT_PH_BRTH_DATE,        \nWS_EXT_PH_ADDR_L1,          \nWS_EXT_PH_ADDR_L2,          \nWS_EXT_PH_ADDR_L3,          \nWS_EXT_PH_CITY,             \nWS_EXT_PH_STATE,            \nWS_EXT_PH_ZIP,              \nWS_EXT_PH_OMNI_VERSION,\nCHECK_SUM,                  \nCHANGE_CODE,              \nSWFDL_LOAD_ID AS batch_id,\nSWFDL_CREATED_TS AS createDateTime,\nSWFDL_CREATED_BY AS createdBy,\nSWFDL_UPDATED_TS AS lastUpdateDateTime,\nSWFDL_UPDATED_BY AS lastUpdatedBy\nFROM RS_OMNI_VIPS_DAILY_PART_HEADER_DELTA_BASELINE;",
+						"exportSettings": {
+							"type": "SnowflakeExportCopyCommand"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": true,
+						"disableMetricsCollection": false
+					},
+					"enableStaging": true,
+					"stagingSettings": {
+						"linkedServiceName": {
+							"referenceName": "vesstzuc1unitedm001_SF_SAS",
+							"type": "LinkedServiceReference"
+						}
+					},
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "SOURCE_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SOURCE_ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_PLAN_NUM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_PLAN_NUM",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_PART_NUM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_PART_NUM",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_NAME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_NAME",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_PART_DIV_SUB",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_PART_DIV_SUB",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_BRTH_DATE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_BRTH_DATE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_PLENT_DATE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_PLENT_DATE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_ADDR_L1",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_ADDR_L1",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_ADDR_L2",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_ADDR_L2",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_ADDR_L3",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_ADDR_L3",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_CITY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_CITY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_STATE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_STATE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_ZIP",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_ZIP",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_STAT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_STAT",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_TERM_DATE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_TERM_DATE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_LAST_CNTRB_DATE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_LAST_CNTRB_DATE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_STAT_REASON",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_STAT_REASON",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_LOC_TAX_CODE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_LOC_TAX_CODE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_ALT_STATE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_ALT_STATE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_FIRST_CNTRB_DATE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_FIRST_CNTRB_DATE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_ATTAINED_AGE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_ATTAINED_AGE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_PF999_BAL",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_PF999_BAL",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_PA999_BAL",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_PA999_BAL",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_ADV_ACCT_IND",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_ADV_ACCT_IND",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_OMNI_VERSION",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_OMNI_VERSION",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BATCH_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BATCH_ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CHECK_SUM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CHECK_SUM",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CREATED_BY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATED_IN_SOURCE_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CREATED_IN_SOURCE_BY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CURRENT_ROW_INDICATOR",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CURRENT_ROW_INDICATOR",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SOURCE_CMDB_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SOURCE_CMDB_ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_VRR_PL_STATUS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_VRR_PL_STATUS",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_VRR_PL_TERM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_VRR_PL_TERM",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_CONV_PL_NUM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_CONV_PL_NUM",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_CLIENT_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_CLIENT_ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_SUB_CLIENT_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_SUB_CLIENT_ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_SSO_CLIENT_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_SSO_CLIENT_ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WS_EXT_PH_CLIENT_STATUS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WS_EXT_PH_CLIENT_STATUS",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_OMNI_VIPS_DAILY_PART_HEADER_SF",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_Omni_vips_daily_part_header_AZSQL",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "MDM"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-08-29T19:25:36Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

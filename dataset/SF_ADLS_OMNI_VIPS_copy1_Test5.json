@@ -1,0 +1,21 @@
+{
+	"name": "SF_ADLS_OMNI_VIPS_copy1_Test5",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Datalake_SHIR",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "OMNI_VIPS_DAILY_Test5",
+				"fileSystem": "mdm"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

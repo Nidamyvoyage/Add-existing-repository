@@ -1,0 +1,58 @@
+{
+	"name": "Omin_VIP_incremental_SQL_SCD2",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable4",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				},
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable6",
+						"type": "DatasetReference"
+					},
+					"name": "RefOMNIVIPSDAILYPARTHEADERMDM"
+				},
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable4",
+						"type": "DatasetReference"
+					},
+					"name": "source2"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable5",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "AlterRow1"
+				},
+				{
+					"name": "Join1"
+				},
+				{
+					"name": "Aggregate1"
+				},
+				{
+					"name": "Join2"
+				},
+				{
+					"name": "DerivedColumn1"
+				}
+			],
+			"script": "source(output(\n\t\tSOURCE_ID as string,\n\t\tWS_EXT_PH_PLAN_NUM as string,\n\t\tWS_EXT_PH_PART_NUM as string,\n\t\tWS_EXT_PH_NAME as string,\n\t\tWS_EXT_PH_PART_DIV_SUB as string,\n\t\tWS_EXT_PH_BRTH_DATE as string,\n\t\tWS_EXT_PH_PLENT_DATE as string,\n\t\tWS_EXT_PH_ADDR_L1 as string,\n\t\tWS_EXT_PH_ADDR_L2 as string,\n\t\tWS_EXT_PH_ADDR_L3 as string,\n\t\tWS_EXT_PH_CITY as string,\n\t\tWS_EXT_PH_STATE as string,\n\t\tWS_EXT_PH_ZIP as string,\n\t\tWS_EXT_PH_STAT as string,\n\t\tWS_EXT_PH_TERM_DATE as string,\n\t\tWS_EXT_PH_LAST_CNTRB_DATE as string,\n\t\tWS_EXT_PH_STAT_REASON as string,\n\t\tWS_EXT_PH_LOC_TAX_CODE as string,\n\t\tWS_EXT_PH_ALT_STATE as string,\n\t\tWS_EXT_PH_FIRST_CNTRB_DATE as string,\n\t\tWS_EXT_PH_ATTAINED_AGE as string,\n\t\tWS_EXT_PH_PF999_BAL as string,\n\t\tWS_EXT_PH_PA999_BAL as string,\n\t\tWS_EXT_PH_ADV_ACCT_IND as string,\n\t\tWS_EXT_PH_OMNI_VERSION as string,\n\t\tBATCH_ID as string,\n\t\tCHECK_SUM as string,\n\t\tCREATED_AT as timestamp,\n\t\tCREATED_BY as string,\n\t\tCREATED_IN_SOURCE_AT as timestamp,\n\t\tCREATED_IN_SOURCE_BY as string,\n\t\tCURRENT_ROW_INDICATOR as string,\n\t\tSOURCE_CMDB_ID as string,\n\t\tWS_EXT_PH_VRR_PL_STATUS as string,\n\t\tWS_EXT_PH_VRR_PL_TERM as string,\n\t\tWS_EXT_PH_CONV_PL_NUM as string,\n\t\tWS_EXT_PH_CLIENT_ID as string,\n\t\tWS_EXT_PH_SUB_CLIENT_ID as string,\n\t\tWS_EXT_PH_SSO_CLIENT_ID as string,\n\t\tWS_EXT_PH_CLIENT_STATUS as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> source1\nsource(output(\n\t\tSOURCE_ID as string,\n\t\tWS_EXT_PH_PLAN_NUM as string,\n\t\tWS_EXT_PH_PART_NUM as string,\n\t\tWS_EXT_PH_NAME as string,\n\t\tWS_EXT_PH_PART_DIV_SUB as string,\n\t\tWS_EXT_PH_BRTH_DATE as string,\n\t\tWS_EXT_PH_PLENT_DATE as string,\n\t\tWS_EXT_PH_ADDR_L1 as string,\n\t\tWS_EXT_PH_ADDR_L2 as string,\n\t\tWS_EXT_PH_ADDR_L3 as string,\n\t\tWS_EXT_PH_CITY as string,\n\t\tWS_EXT_PH_STATE as string,\n\t\tWS_EXT_PH_ZIP as string,\n\t\tWS_EXT_PH_STAT as string,\n\t\tWS_EXT_PH_TERM_DATE as string,\n\t\tWS_EXT_PH_LAST_CNTRB_DATE as string,\n\t\tWS_EXT_PH_STAT_REASON as string,\n\t\tWS_EXT_PH_LOC_TAX_CODE as string,\n\t\tWS_EXT_PH_ALT_STATE as string,\n\t\tWS_EXT_PH_FIRST_CNTRB_DATE as string,\n\t\tWS_EXT_PH_ATTAINED_AGE as string,\n\t\tWS_EXT_PH_PF999_BAL as string,\n\t\tWS_EXT_PH_PA999_BAL as string,\n\t\tWS_EXT_PH_ADV_ACCT_IND as string,\n\t\tWS_EXT_PH_OMNI_VERSION as string,\n\t\tBATCH_ID as string,\n\t\tCHECK_SUM as string,\n\t\tCREATED_AT as timestamp,\n\t\tCREATED_BY as string,\n\t\tCREATED_IN_SOURCE_AT as timestamp,\n\t\tCREATED_IN_SOURCE_BY as string,\n\t\tCURRENT_ROW_INDICATOR as string,\n\t\tSOURCE_CMDB_ID as string,\n\t\tWS_EXT_PH_VRR_PL_STATUS as string,\n\t\tWS_EXT_PH_VRR_PL_TERM as string,\n\t\tWS_EXT_PH_CONV_PL_NUM as string,\n\t\tWS_EXT_PH_CLIENT_ID as string,\n\t\tWS_EXT_PH_SUB_CLIENT_ID as string,\n\t\tWS_EXT_PH_SSO_CLIENT_ID as string,\n\t\tWS_EXT_PH_CLIENT_STATUS as string,\n\t\tRAW_ETL_TYPE as string,\n\t\tRAW_LOAD_ID as string,\n\t\tRAW_LOAD_TS as timestamp,\n\t\tORIGIN_FILE_NAME as string,\n\t\tORIGIN_FILE_TS as string,\n\t\tORIGIN_FILE_UUID as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'SELECT * FROM CMDM_STAGE.OMNI_VIPS_DAILY_PART_HEADER_MDM WHERE CURRENT_ROW_INDICATOR=\\'Y\\'',\n\tformat: 'query') ~> RefOMNIVIPSDAILYPARTHEADERMDM\nsource(output(\n\t\tSOURCE_ID as string,\n\t\tWS_EXT_PH_PLAN_NUM as string,\n\t\tWS_EXT_PH_PART_NUM as string,\n\t\tWS_EXT_PH_NAME as string,\n\t\tWS_EXT_PH_PART_DIV_SUB as string,\n\t\tWS_EXT_PH_BRTH_DATE as string,\n\t\tWS_EXT_PH_PLENT_DATE as string,\n\t\tWS_EXT_PH_ADDR_L1 as string,\n\t\tWS_EXT_PH_ADDR_L2 as string,\n\t\tWS_EXT_PH_ADDR_L3 as string,\n\t\tWS_EXT_PH_CITY as string,\n\t\tWS_EXT_PH_STATE as string,\n\t\tWS_EXT_PH_ZIP as string,\n\t\tWS_EXT_PH_STAT as string,\n\t\tWS_EXT_PH_TERM_DATE as string,\n\t\tWS_EXT_PH_LAST_CNTRB_DATE as string,\n\t\tWS_EXT_PH_STAT_REASON as string,\n\t\tWS_EXT_PH_LOC_TAX_CODE as string,\n\t\tWS_EXT_PH_ALT_STATE as string,\n\t\tWS_EXT_PH_FIRST_CNTRB_DATE as string,\n\t\tWS_EXT_PH_ATTAINED_AGE as string,\n\t\tWS_EXT_PH_PF999_BAL as string,\n\t\tWS_EXT_PH_PA999_BAL as string,\n\t\tWS_EXT_PH_ADV_ACCT_IND as string,\n\t\tWS_EXT_PH_OMNI_VERSION as string,\n\t\tBATCH_ID as string,\n\t\tCHECK_SUM as string,\n\t\tCREATED_AT as timestamp,\n\t\tCREATED_BY as string,\n\t\tCREATED_IN_SOURCE_AT as timestamp,\n\t\tCREATED_IN_SOURCE_BY as string,\n\t\tCURRENT_ROW_INDICATOR as string,\n\t\tSOURCE_CMDB_ID as string,\n\t\tWS_EXT_PH_VRR_PL_STATUS as string,\n\t\tWS_EXT_PH_VRR_PL_TERM as string,\n\t\tWS_EXT_PH_CONV_PL_NUM as string,\n\t\tWS_EXT_PH_CLIENT_ID as string,\n\t\tWS_EXT_PH_SUB_CLIENT_ID as string,\n\t\tWS_EXT_PH_SSO_CLIENT_ID as string,\n\t\tWS_EXT_PH_CLIENT_STATUS as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> source2\nDerivedColumn1 alterRow(upsertIf(true()),\n\tupdateIf(true())) ~> AlterRow1\nsource1, RefOMNIVIPSDAILYPARTHEADERMDM join(source1@WS_EXT_PH_PART_NUM == RefOMNIVIPSDAILYPARTHEADERMDM@WS_EXT_PH_PART_NUM\n\t&& source1@WS_EXT_PH_CLIENT_ID == RefOMNIVIPSDAILYPARTHEADERMDM@WS_EXT_PH_CLIENT_STATUS,\n\tjoinType:'inner',\n\tmatchType:'exact',\n\tignoreSpaces: false,\n\tbroadcast: 'auto')~> Join1\nJoin1 aggregate(groupBy(source1@WS_EXT_PH_PART_NUM),\n\tCREATED_AT = max(source1@CREATED_AT)) ~> Aggregate1\nAggregate1, source2 join(Aggregate1@WS_EXT_PH_PART_NUM == source2@WS_EXT_PH_PART_NUM,\n\tjoinType:'inner',\n\tmatchType:'exact',\n\tignoreSpaces: false,\n\tbroadcast: 'auto')~> Join2\nJoin2 derive(CURRENT_ROW_INDICATOR = CURRENT_ROW_INDICATOR=='N',\n\t\tRAW_LOAD_TS = currentUTC()) ~> DerivedColumn1\nAlterRow1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:true,\n\tupsertable:true,\n\tkeys:['WS_EXT_PH_NAME','WS_EXT_PH_PART_DIV_SUB','WS_EXT_PH_ADDR_L3'],\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\tSOURCE_ID,\n\t\tWS_EXT_PH_PLAN_NUM,\n\t\tWS_EXT_PH_PART_NUM = CREATED_AT,\n\t\tWS_EXT_PH_NAME,\n\t\tWS_EXT_PH_PART_DIV_SUB,\n\t\tWS_EXT_PH_BRTH_DATE,\n\t\tWS_EXT_PH_PLENT_DATE,\n\t\tWS_EXT_PH_ADDR_L1,\n\t\tWS_EXT_PH_ADDR_L2,\n\t\tWS_EXT_PH_ADDR_L3,\n\t\tWS_EXT_PH_CITY,\n\t\tWS_EXT_PH_STATE,\n\t\tWS_EXT_PH_ZIP,\n\t\tWS_EXT_PH_STAT,\n\t\tWS_EXT_PH_TERM_DATE,\n\t\tWS_EXT_PH_LAST_CNTRB_DATE,\n\t\tWS_EXT_PH_STAT_REASON,\n\t\tWS_EXT_PH_LOC_TAX_CODE,\n\t\tWS_EXT_PH_ALT_STATE,\n\t\tWS_EXT_PH_FIRST_CNTRB_DATE,\n\t\tWS_EXT_PH_ATTAINED_AGE,\n\t\tWS_EXT_PH_PF999_BAL,\n\t\tWS_EXT_PH_PA999_BAL,\n\t\tWS_EXT_PH_ADV_ACCT_IND,\n\t\tWS_EXT_PH_OMNI_VERSION,\n\t\tBATCH_ID,\n\t\tCHECK_SUM,\n\t\tCREATED_AT,\n\t\tCREATED_BY,\n\t\tCREATED_IN_SOURCE_AT,\n\t\tCREATED_IN_SOURCE_BY,\n\t\tCURRENT_ROW_INDICATOR,\n\t\tSOURCE_CMDB_ID,\n\t\tWS_EXT_PH_VRR_PL_STATUS,\n\t\tWS_EXT_PH_VRR_PL_TERM,\n\t\tWS_EXT_PH_CONV_PL_NUM,\n\t\tWS_EXT_PH_CLIENT_ID,\n\t\tWS_EXT_PH_SUB_CLIENT_ID,\n\t\tWS_EXT_PH_SSO_CLIENT_ID,\n\t\tWS_EXT_PH_CLIENT_STATUS\n\t)) ~> sink1"
+		}
+	}
+}

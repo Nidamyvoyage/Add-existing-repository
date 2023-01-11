@@ -1,0 +1,24 @@
+{
+	"name": "trigger_daily_schdule",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "Testlogdeatils",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Day",
+				"interval": 1,
+				"startTime": "2021-12-27T04:50:00",
+				"timeZone": "Eastern Standard Time"
+			}
+		}
+	}
+}

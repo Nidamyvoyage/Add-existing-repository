@@ -1,0 +1,17 @@
+{
+	"name": "Oracle_Plan_Control_Data",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "OracleOLTP",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "BPS",
+			"table": "PLAN_CONTROL"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

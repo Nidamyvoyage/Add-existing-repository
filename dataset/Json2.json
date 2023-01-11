@@ -1,0 +1,20 @@
+{
+	"name": "Json2",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SFTPSterling",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "SftpLocation",
+				"fileName": "OMNI.VIPS.DAILY.PART.HEADER.EXTRACT.20211023",
+				"folderPath": "/FilesFromOmni_Dev"
+			}
+		},
+		"schema": {}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

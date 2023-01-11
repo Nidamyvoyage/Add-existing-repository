@@ -1,0 +1,13 @@
+{
+	"name": "OracleTable9",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "OracleOLTP",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

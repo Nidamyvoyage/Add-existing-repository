@@ -1,0 +1,248 @@
+{
+	"name": "IDPREPOS-Oracle_2_SF-ADDR",
+	"properties": {
+		"activities": [
+			{
+				"name": "Oracle2ADLS-ADDR",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "IDP_REPOS.ADDR"
+					},
+					{
+						"name": "Destination",
+						"value": "CORE.ADDR"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "SnowflakeSink",
+						"importSettings": {
+							"type": "SnowflakeImportCopyCommand",
+							"additionalCopyOptions": {
+								"ON_ERROR": "CONTINUE"
+							}
+						}
+					},
+					"enableStaging": true,
+					"stagingSettings": {
+						"linkedServiceName": {
+							"referenceName": "Snowflake_staging_container",
+							"type": "LinkedServiceReference"
+						},
+						"path": "idprepos-poc",
+						"enableCompression": true
+					},
+					"enableSkipIncompatibleRow": true,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "ADDR_ID",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "ADDR_ID",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "MUNICIPALITY_ID",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "MUNICIPALITY_ID",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "STATE_ID",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "STATE_ID",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "POSTAL_CD_AREA_ID",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "POSTAL_CD_AREA_ID",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "COUNTRY_ID",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "COUNTRY_ID",
+									"type": "Int64"
+								}
+							},
+							{
+								"source": {
+									"name": "ADDR_LINE_1",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ADDR_LINE_1",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ADDR_LINE_2",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ADDR_LINE_2",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ADDR_LINE_3",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ADDR_LINE_3",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ROW_STATUS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ROW_STATUS",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "RECORDED_START_DT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "RECORDED_START_DT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "RECORDED_END_DT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "RECORDED_END_DT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "BATCH_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BATCH_ID",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CHECK_SUM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CHECK_SUM",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATED_DT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "CREATED_DT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CREATED_BY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LAST_UPDATED_DT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "LAST_UPDATED_DT",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "LAST_UPDATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LAST_UPDATED_BY",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "Oracle_IDPREPOS_ADDR",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "Snowflake_IDPREPOS_ADDR",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "IDPREPOS_2_SF_Load"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-08-29T19:25:17Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

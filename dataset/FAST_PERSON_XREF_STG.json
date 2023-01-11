@@ -1,0 +1,74 @@
+{
+	"name": "FAST_PERSON_XREF_STG",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SQL_FASTLAYER",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "SourceIdentifier",
+				"type": "varchar"
+			},
+			{
+				"name": "SourceIdentifierType",
+				"type": "varchar"
+			},
+			{
+				"name": "SourceSystem",
+				"type": "varchar"
+			},
+			{
+				"name": "SSN",
+				"type": "varchar"
+			},
+			{
+				"name": "DateOfBirth",
+				"type": "varchar"
+			},
+			{
+				"name": "MDM_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "PARTY_ID",
+				"type": "varchar"
+			},
+			{
+				"name": "XREF_CHECK_SUM",
+				"type": "varchar"
+			},
+			{
+				"name": "batch_id",
+				"type": "varchar"
+			},
+			{
+				"name": "createDateTime",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "createdBy",
+				"type": "varchar"
+			},
+			{
+				"name": "lastUpdateDateTime",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "lastUpdatedBy",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "PARTYACCT_STAGE",
+			"table": "MDM_PERSON_XREF_STG"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

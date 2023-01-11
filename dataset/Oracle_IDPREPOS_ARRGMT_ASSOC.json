@@ -1,0 +1,17 @@
+{
+	"name": "Oracle_IDPREPOS_ARRGMT_ASSOC",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Oracle_CODS_Intg",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "IDP_REPOS",
+			"table": "ARRGMT_ASSOC"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
